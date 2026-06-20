@@ -11,6 +11,8 @@ import type { ThemeMode } from "../theme";
 import { POOL_META, slotsLabel } from "./format";
 import { PoolBar } from "./PoolBar";
 import { ConfirmDialog } from "./ConfirmDialog";
+import { InfoModal } from "./InfoModal";
+import { HowYouPlay } from "./HowYouPlay";
 
 interface Props {
   state: GameState;
@@ -39,6 +41,7 @@ export function TurnScreen({
   onQuitToStart,
 }: Props) {
   const [confirmingEnd, setConfirmingEnd] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const pending = pendingEvents(state, corpus);
   const obligations = dueObligations(state, corpus);
   const actions = eligibleActions(state, corpus).filter((e) => !isObligation(e));
@@ -51,14 +54,24 @@ export function TurnScreen({
           <span className="turn-week">
             Week {state.turn} <span className="of">of {state.endTurn}</span>
           </span>
-          <button
-            type="button"
-            className="theme-toggle"
-            onClick={onToggleTheme}
-            aria-label={`Switch to ${themeMode === "dark" ? "light" : "dark"} theme`}
-          >
-            {themeMode === "dark" ? "☀ Light" : "☾ Dark"}
-          </button>
+          <div className="turn-head-actions">
+            <button
+              type="button"
+              className="head-icon-btn"
+              onClick={() => setShowInfo(true)}
+              aria-label="How to play"
+            >
+              ⓘ
+            </button>
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={onToggleTheme}
+              aria-label={`Switch to ${themeMode === "dark" ? "light" : "dark"} theme`}
+            >
+              {themeMode === "dark" ? "☀ Light" : "☾ Dark"}
+            </button>
+          </div>
         </div>
         <div className="turn-bottom">
           <div className="slot-dots" aria-hidden="true">
@@ -174,6 +187,12 @@ export function TurnScreen({
           End run…
         </button>
       </div>
+
+      {showInfo && (
+        <InfoModal title="How to play" onClose={() => setShowInfo(false)}>
+          <HowYouPlay />
+        </InfoModal>
+      )}
 
       {confirmingEnd && (
         <ConfirmDialog

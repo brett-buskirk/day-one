@@ -275,17 +275,32 @@ button {
 .turn-slots {
   font-weight: 600;
 }
-.theme-toggle {
+.turn-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.theme-toggle,
+.head-icon-btn {
   border: 0;
   background: rgba(255, 255, 255, 0.18);
   color: var(--on-accent);
   border-radius: 10px;
   min-height: 38px;
-  padding: 6px 12px;
   font-weight: 600;
+}
+.theme-toggle {
+  padding: 6px 12px;
   font-size: 0.9rem;
 }
-.theme-toggle:hover {
+.head-icon-btn {
+  min-width: 38px;
+  padding: 6px 8px;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+.theme-toggle:hover,
+.head-icon-btn:hover {
   background: rgba(255, 255, 255, 0.28);
 }
 .slot-dots {

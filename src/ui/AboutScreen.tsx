@@ -1,3 +1,5 @@
+import { HowYouPlay } from "./HowYouPlay";
+
 interface Props {
   onBack: () => void;
   onPlay: () => void;
@@ -51,13 +53,7 @@ export function AboutScreen({ onBack, onPlay }: Props) {
 
       <section className="card-static">
         <h2>How you play</h2>
-        <ul className="how-list">
-          <li>A week is a turn; you get a few days to spend, and there's always more to do than days.</li>
-          <li>You juggle five things — money, morale, support, getting around, and health — and they trade off.</li>
-          <li>The right move often shows up <strong>locked</strong>, with the reason. Seeing the wall before you can climb it <em>is</em> the simulation.</li>
-          <li><strong>Setbacks, not "game over."</strong> Run out of money and you get a crisis with choices, never a failure screen.</li>
-          <li>It ends in an honest debrief — where things landed and how you got there — scored on trajectory and decisions, not just day ninety.</li>
-        </ul>
+        <HowYouPlay />
         <p className="muted">
           You choose who to play (five very different people) and why you're here
           (practice, or feel-the-wall). Throughout, the system models barriers and

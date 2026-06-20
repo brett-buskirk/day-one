@@ -1,0 +1,49 @@
+id: evt_parole_checkin
+kind: action
+title: Parole check-in
+tags: [legal, obligation]
+requires_travel: true
+repeatable: true
+
+conditions:
+  - tracks.legal.status == "parole"
+
+prompt: >
+  Your parole officer expects you this week. It's not optional, it's across town,
+  and it eats a slot whether you have one to spare or not. (Obligation: if the
+  week ends without this done, the engine schedules a violation — see
+  docs/DESIGN.md §4.)
+
+choices:
+
+  - id: make_checkin
+    label: Make the check-in
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Sign in, pee in a cup, answer the questions, leave. Standing kept.
+            One more week in good graces.
+          flags: { knows_id_requirements: false }
+          tracks: { legal: { status: parole, readiness: 5 } }
+
+  - id: reschedule
+    label: Call and try to reschedule
+    cost: { slots: 0 }
+    outcomes:
+      - weight: 40
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            You catch them at a good moment and they move it to next week. Slot
+            saved — but the clock's just deferred, not cleared.
+          schedule: { event: evt_parole_checkin, in_turns: 1 }
+      - weight: 60
+        effects:
+          text: >
+            Straight to voicemail. Skipping it without a confirmed reschedule is
+            how good standing slips.
+          pools: { morale: -6 }
+          tracks: { legal: { status: parole, readiness: -10 } }
+          schedule: { event: evt_parole_checkin, in_turns: 1 }

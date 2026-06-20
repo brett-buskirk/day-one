@@ -1,0 +1,63 @@
+id: marcus
+name: Marcus
+display_age: 38
+summary: >
+  Six years in. Real web-dev skills earned inside, but a six-year gap and a
+  background flag. No ID, no documents. On his sibling's couch with a 30-day
+  clock. License suspended over unpaid fines, so he's on a bike and the bus. In
+  recovery, with a chronic back injury. The thesis build: the skill is real; the
+  wall is everything around using it.
+
+time_inside_years: 6
+
+supervision:
+  type: parole
+  years: 3
+  conditions: [weekly_checkin, curfew, mandated_treatment]
+
+landing:
+  night_one: couch
+  housing_clock_turns: 4        # ~30-day welcome
+  support: one_tie              # one strained sibling
+  job_lined_up: false
+  documents: []                 # release ID only — no state ID, birth cert, SSN, proof of address
+  transportation: bike
+  gate_money: 120
+
+person:
+  in_recovery: true
+  chronic_health_issue: true
+  credentials: [cert_webdev]
+
+offense:
+  category: drug_felony
+  registry_required: false      # flip to true for the empathy-mode deep-end build
+
+# ----------------------------------------------------------------------------
+# chargen(origin) -> starting state. This is the mapping the engine derives;
+# documented here so the derivation is legible. Numbers are tuning.
+#
+# pools:
+#   money            15   (from gate_money 120 -> low band)
+#   morale           40   (fresh out, motivated but fragile)
+#   social_capital   20   (one strained tie)
+#   transportation   18   (bike -> <30 band, errands cost x2)
+#   health           45   (in recovery + chronic back issue)
+#
+# slots:
+#   baseSlots 6, minus standing commitments (weekly_checkin + mandated_treatment)
+#   -> ~3-4 discretionary moves, each taxed by the transport multiplier.
+#
+# tracks:
+#   employment     status: unemployed   (skill present, paper trail absent)
+#   housing        status: couch         (housing_clock_turns: 4)
+#   legal          status: parole        (standing: good)
+#   relationships  status: one_tie
+#
+# flags (true at start):
+#   has_cert_webdev: true
+#   in_recovery_support: true
+# flags (false / unset at start, the document knot):
+#   has_state_id, has_birth_cert, has_proof_of_address, has_ssn_card,
+#   has_bank_account, has_job, birth_cert_ordered, knows_id_requirements
+# ----------------------------------------------------------------------------

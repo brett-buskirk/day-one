@@ -1,0 +1,48 @@
+id: evt_proof_of_address
+kind: action
+title: Proof of address
+tags: [documents, relationships]
+
+conditions:
+  - flags.has_proof_of_address == false
+  - tracks.housing.status == "couch"
+
+prompt: >
+  The DMV wants proof you live somewhere. You don't — not really — but your
+  sibling does. Getting your name on a piece of their mail means asking, again,
+  for something.
+
+choices:
+
+  - id: ask_sibling
+    label: Ask your sibling to add you to a utility bill
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 75
+        modifier: { stat: social_capital, scale: 0.4 }
+        effects:
+          text: >
+            They sigh, then say yes. Your name's on the gas bill now — that
+            counts as proof of address.
+          flags: { has_proof_of_address: true }
+          pools: { social_capital: -6 }
+      - weight: 25
+        modifier: { stat: social_capital, scale: -0.4 }
+        effects:
+          text: >
+            "I'm already letting you sleep here." It lands wrong, and the couch
+            feels a little less like a welcome tonight.
+          pools: { social_capital: -10, morale: -6 }
+          tracks: { relationships: { status: strained } }
+
+  - id: shelter_letter
+    label: Get a letter from a shelter or service instead
+    cost: { slots: 1, money: 0 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            A half-day of waiting rooms, but a caseworker prints you a service
+            letter with an address on it. It'll do.
+          flags: { has_proof_of_address: true }
+          pools: { morale: -3 }

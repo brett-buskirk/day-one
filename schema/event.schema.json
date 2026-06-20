@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://day-one.local/schema/event.schema.json",
+  "title": "Day One event",
+  "description": "An authored event in the Day One reentry simulator. See docs/DESIGN.md §9.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "title", "prompt", "choices"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^evt_[a-z0-9_]+$",
+      "description": "Unique event id."
+    },
+    "kind": {
+      "enum": ["action", "incident"],
+      "description": "action = player spends a slot to choose it; incident = fires when scheduled or triggered."
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "requires_travel": {
+      "type": "boolean",
+      "description": "If true, the engine applies the transportation slot multiplier."
+    },
+    "repeatable": { "type": "boolean" },
+    "conditions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/predicate" },
+      "description": "Event is eligible only when all predicates pass (AND-ed)."
+    },
+    "prompt": { "type": "string", "minLength": 1 },
+    "choices": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/choice" }
+    }
+  },
+  "$defs": {
+    "predicate": {
+      "type": "string",
+      "description": "Single comparison: '<path> <op> <value>'. path: flags.X | pools.X | tracks.X.status | tracks.X.readiness | turn | mode | config.X. op: == != >= <= > <.",
+      "pattern": "^(flags|pools|config)\\.[a-z0-9_]+\\s*(==|!=|>=|<=|>|<)\\s*.+$|^tracks\\.[a-z_]+\\.(status|readiness)\\s*(==|!=|>=|<=|>|<)\\s*.+$|^(turn|mode)\\s*(==|!=|>=|<=|>|<)\\s*.+$"
+    },
+    "poolDeltas": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "money": { "type": "number" },
+        "morale": { "type": "number" },
+        "social_capital": { "type": "number" },
+        "transportation": { "type": "number" },
+        "health": { "type": "number" }
+      }
+    },
+    "trackChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": { "type": "string" },
+        "readiness": { "type": "number" }
+      }
+    },
+    "trackChanges": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "employment": { "$ref": "#/$defs/trackChange" },
+        "housing": { "$ref": "#/$defs/trackChange" },
+        "legal": { "$ref": "#/$defs/trackChange" },
+        "relationships": { "$ref": "#/$defs/trackChange" }
+      }
+    },
+    "effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string", "minLength": 1 },
+        "pools": { "$ref": "#/$defs/poolDeltas" },
+        "flags": {
+          "type": "object",
+          "additionalProperties": { "type": "boolean" }
+        },
+        "tracks": { "$ref": "#/$defs/trackChanges" },
+        "unlocks": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^evt_[a-z0-9_]+$" }
+        },
+        "schedule": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["event", "in_turns"],
+          "properties": {
+            "event": { "type": "string", "pattern": "^evt_[a-z0-9_]+$" },
+            "in_turns": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "slots": { "type": "number" }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["weight", "effects"],
+      "properties": {
+        "weight": { "type": "number", "minimum": 0 },
+        "modifier": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["stat", "scale"],
+          "properties": {
+            "stat": {
+              "enum": [
+                "money",
+                "morale",
+                "social_capital",
+                "transportation",
+                "health"
+              ]
+            },
+            "scale": { "type": "number" }
+          }
+        },
+        "effects": { "$ref": "#/$defs/effect" }
+      }
+    },
+    "choice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "outcomes"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "label": { "type": "string", "minLength": 1 },
+        "requires": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/predicate" }
+        },
+        "cost": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "slots": { "type": "number", "minimum": 0 },
+            "money": { "type": "number", "minimum": 0 }
+          }
+        },
+        "outcomes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/outcome" }
+        }
+      }
+    }
+  }
+}

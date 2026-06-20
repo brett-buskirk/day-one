@@ -1,0 +1,52 @@
+id: evt_apply_job_onboarding
+kind: action
+title: The dev gig the program referred
+tags: [employment]
+
+conditions:
+  - flags.has_state_id == true
+  - flags.has_job == false
+
+prompt: >
+  The cert program left you a contact: a small shop that hires its graduates for
+  junior remote work. With an ID in hand you can finally onboard — fill out the
+  paperwork, set up direct deposit, prove you're you. The skills were never the
+  problem.
+
+choices:
+
+  - id: onboard_dev
+    label: Onboard for the remote dev role
+    requires:
+      - flags.has_cert_webdev == true
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        modifier: { stat: morale, scale: 0.2 }
+        effects:
+          text: >
+            Paperwork clears. There's a paycheck on the calendar now — small, but
+            real, and yours.
+          flags: { has_job: true }
+          pools: { morale: 16, money: 10 }
+          tracks: { employment: { status: employed } }
+      - weight: 30
+        effects:
+          text: >
+            The background check stalls it in HR. Not a no — a "we'll be in
+            touch." You've got a live lead and a knot in your stomach.
+          pools: { morale: -5 }
+          tracks: { employment: { status: interviewing } }
+
+  - id: apply_broadly
+    label: Skip it and take whatever pays this week
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You pick up shift work that doesn't ask many questions. It pays now
+            and it taxes the back that already hurts.
+          flags: { has_job: true }
+          pools: { money: 14, health: -8 }
+          tracks: { employment: { status: employed } }

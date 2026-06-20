@@ -1,0 +1,77 @@
+id: evt_rent_due
+kind: incident
+title: Rent is due and you're short
+tags: [housing, crisis]
+
+prompt: >
+  Your share of the rent is due and the math doesn't work. This is the kind of
+  week that decides things. There's always a move — none of them free.
+
+choices:
+
+  - id: borrow_from_sibling
+    label: Ask your sibling to spot you
+    requires:
+      - tracks.relationships.status != "isolated"
+    outcomes:
+      - weight: 60
+        modifier: { stat: social_capital, scale: 0.4 }
+        effects:
+          text: >
+            They cover it, quietly. You're square on rent and a little more in
+            debt to the one person holding you up.
+          pools: { social_capital: -14, money: 5 }
+      - weight: 40
+        modifier: { stat: social_capital, scale: -0.4 }
+        effects:
+          text: >
+            "I can't keep doing this." They're not wrong, and it stings anyway.
+            The tie frays.
+          pools: { morale: -10, social_capital: -8 }
+          tracks: { relationships: { status: strained } }
+
+  - id: emergency_assistance
+    label: Apply for emergency rental assistance
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 55
+        effects:
+          text: >
+            A long form and a longer wait, but a one-time grant comes through.
+            Rent's handled this month.
+          pools: { money: 8, morale: 4 }
+      - weight: 45
+        effects:
+          text: >
+            Denied — wrong paperwork, wrong week. You burned a day you didn't
+            have and you're still short.
+          pools: { morale: -8 }
+
+  - id: negotiate_landlord
+    label: Talk to whoever you owe and buy time
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 50
+        modifier: { stat: morale, scale: 0.2 }
+        effects:
+          text: >
+            You make the case in person and get two more weeks. Breathing room,
+            not a solution — but breathing room counts.
+          pools: { morale: 2 }
+          schedule: { event: evt_rent_due, in_turns: 2 }
+      - weight: 50
+        effects:
+          text: >
+            No flexibility. The clock on the couch just got shorter.
+          pools: { morale: -8 }
+          tracks: { housing: { status: couch } }
+
+  - id: give_something_up
+    label: Sell or skip something to make it work
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You make rent by going without — a skipped refill, a sold thing you
+            wanted to keep. It works. It costs.
+          pools: { health: -10, morale: -6, money: 4 }

@@ -1,0 +1,62 @@
+id: evt_dmv_state_id
+kind: action
+title: Getting your state ID
+tags: [documents, legal]
+requires_travel: true
+
+conditions:
+  - flags.has_state_id == false
+
+prompt: >
+  The ID is the key that turns other keys — no job onboarding, no lease, no bank
+  account without it. The DMV is a 40-minute bus ride across town.
+
+choices:
+
+  - id: apply_prepared
+    label: Apply for the ID
+    requires:
+      - flags.has_birth_cert == true
+      - flags.has_proof_of_address == true
+      - pools.money >= 30
+    cost: { slots: 1, money: 30 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: You walk out with a temporary ID in hand. Doors just unlocked.
+          flags: { has_state_id: true }
+          pools: { morale: 12 }
+          unlocks: [evt_apply_job_onboarding]
+
+  - id: try_anyway
+    label: Go anyway and try to talk it through
+    requires:
+      - flags.has_birth_cert == false
+    cost: { slots: 1, money: 3 }
+    outcomes:
+      - weight: 80
+        modifier: { stat: social_capital, scale: -0.3 }
+        effects:
+          text: Turned away. You need a birth certificate and proof of address first.
+          pools: { morale: -8 }
+          flags: { knows_id_requirements: true }
+      - weight: 20
+        modifier: { stat: social_capital, scale: 0.3 }
+        effects:
+          text: A clerk takes pity and hands you a referral that smooths the next try.
+          flags: { knows_id_requirements: true }
+          schedule: { event: evt_birth_cert_arrives, in_turns: 2 }
+
+  - id: order_by_mail
+    label: Skip the trip — order the birth cert by mail
+    requires:
+      - flags.birth_cert_ordered == false
+    cost: { money: 25 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            A money order at the post office. Slow — but it actually works. It'll
+            come in a few weeks.
+          flags: { birth_cert_ordered: true }
+          schedule: { event: evt_birth_cert_arrives, in_turns: 3 }

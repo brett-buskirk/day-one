@@ -13,6 +13,7 @@ import { PoolBar } from "./PoolBar";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { InfoModal } from "./InfoModal";
 import { HowYouPlay } from "./HowYouPlay";
+import { RunCodeShare } from "./RunCodeShare";
 
 interface Props {
   state: GameState;
@@ -191,6 +192,7 @@ export function TurnScreen({
       {showInfo && (
         <InfoModal title="How to play" onClose={() => setShowInfo(false)}>
           <HowYouPlay />
+          <RunCodeShare state={state} hint="Share this code so others play the identical run." />
         </InfoModal>
       )}
 

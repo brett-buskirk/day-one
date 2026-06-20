@@ -912,6 +912,38 @@ button {
   width: auto;
   flex: 1;
 }
+.classroom-or {
+  text-align: center;
+  margin: 14px 0 8px;
+}
+
+/* ---- Run code (facilitator / classroom share) ---------------------- */
+
+.run-code {
+  margin: 14px 0 4px;
+}
+.run-code-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.run-code-label {
+  font-weight: 650;
+}
+.run-code-value {
+  background: var(--surface-2);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 3px 9px;
+  font-size: 0.92rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  word-break: break-all;
+}
+.run-code-row .link-btn {
+  min-height: auto;
+  padding: 4px 6px;
+}
 
 /* ---- Resources (debrief) ------------------------------------------- */
 

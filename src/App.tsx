@@ -35,7 +35,11 @@ type View = "landing" | "about" | "start" | "onboarding" | "playing" | "debrief"
 export default function App() {
   const [view, setView] = useState<View>("landing");
   const [state, setState] = useState<GameState | null>(null);
-  const [pendingStart, setPendingStart] = useState<{ characterId: string; mode: Mode } | null>(null);
+  const [pendingStart, setPendingStart] = useState<{
+    characterId: string;
+    mode: Mode;
+    seed?: number;
+  } | null>(null);
   const [activeEventId, setActiveEventId] = useState<string | null>(null);
   const [outcomeText, setOutcomeText] = useState<string | null>(null);
   const [savedRun, setSavedRun] = useState<GameState | null>(null);
@@ -74,13 +78,15 @@ export default function App() {
     void saveRun(next, Date.now());
   };
 
-  // Start screen → onboarding (carry the chosen character + mode).
-  const handleChooseCharacter = (characterId: string, mode: Mode) => {
-    setPendingStart({ characterId, mode });
+  // Start screen → onboarding (carry the chosen character + mode + optional seed
+  // for a shared/classroom run).
+  const handleChooseCharacter = (characterId: string, mode: Mode, seed?: number) => {
+    setPendingStart({ characterId, mode, seed });
     setView("onboarding");
   };
 
-  // Onboarding → begin the run.
+  // Onboarding → begin the run. A specified seed makes the run reproducible for a
+  // group; otherwise it's random.
   const handleBeginRun = () => {
     if (!pendingStart) return;
     setActiveEventId(null);
@@ -89,7 +95,7 @@ export default function App() {
     // edge of the cliff. Training keeps hardFail off (DESIGN §10).
     commit(
       createRun(corpus, pendingStart.characterId, {
-        seed: randomSeed(),
+        seed: pendingStart.seed ?? randomSeed(),
         mode: pendingStart.mode,
         hardFail: pendingStart.mode === "empathy",
       })

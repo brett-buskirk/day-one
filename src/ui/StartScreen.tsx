@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { CharacterOrigin, Mode } from "../engine";
 import { humanizeCredential } from "./format";
+import { encodeScenario, parseScenario } from "./scenario";
 
 interface Props {
   characters: CharacterOrigin[];
@@ -8,7 +9,7 @@ interface Props {
   savedTurn: number | null;
   savedMode: Mode | null;
   savedCharacterName: string | null;
-  onChoose: (characterId: string, mode: Mode) => void;
+  onChoose: (characterId: string, mode: Mode, seed?: number) => void;
   onResume: () => void;
   onImport: (serialized: string) => void;
   onBack: () => void;
@@ -43,8 +44,17 @@ export function StartScreen({
   const [mode, setMode] = useState<Mode>("training");
   const [importText, setImportText] = useState("");
   const [importError, setImportError] = useState<string | null>(null);
+  const [seedText, setSeedText] = useState("");
+  const [codeText, setCodeText] = useState("");
+  const [codeError, setCodeError] = useState<string | null>(null);
 
   const activeBlurb = MODES.find((m) => m.key === mode)!.blurb;
+
+  // A typed seed makes the run you start reproducible; blank = random.
+  const seedNum = /^\d+$/.test(seedText.trim()) ? Number(seedText.trim()) : undefined;
+  const validSeed = seedNum !== undefined && seedNum > 0 && seedNum <= 0xffffffff;
+  const shareCode =
+    validSeed && selectedId ? encodeScenario({ characterId: selectedId, mode, seed: seedNum! }) : null;
 
   const tryImport = () => {
     setImportError(null);
@@ -53,6 +63,16 @@ export function StartScreen({
     } catch {
       setImportError("That doesn't look like a Day One run. Paste the full exported text.");
     }
+  };
+
+  const playSharedCode = () => {
+    setCodeError(null);
+    const scenario = parseScenario(codeText, characters.map((c) => c.id));
+    if (!scenario) {
+      setCodeError("That code doesn't look right. Use the form character.mode.seed.");
+      return;
+    }
+    onChoose(scenario.characterId, scenario.mode, scenario.seed);
   };
 
   return (
@@ -129,11 +149,58 @@ export function StartScreen({
       <button
         type="button"
         className="primary big"
-        onClick={() => selectedId && onChoose(selectedId, mode)}
+        onClick={() => selectedId && onChoose(selectedId, mode, validSeed ? seedNum : undefined)}
         disabled={!selectedId}
       >
         Continue
       </button>
+
+      <details className="disclosure">
+        <summary>Classroom / shared run</summary>
+        <p className="muted small">
+          A run is fully decided by its character, mode, and seed — so a group can play
+          the <em>identical</em> run and compare how their choices diverged.
+        </p>
+
+        <label className="sr-only" htmlFor="play-code">
+          Shared run code
+        </label>
+        <input
+          id="play-code"
+          className="import-box"
+          inputMode="text"
+          value={codeText}
+          onChange={(e) => setCodeText(e.target.value)}
+          placeholder="Play a shared code, e.g. marcus.training.482913"
+        />
+        {codeError && <p className="choice-why">{codeError}</p>}
+        <button type="button" className="primary" onClick={playSharedCode} disabled={!codeText.trim()}>
+          Play this run
+        </button>
+
+        <p className="muted small classroom-or">
+          — or pin a seed to the run you start above (blank = random) —
+        </p>
+        <label className="sr-only" htmlFor="seed-input">
+          Seed
+        </label>
+        <input
+          id="seed-input"
+          className="import-box"
+          inputMode="numeric"
+          value={seedText}
+          onChange={(e) => setSeedText(e.target.value)}
+          placeholder="Seed (e.g. 482913)"
+        />
+        {seedText.trim() && !validSeed && (
+          <p className="choice-why">Use a whole number seed (1–4294967295).</p>
+        )}
+        {shareCode && (
+          <p className="muted small">
+            Hand out this code: <code className="run-code-value">{shareCode}</code>
+          </p>
+        )}
+      </details>
 
       <details className="disclosure">
         <summary>Import a run</summary>

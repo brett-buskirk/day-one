@@ -116,8 +116,8 @@ the flag registry.
 
 ## Verified
 
-- 76 tests pass (engine, Sprints 2–4 + registry employment + decision-quality +
-  recurring economy + probation + the longtimer/tech-gap/mental-health +
+- 79 tests pass (engine, Sprints 2–4 + registry employment + decision-quality +
+  recurring economy + probation + the longtimer/tech-gap/mental-health + scenario codes +
   end-to-end playthrough): RNG determinism,
   serialize round-trip (incl. the new fields + old-save migration), transport
   multiplier, predicate eval, weighted resolution, the full document catch-22 chain,
@@ -152,8 +152,8 @@ the flag registry.
 - **Canonical `GameState` was extended** with serializable fields as features
   landed: `standingSlots`, `pending`, `actedThisTurn` (Sprint 1) and `poolHistory`,
   `violations`, `terminal` (Sprint 2). All are JSON-safe and migrated in `loadRun`.
-- **Candidate next steps (v2):** facilitator/classroom features on the existing
-  seed-determinism + export hooks; and random character generation. *(Done since
+- **Candidate next steps (v2):** random character generation (the last roadmap
+  item). *(Done since
   Sprint 4: registry barrier reshapes employment too (`evt_job_registry`);
   per-choice durable/desperate decision-quality tags; a recurring monthly economy
   (benefits in, transit-pass subscription out that lapses when broke); probation as
@@ -162,5 +162,7 @@ the flag registry.
   **technology gap** (`tech_gap`, derived from a long stretch inside, gating the
   skilled-job routes until `evt_digital_literacy` closes it) and **mental health**
   (a morale-floor crisis `evt_mental_health_crisis`, a `chronic_mental_health` flag
-  with `evt_counseling`).)*
+  with `evt_counseling`); an in-game info (ⓘ) card; and **facilitator/classroom**
+  features — scenario codes (`character.mode.seed`) so a group plays the identical
+  run, surfaced on the start screen, the info card, and the debrief.)*
 ```

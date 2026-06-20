@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Corpus, GameState } from "../engine";
 import { buildDebrief } from "../engine";
 import { downloadRun, copyRun } from "./runShare";
+import { RunCodeShare } from "./RunCodeShare";
 
 interface Props {
   state: GameState;
@@ -125,8 +126,12 @@ export function DebriefScreen({ state, corpus, onPlayAgain }: Props) {
 
       <section className="block" aria-label="Export this run">
         <h2 className="block-title">Take it with you</h2>
+        <RunCodeShare
+          state={state}
+          hint="Hand this code to a group so everyone plays — and debriefs — the same run."
+        />
         <p className="muted small">
-          Export this run to share or replay — same seed, same character, same story.
+          Or export the whole run (every choice) to share or replay it exactly:
         </p>
         <div className="export-row">
           <button type="button" className="primary" onClick={() => downloadRun(state)}>

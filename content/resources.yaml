@@ -1,9 +1,10 @@
-# Day One — local reentry resource directory (placeholder hook).
+# Day One — local reentry resource directory (per-jurisdiction data hook).
 #
 # DESIGN §10: "The training debrief should be able to surface real, local
-# reentry resources." This file is the data hook a TLM site fills per
-# jurisdiction. It is intentionally empty in v1 — the debrief shows a clearly
-# marked "configured per site" slot and never hardcodes resources.
+# reentry resources." This file is the data hook a site fills per jurisdiction.
+# It is empty by default, and the debrief's "Local resources" section only
+# appears once it's populated — so nothing placeholder-y shows in production.
+# Resources are never hardcoded; add them here.
 #
 # Shape (when populated):
 # resources:

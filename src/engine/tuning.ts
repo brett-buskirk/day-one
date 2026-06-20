@@ -36,7 +36,14 @@ export interface CrisisTrigger {
 export const CRISIS_TRIGGERS: CrisisTrigger[] = [
   { pool: "money", floor: 0, event: "evt_money_crisis" },
   { pool: "health", floor: 15, event: "evt_health_crisis" },
+  { pool: "morale", floor: 15, event: "evt_mental_health_crisis" },
 ];
+
+// A long enough stretch inside opens a wide technology gap — the world's tools
+// (smartphones, online everything) moved on without you. chargen sets the
+// tech_gap flag past this threshold; it gates the skilled-job routes until
+// closed (evt_digital_literacy).
+export const TECH_GAP_YEARS = 15;
 
 // Obligations (§4): failing to act on a due obligation within the week costs
 // standing and files a technical violation (a recoverable sub-arc). The violation

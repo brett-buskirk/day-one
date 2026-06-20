@@ -59,7 +59,7 @@ export function AboutScreen({ onBack, onPlay }: Props) {
           <li>It ends in an honest debrief — where things landed and how you got there — scored on trajectory and decisions, not just day ninety.</li>
         </ul>
         <p className="muted">
-          You choose who to play (four very different people) and why you're here
+          You choose who to play (five very different people) and why you're here
           (practice, or feel-the-wall). Throughout, the system models barriers and
           consequences — never moral judgment.
         </p>

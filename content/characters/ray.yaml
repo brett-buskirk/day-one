@@ -1,0 +1,37 @@
+id: ray
+name: Ray
+display_age: 58
+summary: >
+  Twenty-four years inside — long enough that the world rebuilt its front door
+  while he was gone. A registry requirement, the people who'd have caught him
+  mostly passed on or moved on, a back the prison never did fix, and the quiet
+  weight of all those years. What he does have: a stack of certifications and a
+  GED earned over two decades, and a little money saved from a lifetime of prison
+  wages. The deepest end — where the skills are real and almost everything around
+  using them has been taken away.
+
+time_inside_years: 24
+
+supervision:
+  type: parole
+  years: 10
+  conditions: [weekly_checkin, registry_compliance, mandated_treatment]
+
+landing:
+  night_one: shelter
+  housing_clock_turns: 2
+  support: isolated
+  job_lined_up: false
+  documents: []
+  transportation: none
+  gate_money: 200          # saved over decades of prison wages — the one cushion
+
+person:
+  in_recovery: false
+  chronic_health_issue: true        # an injury the system never treated
+  mental_health_issue: true         # the weight of the years
+  credentials: [ged, cert_hvac, cert_paralegal]
+
+offense:
+  category: registry
+  registry_required: true

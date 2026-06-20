@@ -1,0 +1,30 @@
+id: evt_counseling
+kind: action
+title: Keep up with mental-health care
+tags: [health]
+repeatable: true
+
+# Ongoing mental-health support — the care the system rarely provided inside.
+# Appears for builds carrying a chronic condition; steadies morale (and a little
+# health) week over week. Access is its own small barrier (a slot, a trip).
+conditions:
+  - flags.chronic_mental_health == true
+
+prompt: >
+  The counselor has a standing slot for you this week — talk therapy, a check on
+  the meds, a plan for the hard mornings. It costs you a working day and it's the
+  least dramatic, most important thing on the list.
+
+choices:
+
+  - id: keep_the_appointment
+    quality: durable
+    label: Keep the appointment
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            An hour of being heard, a few tools to carry, the meds dialed in a
+            little better. Nothing solved; everything steadier.
+          pools: { morale: 7, health: 2 }

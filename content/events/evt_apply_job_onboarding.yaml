@@ -23,6 +23,7 @@ choices:
     label: Onboard for the remote dev role
     requires:
       - flags.has_cert_webdev == true
+      - flags.tech_gap == false
     cost: { slots: 1 }
     outcomes:
       - weight: 70

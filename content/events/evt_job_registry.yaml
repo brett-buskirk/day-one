@@ -49,6 +49,7 @@ choices:
     label: Go through a fair-chance / reentry hiring program
     requires:
       - flags.has_resume == true
+      - flags.tech_gap == false
     cost: { slots: 1 }
     outcomes:
       - weight: 60

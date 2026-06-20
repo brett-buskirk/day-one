@@ -1,0 +1,60 @@
+id: evt_mental_health_crisis
+kind: incident
+title: The weight of it lands
+
+# Fires when morale hits the floor (a crisis trigger) or, for a chronic
+# condition, early and on its own. The mental-health analog of the money/health
+# crises — recoverable, never a fail screen.
+tags: [health, crisis]
+
+prompt: >
+  It catches up all at once — the years, the quiet, the size of what's in front of
+  you. Some mornings the hardest thing isn't the paperwork or the rent; it's
+  getting up at all. This is real, and it's survivable, and how you meet it now
+  matters.
+
+choices:
+
+  - id: reach_out
+    quality: durable
+    label: Reach out to someone who'd pick up
+    requires:
+      - tracks.relationships.status != "isolated"
+    outcomes:
+      - weight: 100
+        modifier: { stat: social_capital, scale: 0.3 }
+        effects:
+          text: >
+            You make the call you didn't want to make. They stay on the line. It
+            doesn't fix anything, and it changes everything about today.
+          pools: { morale: 12, social_capital: -2 }
+
+  - id: get_care
+    quality: durable
+    label: Get to care — a counselor, a crisis line, the clinic
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            A waiting room, a number to call, a name who'll see you again. The
+            floor under you is still low, but there's a floor now.
+          pools: { morale: 10, health: 3 }
+
+  - id: white_knuckle
+    quality: desperate
+    label: White-knuckle it alone
+    outcomes:
+      - weight: 60
+        effects:
+          text: >
+            You grind through on grit and nothing else. You make it to tomorrow.
+            The cost is quiet and it's real.
+          pools: { morale: -4, health: -5 }
+      - weight: 40
+        modifier: { stat: health, scale: 0.2 }
+        effects:
+          text: >
+            You hold the line by yourself this time. Not a plan you can count on
+            twice — but you're still standing.
+          pools: { morale: 2 }

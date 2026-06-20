@@ -5,7 +5,7 @@
 // content/characters/marcus.yaml. All numbers are tuning.
 
 import type { CharacterOrigin, Flags, GameState, Pools, Tracks } from "./types";
-import { BASE_SLOTS, END_TURN, clampPool } from "./tuning";
+import { BASE_SLOTS, END_TURN, TECH_GAP_YEARS, clampPool } from "./tuning";
 import { seedToState } from "./rng";
 
 const SUPPORT_TO_CAPITAL: Record<string, number> = {
@@ -110,6 +110,10 @@ function deriveFlags(origin: CharacterOrigin): Flags {
   if ((origin.supervision.conditions ?? []).includes("supervision_fees")) {
     flags.owes_supervision_fees = true;
   }
+  // A long stretch inside opens a technology gap that walls off skilled work
+  // until it's closed; long-term incarceration also carries mental-health weight.
+  if (origin.time_inside_years >= TECH_GAP_YEARS) flags.tech_gap = true;
+  if (origin.person.mental_health_issue) flags.chronic_mental_health = true;
   return flags;
 }
 
@@ -128,11 +132,17 @@ const RENT_BEARING = new Set(["couch", "rental", "transitional", "halfway_house"
 // cadence. Modeled as scheduled incidents derived from the housing clock rather
 // than hardcoded, so it stays data-driven.
 function deriveSchedule(origin: CharacterOrigin): GameState["scheduled"] {
-  const clock = origin.landing.housing_clock_turns;
-  if (!clock || clock < 1 || !RENT_BEARING.has(origin.landing.night_one)) return [];
   const out: GameState["scheduled"] = [];
-  for (let t = clock; t <= END_TURN; t += clock) {
-    out.push({ event: "evt_rent_due", onTurn: t });
+  const clock = origin.landing.housing_clock_turns;
+  if (clock && clock >= 1 && RENT_BEARING.has(origin.landing.night_one)) {
+    for (let t = clock; t <= END_TURN; t += clock) {
+      out.push({ event: "evt_rent_due", onTurn: t });
+    }
+  }
+  // A chronic mental-health condition surfaces early as a guaranteed low point;
+  // the morale-floor trigger (§ tuning) catches anyone else who crashes.
+  if (origin.person.mental_health_issue) {
+    out.push({ event: "evt_mental_health_crisis", onTurn: 3 });
   }
   return out;
 }

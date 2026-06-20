@@ -1,0 +1,34 @@
+id: evt_digital_literacy
+kind: action
+title: Close the technology gap
+tags: [employment]
+requires_travel: true
+
+# Only appears while the tech gap is open. Skilled/online work (the good job
+# routes) is gated behind closing it — your skills are real, but the tools to
+# use them moved on while you were away. Closing it lifts that wall.
+conditions:
+  - flags.tech_gap == true
+
+prompt: >
+  Everything runs through a screen now — the applications, the benefits, the bus
+  times, the way people even talk. The skills you earned are real; the problem is
+  that the world rebuilt its front door while you were gone. The library runs a
+  free class. It's slow, and it's humbling, and it's the door.
+
+choices:
+
+  - id: take_the_class
+    quality: durable
+    label: Sit the digital-skills class at the library
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Email, a smartphone, an online form filled out start to finish without
+            asking for help. Small things. They are the difference between your
+            skills being a story and being usable.
+          flags: { tech_gap: false }
+          pools: { morale: 8 }
+          tracks: { employment: { status: searching, readiness: 12 } }

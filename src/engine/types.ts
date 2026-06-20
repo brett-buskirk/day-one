@@ -137,6 +137,7 @@ export interface CharacterOrigin {
   person: {
     in_recovery?: boolean;
     chronic_health_issue?: boolean;
+    mental_health_issue?: boolean; // sets chronic_mental_health (mental-health crises)
     credentials?: string[]; // e.g. ["cert_webdev"]
   };
   offense: {

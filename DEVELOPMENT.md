@@ -116,8 +116,9 @@ the flag registry.
 
 ## Verified
 
-- 70 tests pass (engine, Sprints 2–4 + registry employment + decision-quality +
-  recurring economy + probation + end-to-end playthrough): RNG determinism,
+- 76 tests pass (engine, Sprints 2–4 + registry employment + decision-quality +
+  recurring economy + probation + the longtimer/tech-gap/mental-health +
+  end-to-end playthrough): RNG determinism,
   serialize round-trip (incl. the new fields + old-save migration), transport
   multiplier, predicate eval, weighted resolution, the full document catch-22 chain,
   once-per-turn actions, obligation miss → violation sub-arc, pool-floor crisis
@@ -153,11 +154,13 @@ the flag registry.
   `violations`, `terminal` (Sprint 2). All are JSON-safe and migrated in `loadRun`.
 - **Candidate next steps (v2):** facilitator/classroom features on the existing
   seed-determinism + export hooks; and random character generation. *(Done since
-  Sprint 4: the registry barrier reshapes employment as well as housing
-  (`evt_job_registry`); per-choice durable/desperate tags drive a real
-  decision-quality read; a recurring monthly economy — benefits stipend in,
-  transit-pass subscription out that lapses when broke; and probation as a full
-  supervision path — `evt_probation_checkin` / `evt_probation_violation`, a
-  community-service slot tax, monthly supervision fees, and Dana, a probation
-  build.)*
+  Sprint 4: registry barrier reshapes employment too (`evt_job_registry`);
+  per-choice durable/desperate decision-quality tags; a recurring monthly economy
+  (benefits in, transit-pass subscription out that lapses when broke); probation as
+  a full supervision path (Dana); a public landing page + About screen with the
+  logo; and the **Longtimer** (Ray, 24 yrs inside) with two new rule systems — a
+  **technology gap** (`tech_gap`, derived from a long stretch inside, gating the
+  skilled-job routes until `evt_digital_literacy` closes it) and **mental health**
+  (a morale-floor crisis `evt_mental_health_crisis`, a `chronic_mental_health` flag
+  with `evt_counseling`).)*
 ```

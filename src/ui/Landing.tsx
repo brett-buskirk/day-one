@@ -25,6 +25,7 @@ export function Landing({
   return (
     <div className="screen landing">
       <header className="hero landing-hero">
+        <img className="landing-logo" src="/favicon.svg" alt="" width="96" height="96" />
         <h1>Day One</h1>
         <p className="tagline">The first ninety days home, one week at a time.</p>
       </header>

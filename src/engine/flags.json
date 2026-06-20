@@ -16,6 +16,8 @@
     "has_clinic",
     "has_benefits",
     "has_transit_pass",
-    "owes_supervision_fees"
+    "owes_supervision_fees",
+    "tech_gap",
+    "chronic_mental_health"
   ]
 }

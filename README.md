@@ -41,13 +41,14 @@ Playable end-to-end. Sprints 0–4 of the roadmap are complete:
   decision-quality scoring, a recurring monthly economy, and probation as a full
   supervision path.
 
-Currently: **4 characters**, **22 events**, two modes (training / empathy),
-light/dark + accent theming, and **70 passing tests**. What you can do today:
+Currently: **5 characters**, **25 events**, two modes (training / empathy),
+light/dark + accent theming, and **76 passing tests**. What you can do today:
 
-- From the landing page, read the About or jump straight to Play. Pick one of four
+- From the landing page, read the About or jump straight to Play. Pick one of five
   builds — **Marcus** (the thesis build), **Renae** (supported), **Dana** (on
-  probation), or **Theo** (the registry deep-end) — and a mode, then play ~13 weeks
-  to a narrative debrief.
+  probation), **Theo** (the registry deep-end), or **Ray** (the longtimer — 24 years
+  inside, with a technology gap and mental-health weight) — and a mode, then play
+  ~13 weeks to a narrative debrief.
 - Feel the document catch-22, hit crises that branch instead of ending the run,
   keep (or miss) a weekly check-in, watch the registry wall reshape housing and
   work, and feel money move month to month (benefits in, fees and fares out).
@@ -120,7 +121,7 @@ day-one/
 ├── schema/
 │   └── event.schema.json         JSON Schema authored events validate against
 ├── content/
-│   ├── characters/*.yaml         the four archetypes (origins)
+│   ├── characters/*.yaml         the five archetypes (origins)
 │   ├── events/*.yaml             authored events (the "world")
 │   └── resources.yaml            per-jurisdiction resource hook (placeholder)
 ├── scripts/

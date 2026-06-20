@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import type { Choice, GameEvent, GameState } from "../engine";
 import {
   isChoiceUnlocked,
@@ -8,6 +7,7 @@ import {
   evalPredicate,
 } from "../engine";
 import { humanizeRequirement, slotsLabel } from "./format";
+import { useDialogFocus } from "./useDialog";
 
 interface Props {
   event: GameEvent;
@@ -101,39 +101,8 @@ export function EventDetail({
   onContinue,
   onClose,
 }: Props) {
-  const sheetRef = useRef<HTMLElement>(null);
   const dismiss = outcomeText ? onContinue : onClose;
-
-  // Focus management for the modal: focus the sheet on open, restore focus to
-  // the trigger on close, trap Tab within the sheet, and close on Escape.
-  useEffect(() => {
-    const prev = document.activeElement as HTMLElement | null;
-    sheetRef.current?.focus();
-    return () => prev?.focus?.();
-  }, []);
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      e.stopPropagation();
-      dismiss();
-      return;
-    }
-    if (e.key !== "Tab") return;
-    const focusables = sheetRef.current?.querySelectorAll<HTMLElement>(
-      'button:not([disabled]), a[href], textarea, input, [tabindex]:not([tabindex="-1"])'
-    );
-    if (!focusables || focusables.length === 0) return;
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-    const active = document.activeElement;
-    if (e.shiftKey && (active === first || active === sheetRef.current)) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && active === last) {
-      e.preventDefault();
-      first.focus();
-    }
-  };
+  const { ref: sheetRef, onKeyDown } = useDialogFocus(dismiss);
 
   return (
     <div className="sheet-backdrop" role="presentation" onClick={dismiss}>

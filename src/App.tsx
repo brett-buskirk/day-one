@@ -138,6 +138,15 @@ export default function App() {
     }
   };
 
+  // End the run early at the player's request — jump straight to the debrief for
+  // the current state (a snapshot of how the run has gone so far).
+  const handleEndRun = () => {
+    if (!state) return;
+    setActiveEventId(null);
+    setOutcomeText(null);
+    commit(state, "debrief");
+  };
+
   const handlePlayAgain = () => {
     void clearSavedRun();
     setSavedRun(null);
@@ -191,6 +200,8 @@ export default function App() {
               setActiveEventId(id);
             }}
             onEndWeek={handleEndWeek}
+            onEndRun={handleEndRun}
+            onQuitToStart={handlePlayAgain}
           />
           {activeEvent && (
             <EventDetail

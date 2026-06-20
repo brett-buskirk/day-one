@@ -6,9 +6,11 @@ import {
   isObligation,
   effectiveSlotCost,
 } from "../engine";
+import { useState } from "react";
 import type { ThemeMode } from "../theme";
 import { POOL_META, slotsLabel } from "./format";
 import { PoolBar } from "./PoolBar";
+import { ConfirmDialog } from "./ConfirmDialog";
 
 interface Props {
   state: GameState;
@@ -17,6 +19,8 @@ interface Props {
   onToggleTheme: () => void;
   onOpenEvent: (eventId: string) => void;
   onEndWeek: () => void;
+  onEndRun: () => void;
+  onQuitToStart: () => void;
 }
 
 function cheapestSlotCost(state: GameState, event: GameEvent): number {
@@ -24,7 +28,17 @@ function cheapestSlotCost(state: GameState, event: GameEvent): number {
   return costs.length ? Math.min(...costs) : 0;
 }
 
-export function TurnScreen({ state, corpus, themeMode, onToggleTheme, onOpenEvent, onEndWeek }: Props) {
+export function TurnScreen({
+  state,
+  corpus,
+  themeMode,
+  onToggleTheme,
+  onOpenEvent,
+  onEndWeek,
+  onEndRun,
+  onQuitToStart,
+}: Props) {
+  const [confirmingEnd, setConfirmingEnd] = useState(false);
   const pending = pendingEvents(state, corpus);
   const obligations = dueObligations(state, corpus);
   const actions = eligibleActions(state, corpus).filter((e) => !isObligation(e));
@@ -156,7 +170,36 @@ export function TurnScreen({ state, corpus, themeMode, onToggleTheme, onOpenEven
           {state.turn >= state.endTurn ? "Finish — see where things landed" : "End the week"}
         </button>
         {pending.length > 0 && <p className="muted center">Resolve what the week threw at you first.</p>}
+        <button type="button" className="link-btn end-run-link" onClick={() => setConfirmingEnd(true)}>
+          End run…
+        </button>
       </div>
+
+      {confirmingEnd && (
+        <ConfirmDialog
+          title="End this run?"
+          message="Stop here and see where things landed, or start over from the beginning. You can always keep playing."
+          actions={[
+            {
+              label: "See where it landed",
+              onClick: () => {
+                setConfirmingEnd(false);
+                onEndRun();
+              },
+            },
+            {
+              label: "Start over",
+              variant: "danger",
+              onClick: () => {
+                setConfirmingEnd(false);
+                onQuitToStart();
+              },
+            },
+          ]}
+          cancelLabel="Keep playing"
+          onCancel={() => setConfirmingEnd(false)}
+        />
+      )}
     </div>
   );
 }

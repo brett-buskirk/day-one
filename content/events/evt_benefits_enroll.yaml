@@ -1,0 +1,36 @@
+id: evt_benefits_enroll
+kind: action
+title: Apply for benefits
+tags: [money]
+requires_travel: true
+
+# SNAP / general assistance — a stabilizer that needs the ID first. One-time
+# enrollment that eases the money floor for the rest of the run.
+conditions:
+  - flags.has_state_id == true
+  - flags.has_benefits == false
+
+prompt: >
+  With an ID in hand you can finally get on the rolls — food assistance, maybe a
+  little cash help. A morning of forms and a caseworker, and some of the weekly
+  math stops being quite so impossible.
+
+choices:
+
+  - id: enroll_benefits
+    label: Sit the appointment and enroll
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 80
+        effects:
+          text: >
+            Approved. A benefits card and a small monthly cushion. Not a salary —
+            but the difference between drowning and treading water some weeks.
+          flags: { has_benefits: true }
+          pools: { money: 14, morale: 5 }
+      - weight: 20
+        effects:
+          text: >
+            A processing snag kicks it back a cycle. It'll come — just not in time
+            to help the week you're standing in.
+          pools: { morale: -3 }

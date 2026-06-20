@@ -11,6 +11,10 @@
     "has_cert_webdev",
     "has_job",
     "in_recovery_support",
-    "registry_required"
+    "registry_required",
+    "has_resume",
+    "has_clinic",
+    "has_benefits",
+    "has_transit_pass"
   ]
 }

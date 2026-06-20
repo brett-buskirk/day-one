@@ -1,0 +1,52 @@
+id: evt_housing_registry
+kind: action
+title: Find somewhere you're allowed to live
+tags: [housing]
+requires_travel: true
+repeatable: true
+
+# The registry housing wall (DESIGN §8): residency restrictions rule out most of
+# the map, so housing flips from hard to near-impossible. This event only exists
+# for registry builds; progress is rare and grim, but there is always a roof and
+# never a fail screen.
+conditions:
+  - flags.registry_required == true
+  - tracks.housing.status != "rental"
+  - tracks.housing.status != "stable"
+
+prompt: >
+  Every listing has to be checked against the map — distance to schools, parks,
+  daycares, bus stops. By the time the restrictions are applied, almost nothing is
+  left, and what's left fills fast. The barrier isn't your effort. It's the rule.
+
+choices:
+
+  - id: work_the_list
+    label: Grind the compliant listings with your officer
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 78
+        effects:
+          text: >
+            Three addresses, all ruled out before you finish reading them. A
+            fourth, compliant, gone by the time you call. Another week, no door.
+          pools: { morale: -7 }
+      - weight: 22
+        modifier: { stat: social_capital, scale: 0.3 }
+        effects:
+          text: >
+            A compliant placement comes open and your paperwork is ready for once.
+            It's far from everything, but it's an address you're allowed to keep.
+          flags: { has_proof_of_address: true }
+          pools: { morale: 12 }
+          tracks: { housing: { status: transitional } }
+
+  - id: hold_the_bed
+    label: Hold onto the shelter bed for now
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You keep the bed, sign the log, and stay inside the lines for another
+            night. It isn't forward, but it isn't the street.
+          pools: { morale: -2 }

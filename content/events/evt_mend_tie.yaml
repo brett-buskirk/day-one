@@ -1,0 +1,35 @@
+id: evt_mend_tie
+kind: action
+title: Tend a relationship
+tags: [relationships]
+repeatable: true
+
+# Rebuild the goodwill you spend leaning on people. Doesn't change who's in your
+# life so much as how much they can take — social_capital is the resource that
+# tilts the human outcomes. Available once you have someone (not isolated).
+conditions:
+  - tracks.relationships.status != "isolated"
+
+prompt: >
+  The people holding you up are running on fumes — every ask spends something. A
+  show-up that isn't a request: a repair, a dinner cooked, a kept promise. The
+  kind of thing that puts a little back in the account.
+
+choices:
+
+  - id: show_up_for_them
+    label: Show up without needing anything
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 75
+        effects:
+          text: >
+            You fix the thing, sit the visit, keep the word. Something eases. The
+            next ask, when it has to come, won't land quite so heavy.
+          pools: { social_capital: 9, morale: 4 }
+      - weight: 25
+        effects:
+          text: >
+            It's stiff — too much water under it to clear in one afternoon. Still,
+            you showed up, and that gets logged somewhere that counts.
+          pools: { social_capital: 3, morale: 1 }

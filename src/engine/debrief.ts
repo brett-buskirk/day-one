@@ -113,6 +113,7 @@ function buildMilestones(s: GameState): Milestone[] {
       label: "Landed work or live leads",
       achieved: !!s.flags.has_job || WORK_LEADS.has(s.tracks.employment.status),
     },
+    { key: "housing", label: "Secured housing", achieved: HOUSING_SECURED.has(s.tracks.housing.status) },
     { key: "parole", label: "Parole in good standing", achieved: goodStanding },
     { key: "recovery", label: "Stayed in recovery support", achieved: !!s.flags.in_recovery_support },
   ];

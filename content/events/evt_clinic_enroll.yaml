@@ -1,0 +1,30 @@
+id: evt_clinic_enroll
+kind: action
+title: Get into a clinic
+tags: [health]
+requires_travel: true
+
+# A one-time setup: a sliding-scale clinic, a primary-care provider, a refill on
+# what you've been rationing. Steadies health and takes a chronic problem off the
+# back burner.
+conditions:
+  - flags.has_clinic == false
+
+prompt: >
+  You've been white-knuckling the back, rationing what's left of a prescription.
+  A community clinic takes patients on a sliding scale — a long morning in a
+  waiting room to get on the books and actually get seen.
+
+choices:
+
+  - id: enroll
+    label: Spend the morning getting enrolled
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Paperwork, vitals, a provider who listens, a refill in hand. Nothing's
+            cured, but the floor under your health just got a little firmer.
+          flags: { has_clinic: true }
+          pools: { health: 10, morale: 3 }

@@ -1,4 +1,4 @@
-# Day One — development notes (Sprint 0 + 1 + 2 + 3)
+# Day One — development notes (Sprints 0–4)
 
 The walking skeleton: a phone-first reentry simulator, playable start-to-debrief.
 This file covers how to run it and what was built. The design source of truth is
@@ -91,9 +91,29 @@ the flag registry.
   on Escape, and restores focus; the outcome narration is an `aria-live` region.
   Plus light/dark + accent theming from the previous round.
 
+## Sprint 4 — content breadth + balance
+
+- **The corpus roughly doubled** (9 → 19 events; 4 → 14 player actions), spread
+  across every track so the decision base is real: day labor, résumé workshop,
+  housing search, recovery meetings, clinic enrollment, mending ties / a reentry
+  support group, benefits enrollment, and a transit pass.
+- **Economy fix — day labor** (`evt_day_labor`): cash work that needs no ID, pays
+  now, and taxes the body. It's the early-income path the seed corpus lacked, so
+  the ID→job chain is now reachable *through effort* (a sensible player reaches the
+  ID around week 9 as Marcus) without being trivial. A regression test asserts
+  Marcus can reach the ID across seeds.
+- **Registry wall, mechanical** — registry builds get `evt_housing_registry`
+  (residency restrictions rule out almost everything; progress is rare) instead of
+  the open `evt_housing_search`, enforced by event conditions on `registry_required`.
+  Theo stays stuck at shelter/transitional while Marcus/Renae can secure housing.
+- **Relationships** split cleanly: a reentry support group breaks isolation
+  (isolated → one tie), then tending ties rebuilds the social_capital you spend.
+- New flags: `has_resume`, `has_clinic`, `has_benefits`, `has_transit_pass`. A
+  "secured housing" milestone joined the debrief.
+
 ## Verified
 
-- 47 tests pass (engine, Sprints 2 & 3, end-to-end playthrough): RNG determinism,
+- 55 tests pass (engine, Sprints 2–4, end-to-end playthrough): RNG determinism,
   serialize round-trip (incl. the new fields + old-save migration), transport
   multiplier, predicate eval, weighted resolution, the full document catch-22 chain,
   once-per-turn actions, obligation miss → violation sub-arc, pool-floor crisis
@@ -127,10 +147,11 @@ the flag registry.
 - **Canonical `GameState` was extended** with serializable fields as features
   landed: `standingSlots`, `pending`, `actedThisTurn` (Sprint 1) and `poolHistory`,
   `violations`, `terminal` (Sprint 2). All are JSON-safe and migrated in `loadRun`.
-- **Next up — Sprint 4 (content + balance):** broaden the corpus per track
-  (employment, housing, recovery/health, relationships, benefits) so players have a
-  real decision base, add registry-gated housing/employment events that make Theo's
-  wall mechanical, and rebalance the early economy. Decision-quality scoring is
-  currently derived from violations/crises/milestones rather than per-choice
-  "durable vs desperate" tags — a candidate refinement once more content exists.
+- **Candidate next steps (v2 / Sprint 5):** registry-gated *employment* events
+  (the wall currently bites hardest on housing); recurring costs (a transit pass
+  that lapses, monthly benefits); per-choice "durable vs desperate" tags to make
+  decision-quality scoring choice-level rather than derived from
+  violations/crises/milestones; probation-specific obligations (the check-in
+  obligation is parole-only today); and random character generation (the engine's
+  determinism + serialization already support the classroom/replay use case).
 ```

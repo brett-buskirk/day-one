@@ -1,0 +1,30 @@
+id: evt_recovery_meeting
+kind: action
+title: Get to a recovery meeting
+tags: [health, recovery]
+repeatable: true
+
+# Maintenance, not crisis: showing up keeps the body and the resolve steadier and
+# slowly rebuilds a circle. Only for those in recovery support.
+conditions:
+  - flags.in_recovery_support == true
+
+prompt: >
+  There's a meeting most nights within walking distance. An hour in a folding
+  chair, bad coffee, people who get it. It's an hour you could spend on something
+  that pays. It's also how the ninety days actually get counted.
+
+choices:
+
+  - id: attend_meeting
+    label: Sit the hour
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: social_capital, scale: 0.1 }
+        effects:
+          text: >
+            You share a little, listen more, and leave lighter than you came. One
+            more night on the right side of it, and a couple of numbers in your
+            phone.
+          pools: { health: 6, morale: 5, social_capital: 2 }

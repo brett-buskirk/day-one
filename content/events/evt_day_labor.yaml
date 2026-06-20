@@ -1,0 +1,36 @@
+id: evt_day_labor
+kind: action
+title: Pick up day labor
+tags: [employment, money]
+repeatable: true
+
+# The early-money lifeline: cash work that doesn't ask for an ID or a background
+# check. It pays now, taxes the body, and builds nothing — the honest shape of
+# getting by before the paperwork clears. Retires once you land a real job.
+conditions:
+  - flags.has_job == false
+
+prompt: >
+  There's a corner where trucks pull up at dawn and pay cash by dusk — moving,
+  demolition, landscaping, whatever's going. No ID, no questions. It pays today.
+  It also runs your body into the ground, and tomorrow you start over.
+
+choices:
+
+  - id: work_the_day
+    label: Work the day for cash
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        modifier: { stat: health, scale: 0.2 }
+        effects:
+          text: >
+            A full day's work and folded bills in your pocket. It's not a future,
+            but it's groceries and a money order — and that's this week handled.
+          pools: { money: 10, health: -6, morale: -1 }
+      - weight: 30
+        effects:
+          text: >
+            The crew was overbooked; you stood around two hours and got half a
+            day. Something in your back, money you can't quite count on.
+          pools: { money: 4, health: -7, morale: -4 }

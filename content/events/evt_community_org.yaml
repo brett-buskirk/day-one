@@ -1,0 +1,38 @@
+id: evt_community_org
+kind: action
+title: Show up at a reentry support group
+tags: [relationships]
+requires_travel: true
+repeatable: true
+
+# The path out of isolation: a peer/mentor group where the first real tie gets
+# made. Only appears while isolated; once you've made a connection it retires and
+# evt_mend_tie takes over.
+conditions:
+  - tracks.relationships.status == "isolated"
+
+prompt: >
+  A reentry group meets at the library — people who came home too, a coordinator
+  who's seen it, a mentor or two. Walking in alone is its own kind of hard. So is
+  doing all of this with no one who knows your name.
+
+choices:
+
+  - id: show_up
+    label: Walk in and introduce yourself
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        effects:
+          text: >
+            You say your name out loud to strangers who nod like they mean it. A
+            mentor swaps numbers. It's one tie — but it's a tie, and you're not
+            doing this entirely alone now.
+          pools: { social_capital: 8, morale: 6 }
+          tracks: { relationships: { status: one_tie } }
+      - weight: 30
+        effects:
+          text: >
+            You hang at the edge, listen, leave early. Not nothing — a room you
+            could walk back into next week, a little less of a stranger.
+          pools: { social_capital: 3, morale: 1 }

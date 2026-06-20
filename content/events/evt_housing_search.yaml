@@ -1,0 +1,63 @@
+id: evt_housing_search
+kind: action
+title: Look for your own place
+tags: [housing]
+requires_travel: true
+repeatable: true
+
+# Housing for builds without a registry requirement. Transitional housing is the
+# accessible mid-game win; a real lease needs the ID and a deposit. Retires once
+# you're in a stable place of your own.
+conditions:
+  - flags.registry_required == false
+  - tracks.housing.status != "rental"
+  - tracks.housing.status != "stable"
+
+prompt: >
+  The couch was never the plan. There's a transitional-housing program with a bed
+  and a curfew, and there's the open market — a room of your own, if a landlord
+  will look past the record and you can cover the deposit.
+
+choices:
+
+  - id: apply_transitional
+    label: Apply to a transitional-housing program
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 65
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            A caseworker, an intake form, a bed with your name on it. Rules and a
+            curfew, but a door that's yours to come home to.
+          pools: { morale: 10 }
+          tracks: { housing: { status: transitional } }
+      - weight: 35
+        effects:
+          text: >
+            Waitlisted. "Check back in a few weeks." The bed is real; the timing
+            isn't yours yet.
+          pools: { morale: -4 }
+
+  - id: pursue_rental
+    label: Try for a room on the open market
+    requires:
+      - flags.has_state_id == true
+      - pools.money >= 35
+    cost: { slots: 1, money: 25 }
+    outcomes:
+      - weight: 50
+        modifier: { stat: money, scale: 0.2 }
+        effects:
+          text: >
+            A small room, a month down, a landlord who didn't ask the question.
+            The lease has your name on it. This is the one that changes the rest.
+          flags: { has_proof_of_address: true }
+          pools: { morale: 16 }
+          tracks: { housing: { status: rental } }
+      - weight: 50
+        effects:
+          text: >
+            "We went with another applicant." You know which line on the form did
+            it. The deposit you scraped together is still yours, at least.
+          pools: { morale: -8, money: 25 }

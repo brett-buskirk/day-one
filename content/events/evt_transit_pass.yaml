@@ -1,0 +1,32 @@
+id: evt_transit_pass
+kind: action
+title: Get a transit pass
+tags: [transportation]
+
+# Spend money to buy back time: a monthly pass lifts you out of the worst
+# transportation band, so every travel errand stops costing double. The clearest
+# "invest to save time" decision in the game.
+conditions:
+  - flags.has_transit_pass == false
+  - pools.transportation < 60
+
+prompt: >
+  Every errand across town eats the day twice over on foot and a patchwork of
+  rides. A monthly bus pass is real money up front — and it hands you back hours
+  every single week after.
+
+choices:
+
+  - id: buy_pass
+    label: Buy a monthly pass
+    requires:
+      - pools.money >= 12
+    cost: { money: 12 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            A pass in your wallet and the whole map within reach. The week just
+            got bigger — errands that ate a day now cost an afternoon.
+          flags: { has_transit_pass: true }
+          pools: { transportation: 30, morale: 4 }

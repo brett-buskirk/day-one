@@ -1,0 +1,32 @@
+id: evt_resume_workshop
+kind: action
+title: Reentry job-readiness workshop
+tags: [employment]
+requires_travel: true
+
+# A one-time investment: the reentry program's résumé + interview session. Costs
+# a day, builds employment readiness and a little hope, and gives you a polished
+# résumé (has_resume) that tilts later job odds.
+conditions:
+  - flags.has_resume == false
+  - flags.has_job == false
+
+prompt: >
+  The program runs a Friday workshop — résumé, mock interview, how to talk about
+  the gap and the record without flinching. A day you could spend earning. Or a
+  day spent making the earning that comes next more likely.
+
+choices:
+
+  - id: attend
+    label: Spend the day at the workshop
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You leave with a clean résumé, a line for the hard questions, and the
+            odd feeling of being treated like a candidate. It helps.
+          flags: { has_resume: true }
+          pools: { morale: 8 }
+          tracks: { employment: { status: searching, readiness: 15 } }

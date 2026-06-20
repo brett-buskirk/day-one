@@ -39,6 +39,9 @@ Day One was built for **two groups of people, equally:**
 
 Both groups play the exact same game; only the framing and difficulty change.
 
+Day One is **built by a returning citizen, for returning citizens.** The barriers in
+it aren't imagined — they're remembered.
+
 ---
 
 ## How you play
@@ -60,11 +63,30 @@ Both groups play the exact same game; only the framing and difficulty change.
   where things landed and a week-by-week replay of *how* you got there — the part
   you can actually learn from.
 
-You choose **who** to play (there are three very different people to step into) and
-**why** you're here (the practice framing or the feel-the-wall framing). One of the
-characters faces a registry requirement that makes finding housing almost
-impossible — a deliberately hard scenario that shows how heavy a single barrier can
-be. Throughout, the system models *barriers and consequences, never moral judgment.*
+You choose **who** to play and **why** you're here. There are five hand-built
+people, ranging from hard to brutal — someone with real skills but no documents;
+someone whose family showed up, to show what support changes; someone carrying the
+weight of probation (fees, court dates, mandated hours); someone with a registry
+requirement that makes housing and work near-impossible; and a "longtimer" home
+after two decades, facing a technology gap and the mental-health weight of all
+those years. There's also a **"Surprise me"** option that generates a fresh,
+coherent person for you. And you pick a framing: **Training** (practice, always a
+way forward) or **Empathy** (feel the wall — the deep end). Throughout, the system
+models *barriers and consequences, never moral judgment.*
+
+### Playing it with a group (classroom mode)
+
+Because the whole game is reproducible (see below), a facilitator can run it with a
+room. Every run is fully decided by three things — **who, which framing, and a
+"seed" number** — so the app turns those into a tiny shareable code like
+`marcus.training.482913`. Hand that one code to a group, everyone types it in, and
+they all get the **identical** run: the same character, the same situations, the
+same luck. The *only* thing that differs is the choices each person makes — which is
+exactly what you then compare in the debrief. ("You got the ID by week nine; I never
+did — what did you do differently?") The code shows up on the start screen, on the
+in-game info (ⓘ) card, and on the debrief, so a run can be shared before, during, or
+after. (For handing someone a half-finished run to *continue*, there's also a full
+"export this run" file.)
 
 ---
 
@@ -92,13 +114,14 @@ same way:
 
 Two design choices in that engine are quietly powerful:
 
-- **It's reproducible.** Every run is driven by a "seed," so the same starting
-  point always produces the same story. That means a whole classroom can play the
-  *identical* character and then compare the different choices they made — a
-  facilitator's dream — and it makes the rules reliably testable.
-- **A run is portable.** Any run can be saved out as a small file and handed to
-  someone else to pick up or replay. Close the tab on the bus and resume later;
-  share a scenario with a group.
+- **It's reproducible.** Every run is driven by a "seed" number, so the same
+  character + framing + seed always produces the exact same run — the same
+  situations *and* the same luck. That's what makes the classroom code above work,
+  and it makes the rules reliably testable. It even lets the game **generate a whole
+  random character from a seed** that's still perfectly reproducible for everyone.
+- **A run is portable.** Any run can be saved out — as the tiny setup code, or as a
+  full file capturing every choice — and handed to someone else to play, continue,
+  or replay. Close the tab on the bus and resume later.
 
 **The app itself** is deliberately lightweight. It's a web app that installs to a
 phone's home screen, runs offline once loaded, and is built to be gentle on an old

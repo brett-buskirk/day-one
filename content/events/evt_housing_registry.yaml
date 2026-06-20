@@ -22,6 +22,7 @@ prompt: >
 choices:
 
   - id: work_the_list
+    quality: durable
     label: Grind the compliant listings with your officer
     cost: { slots: 1 }
     outcomes:

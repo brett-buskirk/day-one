@@ -52,11 +52,16 @@ export interface ScheduledEvent {
   onTurn: number; // absolute turn number when it fires
 }
 
+// Decision-quality tag (DESIGN §10): did the player take the durable path over
+// the desperate one when they could? Authored per choice on meaningful forks.
+export type ChoiceQuality = "durable" | "desperate" | "neutral";
+
 export interface LogEntry {
   turn: number;
   eventId: string;
   choiceId: string;
   text: string; // the resolved outcome narration
+  quality?: ChoiceQuality; // the chosen path's quality, if the choice was tagged
 }
 
 // End-of-turn snapshot of the pools, recorded each week. Feeds the trajectory
@@ -178,6 +183,7 @@ export interface Outcome {
 export interface Choice {
   id: string;
   label: string;
+  quality?: ChoiceQuality; // decision-quality tag (DESIGN §10), for the debrief
   requires?: Predicate[]; // if any false, choice renders locked/disabled
   cost?: { slots?: number; money?: number };
   outcomes: Outcome[];

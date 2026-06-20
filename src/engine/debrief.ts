@@ -46,6 +46,7 @@ export interface Debrief {
   milestonesAchieved: number;
   trajectory: Trajectory;
   trajectoryNote: string;
+  decisions: { durable: number; desperate: number };
   why: string[];
   framing: Framing;
 }
@@ -142,7 +143,23 @@ function computeTrajectory(s: GameState): Trajectory {
 
 /* ---- "Why it landed here": decisions and setbacks under constraint ---- */
 
-function buildWhy(s: GameState, milestonesAchieved: number, total: number, trajectory: Trajectory): string[] {
+function countDecisions(s: GameState): { durable: number; desperate: number } {
+  let durable = 0;
+  let desperate = 0;
+  for (const l of s.log) {
+    if (l.quality === "durable") durable++;
+    else if (l.quality === "desperate") desperate++;
+  }
+  return { durable, desperate };
+}
+
+function buildWhy(
+  s: GameState,
+  milestonesAchieved: number,
+  total: number,
+  trajectory: Trajectory,
+  decisions: { durable: number; desperate: number }
+): string[] {
   const why: string[] = [];
 
   why.push(
@@ -166,6 +183,25 @@ function buildWhy(s: GameState, milestonesAchieved: number, total: number, traje
 
   const word = trajectory.momentum === "rising" ? "rising" : trajectory.momentum === "slipping" ? "slipping" : "holding steady";
   why.push(`Your footing was ${word} over the final weeks versus mid-game (${trajectory.early} → ${trajectory.late}).`);
+
+  // Decision quality (§10): the durable path vs the desperate one, when there
+  // was a real choice. Drawn straight from the run log's tagged forks.
+  const { durable, desperate } = decisions;
+  if (durable + desperate >= 3) {
+    if (durable > desperate * 1.5) {
+      why.push(
+        `You leaned to the durable move far more than the desperate one (${durable} vs ${desperate}) — building over scrambling.`
+      );
+    } else if (desperate > durable * 1.5) {
+      why.push(
+        `When the week squeezed, the desperate move won out more often (${desperate} vs ${durable}) — understandable, and the first thing to watch next run.`
+      );
+    } else {
+      why.push(
+        `A close mix of durable and desperate calls (${durable} vs ${desperate}) — the trade-offs were real, and you felt every one.`
+      );
+    }
+  }
 
   return why;
 }
@@ -208,7 +244,8 @@ export function buildDebrief(s: GameState, characterName: string): Debrief {
   const milestones = buildMilestones(s);
   const milestonesAchieved = milestones.filter((m) => m.achieved).length;
   const trajectory = computeTrajectory(s);
-  const why = buildWhy(s, milestonesAchieved, milestones.length, trajectory);
+  const decisions = countDecisions(s);
+  const why = buildWhy(s, milestonesAchieved, milestones.length, trajectory, decisions);
   const framing = buildFraming(s);
   const endedTerminal = s.terminal === true;
 
@@ -233,6 +270,7 @@ export function buildDebrief(s: GameState, characterName: string): Debrief {
     milestonesAchieved,
     trajectory,
     trajectoryNote,
+    decisions,
     why,
     framing,
   };

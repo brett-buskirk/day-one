@@ -39,6 +39,7 @@ choices:
           tracks: { relationships: { status: strained } }
 
   - id: shelter_letter
+    quality: durable
     label: Get a letter from a shelter or service instead
     cost: { slots: 1, money: 0 }
     outcomes:

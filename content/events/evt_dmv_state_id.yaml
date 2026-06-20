@@ -17,6 +17,7 @@ prompt: >
 choices:
 
   - id: apply_prepared
+    quality: durable
     label: Apply for the ID
     requires:
       - flags.has_birth_cert == true
@@ -32,6 +33,7 @@ choices:
           unlocks: [evt_apply_job_onboarding]
 
   - id: try_anyway
+    quality: desperate
     label: Go anyway and try to talk it through
     requires:
       - flags.has_birth_cert == false
@@ -51,6 +53,7 @@ choices:
           schedule: { event: evt_birth_cert_arrives, in_turns: 2 }
 
   - id: order_by_mail
+    quality: durable
     label: Skip the trip — order the birth cert by mail
     requires:
       - flags.birth_cert_ordered == false

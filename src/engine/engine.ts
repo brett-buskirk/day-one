@@ -239,6 +239,7 @@ export function resolveChoice(
     eventId: event.id,
     choiceId: choice.id,
     text: outcome.effects.text,
+    ...(choice.quality ? { quality: choice.quality } : {}),
   });
 
   if (event.repeatable !== true && !s.completed.includes(event.id)) {

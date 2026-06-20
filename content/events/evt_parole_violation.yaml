@@ -11,6 +11,7 @@ prompt: >
 choices:
 
   - id: own_it_recommit
+    quality: durable
     label: Own it — call, explain, recommit to the schedule
     cost: { slots: 1 }
     outcomes:
@@ -31,6 +32,7 @@ choices:
           tracks: { legal: { status: parole, readiness: 4 } }
 
   - id: lay_low
+    quality: desperate
     label: Say nothing and hope it blows over
     outcomes:
       - weight: 55

@@ -116,7 +116,8 @@ the flag registry.
 
 ## Verified
 
-- 59 tests pass (engine, Sprints 2–4 + the registry employment wall, end-to-end
+- 62 tests pass (engine, Sprints 2–4 + the registry employment wall + decision-quality
+  tags, end-to-end
   playthrough): RNG determinism,
   serialize round-trip (incl. the new fields + old-save migration), transport
   multiplier, predicate eval, weighted resolution, the full document catch-22 chain,
@@ -152,10 +153,10 @@ the flag registry.
   landed: `standingSlots`, `pending`, `actedThisTurn` (Sprint 1) and `poolHistory`,
   `violations`, `terminal` (Sprint 2). All are JSON-safe and migrated in `loadRun`.
 - **Candidate next steps (v2):** recurring costs (a transit pass that lapses,
-  monthly benefits); per-choice "durable vs desperate" tags to make decision-quality
-  scoring choice-level rather than derived from violations/crises/milestones;
-  probation-specific obligations (the check-in obligation is parole-only today);
-  facilitator/classroom features on the existing seed-determinism + export hooks;
-  and random character generation. *(Done since Sprint 4: the registry barrier now
-  reshapes employment as well as housing — `evt_job_registry`.)*
+  monthly benefits); probation-specific obligations (the check-in obligation is
+  parole-only today); facilitator/classroom features on the existing
+  seed-determinism + export hooks; and random character generation. *(Done since
+  Sprint 4: the registry barrier now reshapes employment as well as housing
+  (`evt_job_registry`); per-choice durable/desperate tags now drive a real
+  decision-quality read in the debrief.)*
 ```

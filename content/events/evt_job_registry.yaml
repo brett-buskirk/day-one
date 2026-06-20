@@ -45,6 +45,7 @@ choices:
           tracks: { employment: { status: employed } }
 
   - id: second_chance_employer
+    quality: durable
     label: Go through a fair-chance / reentry hiring program
     requires:
       - flags.has_resume == true

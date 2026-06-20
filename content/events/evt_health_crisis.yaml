@@ -11,6 +11,7 @@ prompt: >
 choices:
 
   - id: rest_and_treat
+    quality: durable
     label: Rest, get to treatment, take the week down a gear
     cost: { slots: 1 }
     outcomes:
@@ -22,6 +23,7 @@ choices:
           pools: { health: 12, money: -6, morale: 2 }
 
   - id: push_through
+    quality: desperate
     label: Push through it — you can't afford to stop
     outcomes:
       - weight: 60
@@ -40,6 +42,7 @@ choices:
           pools: { health: -14, morale: -6 }
 
   - id: lean_on_recovery
+    quality: durable
     label: Lean hard on your recovery support
     requires:
       - flags.in_recovery_support == true

@@ -21,6 +21,7 @@ prompt: >
 choices:
 
   - id: apply_transitional
+    quality: durable
     label: Apply to a transitional-housing program
     cost: { slots: 1 }
     outcomes:
@@ -40,6 +41,7 @@ choices:
           pools: { morale: -4 }
 
   - id: pursue_rental
+    quality: durable
     label: Try for a room on the open market
     requires:
       - flags.has_state_id == true

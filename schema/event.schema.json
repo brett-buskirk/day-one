@@ -134,6 +134,10 @@
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
         "label": { "type": "string", "minLength": 1 },
+        "quality": {
+          "enum": ["durable", "desperate", "neutral"],
+          "description": "Decision-quality tag for the debrief (DESIGN §10): the durable path vs the desperate one. Omit for non-fork choices."
+        },
         "requires": {
           "type": "array",
           "items": { "$ref": "#/$defs/predicate" }

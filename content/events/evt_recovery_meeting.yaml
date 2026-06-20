@@ -17,6 +17,7 @@ prompt: >
 choices:
 
   - id: attend_meeting
+    quality: durable
     label: Sit the hour
     cost: { slots: 1 }
     outcomes:

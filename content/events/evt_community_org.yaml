@@ -19,6 +19,7 @@ prompt: >
 choices:
 
   - id: show_up
+    quality: durable
     label: Walk in and introduce yourself
     cost: { slots: 1 }
     outcomes:

@@ -19,6 +19,7 @@ prompt: >
 choices:
 
   - id: attend
+    quality: durable
     label: Spend the day at the workshop
     cost: { slots: 1 }
     outcomes:

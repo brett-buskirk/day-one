@@ -18,6 +18,7 @@ prompt: >
 choices:
 
   - id: show_up_for_them
+    quality: durable
     label: Show up without needing anything
     cost: { slots: 1 }
     outcomes:

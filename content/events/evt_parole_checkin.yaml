@@ -16,6 +16,7 @@ prompt: >
 choices:
 
   - id: make_checkin
+    quality: durable
     label: Make the check-in
     cost: { slots: 1 }
     outcomes:
@@ -28,6 +29,7 @@ choices:
           tracks: { legal: { status: parole, readiness: 5 } }
 
   - id: reschedule
+    quality: desperate
     label: Call and try to reschedule
     cost: { slots: 0 }
     outcomes:

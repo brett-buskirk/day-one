@@ -10,6 +10,7 @@ prompt: >
 choices:
 
   - id: borrow_from_sibling
+    quality: desperate
     label: Ask your sibling to spot you
     requires:
       - tracks.relationships.status != "isolated"
@@ -31,6 +32,7 @@ choices:
           tracks: { relationships: { status: strained } }
 
   - id: emergency_assistance
+    quality: durable
     label: Apply for emergency rental assistance
     cost: { slots: 1 }
     outcomes:
@@ -48,6 +50,7 @@ choices:
           pools: { morale: -8 }
 
   - id: negotiate_landlord
+    quality: durable
     label: Talk to whoever you owe and buy time
     cost: { slots: 1 }
     outcomes:
@@ -67,6 +70,7 @@ choices:
           tracks: { housing: { status: couch } }
 
   - id: give_something_up
+    quality: desperate
     label: Sell or skip something to make it work
     outcomes:
       - weight: 100

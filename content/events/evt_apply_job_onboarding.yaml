@@ -19,6 +19,7 @@ prompt: >
 choices:
 
   - id: onboard_dev
+    quality: durable
     label: Onboard for the remote dev role
     requires:
       - flags.has_cert_webdev == true
@@ -42,6 +43,7 @@ choices:
           tracks: { employment: { status: interviewing } }
 
   - id: apply_broadly
+    quality: desperate
     label: Skip it and take whatever pays this week
     cost: { slots: 1 }
     outcomes:

@@ -11,6 +11,7 @@ prompt: >
 choices:
 
   - id: borrow_again
+    quality: desperate
     label: Ask your sibling to spot you again
     requires:
       - tracks.relationships.status != "isolated"
@@ -32,6 +33,7 @@ choices:
           tracks: { relationships: { status: strained } }
 
   - id: food_pantry
+    quality: durable
     label: Work the safety net — pantry, fare card, clinic sliding scale
     cost: { slots: 1 }
     outcomes:
@@ -49,6 +51,7 @@ choices:
           pools: { money: 2, morale: -4 }
 
   - id: go_without
+    quality: desperate
     label: Go without and absorb it
     outcomes:
       - weight: 100

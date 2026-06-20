@@ -1,0 +1,49 @@
+id: evt_parole_violation
+kind: incident
+title: A technical violation is filed
+tags: [legal, crisis]
+
+prompt: >
+  The missed check-in didn't just disappear. Your officer logged it, and now
+  there's a note in the file with your name on it. This isn't the end of the
+  road — but it's the kind of mark that gets heavier if it gets company.
+
+choices:
+
+  - id: own_it_recommit
+    label: Own it — call, explain, recommit to the schedule
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        modifier: { stat: morale, scale: 0.2 }
+        effects:
+          text: >
+            You don't make excuses, you make a plan. They've heard it before, but
+            you show up to back it up. The note stays; your standing recovers.
+          pools: { morale: -4 }
+          tracks: { legal: { status: parole, readiness: 12 } }
+      - weight: 30
+        effects:
+          text: >
+            You make the call. It's a cool conversation — a warning, in writing,
+            and a shorter leash. Recoverable, but watched now.
+          pools: { morale: -7 }
+          tracks: { legal: { status: parole, readiness: 4 } }
+
+  - id: lay_low
+    label: Say nothing and hope it blows over
+    outcomes:
+      - weight: 55
+        effects:
+          text: >
+            Silence. It doesn't blow over — it sits in the file, and your
+            standing slips a little further while you pretend it isn't there.
+          pools: { morale: -5 }
+          tracks: { legal: { status: parole, readiness: -8 } }
+      - weight: 45
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            You get lucky — a backlogged caseload, an officer who lets it ride
+            this once. Nothing changes. Don't count on it twice.
+          tracks: { legal: { status: parole, readiness: -2 } }

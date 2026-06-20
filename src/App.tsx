@@ -1,0 +1,142 @@
+import { useEffect, useState } from "react";
+import { corpus, MARCUS_ID } from "./content/corpus";
+import {
+  createRun,
+  resolveChoice,
+  endTurn,
+  beginTurn,
+  isRunOver,
+  randomSeed,
+  type Choice,
+  type GameState,
+  type Mode,
+} from "./engine";
+import { saveRun, loadSavedRun, clearSavedRun } from "./db";
+import { StartScreen } from "./ui/StartScreen";
+import { TurnScreen } from "./ui/TurnScreen";
+import { EventDetail } from "./ui/EventDetail";
+import { DebriefScreen } from "./ui/DebriefScreen";
+
+type View = "start" | "playing" | "debrief";
+
+export default function App() {
+  const [view, setView] = useState<View>("start");
+  const [state, setState] = useState<GameState | null>(null);
+  const [activeEventId, setActiveEventId] = useState<string | null>(null);
+  const [outcomeText, setOutcomeText] = useState<string | null>(null);
+  const [savedRun, setSavedRun] = useState<GameState | null>(null);
+
+  // Offer to resume a run found in IndexedDB (DESIGN §11).
+  useEffect(() => {
+    let alive = true;
+    loadSavedRun().then((s) => {
+      if (alive) setSavedRun(s);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  // Persist + advance to the right screen on every state change.
+  const commit = (next: GameState, nextView: View = "playing") => {
+    setState(next);
+    setView(nextView);
+    void saveRun(next, Date.now());
+  };
+
+  const handleStart = (mode: Mode) => {
+    setActiveEventId(null);
+    setOutcomeText(null);
+    // Empathy mode is the deliberate deep end: hardFail walks an outsider to the
+    // edge of the cliff. Training keeps hardFail off (DESIGN §10).
+    commit(createRun(corpus, MARCUS_ID, { seed: randomSeed(), mode, hardFail: mode === "empathy" }));
+  };
+
+  const handleResume = () => {
+    if (!savedRun) return;
+    setActiveEventId(null);
+    setOutcomeText(null);
+    setState(savedRun);
+    setView(isRunOver(savedRun) ? "debrief" : "playing");
+  };
+
+  const handleChoose = (choice: Choice) => {
+    if (!state || !activeEventId) return;
+    const event = corpus.events[activeEventId];
+    const next = resolveChoice(state, event, choice, corpus);
+    setOutcomeText(next.log[next.log.length - 1]?.text ?? "");
+    commit(next);
+  };
+
+  const handleContinueAfterOutcome = () => {
+    setActiveEventId(null);
+    setOutcomeText(null);
+  };
+
+  const handleEndWeek = () => {
+    if (!state) return;
+    setActiveEventId(null);
+    setOutcomeText(null);
+    const ended = endTurn(state, corpus);
+    if (isRunOver(ended)) {
+      commit(ended, "debrief");
+    } else {
+      commit(beginTurn(ended, corpus));
+    }
+  };
+
+  const handlePlayAgain = () => {
+    void clearSavedRun();
+    setSavedRun(null);
+    setState(null);
+    setActiveEventId(null);
+    setOutcomeText(null);
+    setView("start");
+  };
+
+  const activeEvent = activeEventId ? corpus.events[activeEventId] : null;
+
+  return (
+    <main className="app">
+      {view === "start" && (
+        <StartScreen
+          marcus={corpus.characters[MARCUS_ID]}
+          hasSavedRun={!!savedRun}
+          savedTurn={savedRun?.turn ?? null}
+          savedMode={savedRun?.mode ?? null}
+          onStart={handleStart}
+          onResume={handleResume}
+        />
+      )}
+
+      {view === "playing" && state && (
+        <>
+          <TurnScreen
+            state={state}
+            corpus={corpus}
+            onOpenEvent={(id) => {
+              setOutcomeText(null);
+              setActiveEventId(id);
+            }}
+            onEndWeek={handleEndWeek}
+          />
+          {activeEvent && (
+            <EventDetail
+              event={activeEvent}
+              state={state}
+              outcomeText={outcomeText}
+              isPending={state.pending.includes(activeEvent.id)}
+              onChoose={handleChoose}
+              onContinue={handleContinueAfterOutcome}
+              onClose={handleContinueAfterOutcome}
+            />
+          )}
+        </>
+      )}
+
+      {view === "debrief" && state && (
+        <DebriefScreen state={state} corpus={corpus} onPlayAgain={handlePlayAgain} />
+      )}
+    </main>
+  );
+}

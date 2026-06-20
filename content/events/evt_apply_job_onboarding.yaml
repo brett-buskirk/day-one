@@ -2,6 +2,8 @@ id: evt_apply_job_onboarding
 kind: action
 title: The dev gig the program referred
 tags: [employment]
+repeatable: true   # an HR stall (interviewing) shouldn't end the search — retry
+                   # until the condition below (has_job) retires it.
 
 conditions:
   - flags.has_state_id == true

@@ -1,0 +1,59 @@
+id: evt_money_crisis
+kind: incident
+title: Out of money
+tags: [money, crisis]
+
+prompt: >
+  The account's empty and the week isn't. Food, a bus fare, a co-pay — something
+  has to give, and there's nothing left to give it from. This is a corner, not a
+  cliff. There's a way through; none of them are free.
+
+choices:
+
+  - id: borrow_again
+    label: Ask your sibling to spot you again
+    requires:
+      - tracks.relationships.status != "isolated"
+    outcomes:
+      - weight: 60
+        modifier: { stat: social_capital, scale: 0.4 }
+        effects:
+          text: >
+            They help — shorter this time, a longer pause before yes. You can
+            breathe this week; the well is getting shallow.
+          pools: { money: 8, social_capital: -12 }
+      - weight: 40
+        modifier: { stat: social_capital, scale: -0.4 }
+        effects:
+          text: >
+            "I love you, but I can't be your bank." It's fair, and it still
+            lands hard.
+          pools: { morale: -8, social_capital: -6 }
+          tracks: { relationships: { status: strained } }
+
+  - id: food_pantry
+    label: Work the safety net — pantry, fare card, clinic sliding scale
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        effects:
+          text: >
+            A morning of forms and lines, but you walk out with groceries, a
+            fare card, and a co-pay waived. It adds up to staying afloat.
+          pools: { money: 6, morale: 2 }
+      - weight: 30
+        effects:
+          text: >
+            Half the day gone and two of the three offices were closed or
+            "out of funds this month." You got one win out of three.
+          pools: { money: 2, morale: -4 }
+
+  - id: go_without
+    label: Go without and absorb it
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You skip the refill, walk the four miles, eat less. It works, the
+            way holding your breath works. The body keeps the tab.
+          pools: { health: -8, morale: -6, money: 5 }

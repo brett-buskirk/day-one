@@ -2,6 +2,8 @@ id: evt_proof_of_address
 kind: action
 title: Proof of address
 tags: [documents, relationships]
+repeatable: true   # a failed ask shouldn't lock you out — retry until the
+                   # condition below (proof obtained) retires it.
 
 conditions:
   - flags.has_proof_of_address == false

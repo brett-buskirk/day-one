@@ -59,6 +59,14 @@ export interface LogEntry {
   text: string; // the resolved outcome narration
 }
 
+// End-of-turn snapshot of the pools, recorded each week. Feeds the trajectory
+// model in the debrief (DESIGN §10: "are the pools trending up across the final
+// ~3 turns versus mid-game?").
+export interface PoolSnapshot {
+  turn: number; // 0 = opening state, then end of each played turn
+  pools: Pools;
+}
+
 export interface GameState {
   characterId: string;
   mode: Mode;
@@ -71,15 +79,26 @@ export interface GameState {
   rngState: number; // current PRNG state (advances as outcomes roll)
 
   pools: Pools;
-  slots: number; // per-turn action budget, reset each turn
+  slots: number; // per-turn action budget, remaining this turn
   baseSlots: number; // budget before standing commitments (tuning, ~6)
+  standingSlots: number; // slots pre-spent each turn by standing commitments
+  // that have no interactive event yet (e.g. mandated treatment). beginTurn
+  // sets slots = baseSlots - standingSlots. See docs/DESIGN.md §4.
 
   tracks: Tracks;
   flags: Flags;
 
-  completed: string[]; // event ids already resolved (non-repeatable)
+  completed: string[]; // event ids permanently resolved (non-repeatable)
+  actedThisTurn: string[]; // event ids acted on this turn; an event is
+  // actionable at most once per turn. Reset each beginTurn, so a repeatable
+  // action (e.g. the weekly parole check-in) returns next week. See §4.
   scheduled: ScheduledEvent[];
+  pending: string[]; // incident ids that fired this turn and await resolution
   log: LogEntry[];
+
+  poolHistory: PoolSnapshot[]; // end-of-turn pool snapshots (trajectory scoring)
+  violations: number; // accumulated missed obligations (§4, §10)
+  terminal: boolean; // a terminal chain ended the run early (only when hardFail)
 }
 
 /* ------------------------------------------------------------------ */

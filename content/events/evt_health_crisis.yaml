@@ -1,0 +1,52 @@
+id: evt_health_crisis
+kind: incident
+title: Your body calls in the debt
+tags: [health, crisis]
+
+prompt: >
+  The back seizes up, the sleep's gone, and the old pull is loud this week. This
+  is the part nobody schedules around. How you handle it now decides how much it
+  costs later.
+
+choices:
+
+  - id: rest_and_treat
+    label: Rest, get to treatment, take the week down a gear
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You stop pushing, make the appointment, sleep. It costs you a week's
+            hustle and some cash you didn't have — and you come back steadier.
+          pools: { health: 12, money: -6, morale: 2 }
+
+  - id: push_through
+    label: Push through it — you can't afford to stop
+    outcomes:
+      - weight: 60
+        modifier: { stat: health, scale: 0.3 }
+        effects:
+          text: >
+            You grind the week out and make the money. The body files it away to
+            collect later, with interest.
+          pools: { money: 8, health: -10, morale: -3 }
+      - weight: 40
+        modifier: { stat: health, scale: -0.3 }
+        effects:
+          text: >
+            You push, and it pushes back harder — a day flat on your back, the
+            week mostly lost, the craving louder for it.
+          pools: { health: -14, morale: -6 }
+
+  - id: lean_on_recovery
+    label: Lean hard on your recovery support
+    requires:
+      - flags.in_recovery_support == true
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You call your person, get to a meeting, say the quiet part out loud.
+            Nothing's fixed, but you're not carrying it alone — and that holds.
+          pools: { health: 10, morale: 8, social_capital: 2 }

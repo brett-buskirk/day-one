@@ -3,6 +3,9 @@ kind: action
 title: Getting your state ID
 tags: [documents, legal]
 requires_travel: true
+repeatable: true   # the hub: revisit across weeks (order cert, then come back
+                   # and apply); the condition below retires it once the ID is in
+                   # hand, and each choice self-gates via `requires`.
 
 conditions:
   - flags.has_state_id == false

@@ -10,9 +10,8 @@ conditions:
 
 prompt: >
   Your parole officer expects you this week. It's not optional, it's across town,
-  and it eats a slot whether you have one to spare or not. (Obligation: if the
-  week ends without this done, the engine schedules a violation — see
-  docs/DESIGN.md §4.)
+  and it eats a slot whether you have one to spare or not. Miss it without
+  clearing it first and your standing starts to slip.
 
 choices:
 

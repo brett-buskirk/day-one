@@ -1,0 +1,15 @@
+{
+  "$comment": "Canonical flag registry. The content build (scripts/compile-content.mjs) fails if an event references a flag not listed here, EXCEPT flags matching the unlock pattern evt_<id>_unlocked, which the engine generates from outcome `unlocks`. See docs/DESIGN.md §7. Keep snake_case; read each as a true statement.",
+  "flags": [
+    "has_state_id",
+    "has_birth_cert",
+    "has_proof_of_address",
+    "has_ssn_card",
+    "birth_cert_ordered",
+    "knows_id_requirements",
+    "has_bank_account",
+    "has_cert_webdev",
+    "has_job",
+    "in_recovery_support"
+  ]
+}

@@ -1,0 +1,16 @@
+# Day One — local reentry resource directory (placeholder hook).
+#
+# DESIGN §10: "The training debrief should be able to surface real, local
+# reentry resources." This file is the data hook a TLM site fills per
+# jurisdiction. It is intentionally empty in v1 — the debrief shows a clearly
+# marked "configured per site" slot and never hardcodes resources.
+#
+# Shape (when populated):
+# resources:
+#   - category: housing | benefits | recovery | legal_aid | employment
+#     name: "Organization name"
+#     phone: "(555) 555-5555"
+#     url: "https://..."
+#     note: "Walk-ins Mon–Fri, ask for reentry intake"
+
+resources: []

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Day One">
+  <defs>
+    <clipPath id="card"><rect width="64" height="64" rx="14"/></clipPath>
+    <clipPath id="sky"><rect width="64" height="42"/></clipPath>
+  </defs>
+  <g clip-path="url(#card)">
+    <rect width="64" height="64" fill="#0f3d3e"/>
+    <rect y="42" width="64" height="22" fill="#082122"/>
+    <g stroke="#f8dba0" stroke-width="2.3" stroke-linecap="round">
+      <line x1="44.7" y1="37.4" x2="49.9" y2="35.5"/>
+      <line x1="42.3" y1="33.3" x2="46.6" y2="29.8"/>
+      <line x1="38.8" y1="30.3" x2="41.5" y2="25.6"/>
+      <line x1="34.4" y1="28.7" x2="35.3" y2="23.3"/>
+      <line x1="29.7" y1="28.7" x2="28.7" y2="23.3"/>
+      <line x1="25.3" y1="30.3" x2="22.5" y2="25.6"/>
+      <line x1="21.7" y1="33.3" x2="17.5" y2="29.8"/>
+      <line x1="19.3" y1="37.4" x2="14.1" y2="35.5"/>
+    </g>
+    <circle cx="32" cy="42" r="11" fill="#f3cd87" clip-path="url(#sky)"/>
+    <line x1="9" y1="42" x2="55" y2="42" stroke="#f0c987" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+</svg>

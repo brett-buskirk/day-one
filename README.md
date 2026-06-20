@@ -1,148 +1,150 @@
 # Day One
 
-A reentry simulator. The player takes a character who was recently released from
-prison and lives the first ninety days home — finding an ID, housing, work, and
-footing — one weekly turn at a time, against a budget of hours that never quite
+A phone-first **reentry simulator**: you take a character recently released from
+prison and live the first ninety days home — finding an ID, housing, work, and
+footing — one weekly turn at a time, against a budget of time that never quite
 covers everything that's due.
 
-It is built for two audiences, weighted equally:
+Built as a lightweight, installable, offline-capable **React PWA**. It's
+deliberately not a high-graphics video game — think Oregon Trail meets the "Spent"
+poverty simulator: data-driven, decision-heavy, light enough to run on an old
+Android phone on a metered connection.
 
-- **Returning citizens (RCs)** preparing for release, to set realistic
+It serves two audiences, weighted equally:
+
+- **Returning citizens (RCs)** preparing for release — to set realistic
   expectations and rehearse hard decisions in a safe place.
-- **Outsiders** — staff, volunteers, the public — to understand what reentry
-  actually demands, in their gut and not just their head.
+- **Outsiders** — staff, volunteers, the public — to understand, in their gut,
+  what reentry actually demands.
 
-It is deliberately not a high-graphics video game. Think Oregon Trail meets the
-"Spent" poverty simulator: data-driven, decision-heavy, light to run on a phone.
-
----
-
-## What this package is
-
-A design-and-content handoff, not the finished app. It exists so the Claude Code
-build starts from a populated walking skeleton instead of an empty `lib/` — the
-design is written down, the data contracts are real code, and there is enough
-seed content for the game to run end-to-end on day one.
-
-The build itself is the next step. See the kickoff prompt below.
+> **Design source of truth:** [`docs/DESIGN.md`](docs/DESIGN.md). Build roadmap:
+> [`docs/SPRINTS.md`](docs/SPRINTS.md). Developer notes & per-sprint status:
+> [`DEVELOPMENT.md`](DEVELOPMENT.md).
 
 ---
 
-## Stack (decided)
+## Status
 
-A lean **React PWA**, chosen because the audience is phone-first — many RCs have a
-phone long before a computer, often older Android on metered data — and a React
-web payload is dramatically lighter on that hardware than the alternatives.
+Playable end-to-end. Sprints 0–2 of the roadmap are complete:
 
-- **React + TypeScript** — UI and the typed engine contracts.
-- **Vite** — build tooling and dev server.
-- **vite-plugin-pwa** — installable to the home screen, offline once cached,
-  instant updates, no app store.
-- **Dexie (IndexedDB)** — saved runs and the cached content corpus, so a player
-  can close the tab on the bus and resume later.
-- **AJV** — validates authored content against the event JSON Schema at build time.
-- **YAML → JSON content build** — colleagues author events in YAML; a build step
-  validates and compiles them into a JSON bundle the app imports.
+- **Sprint 0** — scaffold + content pipeline (YAML → validated JSON).
+- **Sprint 1** — the walking skeleton: a full ~13-week run to a debrief.
+- **Sprint 2** — incidents, pool-floor crises, obligation enforcement, and
+  trajectory-aware, mode-aware scoring.
 
-The engine is pure functions over plain data and is framework-agnostic by intent.
-None of the design in `docs/DESIGN.md` depends on React; React only renders state
-and collects taps.
-
-> When scaffolding, install **current** versions of these libraries rather than
-> pinning to anything in this doc.
+Sprint 3 (onboarding copy, more archetypes, full save/export, resource directory,
+accessibility polish) is next.
 
 ---
 
-## How to use this with Claude Code
+## Quick start
 
-1. Drop this whole tree into a new, empty git repo.
-2. Open a Claude Code session at the repo root.
-3. Paste the kickoff prompt below as your first message.
-
-### Kickoff prompt
-
-```
-This repo is the design handoff for "Day One", a phone-first reentry simulator
-built as a React PWA. Before writing code, read docs/DESIGN.md (the source of
-truth) and docs/SPRINTS.md (the build roadmap) in full.
-
-Then:
-
-1. Scaffold a Vite + React + TypeScript project configured as an installable,
-   offline-capable PWA using vite-plugin-pwa. Add Dexie, AJV, and a YAML loader.
-   Install current versions. Use public/manifest.webmanifest as the starting
-   manifest. Keep src/engine/types.ts as the canonical types.
-
-2. Build the content pipeline: load every YAML file under content/, validate each
-   event against schema/event.schema.json with AJV, fail the build on any invalid
-   event, and compile the corpus into a JSON bundle the app imports.
-
-3. Implement the engine exactly as specified in docs/DESIGN.md — the weekly turn
-   loop with an action budget, the five resource pools, the transportation slot
-   multiplier, weighted outcome resolution, and effect application. Two hard
-   requirements: the RNG must be seedable/deterministic, and there must be a
-   serializeRun()/loadRun() pair. Do not skip these — later features depend on them.
-
-4. Complete Sprint 0 and Sprint 1 from docs/SPRINTS.md only. The deliverable is a
-   game that loads the Marcus build and is playable end-to-end through all ~13
-   weekly turns using the six seed events, ending in a minimal debrief. Stop there
-   and summarize what you built so I can review before Sprint 2.
-
-Constraints throughout: mobile-first single-column layout, 44px+ touch targets,
-legible text, works on low-end Android, and accessible (semantic HTML, labels,
-contrast). Barriers are enforced as data preconditions, never hardcoded. The game
-never shows a "you lost" screen — see the win/lose model in the design doc.
+```bash
+npm install
+npm run dev        # validates + compiles content, then serves at http://localhost:5173
 ```
 
+| Goal | Command | Notes |
+| ---- | ------- | ----- |
+| Play / develop (hot reload) | `npm run dev` | http://localhost:5173 |
+| Test PWA install + offline | `npm run build && npm run preview` | http://localhost:4173 — the service worker only runs in the production build |
+| Run the test suite | `npm test` | Vitest (engine + end-to-end playthrough) |
+| Typecheck | `npm run typecheck` | `tsc -b`, no emit |
+| Compile content only | `npm run build:content` | YAML → `src/content/corpus.generated.json` |
+| Regenerate PWA icons | `npm run icons` | procedural sunrise PNGs |
+
+The content pipeline runs automatically on `dev`/`build`; in dev it re-compiles
+and reloads whenever you edit anything under `content/`, `schema/`, or the flag
+registry.
+
 ---
 
-## Map of the package
+## How it works
+
+Four parts, one direction of dependency — content and engine know nothing about
+the UI (see `docs/DESIGN.md` §3):
+
+- **Content corpus** (`content/*.yaml`) — events and character origins authored as
+  data. A build step (`scripts/compile-content.mjs`) loads all YAML, validates
+  every event against [`schema/event.schema.json`](schema/event.schema.json) with
+  AJV, **fails the build** on invalid content or an unknown flag reference, and
+  compiles a JSON bundle the app imports (and the service worker precaches, so a
+  run works fully offline).
+- **Simulation engine** (`src/engine/`, no React) — pure functions over plain,
+  JSON-safe state: the weekly turn loop, the five resource pools, the
+  transportation slot multiplier, weighted outcome resolution, effect application,
+  threshold-triggered crises, obligation enforcement, and the debrief/scoring. The
+  RNG is a seedable `mulberry32` threaded through state, and runs are serializable
+  (`serializeRun` / `loadRun`) — same seed + same inputs ⇒ same run.
+- **Game state** — the serializable snapshot the engine reads and writes.
+- **UI** (`src/ui/`, React) — a mobile-first, single-column, accessible shell that
+  renders state and collects taps. Saved runs persist to IndexedDB (Dexie) so you
+  can close the tab and resume.
+
+Two principles run through it: **barriers are data preconditions** (the catch-22 is
+a button you can see and can't press yet), and there is **no "you lost" screen** —
+setbacks are crises with branches, and the run is scored on trajectory and
+decisions under constraint, not just final position.
+
+---
+
+## Project structure
 
 ```
 day-one/
-├── README.md                          you are here
 ├── docs/
-│   ├── DESIGN.md                      the source of truth — read first
-│   └── SPRINTS.md                     build roadmap, Sprint 0 → v2
-├── src/
-│   └── engine/
-│       └── types.ts                   canonical TypeScript contracts
+│   ├── DESIGN.md                 the design source of truth
+│   └── SPRINTS.md                build roadmap
 ├── schema/
-│   └── event.schema.json              JSON Schema authored events validate against
+│   └── event.schema.json         JSON Schema authored events validate against
 ├── content/
-│   ├── characters/
-│   │   └── marcus.yaml                the seed archetype (origin only)
-│   └── events/                        six chained seed events
-│       ├── evt_dmv_state_id.yaml
-│       ├── evt_proof_of_address.yaml
-│       ├── evt_birth_cert_arrives.yaml
-│       ├── evt_apply_job_onboarding.yaml
-│       ├── evt_rent_due.yaml
-│       └── evt_parole_checkin.yaml
+│   ├── characters/marcus.yaml    the seed archetype (origin)
+│   ├── events/*.yaml             authored events (the "world")
+│   └── resources.yaml            per-jurisdiction resource hook (placeholder)
+├── scripts/
+│   ├── compile-content.mjs       YAML → validated JSON pipeline (shared)
+│   ├── build-content.mjs         CLI wrapper for the pipeline
+│   └── make-icons.mjs            procedural PWA icon generator
+├── src/
+│   ├── engine/                   pure, framework-agnostic simulation engine
+│   │   ├── types.ts              canonical contracts
+│   │   ├── engine.ts             turn loop, resolution, effects, serialization
+│   │   ├── chargen.ts            origin → opening game state
+│   │   ├── predicate.ts          safe predicate evaluator (no eval)
+│   │   ├── rng.ts                seedable mulberry32
+│   │   ├── debrief.ts            ending profile + trajectory + mode framing
+│   │   └── *.test.ts             engine, Sprint 2, and playthrough tests
+│   ├── ui/                       React screens & components
+│   ├── content/corpus.ts         typed access to the compiled corpus
+│   ├── db.ts                     Dexie save/resume
+│   ├── App.tsx / main.tsx        app shell + SW registration
+│   └── styles.css                mobile-first, accessible styling
 └── public/
-    └── manifest.webmanifest           PWA manifest (icons to be added)
+    ├── manifest.webmanifest      PWA manifest (hand-authored)
+    ├── favicon.svg               sunrise favicon
+    └── icons/                    generated PWA icons
 ```
 
 ---
 
-## Design north stars (the non-negotiables)
+## Stack
 
-These are the few things that, if dropped, break the point of the project. They
-are expanded in `docs/DESIGN.md`, but if a build decision ever conflicts with one
-of these, this list wins.
+React 19 · TypeScript · Vite 7 · `vite-plugin-pwa` (Workbox) · Dexie (IndexedDB) ·
+AJV (content validation) · js-yaml · Vitest.
+
+---
+
+## Design north stars
+
+If a build decision ever conflicts with one of these, this list wins (expanded in
+`docs/DESIGN.md`):
 
 1. **Setbacks, not game-overs.** Running out of money is a crisis with branches,
-   not death. Scoring rewards trajectory and good decisions under constraint, not
-   just final position — so a hard build is survivable and honest, never
-   demoralizing.
-2. **Barriers are preconditions, not prose.** Every obstacle is enforced in data
-   as a `requires` on a choice or a `condition` on an event. The catch-22 is a
-   button the player can see and can't press yet.
-3. **Two audiences, one engine.** Training mode and empathy mode share the engine
-   and the corpus. The only differences are onboarding copy, difficulty defaults,
-   debrief framing, and a single `hardFail` flag (off by default in training).
-4. **Group-ready for free.** The engine is deterministic (seedable RNG) and runs
-   are serializable. Build those in from the start; they cost almost nothing now
-   and a rewrite later, and they keep facilitator/classroom modes available.
-5. **Phone-first, offline, accessible.** The whole reason for the stack. Assume an
-   old Android phone on a metered plan in a room with bad Wi-Fi.
+   not death. Scoring rewards trajectory and good decisions under constraint.
+2. **Barriers are preconditions, not prose.** Every obstacle is enforced in data.
+3. **Two audiences, one engine.** Training and empathy modes share the engine and
+   corpus; they differ in onboarding, difficulty defaults, debrief framing, and a
+   single `hardFail` flag.
+4. **Group-ready for free.** Deterministic (seedable RNG) and serializable runs.
+5. **Phone-first, offline, accessible.** Old Android, metered plan, bad Wi-Fi.
+```

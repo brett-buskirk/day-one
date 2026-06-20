@@ -17,23 +17,39 @@ It serves two audiences, weighted equally:
 - **Outsiders** — staff, volunteers, the public — to understand, in their gut,
   what reentry actually demands.
 
-> **Design source of truth:** [`docs/DESIGN.md`](docs/DESIGN.md). Build roadmap:
-> [`docs/SPRINTS.md`](docs/SPRINTS.md). Developer notes & per-sprint status:
-> [`DEVELOPMENT.md`](DEVELOPMENT.md).
+> **New here?** Start with [`docs/ABOUT.md`](docs/ABOUT.md) — a plain-language tour
+> of what Day One is and how it works. **Design source of truth:**
+> [`docs/DESIGN.md`](docs/DESIGN.md). Build roadmap: [`docs/SPRINTS.md`](docs/SPRINTS.md).
+> Developer notes & per-sprint status: [`DEVELOPMENT.md`](DEVELOPMENT.md).
 
 ---
 
 ## Status
 
-Playable end-to-end. Sprints 0–2 of the roadmap are complete:
+Playable end-to-end. Sprints 0–4 of the roadmap are complete:
 
 - **Sprint 0** — scaffold + content pipeline (YAML → validated JSON).
 - **Sprint 1** — the walking skeleton: a full ~13-week run to a debrief.
 - **Sprint 2** — incidents, pool-floor crises, obligation enforcement, and
   trajectory-aware, mode-aware scoring.
+- **Sprint 3** — mode onboarding, three character archetypes (incl. a registry
+  deep-end build) with character select, run export/import, the resource hook, and
+  an accessibility pass.
+- **Sprint 4** — a broadened corpus (**19 events**, 14 player actions across every
+  track) and an economy balance pass.
 
-Sprint 3 (onboarding copy, more archetypes, full save/export, resource directory,
-accessibility polish) is next.
+Currently: **3 characters**, **19 events**, two modes (training / empathy),
+light/dark + accent theming, and **55 passing tests**. What you can do today:
+
+- Pick one of three builds — **Marcus** (the thesis build), **Renae** (a supported
+  build), or **Theo** (the registry deep-end build) — and a mode, then play ~13
+  weeks to a narrative debrief.
+- Feel the document catch-22, hit crises that branch instead of ending the run,
+  keep (or miss) a weekly obligation, and watch the registry wall reshape housing.
+- Install it to a phone, play offline, close the tab and resume, switch theme, and
+  export/import a run.
+
+Candidate next steps (v2) are listed at the bottom of [`DEVELOPMENT.md`](DEVELOPMENT.md).
 
 ---
 
@@ -93,13 +109,14 @@ decisions under constraint, not just final position.
 ```
 day-one/
 ├── docs/
+│   ├── ABOUT.md                  plain-language overview (start here)
 │   ├── DESIGN.md                 the design source of truth
 │   └── SPRINTS.md                build roadmap
 ├── schema/
 │   └── event.schema.json         JSON Schema authored events validate against
 ├── content/
-│   ├── characters/marcus.yaml    the seed archetype (origin)
-│   ├── events/*.yaml             authored events (the "world")
+│   ├── characters/*.yaml         the three archetypes (origins)
+│   ├── events/*.yaml             19 authored events (the "world")
 │   └── resources.yaml            per-jurisdiction resource hook (placeholder)
 ├── scripts/
 │   ├── compile-content.mjs       YAML → validated JSON pipeline (shared)
@@ -113,12 +130,16 @@ day-one/
 │   │   ├── predicate.ts          safe predicate evaluator (no eval)
 │   │   ├── rng.ts                seedable mulberry32
 │   │   ├── debrief.ts            ending profile + trajectory + mode framing
-│   │   └── *.test.ts             engine, Sprint 2, and playthrough tests
-│   ├── ui/                       React screens & components
+│   │   ├── tuning.ts             balance knobs (slots, multipliers, triggers)
+│   │   ├── flags.{ts,json}       the flag registry (single source of truth)
+│   │   └── *.test.ts             engine, per-sprint, and playthrough tests
+│   ├── ui/                       React screens & components (Start, Onboarding,
+│   │                             Turn, EventDetail, Debrief, theme controls)
 │   ├── content/corpus.ts         typed access to the compiled corpus
+│   ├── theme.ts                  light/dark + accent theming
 │   ├── db.ts                     Dexie save/resume
 │   ├── App.tsx / main.tsx        app shell + SW registration
-│   └── styles.css                mobile-first, accessible styling
+│   └── styles.css                mobile-first, accessible, themeable styling
 └── public/
     ├── manifest.webmanifest      PWA manifest (hand-authored)
     ├── favicon.svg               sunrise favicon

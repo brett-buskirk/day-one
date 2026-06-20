@@ -25,6 +25,10 @@ import {
   OBLIGATION_MISS_READINESS_PENALTY,
   VIOLATION_EVENT,
   TERMINAL_VIOLATIONS,
+  MONTH_TURNS,
+  BENEFITS_STIPEND,
+  TRANSIT_FEE,
+  TRANSIT_LAPSE_DROP,
   clampPool,
   transportFactor,
 } from "./tuning";
@@ -205,6 +209,8 @@ export function beginTurn(state: GameState, corpus: Corpus): GameState {
     if (!s.pending.includes(event.id)) s.pending.push(event.id);
   }
 
+  applyMonthlyFlows(s);
+
   return s;
 }
 
@@ -249,6 +255,44 @@ export function resolveChoice(
   s.pending = s.pending.filter((id) => id !== event.id);
 
   return s;
+}
+
+// Recurring monthly money flows (§ tuning): standing income/costs that fire at
+// the start of each month, gated by flags. Deterministic; logged so the player
+// sees the money move.
+function applyMonthlyFlows(s: GameState): void {
+  if (s.turn % MONTH_TURNS !== 0) return; // monthly tick: turns 4, 8, 12
+
+  if (s.flags.has_benefits) {
+    s.pools.money = clampPool(s.pools.money + BENEFITS_STIPEND);
+    s.log.push({
+      turn: s.turn,
+      eventId: "system",
+      choiceId: "benefits",
+      text: `Benefits deposit landed (+${BENEFITS_STIPEND}) — a little cushion for the month.`,
+    });
+  }
+
+  if (s.flags.has_transit_pass) {
+    if (s.pools.money >= TRANSIT_FEE) {
+      s.pools.money = clampPool(s.pools.money - TRANSIT_FEE);
+      s.log.push({
+        turn: s.turn,
+        eventId: "system",
+        choiceId: "pass_renew",
+        text: `Renewed the transit pass (−${TRANSIT_FEE}).`,
+      });
+    } else {
+      s.flags.has_transit_pass = false;
+      s.pools.transportation = clampPool(s.pools.transportation - TRANSIT_LAPSE_DROP);
+      s.log.push({
+        turn: s.turn,
+        eventId: "system",
+        choiceId: "pass_lapse",
+        text: "The transit pass lapsed — you couldn't cover the fare. Back to the long way around.",
+      });
+    }
+  }
 }
 
 // Schedule an incident, de-duplicated: skip if it's already queued or pending.

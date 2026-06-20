@@ -61,6 +61,12 @@ export default function App() {
     applyTheme(themeMode, accent);
   }, [themeMode, accent]);
 
+  // Land at the top of each new screen — a view change, or a new week within a
+  // run — instead of inheriting the previous screen's scroll position.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view, state?.turn]);
+
   const changeTheme = (mode: ThemeMode) => {
     setThemeMode(mode);
     persistThemeMode(mode);

@@ -55,9 +55,10 @@ export function AboutScreen({ onBack, onPlay }: Props) {
         <h2>How you play</h2>
         <HowYouPlay />
         <p className="muted">
-          You choose who to play (five very different people) and why you're here
-          (practice, or feel-the-wall). Throughout, the system models barriers and
-          consequences — never moral judgment.
+          You choose who to play — five hand-built people, or a randomly generated
+          one (Surprise me) — and why you're here (practice, or feel-the-wall).
+          Throughout, the system models barriers and consequences — never moral
+          judgment.
         </p>
       </section>
 

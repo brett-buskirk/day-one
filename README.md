@@ -20,6 +20,8 @@ It serves two audiences, weighted equally:
 Built by a returning citizen, for returning citizens — the barriers modeled here
 are remembered, not imagined.
 
+**Live:** [dayone-sim.app](https://dayone-sim.app) · [default URL](https://day-one-a7fs5.ondigitalocean.app)
+
 > **New here?** Start with [`docs/ABOUT.md`](docs/ABOUT.md) — a plain-language tour
 > of what Day One is and how it works. **Design source of truth:**
 > [`docs/DESIGN.md`](docs/DESIGN.md). Build roadmap: [`docs/SPRINTS.md`](docs/SPRINTS.md).
@@ -171,10 +173,10 @@ AJV (content validation) · js-yaml · Vitest.
 
 ## Deployment
 
-Planned (not yet live): DigitalOcean App Platform as a static site, CI/CD from
-GitHub, at **dayone-sim.app**. The spec lives in [`.do/app.yaml`](.do/app.yaml);
-see [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). Nothing deploys until `doctl apps
-create` is run.
+**Live** on DigitalOcean App Platform (static site) at **https://dayone-sim.app**
+(and `https://day-one-a7fs5.ondigitalocean.app`), building from `main` with
+`deploy_on_push` — **every push to `main` auto-deploys**. Spec: [`.do/app.yaml`](.do/app.yaml);
+details + the DNS gotcha we hit: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ---
 

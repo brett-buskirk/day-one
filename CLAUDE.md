@@ -29,16 +29,35 @@ about React.
 
 - **`src/engine/`** — pure functions over plain, JSON-safe state. No React, no I/O,
   no globals. `engine.ts` (turn loop, choice resolution, effects, scheduling,
-  obligations, serialization), `chargen.ts` (origin → opening state), `predicate.ts`
+  obligations, the monthly economy tick, serialization), `chargen.ts` (origin →
+  opening state), `randomchar.ts` (deterministic random origins), `predicate.ts`
   (safe evaluator), `rng.ts` (seedable mulberry32), `debrief.ts` (ending profile +
-  trajectory + mode framing), `tuning.ts` (balance knobs), `types.ts` (canonical
-  contracts — keep authoritative).
+  trajectory + decision-quality + mode framing), `tuning.ts` (balance knobs),
+  `flags.{ts,json}` (flag registry), `types.ts` (canonical contracts — keep
+  authoritative). `index.ts` is the public barrel the UI imports from.
 - **`content/`** — events + character origins as YAML. `scripts/compile-content.mjs`
   validates each event against `schema/event.schema.json` (AJV) and **fails the
   build** on invalid content or an unknown flag. Compiles to the corpus the app
   imports and the SW precaches.
 - **`src/ui/` + `App.tsx`** — mobile-first, single-column, accessible React shell.
-  Renders state, collects taps. Dexie (`db.ts`) autosaves/resumes a run.
+  Renders state, collects taps. Dexie (`db.ts`) autosaves/resumes a run; `theme.ts`
+  does light/dark + accent; `scenario.ts` does the `character.mode.seed` classroom
+  codes; `runShare.ts` does full run export.
+
+### Engine systems (where to look)
+
+- **Turn loop** (`engine.ts`): `beginTurn` replenishes slots, fires scheduled
+  incidents into `pending`, and runs the **monthly economy tick** (turns 4/8/12):
+  benefits stipend in, transit-pass fee (lapses if unpaid), probation supervision
+  fees. `endTurn` enforces missed obligations, fires **edge-triggered pool-floor
+  crises** (money/health/morale via `CRISIS_TRIGGERS`), snapshots pools, and handles
+  the gated terminal chain. A missed obligation schedules a violation event chosen by
+  supervision type (`violationEventFor`: parole vs probation).
+- **Scoring** (`debrief.ts`): ending profile + milestones + trajectory (pool-vitality
+  momentum) + decision quality (durable vs desperate, from per-choice `quality` tags
+  recorded in the log) + mode-aware framing.
+- **Reproducibility**: a run = character + mode + **seed**. `createRunFromOrigin`
+  chargens any origin (corpus or `randomOrigin(seed)`); same inputs ⇒ identical run.
 
 ## Non-negotiables (if a change conflicts with these, the change is wrong)
 
@@ -83,12 +102,26 @@ about React.
   (the engine also limits each event to once per turn).
 - **A character:** add an origin YAML in `content/characters/`, then add its id to
   `ARCHETYPE_ORDER` in `src/content/corpus.ts`. `chargen` maps origins to state
-  generically (pools, tracks, flags, schedule) — author difficulty in the origin
-  data, not in code. `offense.registry_required: true` sets the registry barrier flag.
+  generically (pools, tracks, flags, schedule) — **author difficulty in the origin
+  data, not in code.** Several barrier flags are *derived* by chargen, not authored:
+  `registry_required` (from `offense.registry_required`), `tech_gap` (long time
+  inside ≥ `TECH_GAP_YEARS`), `chronic_mental_health` (from `person.mental_health_issue`),
+  `owes_supervision_fees` (from a `supervision_fees` condition). Standing slot taxes
+  come from supervision conditions (`mandated_treatment`, `community_service`).
+- **Difficulty/mechanics knobs** (slot tax, transport multiplier, crisis floors,
+  monthly economy amounts, terminal threshold, tech-gap years) live in
+  `src/engine/tuning.ts`.
+
+## Deploy
+
+Live on **DigitalOcean App Platform** (static site) from this repo's `main`, with
+`deploy_on_push` on — **every push to `main` auto-builds and redeploys**. Spec:
+[`.do/app.yaml`](.do/app.yaml). Details + the DNS gotcha we hit: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ## Gotchas
 
 - Don't commit `src/content/corpus.generated.json` (gitignored; regenerated).
+- Pushing to `main` **deploys to production** — keep it green (`npm run build` + `npm test`).
 - Node is via nvm here; if a tool reports "npm not found" in a non-interactive shell
   it's a PATH/nvm issue, not a repo problem.
 - Keep commit/push to `main` only when asked; the user has been driving that.

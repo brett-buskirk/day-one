@@ -1,0 +1,34 @@
+# DigitalOcean App Platform spec — Day One (static PWA, build-on-push).
+#
+# Nothing here deploys until you run doctl. One-time wiring (repo is already on
+# GitHub):
+#   doctl apps create --spec .do/app.yaml
+# Then put the app under the "Day One" DO project (dashboard, or:
+#   doctl projects resources assign <PROJECT_ID> --resource=do:app:<APP_ID> )
+# Thereafter every push to `main` builds + deploys (deploy_on_push: true).
+# Apply later spec edits with:  doctl apps update <APP_ID> --spec .do/app.yaml
+#
+# Reference setup: ~/rc-journey-custom/.do/app.yaml. See docs/DEPLOYMENT.md.
+
+name: day-one
+region: nyc
+static_sites:
+  - name: web
+    github:
+      repo: brett-buskirk/day-one
+      branch: main
+      deploy_on_push: true
+    # `npm run build` = content pipeline (prebuild) + tsc -b + vite build → dist/
+    build_command: npm run build
+    output_dir: dist
+    environment_slug: node-js
+    catchall_document: index.html   # single-page app fallback
+    envs:
+      - key: NODE_VERSION
+        value: "22"
+        scope: BUILD_TIME
+domains:
+  - domain: dayone-sim.app
+    type: PRIMARY
+  - domain: www.dayone-sim.app
+    type: ALIAS

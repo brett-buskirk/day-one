@@ -155,6 +155,15 @@ AJV (content validation) · js-yaml · Vitest.
 
 ---
 
+## Deployment
+
+Planned (not yet live): DigitalOcean App Platform as a static site, CI/CD from
+GitHub, at **dayone-sim.app**. The spec lives in [`.do/app.yaml`](.do/app.yaml);
+see [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). Nothing deploys until `doctl apps
+create` is run.
+
+---
+
 ## Design north stars
 
 If a build decision ever conflicts with one of these, this list wins (expanded in
@@ -168,4 +177,3 @@ If a build decision ever conflicts with one of these, this list wins (expanded i
    single `hardFail` flag.
 4. **Group-ready for free.** Deterministic (seedable RNG) and serializable runs.
 5. **Phone-first, offline, accessible.** Old Android, metered plan, bad Wi-Fi.
-```

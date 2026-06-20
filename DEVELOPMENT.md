@@ -116,8 +116,8 @@ the flag registry.
 
 ## Verified
 
-- 67 tests pass (engine, Sprints 2–4 + registry employment + decision-quality +
-  recurring economy + end-to-end playthrough): RNG determinism,
+- 70 tests pass (engine, Sprints 2–4 + registry employment + decision-quality +
+  recurring economy + probation + end-to-end playthrough): RNG determinism,
   serialize round-trip (incl. the new fields + old-save migration), transport
   multiplier, predicate eval, weighted resolution, the full document catch-22 chain,
   once-per-turn actions, obligation miss → violation sub-arc, pool-floor crisis
@@ -151,12 +151,13 @@ the flag registry.
 - **Canonical `GameState` was extended** with serializable fields as features
   landed: `standingSlots`, `pending`, `actedThisTurn` (Sprint 1) and `poolHistory`,
   `violations`, `terminal` (Sprint 2). All are JSON-safe and migrated in `loadRun`.
-- **Candidate next steps (v2):** probation-specific obligations (the check-in
-  obligation is parole-only today); facilitator/classroom features on the existing
+- **Candidate next steps (v2):** facilitator/classroom features on the existing
   seed-determinism + export hooks; and random character generation. *(Done since
-  Sprint 4: the registry barrier now reshapes employment as well as housing
+  Sprint 4: the registry barrier reshapes employment as well as housing
   (`evt_job_registry`); per-choice durable/desperate tags drive a real
-  decision-quality read in the debrief; a recurring monthly economy — benefits
-  stipend in, transit-pass subscription out that lapses when you can't cover the
-  fare — keeps the mid/late game moving.)*
+  decision-quality read; a recurring monthly economy — benefits stipend in,
+  transit-pass subscription out that lapses when broke; and probation as a full
+  supervision path — `evt_probation_checkin` / `evt_probation_violation`, a
+  community-service slot tax, monthly supervision fees, and Dana, a probation
+  build.)*
 ```

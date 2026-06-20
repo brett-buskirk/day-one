@@ -4,7 +4,7 @@
 
 import { describe, it, expect } from "vitest";
 import { corpus } from "../content/corpus";
-import { createRun, beginTurn, eligibleActions } from "./engine";
+import { createRun, beginTurn, endTurn, eligibleActions } from "./engine";
 import { BENEFITS_STIPEND, TRANSIT_FEE, TRANSIT_LAPSE_DROP } from "./tuning";
 import type { GameState } from "./types";
 
@@ -55,5 +55,32 @@ describe("recurring monthly economy", () => {
     const after = beginTurn(s, corpus);
     expect(after.pools.money).toBe(s.pools.money);
     expect(after.log).toHaveLength(s.log.length);
+  });
+
+  it("charges probation supervision fees monthly", () => {
+    const dana = createRun(corpus, "dana", { seed: 1 });
+    expect(dana.flags.owes_supervision_fees).toBe(true);
+    const s = { ...dana, turn: 4 };
+    const after = beginTurn(s, corpus);
+    expect(after.pools.money).toBeLessThan(s.pools.money);
+    expect(after.log.some((l) => l.choiceId === "supervision_fees")).toBe(true);
+  });
+});
+
+describe("probation obligations (§4) route to the probation sub-arc", () => {
+  it("a probation build is due the probation check-in, not the parole one", () => {
+    const dana = createRun(corpus, "dana", { seed: 1 });
+    const due = new Set(eligibleActions(dana, corpus).map((e) => e.id));
+    expect(dana.tracks.legal.status).toBe("probation");
+    expect(due).toContain("evt_probation_checkin");
+    expect(due).not.toContain("evt_parole_checkin");
+  });
+
+  it("missing it files a probation violation (not a parole one)", () => {
+    const dana = createRun(corpus, "dana", { seed: 1 });
+    const ended = endTurn(dana, corpus); // didn't make the check-in
+    expect(ended.violations).toBe(1);
+    expect(ended.scheduled.some((x) => x.event === "evt_probation_violation")).toBe(true);
+    expect(ended.scheduled.some((x) => x.event === "evt_parole_violation")).toBe(false);
   });
 });

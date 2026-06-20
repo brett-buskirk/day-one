@@ -6,8 +6,8 @@ import { createRun, serializeRun, loadRun } from "./engine";
 import { buildDebrief } from "./debrief";
 
 describe("archetypes", () => {
-  it("offers three builds in a deliberate order", () => {
-    expect(archetypes.map((a) => a.id)).toEqual(["marcus", "renae", "theo"]);
+  it("offers the builds in a deliberate order", () => {
+    expect(archetypes.map((a) => a.id)).toEqual(["marcus", "renae", "dana", "theo"]);
   });
 
   it("every archetype chargens into a valid, in-bounds run", () => {

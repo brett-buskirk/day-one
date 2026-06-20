@@ -43,8 +43,10 @@ const SUPERVISION_TO_LEGAL: Record<string, string> = {
 // counting). See docs/DESIGN.md §4 and the marcus.yaml chargen notes.
 const COMMITMENT_SLOT_COST: Record<string, number> = {
   mandated_treatment: 1,
+  community_service: 1, // court-ordered hours — a standing claim on the week
   curfew: 0,
   weekly_checkin: 0,
+  supervision_fees: 0, // a money cost (recurring), not a slot cost
 };
 
 function derivePools(origin: CharacterOrigin): Pools {
@@ -104,6 +106,10 @@ function deriveFlags(origin: CharacterOrigin): Flags {
   // it (housing/employment events become near-impossible); framed as a barrier,
   // never a moral judgment.
   if (origin.offense.registry_required) flags.registry_required = true;
+  // Probation supervision fees become a standing monthly cost (recurring economy).
+  if ((origin.supervision.conditions ?? []).includes("supervision_fees")) {
+    flags.owes_supervision_fees = true;
+  }
   return flags;
 }
 

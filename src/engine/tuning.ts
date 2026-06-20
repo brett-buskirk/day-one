@@ -39,9 +39,16 @@ export const CRISIS_TRIGGERS: CrisisTrigger[] = [
 ];
 
 // Obligations (§4): failing to act on a due obligation within the week costs
-// standing and files a technical violation (a recoverable sub-arc).
+// standing and files a technical violation (a recoverable sub-arc). The violation
+// event depends on the supervision type so parole and probation read differently.
 export const OBLIGATION_MISS_READINESS_PENALTY = 15;
-export const VIOLATION_EVENT = "evt_parole_violation";
+export const VIOLATION_EVENTS: Record<string, string> = {
+  parole: "evt_parole_violation",
+  probation: "evt_probation_violation",
+};
+export function violationEventFor(legalStatus: string): string {
+  return VIOLATION_EVENTS[legalStatus] ?? "evt_parole_violation";
+}
 
 // Terminal chains (§10) are reachable only from *accumulated* violations, never
 // a single slip — and only when hardFail is on (empathy mode). Training stalls
@@ -56,3 +63,4 @@ export const MONTH_TURNS = 4;
 export const BENEFITS_STIPEND = 8; // +money/month while has_benefits
 export const TRANSIT_FEE = 8; // money/month to keep the pass
 export const TRANSIT_LAPSE_DROP = 30; // transportation lost when the pass lapses
+export const SUPERVISION_FEE = 6; // money/month while owes_supervision_fees (probation)

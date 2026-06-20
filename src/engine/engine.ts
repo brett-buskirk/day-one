@@ -23,12 +23,13 @@ import {
   POOL_BASELINE,
   CRISIS_TRIGGERS,
   OBLIGATION_MISS_READINESS_PENALTY,
-  VIOLATION_EVENT,
+  violationEventFor,
   TERMINAL_VIOLATIONS,
   MONTH_TURNS,
   BENEFITS_STIPEND,
   TRANSIT_FEE,
   TRANSIT_LAPSE_DROP,
+  SUPERVISION_FEE,
   clampPool,
   transportFactor,
 } from "./tuning";
@@ -293,6 +294,21 @@ function applyMonthlyFlows(s: GameState): void {
       });
     }
   }
+
+  // Probation supervision fees — a standing monthly cost of being supervised.
+  if (s.flags.owes_supervision_fees) {
+    const paid = Math.min(SUPERVISION_FEE, s.pools.money);
+    s.pools.money = clampPool(s.pools.money - paid);
+    s.log.push({
+      turn: s.turn,
+      eventId: "system",
+      choiceId: "supervision_fees",
+      text:
+        paid >= SUPERVISION_FEE
+          ? `Supervision fees due (−${SUPERVISION_FEE}). The cost of being watched.`
+          : `Supervision fees due — they take what little there is (−${paid}).`,
+    });
+  }
 }
 
 // Schedule an incident, de-duplicated: skip if it's already queued or pending.
@@ -313,7 +329,7 @@ export function endTurn(state: GameState, corpus: Corpus): GameState {
     s.violations += 1;
     const legal = s.tracks.legal;
     legal.readiness = clampPool((legal.readiness ?? 0) - OBLIGATION_MISS_READINESS_PENALTY);
-    queueIncident(s, VIOLATION_EVENT, s.turn + 1);
+    queueIncident(s, violationEventFor(legal.status), s.turn + 1);
     s.log.push({
       turn: s.turn,
       eventId: ob.id,

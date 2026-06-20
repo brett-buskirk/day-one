@@ -1,0 +1,52 @@
+id: evt_probation_checkin
+kind: action
+title: Probation check-in
+tags: [legal, obligation]
+requires_travel: true
+repeatable: true
+
+# The probation analog of the parole check-in (the engine routes a missed one to
+# evt_probation_violation). Court-supervised: fees, testing, proof you're meeting
+# conditions. Only appears while on probation.
+conditions:
+  - tracks.legal.status == "probation"
+
+prompt: >
+  Your probation officer wants to see you — proof you're working the conditions,
+  a cup to fill, the fees ledger checked. It's across town and it's not optional.
+  Miss it without clearing it first and the court starts paying closer attention.
+
+choices:
+
+  - id: make_checkin
+    quality: durable
+    label: Make the check-in
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Sign in, test clean, show the work hours and the job search. Conditions
+            met, ledger noted. One more week the court has nothing to say about.
+          tracks: { legal: { status: probation, readiness: 5 } }
+
+  - id: reschedule
+    quality: desperate
+    label: Call and try to push it a week
+    cost: { slots: 0 }
+    outcomes:
+      - weight: 40
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            You reach them and they allow it, once. The slot's yours back this
+            week — but the clock only moved, it didn't stop.
+          schedule: { event: evt_probation_checkin, in_turns: 1 }
+      - weight: 60
+        effects:
+          text: >
+            No answer, no confirmation. Skipping a court date without a yes is how
+            a technical violation gets written.
+          pools: { morale: -6 }
+          tracks: { legal: { status: probation, readiness: -10 } }
+          schedule: { event: evt_probation_checkin, in_turns: 1 }

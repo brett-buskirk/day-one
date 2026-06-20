@@ -28,6 +28,7 @@ const MODES: { key: Mode; label: string; blurb: string }[] = [
 function archetypeTag(o: CharacterOrigin): string {
   if (o.offense.registry_required) return "Registry · deep end";
   if (o.landing.support === "supported" || o.landing.support === "network") return "Has people in their corner";
+  if (o.supervision.type === "probation") return "On probation";
   return "The thesis build";
 }
 

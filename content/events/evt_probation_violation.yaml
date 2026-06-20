@@ -1,0 +1,51 @@
+id: evt_probation_violation
+kind: incident
+title: A probation violation is filed
+tags: [legal, crisis]
+
+prompt: >
+  The missed date went into the record, and probation has a sharper edge than
+  parole here — a violation can land you back in front of the judge who suspended
+  the sentence in the first place. It's recoverable. It's also not nothing.
+
+choices:
+
+  - id: own_it_recommit
+    quality: durable
+    label: Get ahead of it — call counsel, show good faith
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        modifier: { stat: morale, scale: 0.2 }
+        effects:
+          text: >
+            You don't wait for the summons; you call, you document, you show up
+            early with a plan. The judge keeps the leash; your standing holds.
+          pools: { morale: -4 }
+          tracks: { legal: { status: probation, readiness: 12 } }
+      - weight: 30
+        effects:
+          text: >
+            A hearing date and a stern warning on the record. Tighter conditions,
+            a shorter rope — but you're still walking out of the building.
+          pools: { morale: -7 }
+          tracks: { legal: { status: probation, readiness: 4 } }
+
+  - id: lay_low
+    quality: desperate
+    label: Hope the court's too busy to follow up
+    outcomes:
+      - weight: 55
+        effects:
+          text: >
+            The filing sits and your standing sinks with it. Pretending it isn't
+            there has never once made it not there.
+          pools: { morale: -5 }
+          tracks: { legal: { status: probation, readiness: -8 } }
+      - weight: 45
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            An overloaded docket buys you a pass this once. Nothing changes on
+            paper. Do not mistake luck for a plan.
+          tracks: { legal: { status: probation, readiness: -2 } }

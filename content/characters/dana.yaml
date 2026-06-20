@@ -1,0 +1,34 @@
+id: dana
+name: Dana
+display_age: 26
+summary: >
+  A short year inside, and now three years of probation trailing it — weekly
+  court check-ins, supervision fees pulled from money she doesn't have, and
+  court-ordered hours that eat a day every week. No registry, but the record
+  still closes doors. Back at her mom's, rebuilding the paper trail like everyone
+  else. A build for the weight of supervision itself.
+
+time_inside_years: 1
+
+supervision:
+  type: probation
+  years: 3
+  conditions: [weekly_checkin, supervision_fees, community_service]
+
+landing:
+  night_one: couch
+  housing_clock_turns: 6
+  support: one_tie
+  job_lined_up: false
+  documents: []
+  transportation: bus_pass
+  gate_money: 100
+
+person:
+  in_recovery: false
+  chronic_health_issue: false
+  credentials: [cert_culinary]
+
+offense:
+  category: property_felony
+  registry_required: false

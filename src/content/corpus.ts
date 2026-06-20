@@ -10,8 +10,9 @@ export const corpus = data as unknown as Corpus;
 export const MARCUS_ID = "marcus";
 
 // Archetypes offered on the start screen, in a deliberate order: the thesis
-// build, then a supported contrast, then the registry deep-end (empathy).
-const ARCHETYPE_ORDER = ["marcus", "renae", "theo"];
+// build, a supported contrast, a probation build (the weight of supervision),
+// then the registry deep-end (empathy).
+const ARCHETYPE_ORDER = ["marcus", "renae", "dana", "theo"];
 
 export const archetypes: CharacterOrigin[] = ARCHETYPE_ORDER.map(
   (id) => corpus.characters[id]

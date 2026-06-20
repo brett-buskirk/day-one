@@ -35,19 +35,24 @@ Playable end-to-end. Sprints 0–4 of the roadmap are complete:
 - **Sprint 3** — mode onboarding, three character archetypes (incl. a registry
   deep-end build) with character select, run export/import, the resource hook, and
   an accessibility pass.
-- **Sprint 4** — a broadened corpus (**19 events**, 14 player actions across every
-  track) and an economy balance pass.
+- **Sprint 4** — a broadened corpus (events across every track) and an economy
+  balance pass.
+- **Post-4 (v2)** — a landing page + About screen, registry employment wall,
+  decision-quality scoring, a recurring monthly economy, and probation as a full
+  supervision path.
 
-Currently: **3 characters**, **19 events**, two modes (training / empathy),
-light/dark + accent theming, and **55 passing tests**. What you can do today:
+Currently: **4 characters**, **22 events**, two modes (training / empathy),
+light/dark + accent theming, and **70 passing tests**. What you can do today:
 
-- Pick one of three builds — **Marcus** (the thesis build), **Renae** (a supported
-  build), or **Theo** (the registry deep-end build) — and a mode, then play ~13
-  weeks to a narrative debrief.
+- From the landing page, read the About or jump straight to Play. Pick one of four
+  builds — **Marcus** (the thesis build), **Renae** (supported), **Dana** (on
+  probation), or **Theo** (the registry deep-end) — and a mode, then play ~13 weeks
+  to a narrative debrief.
 - Feel the document catch-22, hit crises that branch instead of ending the run,
-  keep (or miss) a weekly obligation, and watch the registry wall reshape housing.
-- Install it to a phone, play offline, close the tab and resume, switch theme, and
-  export/import a run.
+  keep (or miss) a weekly check-in, watch the registry wall reshape housing and
+  work, and feel money move month to month (benefits in, fees and fares out).
+- Install it to a phone, play offline, close the tab and resume, switch theme, end
+  a run early, and export/import a run.
 
 Candidate next steps (v2) are listed at the bottom of [`DEVELOPMENT.md`](DEVELOPMENT.md).
 
@@ -116,7 +121,7 @@ day-one/
 │   └── event.schema.json         JSON Schema authored events validate against
 ├── content/
 │   ├── characters/*.yaml         the three archetypes (origins)
-│   ├── events/*.yaml             19 authored events (the "world")
+│   ├── events/*.yaml             authored events (the "world")
 │   └── resources.yaml            per-jurisdiction resource hook (placeholder)
 ├── scripts/
 │   ├── compile-content.mjs       YAML → validated JSON pipeline (shared)

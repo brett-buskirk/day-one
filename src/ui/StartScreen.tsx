@@ -1,8 +1,6 @@
 import { useState } from "react";
 import type { CharacterOrigin, Mode } from "../engine";
-import type { Accent, ThemeMode } from "../theme";
 import { humanizeCredential } from "./format";
-import { ThemeControls } from "./ThemeControls";
 
 interface Props {
   characters: CharacterOrigin[];
@@ -10,13 +8,10 @@ interface Props {
   savedTurn: number | null;
   savedMode: Mode | null;
   savedCharacterName: string | null;
-  themeMode: ThemeMode;
-  accent: Accent;
-  onThemeMode: (mode: ThemeMode) => void;
-  onAccent: (accent: Accent) => void;
   onChoose: (characterId: string, mode: Mode) => void;
   onResume: () => void;
   onImport: (serialized: string) => void;
+  onBack: () => void;
 }
 
 const MODES: { key: Mode; label: string; blurb: string }[] = [
@@ -38,13 +33,10 @@ export function StartScreen({
   savedTurn,
   savedMode,
   savedCharacterName,
-  themeMode,
-  accent,
-  onThemeMode,
-  onAccent,
   onChoose,
   onResume,
   onImport,
+  onBack,
 }: Props) {
   const [selectedId, setSelectedId] = useState<string>(characters[0]?.id ?? "");
   const [mode, setMode] = useState<Mode>("training");
@@ -162,7 +154,9 @@ export function StartScreen({
         </button>
       </details>
 
-      <ThemeControls mode={themeMode} accent={accent} onMode={onThemeMode} onAccent={onAccent} />
+      <button type="button" className="link-btn" onClick={onBack}>
+        ← Back
+      </button>
     </div>
   );
 }

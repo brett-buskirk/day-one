@@ -22,16 +22,18 @@ import {
   type ThemeMode,
   type Accent,
 } from "./theme";
+import { Landing } from "./ui/Landing";
+import { AboutScreen } from "./ui/AboutScreen";
 import { StartScreen } from "./ui/StartScreen";
 import { Onboarding } from "./ui/Onboarding";
 import { TurnScreen } from "./ui/TurnScreen";
 import { EventDetail } from "./ui/EventDetail";
 import { DebriefScreen } from "./ui/DebriefScreen";
 
-type View = "start" | "onboarding" | "playing" | "debrief";
+type View = "landing" | "about" | "start" | "onboarding" | "playing" | "debrief";
 
 export default function App() {
-  const [view, setView] = useState<View>("start");
+  const [view, setView] = useState<View>("landing");
   const [state, setState] = useState<GameState | null>(null);
   const [pendingStart, setPendingStart] = useState<{ characterId: string; mode: Mode } | null>(null);
   const [activeEventId, setActiveEventId] = useState<string | null>(null);
@@ -162,6 +164,23 @@ export default function App() {
 
   return (
     <main className="app">
+      {view === "landing" && (
+        <Landing
+          hasSavedRun={!!savedRun}
+          themeMode={themeMode}
+          accent={accent}
+          onThemeMode={changeTheme}
+          onAccent={changeAccent}
+          onPlay={() => setView("start")}
+          onAbout={() => setView("about")}
+          onResume={handleResume}
+        />
+      )}
+
+      {view === "about" && (
+        <AboutScreen onBack={() => setView("landing")} onPlay={() => setView("start")} />
+      )}
+
       {view === "start" && (
         <StartScreen
           characters={archetypes}
@@ -169,13 +188,10 @@ export default function App() {
           savedTurn={savedRun?.turn ?? null}
           savedMode={savedRun?.mode ?? null}
           savedCharacterName={savedRun ? corpus.characters[savedRun.characterId]?.name ?? null : null}
-          themeMode={themeMode}
-          accent={accent}
-          onThemeMode={changeTheme}
-          onAccent={changeAccent}
           onChoose={handleChooseCharacter}
           onResume={handleResume}
           onImport={handleImport}
+          onBack={() => setView("landing")}
         />
       )}
 

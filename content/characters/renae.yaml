@@ -1,0 +1,33 @@
+id: renae
+name: Renae
+display_age: 31
+summary: >
+  Two years in, home to family who showed up — a bedroom that's hers for a while,
+  a co-signer, people who answer the phone. The paperwork wall is exactly the same
+  as anyone's; the difference is she isn't standing at it alone. A build for seeing
+  what a real support network changes.
+
+time_inside_years: 2
+
+supervision:
+  type: parole
+  years: 2
+  conditions: [weekly_checkin]
+
+landing:
+  night_one: couch
+  housing_clock_turns: 8         # family is patient
+  support: supported
+  job_lined_up: false
+  documents: []                  # still has to rebuild the document trail
+  transportation: bus_pass
+  gate_money: 240
+
+person:
+  in_recovery: false
+  chronic_health_issue: false
+  credentials: [cert_medassist]
+
+offense:
+  category: property_felony
+  registry_required: false

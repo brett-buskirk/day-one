@@ -786,6 +786,162 @@ button {
   margin-top: 4px;
 }
 
+/* ---- Character select (start screen) ------------------------------- */
+
+.char-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.char-card {
+  width: 100%;
+  text-align: left;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.char-card-on {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.char-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.char-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.char-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-ink);
+  background: var(--accent-tint);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+.char-summary {
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+.char-meta {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+/* ---- Onboarding ---------------------------------------------------- */
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent-ink);
+  margin: 0;
+}
+.how-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.how-list li {
+  line-height: 1.5;
+}
+
+/* ---- Import / export ----------------------------------------------- */
+
+.disclosure {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  background: var(--card);
+}
+.disclosure summary {
+  cursor: pointer;
+  font-weight: 650;
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+}
+.import-box {
+  width: 100%;
+  font: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 10px;
+  margin: 8px 0;
+  resize: vertical;
+}
+.export-row {
+  display: flex;
+  gap: 10px;
+}
+.export-row .primary {
+  width: auto;
+  flex: 1;
+}
+
+/* ---- Resources (debrief) ------------------------------------------- */
+
+.resources {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.resource {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.resource-cat {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.resource-name {
+  font-weight: 650;
+}
+.resource-contact {
+  display: flex;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+/* Visually hidden but available to screen readers. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;

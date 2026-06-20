@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { corpus, MARCUS_ID } from "./content/corpus";
+import { corpus, archetypes } from "./content/corpus";
 import {
   createRun,
   resolveChoice,
   endTurn,
   beginTurn,
   isRunOver,
+  loadRun,
   randomSeed,
   type Choice,
   type GameState,
@@ -22,15 +23,17 @@ import {
   type Accent,
 } from "./theme";
 import { StartScreen } from "./ui/StartScreen";
+import { Onboarding } from "./ui/Onboarding";
 import { TurnScreen } from "./ui/TurnScreen";
 import { EventDetail } from "./ui/EventDetail";
 import { DebriefScreen } from "./ui/DebriefScreen";
 
-type View = "start" | "playing" | "debrief";
+type View = "start" | "onboarding" | "playing" | "debrief";
 
 export default function App() {
   const [view, setView] = useState<View>("start");
   const [state, setState] = useState<GameState | null>(null);
+  const [pendingStart, setPendingStart] = useState<{ characterId: string; mode: Mode } | null>(null);
   const [activeEventId, setActiveEventId] = useState<string | null>(null);
   const [outcomeText, setOutcomeText] = useState<string | null>(null);
   const [savedRun, setSavedRun] = useState<GameState | null>(null);
@@ -69,20 +72,45 @@ export default function App() {
     void saveRun(next, Date.now());
   };
 
-  const handleStart = (mode: Mode) => {
+  // Start screen → onboarding (carry the chosen character + mode).
+  const handleChooseCharacter = (characterId: string, mode: Mode) => {
+    setPendingStart({ characterId, mode });
+    setView("onboarding");
+  };
+
+  // Onboarding → begin the run.
+  const handleBeginRun = () => {
+    if (!pendingStart) return;
     setActiveEventId(null);
     setOutcomeText(null);
     // Empathy mode is the deliberate deep end: hardFail walks an outsider to the
     // edge of the cliff. Training keeps hardFail off (DESIGN §10).
-    commit(createRun(corpus, MARCUS_ID, { seed: randomSeed(), mode, hardFail: mode === "empathy" }));
+    commit(
+      createRun(corpus, pendingStart.characterId, {
+        seed: randomSeed(),
+        mode: pendingStart.mode,
+        hardFail: pendingStart.mode === "empathy",
+      })
+    );
+  };
+
+  const resumeInto = (run: GameState) => {
+    setActiveEventId(null);
+    setOutcomeText(null);
+    setState(run);
+    setView(isRunOver(run) ? "debrief" : "playing");
   };
 
   const handleResume = () => {
-    if (!savedRun) return;
-    setActiveEventId(null);
-    setOutcomeText(null);
-    setState(savedRun);
-    setView(isRunOver(savedRun) ? "debrief" : "playing");
+    if (savedRun) resumeInto(savedRun);
+  };
+
+  // Import a serialized run (the classroom hook). Persists + resumes it.
+  const handleImport = (serialized: string) => {
+    const run = loadRun(serialized); // throws on bad payload; StartScreen catches
+    setSavedRun(run);
+    void saveRun(run, Date.now());
+    resumeInto(run);
   };
 
   const handleChoose = (choice: Choice) => {
@@ -114,27 +142,40 @@ export default function App() {
     void clearSavedRun();
     setSavedRun(null);
     setState(null);
+    setPendingStart(null);
     setActiveEventId(null);
     setOutcomeText(null);
     setView("start");
   };
 
   const activeEvent = activeEventId ? corpus.events[activeEventId] : null;
+  const pendingOrigin = pendingStart ? corpus.characters[pendingStart.characterId] : null;
 
   return (
     <main className="app">
       {view === "start" && (
         <StartScreen
-          marcus={corpus.characters[MARCUS_ID]}
+          characters={archetypes}
           hasSavedRun={!!savedRun}
           savedTurn={savedRun?.turn ?? null}
           savedMode={savedRun?.mode ?? null}
+          savedCharacterName={savedRun ? corpus.characters[savedRun.characterId]?.name ?? null : null}
           themeMode={themeMode}
           accent={accent}
           onThemeMode={changeTheme}
           onAccent={changeAccent}
-          onStart={handleStart}
+          onChoose={handleChooseCharacter}
           onResume={handleResume}
+          onImport={handleImport}
+        />
+      )}
+
+      {view === "onboarding" && pendingStart && pendingOrigin && (
+        <Onboarding
+          origin={pendingOrigin}
+          mode={pendingStart.mode}
+          onBegin={handleBeginRun}
+          onBack={() => setView("start")}
         />
       )}
 

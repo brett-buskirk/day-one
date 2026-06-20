@@ -7,17 +7,18 @@ repeatable: true   # a failed ask shouldn't lock you out — retry until the
 
 conditions:
   - flags.has_proof_of_address == false
-  - tracks.housing.status == "couch"
 
 prompt: >
-  The DMV wants proof you live somewhere. You don't — not really — but your
-  sibling does. Getting your name on a piece of their mail means asking, again,
-  for something.
+  The DMV wants proof you live somewhere. You don't — not really. There's the
+  favor route, if you have someone to ask, or the slower route through a service
+  that will vouch for an address.
 
 choices:
 
   - id: ask_sibling
-    label: Ask your sibling to add you to a utility bill
+    label: Ask someone close to add you to a utility bill
+    requires:
+      - tracks.relationships.status != "isolated"
     cost: { slots: 1 }
     outcomes:
       - weight: 75

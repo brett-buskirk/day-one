@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import type { Choice, GameEvent, GameState } from "../engine";
 import {
   isChoiceUnlocked,
@@ -100,13 +101,50 @@ export function EventDetail({
   onContinue,
   onClose,
 }: Props) {
+  const sheetRef = useRef<HTMLElement>(null);
+  const dismiss = outcomeText ? onContinue : onClose;
+
+  // Focus management for the modal: focus the sheet on open, restore focus to
+  // the trigger on close, trap Tab within the sheet, and close on Escape.
+  useEffect(() => {
+    const prev = document.activeElement as HTMLElement | null;
+    sheetRef.current?.focus();
+    return () => prev?.focus?.();
+  }, []);
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      e.stopPropagation();
+      dismiss();
+      return;
+    }
+    if (e.key !== "Tab") return;
+    const focusables = sheetRef.current?.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), a[href], textarea, input, [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusables || focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+    if (e.shiftKey && (active === first || active === sheetRef.current)) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && active === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+
   return (
-    <div className="sheet-backdrop" role="presentation" onClick={outcomeText ? onContinue : onClose}>
+    <div className="sheet-backdrop" role="presentation" onClick={dismiss}>
       <section
+        ref={sheetRef}
         className="sheet"
         role="dialog"
         aria-modal="true"
         aria-labelledby="sheet-title"
+        tabIndex={-1}
+        onKeyDown={onKeyDown}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sheet-handle" aria-hidden="true" />
@@ -118,7 +156,7 @@ export function EventDetail({
         <p className="prompt">{event.prompt}</p>
 
         {outcomeText ? (
-          <div className="outcome">
+          <div className="outcome" role="status" aria-live="polite">
             <p className="outcome-text">{outcomeText}</p>
             <button type="button" className="primary" onClick={onContinue} autoFocus>
               Continue

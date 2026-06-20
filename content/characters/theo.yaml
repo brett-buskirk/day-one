@@ -1,0 +1,34 @@
+id: theo
+name: Theo
+display_age: 47
+summary: >
+  Eleven years in, home to a registry requirement that draws the map of where he's
+  allowed to be — which addresses, which jobs, how close to which buildings. The
+  skills and the will are there; the law keeps shrinking the ground he can rebuild
+  on. The deliberate deep-end build: the wall is the rule, and it's almost
+  everywhere. (Offense modeled as a barrier only — never a judgment of the person.)
+
+time_inside_years: 11
+
+supervision:
+  type: parole
+  years: 5
+  conditions: [weekly_checkin, curfew, registry_compliance, mandated_treatment]
+
+landing:
+  night_one: shelter
+  housing_clock_turns: 2         # shelter beds churn; nowhere is settled
+  support: isolated
+  job_lined_up: false
+  documents: []
+  transportation: none
+  gate_money: 80
+
+person:
+  in_recovery: false
+  chronic_health_issue: true
+  credentials: [cert_forklift]
+
+offense:
+  category: registry
+  registry_required: true        # the heaviest single barrier (DESIGN §8)

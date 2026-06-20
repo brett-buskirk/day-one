@@ -199,9 +199,20 @@ export interface GameEvent {
 /* Engine surface (suggested signatures — implement per docs/DESIGN.md)*/
 /* ------------------------------------------------------------------ */
 
+// A local reentry resource (DESIGN §10). Authored per jurisdiction in
+// content/resources.yaml; empty by default. Surfaced in the training debrief.
+export interface ResourceItem {
+  category: string; // housing | benefits | recovery | legal_aid | employment | ...
+  name: string;
+  phone?: string;
+  url?: string;
+  note?: string;
+}
+
 export type Corpus = {
   events: Record<string, GameEvent>;
   characters: Record<string, CharacterOrigin>;
+  resources?: ResourceItem[];
 };
 
 export interface Engine {

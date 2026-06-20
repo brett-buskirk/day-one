@@ -1,5 +1,7 @@
+import { useState } from "react";
 import type { Corpus, GameState } from "../engine";
 import { buildDebrief } from "../engine";
+import { downloadRun, copyRun } from "./runShare";
 
 interface Props {
   state: GameState;
@@ -10,6 +12,8 @@ interface Props {
 export function DebriefScreen({ state, corpus, onPlayAgain }: Props) {
   const name = corpus.characters[state.characterId]?.name ?? "they";
   const debrief = buildDebrief(state, name);
+  const resources = corpus.resources ?? [];
+  const [copied, setCopied] = useState(false);
 
   // Group the full run log by week for the narrative replay.
   const weeks = Array.from({ length: state.endTurn }, (_, i) => i + 1)
@@ -92,14 +96,55 @@ export function DebriefScreen({ state, corpus, onPlayAgain }: Props) {
       {debrief.framing.showResources && (
         <section className="block block-resources" aria-label="Local resources">
           <h2 className="block-title">Local resources</h2>
-          <p className="muted">
-            Configured per site — housing, benefits, recovery, and legal-aid pointers
-            for your jurisdiction appear here. (Placeholder hook for v1.)
-          </p>
+          {resources.length > 0 ? (
+            <ul className="resources">
+              {resources.map((r, i) => (
+                <li key={i} className="resource">
+                  <span className="resource-cat">{r.category}</span>
+                  <span className="resource-name">{r.name}</span>
+                  {r.note && <span className="muted small">{r.note}</span>}
+                  <span className="resource-contact">
+                    {r.phone && <span>{r.phone}</span>}
+                    {r.url && (
+                      <a href={r.url} target="_blank" rel="noreferrer">
+                        {r.url.replace(/^https?:\/\//, "")}
+                      </a>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="muted">
+              Configured per site — housing, benefits, recovery, and legal-aid pointers
+              for your jurisdiction appear here. (Placeholder hook for v1.)
+            </p>
+          )}
         </section>
       )}
 
-      <p className="framing-closing">{debrief.framing.closing}</p>
+      <section className="block" aria-label="Export this run">
+        <h2 className="block-title">Take it with you</h2>
+        <p className="muted small">
+          Export this run to share or replay — same seed, same character, same story.
+        </p>
+        <div className="export-row">
+          <button type="button" className="primary" onClick={() => downloadRun(state)}>
+            Download
+          </button>
+          <button
+            type="button"
+            className="primary"
+            onClick={async () => {
+              const ok = await copyRun(state);
+              setCopied(ok);
+              if (ok) setTimeout(() => setCopied(false), 2000);
+            }}
+          >
+            {copied ? "Copied ✓" : "Copy"}
+          </button>
+        </div>
+      </section>
 
       <button type="button" className="primary big" onClick={onPlayAgain}>
         Play again

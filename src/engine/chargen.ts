@@ -99,6 +99,11 @@ function deriveFlags(origin: CharacterOrigin): Flags {
   for (const cred of origin.person.credentials ?? []) flags[`has_${cred}`] = true;
   if (origin.person.in_recovery) flags.in_recovery_support = true;
   if (origin.landing.job_lined_up) flags.has_job = true;
+  // A registry requirement is the heaviest single barrier (DESIGN §8) — it
+  // reshapes housing and employment. Surfaced as a flag so content can gate on
+  // it (housing/employment events become near-impossible); framed as a barrier,
+  // never a moral judgment.
+  if (origin.offense.registry_required) flags.registry_required = true;
   return flags;
 }
 
@@ -109,12 +114,16 @@ function deriveStandingSlots(origin: CharacterOrigin): number {
   );
 }
 
+// Housing situations that actually owe rent (so a shelter/none landing doesn't
+// get a "rent is due" crisis — those builds face different pressures).
+const RENT_BEARING = new Set(["couch", "rental", "transitional", "halfway_house"]);
+
 // The first rent crisis lands when the welcome runs out, then recurs on that
 // cadence. Modeled as scheduled incidents derived from the housing clock rather
-// than hardcoded, so it stays data-driven (Sprint 2 generalizes this).
+// than hardcoded, so it stays data-driven.
 function deriveSchedule(origin: CharacterOrigin): GameState["scheduled"] {
   const clock = origin.landing.housing_clock_turns;
-  if (!clock || clock < 1) return [];
+  if (!clock || clock < 1 || !RENT_BEARING.has(origin.landing.night_one)) return [];
   const out: GameState["scheduled"] = [];
   for (let t = clock; t <= END_TURN; t += clock) {
     out.push({ event: "evt_rent_due", onTurn: t });

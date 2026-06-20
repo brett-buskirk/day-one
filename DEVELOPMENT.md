@@ -1,4 +1,4 @@
-# Day One — development notes (Sprint 0 + 1 + 2)
+# Day One — development notes (Sprint 0 + 1 + 2 + 3)
 
 The walking skeleton: a phone-first reentry simulator, playable start-to-debrief.
 This file covers how to run it and what was built. The design source of truth is
@@ -69,9 +69,31 @@ the flag registry.
 - New serializable `GameState` fields: `poolHistory`, `violations`, `terminal`
   (all migrated in `loadRun` for older saves).
 
+## Sprint 3 — modes, archetypes, persistence, group hooks
+
+- **Mode onboarding** (`src/ui/Onboarding.tsx`) — a step between start and play
+  with the mode's emotional contract (training = practice/always-a-way-forward;
+  empathy = feel-the-wall/deep-end) and a "how a week works" primer.
+- **Three archetypes + character select** — Marcus (thesis), **Renae** (a
+  supported build: family, money, transport — reuses the same content at a
+  gentler difficulty), and **Theo** (the registry deep-end build for empathy).
+  `chargen` sets a `registry_required` barrier flag and only schedules rent for
+  rent-bearing housing. `evt_proof_of_address` was generalized (no longer
+  couch-only; the "ask someone" choice now requires a non-isolated tie) so the
+  document chain works across builds.
+- **Run export/import** (`src/ui/runShare.ts`) — download/copy the serialized run
+  from the debrief; paste-to-import on the start screen. The deterministic seed +
+  serialization make this the classroom/facilitator hook.
+- **Resource-pointer hook wired** — the pipeline loads `content/resources.yaml`
+  into the corpus; the training debrief renders site-configured resources when
+  present (placeholder otherwise).
+- **Accessibility pass** — the modal sheet now focuses on open, traps Tab, closes
+  on Escape, and restores focus; the outcome narration is an `aria-live` region.
+  Plus light/dark + accent theming from the previous round.
+
 ## Verified
 
-- 39 tests pass (engine, Sprint 2, end-to-end playthrough): RNG determinism,
+- 47 tests pass (engine, Sprints 2 & 3, end-to-end playthrough): RNG determinism,
   serialize round-trip (incl. the new fields + old-save migration), transport
   multiplier, predicate eval, weighted resolution, the full document catch-22 chain,
   once-per-turn actions, obligation miss → violation sub-arc, pool-floor crisis
@@ -105,10 +127,10 @@ the flag registry.
 - **Canonical `GameState` was extended** with serializable fields as features
   landed: `standingSlots`, `pending`, `actedThisTurn` (Sprint 1) and `poolHistory`,
   `violations`, `terminal` (Sprint 2). All are JSON-safe and migrated in `loadRun`.
-- **Deferred to Sprint 3 by design:** training/empathy *onboarding* copy (only the
-  mode toggle + `hardFail` exist now), more archetypes (incl. a registry deep-end
-  build), full Dexie save management + run export, a real resource directory, and
-  the accessibility polish pass. Decision-quality scoring is currently derived from
-  violations/crises/milestones rather than per-choice "durable vs desperate" tags —
-  a candidate refinement if you want choice-level quality signals.
+- **Next up — Sprint 4 (content + balance):** broaden the corpus per track
+  (employment, housing, recovery/health, relationships, benefits) so players have a
+  real decision base, add registry-gated housing/employment events that make Theo's
+  wall mechanical, and rebalance the early economy. Decision-quality scoring is
+  currently derived from violations/crises/milestones rather than per-choice
+  "durable vs desperate" tags — a candidate refinement once more content exists.
 ```

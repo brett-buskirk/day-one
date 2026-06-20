@@ -86,6 +86,7 @@ export function compileContent(opts = {}) {
   const registryPath = join(root, "src", "engine", "flags.json");
   const eventsDir = join(root, "content", "events");
   const charsDir = join(root, "content", "characters");
+  const resourcesFile = join(root, "content", "resources.yaml");
   const outFile = join(root, "src", "content", "corpus.generated.json");
 
   const schema = JSON.parse(readFileSync(schemaPath, "utf8"));
@@ -168,14 +169,24 @@ export function compileContent(opts = {}) {
     );
   }
 
+  // Resource-pointer hook (DESIGN §10): a site fills content/resources.yaml per
+  // jurisdiction; the training debrief renders these when present. Empty by default.
+  let resources = [];
+  if (existsSync(resourcesFile)) {
+    const parsed = loadYaml(resourcesFile);
+    if (parsed && Array.isArray(parsed.resources)) resources = parsed.resources;
+  }
+
   const corpus = {
     meta: {
       generated: "by scripts/compile-content.mjs — do not edit by hand",
       eventCount: Object.keys(events).length,
       characterCount: Object.keys(characters).length,
+      resourceCount: resources.length,
     },
     events,
     characters,
+    resources,
   };
 
   if (write) {

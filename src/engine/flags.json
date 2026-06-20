@@ -10,6 +10,7 @@
     "has_bank_account",
     "has_cert_webdev",
     "has_job",
-    "in_recovery_support"
+    "in_recovery_support",
+    "registry_required"
   ]
 }

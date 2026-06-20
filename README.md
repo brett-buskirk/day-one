@@ -120,7 +120,7 @@ day-one/
 ├── schema/
 │   └── event.schema.json         JSON Schema authored events validate against
 ├── content/
-│   ├── characters/*.yaml         the three archetypes (origins)
+│   ├── characters/*.yaml         the four archetypes (origins)
 │   ├── events/*.yaml             authored events (the "world")
 │   └── resources.yaml            per-jurisdiction resource hook (placeholder)
 ├── scripts/
@@ -138,8 +138,8 @@ day-one/
 │   │   ├── tuning.ts             balance knobs (slots, multipliers, triggers)
 │   │   ├── flags.{ts,json}       the flag registry (single source of truth)
 │   │   └── *.test.ts             engine, per-sprint, and playthrough tests
-│   ├── ui/                       React screens & components (Start, Onboarding,
-│   │                             Turn, EventDetail, Debrief, theme controls)
+│   ├── ui/                       React screens & components (Landing, About,
+│   │                             Start, Onboarding, Turn, EventDetail, Debrief)
 │   ├── content/corpus.ts         typed access to the compiled corpus
 │   ├── theme.ts                  light/dark + accent theming
 │   ├── db.ts                     Dexie save/resume

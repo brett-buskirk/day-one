@@ -61,6 +61,15 @@ export function AboutScreen({ onBack, onPlay }: Props) {
         </p>
       </section>
 
+      <section className="card-static">
+        <h2>Who made it</h2>
+        <p className="muted">
+          Day One is built by someone who has lived it — a returning citizen — for
+          people walking the same road. The barriers here aren't imagined; they're
+          remembered.
+        </p>
+      </section>
+
       <button type="button" className="primary big" onClick={onPlay}>
         Play
       </button>

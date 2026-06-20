@@ -5,6 +5,7 @@ export * from "./types";
 export { chargen, type ChargenOptions } from "./chargen";
 export {
   createRun,
+  createRunFromOrigin,
   beginTurn,
   endTurn,
   resolveChoice,
@@ -35,6 +36,7 @@ export {
 } from "./debrief";
 export { evalPredicate, evalAll, parsePredicate } from "./predicate";
 export { next as rngNext, seedToState, randomSeed } from "./rng";
+export { randomOrigin, RANDOM_ID } from "./randomchar";
 export {
   BASE_SLOTS,
   END_TURN,

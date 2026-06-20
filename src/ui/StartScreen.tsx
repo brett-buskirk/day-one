@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { CharacterOrigin, Mode } from "../engine";
+import { RANDOM_ID, type CharacterOrigin, type Mode } from "../engine";
 import { humanizeCredential } from "./format";
 import { encodeScenario, parseScenario } from "./scenario";
 
@@ -67,7 +67,7 @@ export function StartScreen({
 
   const playSharedCode = () => {
     setCodeError(null);
-    const scenario = parseScenario(codeText, characters.map((c) => c.id));
+    const scenario = parseScenario(codeText, [...characters.map((c) => c.id), RANDOM_ID]);
     if (!scenario) {
       setCodeError("That code doesn't look right. Use the form character.mode.seed.");
       return;
@@ -124,6 +124,24 @@ export function StartScreen({
               </button>
             </li>
           ))}
+          <li>
+            <button
+              type="button"
+              role="radio"
+              aria-checked={selectedId === RANDOM_ID}
+              className={`char-card ${selectedId === RANDOM_ID ? "char-card-on" : ""}`}
+              onClick={() => setSelectedId(RANDOM_ID)}
+            >
+              <span className="char-head">
+                <span className="char-name">Surprise me</span>
+                <span className="char-tag">Random</span>
+              </span>
+              <span className="char-summary">
+                A fresh life, generated for you — and reproducible from its seed, so a
+                group can share one.
+              </span>
+            </button>
+          </li>
         </ul>
       </section>
 

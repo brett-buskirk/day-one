@@ -1045,6 +1045,12 @@ button {
 .btn-outline:hover {
   background: var(--accent-tint);
 }
+.landing-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
 
 /* ---- Confirmation modal (centered) --------------------------------- */
 

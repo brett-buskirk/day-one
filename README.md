@@ -17,6 +17,9 @@ It serves two audiences, weighted equally:
 - **Outsiders** — staff, volunteers, the public — to understand, in their gut,
   what reentry actually demands.
 
+Built by a returning citizen, for returning citizens — the barriers modeled here
+are remembered, not imagined.
+
 > **New here?** Start with [`docs/ABOUT.md`](docs/ABOUT.md) — a plain-language tour
 > of what Day One is and how it works. **Design source of truth:**
 > [`docs/DESIGN.md`](docs/DESIGN.md). Build roadmap: [`docs/SPRINTS.md`](docs/SPRINTS.md).
@@ -37,18 +40,23 @@ Playable end-to-end. Sprints 0–4 of the roadmap are complete:
   an accessibility pass.
 - **Sprint 4** — a broadened corpus (events across every track) and an economy
   balance pass.
-- **Post-4 (v2)** — a landing page + About screen, registry employment wall,
-  decision-quality scoring, a recurring monthly economy, and probation as a full
-  supervision path.
+- **Post-4 (v2)** — a landing page + About screen, the registry employment wall,
+  decision-quality scoring, a recurring monthly economy, probation as a full
+  supervision path, the **Longtimer** build (with a technology gap and mental-health
+  rules), an in-game info card, **facilitator/classroom scenario codes**, and
+  **random character generation**.
 
-Currently: **5 characters**, **25 events**, two modes (training / empathy),
-light/dark + accent theming, and **76 passing tests**. What you can do today:
+Currently: **5 archetypes + a generated random build**, **25 events**, two modes
+(training / empathy), light/dark + accent theming, and **84 passing tests**. What
+you can do today:
 
 - From the landing page, read the About or jump straight to Play. Pick one of five
   builds — **Marcus** (the thesis build), **Renae** (supported), **Dana** (on
   probation), **Theo** (the registry deep-end), or **Ray** (the longtimer — 24 years
-  inside, with a technology gap and mental-health weight) — and a mode, then play
-  ~13 weeks to a narrative debrief.
+  inside, with a technology gap and mental-health weight) — or **Surprise me** for a
+  randomly generated person, then play ~13 weeks to a narrative debrief.
+- Play a **shared run** — a `character.mode.seed` code makes everyone's run identical,
+  so a room can compare how their choices diverged.
 - Feel the document catch-22, hit crises that branch instead of ending the run,
   keep (or miss) a weekly check-in, watch the registry wall reshape housing and
   work, and feel money move month to month (benefits in, fees and fares out).

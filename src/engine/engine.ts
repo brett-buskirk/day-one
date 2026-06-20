@@ -7,6 +7,7 @@
 // same run.
 
 import type {
+  CharacterOrigin,
   Choice,
   Corpus,
   Effect,
@@ -377,6 +378,15 @@ export function isRunOver(state: GameState): boolean {
 /* Run creation + serialization (§13)                                  */
 /* ------------------------------------------------------------------ */
 
+// Chargen an explicit origin (corpus, random, or otherwise) and fire turn 1.
+export function createRunFromOrigin(
+  corpus: Corpus,
+  origin: CharacterOrigin,
+  opts: ChargenOptions
+): GameState {
+  return beginTurn(chargen(origin, opts), corpus);
+}
+
 // Convenience: chargen a character from the corpus and fire turn 1's begin step.
 export function createRun(
   corpus: Corpus,
@@ -385,7 +395,7 @@ export function createRun(
 ): GameState {
   const origin = corpus.characters[characterId];
   if (!origin) throw new Error(`Unknown character "${characterId}"`);
-  return beginTurn(chargen(origin, opts), corpus);
+  return createRunFromOrigin(corpus, origin, opts);
 }
 
 const SAVE_VERSION = 1;

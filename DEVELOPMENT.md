@@ -116,8 +116,8 @@ the flag registry.
 
 ## Verified
 
-- 79 tests pass (engine, Sprints 2–4 + registry employment + decision-quality +
-  recurring economy + probation + the longtimer/tech-gap/mental-health + scenario codes +
+- 84 tests pass (engine, Sprints 2–4 + registry employment + decision-quality +
+  recurring economy + probation + the longtimer/tech-gap/mental-health + scenario codes + random generation +
   end-to-end playthrough): RNG determinism,
   serialize round-trip (incl. the new fields + old-save migration), transport
   multiplier, predicate eval, weighted resolution, the full document catch-22 chain,
@@ -152,8 +152,8 @@ the flag registry.
 - **Canonical `GameState` was extended** with serializable fields as features
   landed: `standingSlots`, `pending`, `actedThisTurn` (Sprint 1) and `poolHistory`,
   `violations`, `terminal` (Sprint 2). All are JSON-safe and migrated in `loadRun`.
-- **Candidate next steps (v2):** random character generation (the last roadmap
-  item). *(Done since
+- **Roadmap complete** (Sprints 0–4 + all v2 candidates). Further work is content
+  breadth (more authored events/archetypes) and field-testing/balance. *(Done since
   Sprint 4: registry barrier reshapes employment too (`evt_job_registry`);
   per-choice durable/desperate decision-quality tags; a recurring monthly economy
   (benefits in, transit-pass subscription out that lapses when broke); probation as
@@ -164,5 +164,7 @@ the flag registry.
   (a morale-floor crisis `evt_mental_health_crisis`, a `chronic_mental_health` flag
   with `evt_counseling`); an in-game info (ⓘ) card; and **facilitator/classroom**
   features — scenario codes (`character.mode.seed`) so a group plays the identical
-  run, surfaced on the start screen, the info card, and the debrief.)*
+  run, surfaced on the start screen, the info card, and the debrief; and
+  **random character generation** (`randomOrigin(seed)` — a coherent, deterministic
+  build via a "Surprise me" option, reproducible as `random.mode.seed`).)*
 ```

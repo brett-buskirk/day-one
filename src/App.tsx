@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { corpus, archetypes } from "./content/corpus";
 import {
-  createRun,
+  createRunFromOrigin,
   resolveChoice,
   endTurn,
   beginTurn,
   isRunOver,
   loadRun,
   randomSeed,
+  randomOrigin,
+  RANDOM_ID,
   type Choice,
   type GameState,
   type Mode,
+  type CharacterOrigin,
 } from "./engine";
 import { saveRun, loadSavedRun, clearSavedRun } from "./db";
 import {
@@ -31,6 +34,13 @@ import { EventDetail } from "./ui/EventDetail";
 import { DebriefScreen } from "./ui/DebriefScreen";
 
 type View = "landing" | "about" | "start" | "onboarding" | "playing" | "debrief";
+
+// The origin behind a run — a corpus archetype, or one generated from the seed
+// (random builds are reproducible: same seed ⇒ same person).
+function originFor(characterId: string, seed: number): CharacterOrigin | null {
+  if (characterId === RANDOM_ID) return randomOrigin(seed);
+  return corpus.characters[characterId] ?? null;
+}
 
 export default function App() {
   const [view, setView] = useState<View>("landing");
@@ -80,22 +90,26 @@ export default function App() {
 
   // Start screen → onboarding (carry the chosen character + mode + optional seed
   // for a shared/classroom run).
+  // Fix the seed at choose-time so onboarding can show the (possibly generated)
+  // person and a shareable code is available even for random builds.
   const handleChooseCharacter = (characterId: string, mode: Mode, seed?: number) => {
-    setPendingStart({ characterId, mode, seed });
+    setPendingStart({ characterId, mode, seed: seed ?? randomSeed() });
     setView("onboarding");
   };
 
-  // Onboarding → begin the run. A specified seed makes the run reproducible for a
-  // group; otherwise it's random.
+  // Onboarding → begin the run.
   const handleBeginRun = () => {
     if (!pendingStart) return;
+    const seed = pendingStart.seed ?? randomSeed();
+    const origin = originFor(pendingStart.characterId, seed);
+    if (!origin) return;
     setActiveEventId(null);
     setOutcomeText(null);
     // Empathy mode is the deliberate deep end: hardFail walks an outsider to the
     // edge of the cliff. Training keeps hardFail off (DESIGN §10).
     commit(
-      createRun(corpus, pendingStart.characterId, {
-        seed: pendingStart.seed ?? randomSeed(),
+      createRunFromOrigin(corpus, origin, {
+        seed,
         mode: pendingStart.mode,
         hardFail: pendingStart.mode === "empathy",
       })
@@ -166,7 +180,7 @@ export default function App() {
   };
 
   const activeEvent = activeEventId ? corpus.events[activeEventId] : null;
-  const pendingOrigin = pendingStart ? corpus.characters[pendingStart.characterId] : null;
+  const pendingOrigin = pendingStart ? originFor(pendingStart.characterId, pendingStart.seed ?? 1) : null;
 
   return (
     <main className="app">
@@ -240,7 +254,12 @@ export default function App() {
       )}
 
       {view === "debrief" && state && (
-        <DebriefScreen state={state} corpus={corpus} onPlayAgain={handlePlayAgain} />
+        <DebriefScreen
+          state={state}
+          corpus={corpus}
+          characterName={originFor(state.characterId, state.seed)?.name ?? "they"}
+          onPlayAgain={handlePlayAgain}
+        />
       )}
     </main>
   );

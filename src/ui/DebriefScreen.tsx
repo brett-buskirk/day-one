@@ -7,12 +7,12 @@ import { RunCodeShare } from "./RunCodeShare";
 interface Props {
   state: GameState;
   corpus: Corpus;
+  characterName: string;
   onPlayAgain: () => void;
 }
 
-export function DebriefScreen({ state, corpus, onPlayAgain }: Props) {
-  const name = corpus.characters[state.characterId]?.name ?? "they";
-  const debrief = buildDebrief(state, name);
+export function DebriefScreen({ state, corpus, characterName, onPlayAgain }: Props) {
+  const debrief = buildDebrief(state, characterName);
   const resources = corpus.resources ?? [];
   const [copied, setCopied] = useState(false);
 

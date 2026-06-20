@@ -52,6 +52,8 @@ export function Landing({
       </div>
 
       <ThemeControls mode={themeMode} accent={accent} onMode={onThemeMode} onAccent={onAccent} />
+
+      <p className="landing-footer">Built by a returning citizen, for returning citizens.</p>
     </div>
   );
 }

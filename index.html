@@ -7,7 +7,27 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <meta name="theme-color" content="#0f3d3e" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Apply the saved appearance before first paint (no flash). Mirrors -->
+    <!-- src/theme.ts; keep the storage keys in sync. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("dayone:theme");
+          if (t !== "light" && t !== "dark") {
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          var a = localStorage.getItem("dayone:accent") || "teal";
+          var r = document.documentElement;
+          r.setAttribute("data-theme", t);
+          r.setAttribute("data-accent", a);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "light");
+          document.documentElement.setAttribute("data-accent", "teal");
+        }
+      })();
+    </script>
     <meta
       name="description"
       content="Live the first ninety days of reentry, one week at a time."

@@ -1,12 +1,18 @@
 import { useState } from "react";
 import type { CharacterOrigin, Mode } from "../engine";
+import type { Accent, ThemeMode } from "../theme";
 import { humanizeCredential } from "./format";
+import { ThemeControls } from "./ThemeControls";
 
 interface Props {
   marcus: CharacterOrigin;
   hasSavedRun: boolean;
   savedTurn: number | null;
   savedMode: Mode | null;
+  themeMode: ThemeMode;
+  accent: Accent;
+  onThemeMode: (mode: ThemeMode) => void;
+  onAccent: (accent: Accent) => void;
   onStart: (mode: Mode) => void;
   onResume: () => void;
 }
@@ -16,7 +22,18 @@ const MODES: { key: Mode; label: string; blurb: string }[] = [
   { key: "empathy", label: "Empathy", blurb: "Feel the wall. The deep end — a run can be walked to the edge." },
 ];
 
-export function StartScreen({ marcus, hasSavedRun, savedTurn, savedMode, onStart, onResume }: Props) {
+export function StartScreen({
+  marcus,
+  hasSavedRun,
+  savedTurn,
+  savedMode,
+  themeMode,
+  accent,
+  onThemeMode,
+  onAccent,
+  onStart,
+  onResume,
+}: Props) {
   const [mode, setMode] = useState<Mode>("training");
   const activeBlurb = MODES.find((m) => m.key === mode)!.blurb;
   return (
@@ -93,6 +110,8 @@ export function StartScreen({ marcus, hasSavedRun, savedTurn, savedMode, onStart
       <button type="button" className="primary big" onClick={() => onStart(mode)}>
         Begin as {marcus.name}
       </button>
+
+      <ThemeControls mode={themeMode} accent={accent} onMode={onThemeMode} onAccent={onAccent} />
     </div>
   );
 }

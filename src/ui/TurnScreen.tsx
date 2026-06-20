@@ -6,12 +6,15 @@ import {
   isObligation,
   effectiveSlotCost,
 } from "../engine";
+import type { ThemeMode } from "../theme";
 import { POOL_META, slotsLabel } from "./format";
 import { PoolBar } from "./PoolBar";
 
 interface Props {
   state: GameState;
   corpus: Corpus;
+  themeMode: ThemeMode;
+  onToggleTheme: () => void;
   onOpenEvent: (eventId: string) => void;
   onEndWeek: () => void;
 }
@@ -21,7 +24,7 @@ function cheapestSlotCost(state: GameState, event: GameEvent): number {
   return costs.length ? Math.min(...costs) : 0;
 }
 
-export function TurnScreen({ state, corpus, onOpenEvent, onEndWeek }: Props) {
+export function TurnScreen({ state, corpus, themeMode, onToggleTheme, onOpenEvent, onEndWeek }: Props) {
   const pending = pendingEvents(state, corpus);
   const obligations = dueObligations(state, corpus);
   const actions = eligibleActions(state, corpus).filter((e) => !isObligation(e));
@@ -30,18 +33,28 @@ export function TurnScreen({ state, corpus, onOpenEvent, onEndWeek }: Props) {
   return (
     <div className="screen">
       <header className="turn-head">
-        <div className="turn-meta">
+        <div className="turn-top">
           <span className="turn-week">
             Week {state.turn} <span className="of">of {state.endTurn}</span>
           </span>
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={onToggleTheme}
+            aria-label={`Switch to ${themeMode === "dark" ? "light" : "dark"} theme`}
+          >
+            {themeMode === "dark" ? "☀ Light" : "☾ Dark"}
+          </button>
+        </div>
+        <div className="turn-bottom">
+          <div className="slot-dots" aria-hidden="true">
+            {Array.from({ length: Math.max(state.slots, state.baseSlots - state.standingSlots) }).map((_, i) => (
+              <span key={i} className={`dot ${i < state.slots ? "dot-on" : "dot-off"}`} />
+            ))}
+          </div>
           <span className="turn-slots" aria-label={`${state.slots} action days left this week`}>
             {slotsLabel(state.slots)} left
           </span>
-        </div>
-        <div className="slot-dots" aria-hidden="true">
-          {Array.from({ length: Math.max(state.slots, state.baseSlots - state.standingSlots) }).map((_, i) => (
-            <span key={i} className={`dot ${i < state.slots ? "dot-on" : "dot-off"}`} />
-          ))}
         </div>
       </header>
 

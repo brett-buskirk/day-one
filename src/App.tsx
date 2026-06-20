@@ -12,6 +12,15 @@ import {
   type Mode,
 } from "./engine";
 import { saveRun, loadSavedRun, clearSavedRun } from "./db";
+import {
+  loadThemeMode,
+  loadAccent,
+  applyTheme,
+  persistThemeMode,
+  persistAccent,
+  type ThemeMode,
+  type Accent,
+} from "./theme";
 import { StartScreen } from "./ui/StartScreen";
 import { TurnScreen } from "./ui/TurnScreen";
 import { EventDetail } from "./ui/EventDetail";
@@ -25,6 +34,22 @@ export default function App() {
   const [activeEventId, setActiveEventId] = useState<string | null>(null);
   const [outcomeText, setOutcomeText] = useState<string | null>(null);
   const [savedRun, setSavedRun] = useState<GameState | null>(null);
+
+  // Appearance (light/dark + accent), persisted and applied to <html>.
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => loadThemeMode());
+  const [accent, setAccent] = useState<Accent>(() => loadAccent());
+  useEffect(() => {
+    applyTheme(themeMode, accent);
+  }, [themeMode, accent]);
+
+  const changeTheme = (mode: ThemeMode) => {
+    setThemeMode(mode);
+    persistThemeMode(mode);
+  };
+  const changeAccent = (a: Accent) => {
+    setAccent(a);
+    persistAccent(a);
+  };
 
   // Offer to resume a run found in IndexedDB (DESIGN §11).
   useEffect(() => {
@@ -104,6 +129,10 @@ export default function App() {
           hasSavedRun={!!savedRun}
           savedTurn={savedRun?.turn ?? null}
           savedMode={savedRun?.mode ?? null}
+          themeMode={themeMode}
+          accent={accent}
+          onThemeMode={changeTheme}
+          onAccent={changeAccent}
           onStart={handleStart}
           onResume={handleResume}
         />
@@ -114,6 +143,8 @@ export default function App() {
           <TurnScreen
             state={state}
             corpus={corpus}
+            themeMode={themeMode}
+            onToggleTheme={() => changeTheme(themeMode === "dark" ? "light" : "dark")}
             onOpenEvent={(id) => {
               setOutcomeText(null);
               setActiveEventId(id);

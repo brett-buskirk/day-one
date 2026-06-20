@@ -8,6 +8,7 @@ repeatable: true   # an HR stall (interviewing) shouldn't end the search — ret
 conditions:
   - flags.has_state_id == true
   - flags.has_job == false
+  - flags.registry_required == false   # registry builds face evt_job_registry instead
 
 prompt: >
   The cert program left you a contact: a small shop that hires its graduates for

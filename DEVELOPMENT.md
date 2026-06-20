@@ -93,7 +93,7 @@ the flag registry.
 
 ## Sprint 4 — content breadth + balance
 
-- **The corpus roughly doubled** (9 → 19 events; 4 → 14 player actions), spread
+- **The corpus roughly doubled** (9 → 20 events; 4 → 15 player actions), spread
   across every track so the decision base is real: day labor, résumé workshop,
   housing search, recovery meetings, clinic enrollment, mending ties / a reentry
   support group, benefits enrollment, and a transit pass.
@@ -102,10 +102,13 @@ the flag registry.
   the ID→job chain is now reachable *through effort* (a sensible player reaches the
   ID around week 9 as Marcus) without being trivial. A regression test asserts
   Marcus can reach the ID across seeds.
-- **Registry wall, mechanical** — registry builds get `evt_housing_registry`
-  (residency restrictions rule out almost everything; progress is rare) instead of
-  the open `evt_housing_search`, enforced by event conditions on `registry_required`.
-  Theo stays stuck at shelter/transitional while Marcus/Renae can secure housing.
+- **Registry wall, mechanical (housing + employment)** — registry builds get
+  `evt_housing_registry` (residency restrictions rule out almost everything) and
+  `evt_job_registry` (background checks / occupational bars; a narrow fair-chance
+  route opens only after the résumé workshop) instead of the open `evt_housing_search`
+  / `evt_apply_job_onboarding`, all enforced by event conditions on
+  `registry_required`. Theo stays stuck on housing even when he grinds out work, and
+  lands a formal job far less often than Marcus — the registry double-bind.
 - **Relationships** split cleanly: a reentry support group breaks isolation
   (isolated → one tie), then tending ties rebuilds the social_capital you spend.
 - New flags: `has_resume`, `has_clinic`, `has_benefits`, `has_transit_pass`. A
@@ -113,7 +116,8 @@ the flag registry.
 
 ## Verified
 
-- 55 tests pass (engine, Sprints 2–4, end-to-end playthrough): RNG determinism,
+- 59 tests pass (engine, Sprints 2–4 + the registry employment wall, end-to-end
+  playthrough): RNG determinism,
   serialize round-trip (incl. the new fields + old-save migration), transport
   multiplier, predicate eval, weighted resolution, the full document catch-22 chain,
   once-per-turn actions, obligation miss → violation sub-arc, pool-floor crisis
@@ -147,11 +151,11 @@ the flag registry.
 - **Canonical `GameState` was extended** with serializable fields as features
   landed: `standingSlots`, `pending`, `actedThisTurn` (Sprint 1) and `poolHistory`,
   `violations`, `terminal` (Sprint 2). All are JSON-safe and migrated in `loadRun`.
-- **Candidate next steps (v2 / Sprint 5):** registry-gated *employment* events
-  (the wall currently bites hardest on housing); recurring costs (a transit pass
-  that lapses, monthly benefits); per-choice "durable vs desperate" tags to make
-  decision-quality scoring choice-level rather than derived from
-  violations/crises/milestones; probation-specific obligations (the check-in
-  obligation is parole-only today); and random character generation (the engine's
-  determinism + serialization already support the classroom/replay use case).
+- **Candidate next steps (v2):** recurring costs (a transit pass that lapses,
+  monthly benefits); per-choice "durable vs desperate" tags to make decision-quality
+  scoring choice-level rather than derived from violations/crises/milestones;
+  probation-specific obligations (the check-in obligation is parole-only today);
+  facilitator/classroom features on the existing seed-determinism + export hooks;
+  and random character generation. *(Done since Sprint 4: the registry barrier now
+  reshapes employment as well as housing — `evt_job_registry`.)*
 ```

@@ -1,0 +1,68 @@
+id: evt_job_registry
+kind: action
+title: Find work that will have you
+tags: [employment]
+requires_travel: true
+repeatable: true
+
+# The registry employment wall (DESIGN §8): background checks and occupational
+# bars rule out most formal work. Cash day labor (evt_day_labor) is still the
+# survival floor; this is the near-impossible path to a real, on-the-books job.
+# Doing the job-readiness workshop first opens a narrow second-chance route.
+conditions:
+  - flags.registry_required == true
+  - flags.has_state_id == true
+  - flags.has_job == false
+
+prompt: >
+  You can do the work — that was never the question. The question is the box on the
+  form, the background check that comes back, the license you're barred from
+  holding. Most doors close before the interview. A few are held open on purpose,
+  for people coming home.
+
+choices:
+
+  - id: apply_broadly
+    label: Apply anywhere that's hiring
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 78
+        effects:
+          text: >
+            The application sails through until the check comes back. Then the
+            tone changes, or the calls just stop. Another week, another set of
+            doors that quietly shut.
+          pools: { morale: -6 }
+          tracks: { employment: { status: searching, readiness: 4 } }
+      - weight: 22
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            A small operation, a manager who shrugs at the check and needs the
+            hands more than the paperwork. It's a real job. It's a start.
+          flags: { has_job: true }
+          pools: { money: 9, morale: 8 }
+          tracks: { employment: { status: employed } }
+
+  - id: second_chance_employer
+    label: Go through a fair-chance / reentry hiring program
+    requires:
+      - flags.has_resume == true
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 60
+        modifier: { stat: morale, scale: 0.2 }
+        effects:
+          text: >
+            A program that places people with records, an employer who signed up
+            to hire them. The résumé does its job. You start Monday.
+          flags: { has_job: true }
+          pools: { money: 10, morale: 12 }
+          tracks: { employment: { status: employed } }
+      - weight: 40
+        effects:
+          text: >
+            The placement's a real lead but the slot's not open yet. "We want you
+            — give us a couple weeks." A live thread, finally, instead of a wall.
+          pools: { morale: 2 }
+          tracks: { employment: { status: interviewing, readiness: 10 } }

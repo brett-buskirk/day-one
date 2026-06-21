@@ -166,7 +166,10 @@ movement. Suggested statuses (extend as needed):
   `offer` → `employed`. Marcus starts `unemployed` but holds a real skill behind a
   paper-trail wall (see §8).
 - **housing** — `none` / `shelter` / `couch` (with a clock) / `transitional` /
-  `rental` / `stable`. Marcus starts `couch` on a 30-day clock.
+  `rental` / `stable`. Marcus starts `couch` on a 30-day clock. These form a **ladder**
+  (`HOUSING_RANK` in tuning): the engine keeps `housing.readiness` in sync with the
+  status as a rank, so a housing rung gates on `tracks.housing.readiness < N` — a move
+  only ever goes *up*, and an outgrown rung stops being offered.
 - **legal** — `parole` / `probation` / `unsupervised`, with sub-state for standing:
   `good` / `warned` / `violation_pending`. Conditions live here as flags/obligations.
 - **relationships** — `isolated` / `strained` / `one_tie` / `supported` /

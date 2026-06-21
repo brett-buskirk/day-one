@@ -1,22 +1,22 @@
 id: evt_housing_search
 kind: action
-title: Look for your own place
+title: Look into transitional housing
 tags: [housing]
 requires_travel: true
 repeatable: true
 
-# Housing for builds without a registry requirement. Transitional housing is the
-# accessible mid-game win; a real lease needs the ID and a deposit. Retires once
-# you're in a stable place of your own.
+# The transitional-housing rung of the housing ladder (§6): the accessible step up
+# from a shelter or a couch. Gated on the ladder rank (tracks.housing.readiness) so
+# it stops being offered once you've climbed past it; the rental rung is
+# evt_own_place. Registry builds route through evt_housing_registry.
 conditions:
   - flags.registry_required == false
-  - tracks.housing.status != "rental"
-  - tracks.housing.status != "stable"
+  - tracks.housing.readiness < 3
 
 prompt: >
-  The couch was never the plan. There's a transitional-housing program with a bed
-  and a curfew, and there's the open market — a room of your own, if a landlord
-  will look past the record and you can cover the deposit.
+  Wherever you're laying your head, it isn't yours and it won't last. There's a
+  transitional-housing program — a bed, a caseworker, rules and a curfew, but a
+  place that's actually yours for a while. Worth the trip across town.
 
 choices:
 
@@ -39,27 +39,3 @@ choices:
             Waitlisted. "Check back in a few weeks." The bed is real; the timing
             isn't yours yet.
           pools: { morale: -4 }
-
-  - id: pursue_rental
-    quality: durable
-    label: Try for a room on the open market
-    requires:
-      - flags.has_state_id == true
-      - pools.money >= 35
-    cost: { slots: 1, money: 25 }
-    outcomes:
-      - weight: 50
-        modifier: { stat: money, scale: 0.2 }
-        effects:
-          text: >
-            A small room, a month down, a landlord who didn't ask the question.
-            The lease has your name on it. This is the one that changes the rest.
-          flags: { has_proof_of_address: true }
-          pools: { morale: 16 }
-          tracks: { housing: { status: rental } }
-      - weight: 50
-        effects:
-          text: >
-            "We went with another applicant." You know which line on the form did
-            it. The deposit you scraped together is still yours, at least.
-          pools: { morale: -8, money: 25 }

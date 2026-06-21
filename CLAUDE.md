@@ -85,7 +85,10 @@ about React.
   boolean operators, no `eval`. Paths: `flags.X | pools.X | tracks.X.status |
   tracks.X.readiness | turn | mode | config.X`. Unknown flags read `false`.
 - **Effects:** pool deltas clamp to [0,100]; track `status` is set absolutely,
-  `readiness` is a clamped delta; `unlocks` sets `<id>_unlocked`; `schedule` fires a
+  `readiness` is a clamped delta (exception: **housing** `readiness` is kept in sync
+  with the status as the ladder rank — `HOUSING_RANK` in `tuning.ts` — so housing rungs
+  gate on `tracks.housing.readiness < N` and only move *up*); `unlocks` sets
+  `<id>_unlocked`; `schedule` fires a
   future incident; `flags` set booleans.
 - **Tuning numbers** go in `src/engine/tuning.ts`, not scattered in logic.
 - **Tests** are colocated in `src/engine/*.test.ts`, one file per sprint plus the

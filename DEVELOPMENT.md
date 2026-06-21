@@ -182,6 +182,10 @@ Everything past the original roadmap, built out before the first release:
   from the landing page, the in-game info (ⓘ) card, and About — so help never requires
   finishing or even starting a run. Still open: jurisdiction-specific **local** listings
   (the file documents how to add them) and an optional jurisdiction selector.
-- **Still open:** content breadth (more authored events/archetypes), the local resource
-  listings above, and ongoing balance/field-testing.
+- **Content breadth (ongoing):** a transportation/housing pass added three events
+  (license restoration, a community/used bike, and recovery housing) — now **28 events
+  / 21 actions**, with transportation no longer a one-event track. More authored events
+  and archetypes still welcome.
+- **Still open:** the local resource listings above, more archetype diversity, and
+  ongoing balance/field-testing.
 ```

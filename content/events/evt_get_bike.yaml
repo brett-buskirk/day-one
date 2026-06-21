@@ -1,0 +1,50 @@
+id: evt_get_bike
+kind: action
+title: Get a bike
+tags: [transportation]
+
+# The cheapest way to buy back time when you can't drive: a set of wheels. A
+# reentry/community program is the durable path; a cash purchase is the quicker
+# one. Only surfaces while getting around is genuinely hard, and retires once used.
+conditions:
+  - pools.transportation < 50
+
+prompt: >
+  Two feet and a bus schedule only stretch so far. A reentry program refurbishes
+  donated bikes for folks getting back on their feet — or there's a cheap used one
+  on the cash market. Either way, it's the week getting wider.
+
+choices:
+
+  - id: program_bike
+    quality: durable
+    label: Get a refurbished bike from a program
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 75
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            A volunteer sizes you up, tightens a brake, and rolls a solid bike your
+            way — no charge, just a handshake. Rain or shine, you can get there now.
+          pools: { transportation: 18, morale: 6 }
+      - weight: 25
+        effects:
+          text: >
+            The program's out of bikes this week and takes your name. "Check back" —
+            the good ones go fast.
+          pools: { morale: -2 }
+
+  - id: buy_used
+    quality: neutral
+    label: Buy a cheap used bike
+    requires:
+      - pools.money >= 15
+    cost: { slots: 1, money: 15 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Fifteen dollars and a quick meetup later, you're rolling. It squeaks and
+            the seat's wrong, but it goes — and so do you.
+          pools: { transportation: 20, morale: 3 }

@@ -1,0 +1,42 @@
+id: evt_recovery_housing
+kind: action
+title: Look into recovery housing
+tags: [housing, recovery, health]
+requires_travel: true
+
+# A housing path that doubles as recovery support: structured sober living for
+# people already working a program. Trades some freedom for a stable, clean place
+# to sleep and people pulling the same direction. Registry builds route through
+# evt_housing_registry instead.
+conditions:
+  - flags.registry_required == false
+  - flags.in_recovery_support == true
+  - tracks.housing.status != "rental"
+  - tracks.housing.status != "stable"
+
+prompt: >
+  Someone at your meeting mentions a recovery residence — a bed in a sober house:
+  shared chores, drug tests, a curfew, and people who get it. It's structure, and
+  structure is the thing keeping a lot of folks upright right now.
+
+choices:
+
+  - id: apply_sober_living
+    quality: durable
+    label: Apply for a bed in a sober house
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        modifier: { stat: health, scale: 0.2 }
+        effects:
+          text: >
+            They have a room. House rules, a chore wheel, and a dozen people pulling
+            the same direction. A roof — and a railing to hold while you steady.
+          pools: { morale: 9, health: 8 }
+          tracks: { housing: { status: transitional } }
+      - weight: 30
+        effects:
+          text: >
+            The house is full, but you're near the top of the list and they took
+            your number like they meant it. Soon, maybe.
+          pools: { morale: -2 }

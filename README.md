@@ -61,8 +61,8 @@ live in production. Playable end-to-end; Sprints 0–5 of the roadmap are comple
   rules), an in-game info card, **facilitator/classroom scenario codes**, and
   **random character generation**.
 
-Currently: **5 archetypes + a generated random build**, **25 events**, two modes
-(training / empathy), light/dark + accent theming, and **86 passing tests**. What
+Currently: **5 archetypes + a generated random build**, **28 events**, two modes
+(training / empathy), light/dark + accent theming, and **91 passing tests**. What
 you can do today:
 
 - From the landing page, read the About or jump straight to Play. Pick one of five

@@ -5,7 +5,7 @@
 // content/characters/marcus.yaml. All numbers are tuning.
 
 import type { CharacterOrigin, Flags, GameState, Pools, Tracks } from "./types";
-import { BASE_SLOTS, END_TURN, TECH_GAP_YEARS, clampPool } from "./tuning";
+import { BASE_SLOTS, END_TURN, TECH_GAP_YEARS, clampPool, housingRank } from "./tuning";
 import { seedToState } from "./rng";
 
 const SUPPORT_TO_CAPITAL: Record<string, number> = {
@@ -85,7 +85,7 @@ function deriveTracks(origin: CharacterOrigin): Tracks {
 
   return {
     employment: { status: employmentStatus, readiness: employmentReadiness },
-    housing: { status: landing.night_one },
+    housing: { status: landing.night_one, readiness: housingRank(landing.night_one) },
     // Legal "standing" is tracked as readiness (higher = better). Start in good
     // standing; the parole check-in nudges it up/down (Sprint 2 branches on it).
     legal: { status: SUPERVISION_TO_LEGAL[supervision.type] ?? "unsupervised", readiness: 60 },

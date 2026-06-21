@@ -1,0 +1,44 @@
+id: evt_own_place
+kind: action
+title: Try for a place of your own
+tags: [housing]
+requires_travel: true
+repeatable: true
+
+# The rental rung of the housing ladder (§6): a lease of your own. Needs the state ID
+# and a deposit, so it self-gates behind the document chain and shows the goal locked
+# until you're ready. Gated on the ladder rank so it retires at a real lease.
+# Registry builds route through evt_housing_registry.
+conditions:
+  - flags.registry_required == false
+  - tracks.housing.readiness < 4
+
+prompt: >
+  A room of your own — a lease with your name on it — if a landlord will look past
+  the record and you can cover a month down. It's the one that changes the rest.
+
+choices:
+
+  - id: pursue_rental
+    quality: durable
+    label: Try for a room on the open market
+    requires:
+      - flags.has_state_id == true
+      - pools.money >= 35
+    cost: { slots: 1, money: 25 }
+    outcomes:
+      - weight: 50
+        modifier: { stat: money, scale: 0.2 }
+        effects:
+          text: >
+            A small room, a month down, a landlord who didn't ask the question.
+            The lease has your name on it. This is the one that changes the rest.
+          flags: { has_proof_of_address: true }
+          pools: { morale: 16 }
+          tracks: { housing: { status: rental } }
+      - weight: 50
+        effects:
+          text: >
+            "We went with another applicant." You know which line on the form did
+            it. The deposit you scraped together is still yours, at least.
+          pools: { morale: -8, money: 25 }

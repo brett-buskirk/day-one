@@ -33,6 +33,7 @@ import {
   SUPERVISION_FEE,
   clampPool,
   transportFactor,
+  housingRank,
 } from "./tuning";
 
 /* ------------------------------------------------------------------ */
@@ -165,6 +166,11 @@ function applyEffect(state: GameState, effect: Effect): void {
       if (change.status !== undefined) track.status = change.status;
       if (change.readiness !== undefined) {
         track.readiness = clampPool((track.readiness ?? 0) + change.readiness);
+      }
+      // Housing readiness IS the ladder rank — keep it in sync with the status so
+      // content can gate a rung on `tracks.housing.readiness < N` (§6).
+      if (trackName === "housing" && change.status !== undefined) {
+        track.readiness = housingRank(change.status);
       }
     }
   }
@@ -417,6 +423,11 @@ export function loadRun(serialized: string): GameState {
   if (!st.poolHistory) st.poolHistory = [{ turn: 0, pools: st.pools }];
   if (st.violations === undefined) st.violations = 0;
   if (st.terminal === undefined) st.terminal = false;
+  // Housing readiness is the ladder rank (added later) — derive it from the status
+  // for saves written before the housing ladder existed.
+  if (st.tracks?.housing && st.tracks.housing.readiness === undefined) {
+    st.tracks.housing.readiness = housingRank(st.tracks.housing.status);
+  }
   return st;
 }
 

@@ -7,6 +7,14 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Fixed
+- **Housing now moves only up a ladder.** Once you reached transitional housing, the
+  game kept offering (and let you re-pick) transitional housing. Housing states now
+  have a rank (none < shelter < couch < transitional < rental < stable), kept in sync
+  with the track, so each housing rung only appears when it's an upgrade and retires
+  once you've climbed past it. The "look for your own place" event split into a
+  **transitional** rung and an **own-place / rental** rung, each gated on the ladder.
+
 ## [1.2.1] - 2026-06-21
 
 UX & accessibility polish from a playtest review: clearer outcome and debrief screens,

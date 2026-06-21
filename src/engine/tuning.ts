@@ -14,6 +14,24 @@ export function transportFactor(transportation: number): number {
   return 2; // bike / intermittent
 }
 
+// Housing ladder (§6): which housing state is "better." Kept in sync with
+// tracks.housing.status as the track's readiness (see engine applyEffect/chargen),
+// so content can gate a housing rung on `tracks.housing.readiness < N` — a move only
+// ever goes *up* the ladder, and an outgrown rung stops being offered.
+export const HOUSING_RANK: Record<string, number> = {
+  none: 0,
+  street: 0,
+  shelter: 1,
+  couch: 2,
+  transitional: 3,
+  halfway_house: 3,
+  rental: 4,
+  stable: 5,
+};
+export function housingRank(status: string): number {
+  return HOUSING_RANK[status] ?? 0;
+}
+
 // Weighted-outcome modifier (§9): effectiveWeight = max(0, weight + (stat-50)*scale)
 export const POOL_BASELINE = 50;
 

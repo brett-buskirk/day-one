@@ -11,8 +11,7 @@ requires_travel: true
 conditions:
   - flags.registry_required == false
   - flags.in_recovery_support == true
-  - tracks.housing.status != "rental"
-  - tracks.housing.status != "stable"
+  - tracks.housing.readiness < 3
 
 prompt: >
   Someone at your meeting mentions a recovery residence — a bed in a sober house:

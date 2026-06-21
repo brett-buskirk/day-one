@@ -181,8 +181,20 @@ function buildWhy(
     why.push(`Weathered ${crises} crisis week${crises > 1 ? "s" : ""} without the run ending — setbacks, not game-overs.`);
   }
 
-  const word = trajectory.momentum === "rising" ? "rising" : trajectory.momentum === "slipping" ? "slipping" : "holding steady";
-  why.push(`Your footing was ${word} over the final weeks versus mid-game (${trajectory.early} → ${trajectory.late}).`);
+  // "Footing" is the average of the five pools (see vitality()); the wording within
+  // the "holding" band tracks the sign of the delta so a slight dip never reads
+  // "steady."
+  const word =
+    trajectory.momentum === "rising"
+      ? "rising"
+      : trajectory.momentum === "slipping"
+        ? "slipping"
+        : trajectory.delta > 0
+          ? "holding, edging up"
+          : trajectory.delta < 0
+            ? "roughly holding"
+            : "holding steady";
+  why.push(`Your footing (the average of your five pools) was ${word} over the final weeks versus mid-game (${trajectory.early} → ${trajectory.late}).`);
 
   // Decision quality (§10): the durable path vs the desperate one, when there
   // was a real choice. Drawn straight from the run log's tagged forks.

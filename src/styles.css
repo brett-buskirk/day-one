@@ -275,6 +275,20 @@ button {
 .turn-slots {
   font-weight: 600;
 }
+.turn-slots-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+.turn-slots-meter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.turn-commit {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
 .turn-head-actions {
   display: flex;
   align-items: center;

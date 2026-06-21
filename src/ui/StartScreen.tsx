@@ -1,7 +1,7 @@
 // Character + mode selection, plus run import and the classroom (shared-run) panel.
 import { useState } from "react";
 import { RANDOM_ID, type CharacterOrigin, type Mode } from "../engine";
-import { humanizeCredential } from "./format";
+import { humanizeCredential, nightOneShort } from "./format";
 import { encodeScenario, parseScenario } from "./scenario";
 
 interface Props {
@@ -118,7 +118,7 @@ export function StartScreen({
                 </span>
                 {c.summary && <span className="char-summary">{c.summary}</span>}
                 <span className="char-meta">
-                  {c.time_inside_years} yrs in · {c.supervision.type} · {c.landing.night_one}
+                  {c.time_inside_years} yrs in · {c.supervision.type} · {nightOneShort(c.landing.night_one)}
                   {(c.person.credentials ?? []).length > 0
                     ? ` · ${c.person.credentials!.map(humanizeCredential).join(", ")}`
                     : ""}

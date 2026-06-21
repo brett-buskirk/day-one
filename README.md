@@ -78,8 +78,8 @@ you can do today:
 - Install it to a phone, play offline, close the tab and resume, switch theme, end
   a run early, and export/import a run.
 
-What's still open (content breadth, a real jurisdiction-specific resource directory)
-is at the bottom of [`DEVELOPMENT.md`](DEVELOPMENT.md).
+What's still open (content breadth, and local/jurisdiction resource listings on top
+of the shipped national baseline) is at the bottom of [`DEVELOPMENT.md`](DEVELOPMENT.md).
 
 ---
 
@@ -149,7 +149,7 @@ day-one/
 ├── content/
 │   ├── characters/*.yaml         the five archetypes (origins)
 │   ├── events/*.yaml             authored events (the "world")
-│   └── resources.yaml            per-jurisdiction resource hook (placeholder)
+│   └── resources.yaml            reentry resources (national baseline + local hook)
 ├── scripts/
 │   ├── compile-content.mjs       YAML → validated JSON pipeline (shared)
 │   ├── build-content.mjs         CLI wrapper for the pipeline

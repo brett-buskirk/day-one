@@ -48,6 +48,12 @@ export function humanizeCredential(id: string): string {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// Resource categories are authored as ids (e.g. "legal_aid"). The debrief tag
+// uppercases them via CSS, so just turn underscores into spaces ("legal aid").
+export function humanizeCategory(id: string): string {
+  return id.replace(/_/g, " ");
+}
+
 // Turn a single `requires` predicate into a short phrase for a locked choice.
 export function humanizeRequirement(pred: Predicate): string {
   try {

@@ -398,9 +398,10 @@ single slip, and always handed to the debrief, never a bare "you failed."
 ### Resource-pointer hook
 
 The training debrief should be able to surface real, local reentry resources
-(housing, benefits, recovery, legal aid). For v1, leave a clearly-marked data hook
-(e.g. `content/resources.yaml`, empty/placeholder) that TLM fills per jurisdiction.
-Do not hardcode resources.
+(housing, benefits, recovery, legal aid). The data hook is `content/resources.yaml`,
+which ships a verified **national** baseline and is built so a site can add its own
+**local** listings per jurisdiction. Do not hardcode resources — author them there.
+*(Shipped: the national baseline renders in the training debrief.)*
 
 ---
 
@@ -466,8 +467,9 @@ Not in the walking skeleton, deliberately. *(Status added post-v1.0.0.)*
   + serializable hooks delivered classroom/facilitator play (`character.mode.seed`
   scenario codes) **without** a backend, exactly as hoped.
 - Audio, animation, high-fidelity graphics — still out.
-- A real, integrated resource directory — **still a hook only** (`content/resources.yaml`
-  ships empty; the debrief renders it once populated).
+- A real, integrated resource directory — **national baseline shipped**
+  (`content/resources.yaml` ships verified national resources, rendered in the training
+  debrief); a jurisdiction-specific directory / selector is still future.
 - A deep build on any single track — v1 stayed thin across all four; the depth since
   has been breadth *across* tracks (now 25 events), not one track deep.
 

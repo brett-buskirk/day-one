@@ -175,7 +175,11 @@ Everything past the original roadmap, built out before the first release:
 - **Canonical `GameState`** grew serializable fields as features landed —
   `standingSlots`, `pending`, `actedThisTurn` (S1); `poolHistory`, `violations`,
   `terminal` (S2) — all JSON-safe and migrated in `loadRun` for older saves.
-- **Still open:** content breadth (more authored events/archetypes) and a real,
-  jurisdiction-specific **resource directory** (the `content/resources.yaml` hook
-  ships empty; the debrief renders it once populated).
+- **Resource directory (national baseline shipped):** `content/resources.yaml` now
+  ships eight verified national U.S. resources (NRRC, 988, SAMHSA, 211, CareerOneStop,
+  Benefits.gov, HRSA, LawHelp), surfaced in the training debrief's "Where to get help"
+  section. Still open: jurisdiction-specific **local** listings (the file documents how
+  to add them) and an optional jurisdiction selector.
+- **Still open:** content breadth (more authored events/archetypes), the local resource
+  listings above, and ongoing balance/field-testing.
 ```

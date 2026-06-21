@@ -1,17 +1,72 @@
-# Day One — local reentry resource directory (per-jurisdiction data hook).
+# Day One — reentry resource directory.
 #
-# DESIGN §10: "The training debrief should be able to surface real, local
-# reentry resources." This file is the data hook a site fills per jurisdiction.
-# It is empty by default, and the debrief's "Local resources" section only
-# appears once it's populated — so nothing placeholder-y shows in production.
-# Resources are never hardcoded; add them here.
+# DESIGN §10: the training debrief surfaces real reentry resources. This file is
+# that data. It ships with a baseline of free, national U.S. resources so the
+# debrief is useful out of the box; a site/jurisdiction can add its own LOCAL
+# resources below (same shape). Local listings are usually the most useful, so
+# adding them is encouraged. The debrief shows everything here (training mode).
 #
-# Shape (when populated):
-# resources:
-#   - category: housing | benefits | recovery | legal_aid | employment
-#     name: "Organization name"
-#     phone: "(555) 555-5555"
-#     url: "https://..."
-#     note: "Walk-ins Mon–Fri, ask for reentry intake"
+# Each entry:
+#   - category: reentry | crisis | recovery | essentials | employment |
+#               benefits | health | legal_aid | housing   (free-form; shown as a tag)
+#     name:  "Organization or program name"           (required)
+#     phone: "1-800-555-5555" or "988"                (optional)
+#     url:   "https://..."                            (optional)
+#     note:  "One line on what it's for / how to use" (optional)
+#
+# Resources are never hardcoded in the app — add or change them here, then run
+# `npm run build:content`.
 
-resources: []
+resources:
+  # --- National baseline (United States) ---
+  - category: reentry
+    name: "National Reentry Resource Center"
+    phone: "1-866-536-8686"
+    url: "https://nationalreentryresourcecenter.org"
+    note: "Reentry helpline and a national directory of programs, searchable by topic and state."
+
+  - category: crisis
+    name: "988 Suicide & Crisis Lifeline"
+    phone: "988"
+    url: "https://988lifeline.org"
+    note: "Call or text 988 — free, confidential, 24/7 — for any mental-health or substance crisis."
+
+  - category: recovery
+    name: "SAMHSA National Helpline"
+    phone: "1-800-662-4357"
+    url: "https://www.samhsa.gov/find-help/national-helpline"
+    note: "Free, confidential referrals to substance-use and mental-health treatment, 24/7."
+
+  - category: essentials
+    name: "211 (United Way)"
+    phone: "211"
+    url: "https://www.211.org"
+    note: "Dial 211 for local help with housing, food, utilities, and other basics."
+
+  - category: employment
+    name: "CareerOneStop Reentry Programs"
+    phone: "1-877-872-5627"
+    url: "https://www.careeronestop.org/LocalHelp/EmploymentAndTraining/find-reentry-programs.aspx"
+    note: "U.S. Dept. of Labor directory of local reentry-friendly jobs and training."
+
+  - category: benefits
+    name: "Benefits.gov"
+    url: "https://www.benefits.gov"
+    note: "Check which federal and state benefits you may qualify for (SNAP, Medicaid, and more)."
+
+  - category: health
+    name: "HRSA Find a Health Center"
+    url: "https://findahealthcenter.hrsa.gov"
+    note: "Community health centers that treat you regardless of insurance, on a sliding scale."
+
+  - category: legal_aid
+    name: "LawHelp.org"
+    url: "https://www.lawhelp.org"
+    note: "Find free legal aid in your state — records, expungement, IDs, housing, and benefits."
+
+  # --- Add your local / jurisdiction resources below (same shape) ---
+  # - category: housing
+  #   name: "Example County Reentry Housing Program"
+  #   phone: "(555) 555-5555"
+  #   url: "https://..."
+  #   note: "Walk-ins Mon–Fri; ask for reentry intake."

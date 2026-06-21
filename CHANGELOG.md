@@ -8,9 +8,15 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **Reentry resource directory** — the training debrief now surfaces a verified
+  national baseline of free resources (National Reentry Resource Center, 988, SAMHSA,
+  211, CareerOneStop, Benefits.gov, HRSA, LawHelp), with a documented hook for sites
+  to add their own local listings in `content/resources.yaml`.
 - Screenshots in the README.
 
 ### Changed
+- Renamed the debrief's resources section from "Local resources" to "Where to get
+  help" (the baseline is national; sites can add local resources).
 - Documentation accuracy pass across `README.md`, `CLAUDE.md`, `DEVELOPMENT.md`, and
   `docs/` so everything matches the shipped v1.0.0.
 - Tuned Dependabot to ignore major-version bumps and batch minor/patch updates

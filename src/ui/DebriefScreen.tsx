@@ -3,6 +3,7 @@ import type { Corpus, GameState } from "../engine";
 import { buildDebrief } from "../engine";
 import { downloadRun, copyRun } from "./runShare";
 import { RunCodeShare } from "./RunCodeShare";
+import { humanizeCategory } from "./format";
 
 interface Props {
   state: GameState;
@@ -95,25 +96,31 @@ export function DebriefScreen({ state, corpus, characterName, onPlayAgain }: Pro
       )}
 
       {debrief.framing.showResources && resources.length > 0 && (
-        <section className="block block-resources" aria-label="Local resources">
-          <h2 className="block-title">Local resources</h2>
-          <ul className="resources">
-            {resources.map((r, i) => (
-              <li key={i} className="resource">
-                <span className="resource-cat">{r.category}</span>
-                <span className="resource-name">{r.name}</span>
-                {r.note && <span className="muted small">{r.note}</span>}
-                <span className="resource-contact">
-                  {r.phone && <span>{r.phone}</span>}
-                  {r.url && (
-                    <a href={r.url} target="_blank" rel="noreferrer">
-                      {r.url.replace(/^https?:\/\//, "")}
-                    </a>
-                  )}
-                </span>
-              </li>
-            ))}
-          </ul>
+        <section className="block" aria-label="Where to get help">
+          <h2 className="block-title">Where to get help</h2>
+          <div className="block-resources">
+            <p className="muted small">
+              Free, confidential places to start — these are national, and your area
+              likely has more.
+            </p>
+            <ul className="resources">
+              {resources.map((r, i) => (
+                <li key={i} className="resource">
+                  <span className="resource-cat">{humanizeCategory(r.category)}</span>
+                  <span className="resource-name">{r.name}</span>
+                  {r.note && <span className="muted small">{r.note}</span>}
+                  <span className="resource-contact">
+                    {r.phone && <span>{r.phone}</span>}
+                    {r.url && (
+                      <a href={r.url} target="_blank" rel="noreferrer">
+                        {r.url.replace(/^https?:\/\//, "")}
+                      </a>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       )}
 

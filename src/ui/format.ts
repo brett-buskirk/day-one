@@ -91,3 +91,72 @@ export function humanizeRequirement(pred: Predicate): string {
 export function slotsLabel(n: number): string {
   return n === 1 ? "1 day" : `${n} days`;
 }
+
+// ---- Character "situation" labels (the in-game status panel) ----
+
+const HOUSING_LABELS: Record<string, string> = {
+  none: "On the street",
+  shelter: "In a shelter",
+  couch: "On someone's couch",
+  transitional: "Transitional housing",
+  halfway_house: "A halfway house",
+  rental: "Renting a place",
+  stable: "Stable housing",
+};
+const WORK_LABELS: Record<string, string> = {
+  unemployed: "Out of work",
+  searching: "Job searching",
+  leads: "Chasing leads",
+  interviewing: "Interviewing",
+  offer: "Got an offer",
+  employed: "Working",
+};
+const LEGAL_LABELS: Record<string, string> = {
+  parole: "On parole",
+  probation: "On probation",
+  unsupervised: "No supervision",
+};
+const RELATIONSHIP_LABELS: Record<string, string> = {
+  isolated: "On your own",
+  strained: "Strained ties",
+  one_tie: "One person in your corner",
+  supported: "Some support",
+  network: "A real network",
+};
+
+export const housingLabel = (s: string): string => HOUSING_LABELS[s] ?? s;
+export const workLabel = (s: string): string => WORK_LABELS[s] ?? s;
+export const supervisionLabel = (s: string): string => LEGAL_LABELS[s] ?? s;
+export const relationshipsLabel = (s: string): string => RELATIONSHIP_LABELS[s] ?? s;
+
+// How they get around, from the transportation pool (mirrors the chargen bands).
+export function transportLabel(pool: number): string {
+  if (pool >= 70) return "A car of your own";
+  if (pool >= 35) return "A bus pass / borrowed rides";
+  if (pool >= 15) return "A bike";
+  return "On foot";
+}
+
+// Documents and assets the character is currently carrying (the gated reentry keys).
+const HELD_LABELS: Array<[string, string]> = [
+  ["has_state_id", "a state ID"],
+  ["has_birth_cert", "a birth certificate"],
+  ["has_ssn_card", "an SSN card"],
+  ["has_proof_of_address", "proof of address"],
+  ["has_bank_account", "a bank account"],
+  ["has_license", "a driver's license"],
+  ["has_transit_pass", "a transit pass"],
+  ["has_resume", "a résumé"],
+];
+export function heldThings(flags: Record<string, boolean>): string[] {
+  return HELD_LABELS.filter(([flag]) => flags[flag]).map(([, label]) => label);
+}
+
+// Supervision standing from the legal track's readiness — mirrors the debrief's
+// paroleDimension. Returns null when unsupervised (no standing to show).
+export function standingLabel(legalStatus: string, readiness: number): string | null {
+  if (legalStatus === "unsupervised") return null;
+  if (readiness >= 50) return "good standing";
+  if (readiness >= 20) return "warned";
+  return "violation pending";
+}

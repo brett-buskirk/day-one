@@ -7,7 +7,7 @@ import { buildDebrief } from "./debrief";
 
 describe("archetypes", () => {
   it("offers the builds in a deliberate order", () => {
-    expect(archetypes.map((a) => a.id)).toEqual(["marcus", "renae", "dana", "theo", "ray"]);
+    expect(archetypes.map((a) => a.id)).toEqual(["marcus", "renae", "dana", "theo", "ray", "cal"]);
   });
 
   it("every archetype chargens into a valid, in-bounds run", () => {

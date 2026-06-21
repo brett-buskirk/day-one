@@ -63,13 +63,15 @@ it aren't imagined — they're remembered.
   where things landed and a week-by-week replay of *how* you got there — the part
   you can actually learn from.
 
-You choose **who** to play and **why** you're here. There are five hand-built
+You choose **who** to play and **why** you're here. There are six hand-built
 people, ranging from hard to brutal — someone with real skills but no documents;
 someone whose family showed up, to show what support changes; someone carrying the
 weight of probation (fees, court dates, mandated hours); someone with a registry
-requirement that makes housing and work near-impossible; and a "longtimer" home
-after two decades, facing a technology gap and the mental-health weight of all
-those years. There's also a **"Surprise me"** option that generates a fresh,
+requirement that makes housing and work near-impossible; a "longtimer" home after
+two decades, facing a technology gap and the mental-health weight of all those
+years; and someone who "maxed out" — released with no supervision at all, and so
+no officer, no programs, and no one pointing the way. There's also a **"Surprise
+me"** option that generates a fresh,
 coherent person for you. And you pick a framing: **Training** (practice, always a
 way forward) or **Empathy** (feel the wall — the deep end). Throughout, the system
 models *barriers and consequences, never moral judgment.*

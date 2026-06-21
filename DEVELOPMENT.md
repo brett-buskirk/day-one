@@ -184,8 +184,10 @@ Everything past the original roadmap, built out before the first release:
   (the file documents how to add them) and an optional jurisdiction selector.
 - **Content breadth (ongoing):** a transportation/housing pass added three events
   (license restoration, a community/used bike, and recovery housing) — now **28 events
-  / 21 actions**, with transportation no longer a one-event track. More authored events
-  and archetypes still welcome.
-- **Still open:** the local resource listings above, more archetype diversity, and
-  ongoing balance/field-testing.
+  / 21 actions**, with transportation no longer a one-event track. A sixth archetype,
+  **Cal**, added the first **unsupervised "max-out"** build (`supervision: none`,
+  pure origin data) — every prior build was on parole or probation.
+- **Still open:** the local resource listings above, more archetype diversity (an
+  unsupervised build landed; a reunifying-parent or young-first-timer build are next),
+  and ongoing balance/field-testing.
 ```

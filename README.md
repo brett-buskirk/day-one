@@ -29,9 +29,22 @@ are remembered, not imagined.
 
 ---
 
+## Screenshots
+
+| The landing page | The document catch-22, on screen |
+| :---: | :---: |
+| ![Day One's landing page — sunrise logo, Play / About, theme controls](docs/screenshots/landing.png) | ![An event with the right next move shown locked, listing what it requires](docs/screenshots/event-state-id.png) |
+
+The right next move is visible but **locked**, with the reason spelled out (*need a
+birth certificate · need proof of address · need money ≥ 30*) — that gap is the
+simulation.
+
+---
+
 ## Status
 
-Playable end-to-end. Sprints 0–4 of the roadmap are complete:
+**Released as [v1.0.0](https://github.com/brett-buskirk/day-one/releases/tag/v1.0.0)**,
+live in production. Playable end-to-end; Sprints 0–5 of the roadmap are complete:
 
 - **Sprint 0** — scaffold + content pipeline (YAML → validated JSON).
 - **Sprint 1** — the walking skeleton: a full ~13-week run to a debrief.
@@ -42,7 +55,7 @@ Playable end-to-end. Sprints 0–4 of the roadmap are complete:
   an accessibility pass.
 - **Sprint 4** — a broadened corpus (events across every track) and an economy
   balance pass.
-- **Post-4 (v2)** — a landing page + About screen, the registry employment wall,
+- **Sprint 5 (depth / v2 candidates)** — a landing page + About screen, the registry employment wall,
   decision-quality scoring, a recurring monthly economy, probation as a full
   supervision path, the **Longtimer** build (with a technology gap and mental-health
   rules), an in-game info card, **facilitator/classroom scenario codes**, and
@@ -65,7 +78,8 @@ you can do today:
 - Install it to a phone, play offline, close the tab and resume, switch theme, end
   a run early, and export/import a run.
 
-Candidate next steps (v2) are listed at the bottom of [`DEVELOPMENT.md`](DEVELOPMENT.md).
+What's still open (content breadth, a real jurisdiction-specific resource directory)
+is at the bottom of [`DEVELOPMENT.md`](DEVELOPMENT.md).
 
 ---
 
@@ -127,7 +141,9 @@ day-one/
 ├── docs/
 │   ├── ABOUT.md                  plain-language overview (start here)
 │   ├── DESIGN.md                 the design source of truth
-│   └── SPRINTS.md                build roadmap
+│   ├── DEPLOYMENT.md             self-host / Docker / DigitalOcean guides
+│   ├── SPRINTS.md                build roadmap
+│   └── screenshots/              images used in this README
 ├── schema/
 │   └── event.schema.json         JSON Schema authored events validate against
 ├── content/
@@ -162,6 +178,10 @@ day-one/
     └── icons/                    generated PWA icons
 ```
 
+The repo root also holds the deploy + meta files: `Dockerfile` and `nginx.conf`
+(self-host), `.do/app.yaml` (DigitalOcean), `LICENSE`, `CONTRIBUTING.md`,
+`SECURITY.md`, and CI + issue/PR templates under `.github/`.
+
 ---
 
 ## Stack
@@ -173,8 +193,8 @@ AJV (content validation) · js-yaml · Vitest.
 
 ## Deployment
 
-**Live** at **https://dayone-sim.app** (DigitalOcean App Platform, auto-deploys on
-every push to `main`).
+**Live** at **https://dayone-sim.app** (DigitalOcean App Platform; merging a PR to
+the protected `main` branch auto-builds and redeploys).
 
 It's a static PWA, so it hosts anywhere static. The whole deployable artifact is the
 `dist/` folder:

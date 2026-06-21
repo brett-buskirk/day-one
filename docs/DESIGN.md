@@ -4,6 +4,12 @@ This is the source of truth for the build. It captures the decisions made during
 design so the engine can be implemented without re-deriving them. Where it says
 "tuning," the exact number is a knob to balance later, not a thing to block on.
 
+> **Implementation status:** built and shipped as **v1.0.0**, and the spec still
+> holds. Where it scoped features as "v2" (§8, §14) — random character generation
+> and the classroom/facilitator hooks — those have since shipped; a real resource
+> directory remains a data hook only. See [`DEVELOPMENT.md`](../DEVELOPMENT.md) for
+> what's built, sprint by sprint.
+
 ---
 
 ## 1. Vision and audiences
@@ -217,7 +223,9 @@ A build has two layers:
   function maps origin → state, so new characters are authored as data, not code.
 
 For v1, ship a handful of **hand-authored archetypes** (curated, coherent, each a
-teaching scenario). Random generation is a v2 replay feature.
+teaching scenario). *(Shipped: five — Marcus, Renae, Dana, Theo, and Ray; see below.
+Random generation — once scoped as v2 — also shipped, behind a "Surprise me" option:
+`randomOrigin(seed)`.)*
 
 ### Seed archetype: Marcus (see content/characters/marcus.yaml)
 
@@ -227,6 +235,12 @@ background flag, no state ID and no documents, on the sibling's couch with a
 recovery with a chronic back injury, $120 gate money, a drug-related felony. The
 thesis build: the skill is real; the wall is everything around *using* it. The
 chargen mapping for Marcus is documented in his file.
+
+The shipped roster adds four more, each authored purely as origin data: **Renae**
+(a supported build — family, money, transport — the same content at a gentler
+difficulty), **Dana** (probation: fees and mandated community-service hours),
+**Theo** (the registry deep-end build for empathy mode), and **Ray** (the longtimer
+— 24 years inside, a technology gap, and chronic mental-health weight).
 
 ---
 
@@ -445,13 +459,16 @@ effects. Keep authoring friction near zero.
 
 ## 14. Out of scope for v1 (v2 ideas)
 
-Not in the walking skeleton, deliberately:
+Not in the walking skeleton, deliberately. *(Status added post-v1.0.0.)*
 
-- Random character generation (v1 uses hand-authored archetypes).
-- Any multiplayer/facilitator backend (the deterministic + serializable hooks keep
-  the *option* open without building it).
-- Audio, animation, high-fidelity graphics.
-- A real, integrated resource directory (v1 ships the placeholder hook only).
-- A deep build on any single track — v1 is thin across all four (walking skeleton).
+- ~~Random character generation~~ — **shipped** (`randomOrigin(seed)`, "Surprise me").
+- Any multiplayer/facilitator **backend** — still none, by design; the deterministic
+  + serializable hooks delivered classroom/facilitator play (`character.mode.seed`
+  scenario codes) **without** a backend, exactly as hoped.
+- Audio, animation, high-fidelity graphics — still out.
+- A real, integrated resource directory — **still a hook only** (`content/resources.yaml`
+  ships empty; the debrief renders it once populated).
+- A deep build on any single track — v1 stayed thin across all four; the depth since
+  has been breadth *across* tracks (now 25 events), not one track deep.
 
 When in doubt, ship the skeleton thin and complete rather than one track deep.

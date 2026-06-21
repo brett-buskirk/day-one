@@ -97,12 +97,26 @@ export function slotsLabel(n: number): string {
 const HOUSING_LABELS: Record<string, string> = {
   none: "On the street",
   shelter: "In a shelter",
-  couch: "On someone's couch",
+  couch: "Staying with family or a friend",
   transitional: "Transitional housing",
   halfway_house: "A halfway house",
   rental: "Renting a place",
   stable: "Stable housing",
 };
+
+// A compact version of the "night one" housing for the character-select cards —
+// "couch" reads as "with family/a friend" so it doesn't contradict a build whose
+// story is a spare bedroom (e.g. Renae), only a literal couch.
+const NIGHT_ONE_SHORT: Record<string, string> = {
+  none: "no fixed place",
+  shelter: "a shelter",
+  couch: "with family/a friend",
+  transitional: "transitional housing",
+  halfway_house: "a halfway house",
+  rental: "a rented room",
+  stable: "stable housing",
+};
+export const nightOneShort = (s: string): string => NIGHT_ONE_SHORT[s] ?? s;
 const WORK_LABELS: Record<string, string> = {
   unemployed: "Out of work",
   searching: "Job searching",

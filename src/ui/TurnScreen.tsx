@@ -36,6 +36,20 @@ function cheapestSlotCost(state: GameState, event: GameEvent): number {
   return costs.length ? Math.min(...costs) : 0;
 }
 
+// A clean spoken name for an action/obligation card: title + tags + day cost.
+function cardLabel(e: GameEvent, cost: number): string {
+  const bits = (e.tags ?? []).filter((t) => t !== "obligation");
+  if (e.requires_travel) bits.push("requires travel");
+  bits.push(cost > 0 ? `from ${slotsLabel(cost)}` : "no day cost");
+  return `${e.title} — ${bits.join(", ")}`;
+}
+
+// Standing commitments that pre-spend a day each week (why the budget is < base).
+const SLOT_COMMITMENTS: Record<string, string> = {
+  mandated_treatment: "mandated treatment",
+  community_service: "community service",
+};
+
 export function TurnScreen({
   state,
   corpus,
@@ -63,6 +77,15 @@ export function TurnScreen({
   const obligations = dueObligations(state, corpus);
   const actions = eligibleActions(state, corpus).filter((e) => !isObligation(e));
   const thisWeekLog = state.log.filter((l) => l.turn === state.turn);
+
+  // Explain a short week: which standing commitments pre-spend days (DESIGN §4).
+  const commitments = (origin?.supervision.conditions ?? [])
+    .map((c) => SLOT_COMMITMENTS[c])
+    .filter(Boolean);
+  const commitmentNote =
+    state.standingSlots > 0 && commitments.length
+      ? `${slotsLabel(state.standingSlots)} a week already goes to ${commitments.join(" and ")}.`
+      : null;
 
   return (
     <div className="screen">
@@ -99,15 +122,19 @@ export function TurnScreen({
           </div>
         </div>
         <div className="turn-bottom">
-          <div className="slot-dots" aria-hidden="true">
-            {Array.from({ length: Math.max(state.slots, state.baseSlots - state.standingSlots) }).map((_, i) => (
-              <span key={i} className={`dot ${i < state.slots ? "dot-on" : "dot-off"}`} />
-            ))}
-          </div>
-          <span className="turn-slots" aria-label={`${state.slots} action days left this week`}>
-            {slotsLabel(state.slots)} left
+          <span className="turn-slots-label">Days left this week</span>
+          <span className="turn-slots-meter">
+            <span className="slot-dots" aria-hidden="true">
+              {Array.from({ length: Math.max(state.slots, state.baseSlots - state.standingSlots) }).map((_, i) => (
+                <span key={i} className={`dot ${i < state.slots ? "dot-on" : "dot-off"}`} />
+              ))}
+            </span>
+            <span className="turn-slots" aria-label={`${state.slots} action days left this week`}>
+              {slotsLabel(state.slots)}
+            </span>
           </span>
         </div>
+        {commitmentNote && <p className="turn-commit">{commitmentNote}</p>}
       </header>
 
       <section className="pools" aria-label="Resources">
@@ -122,7 +149,12 @@ export function TurnScreen({
           <ul className="card-list">
             {pending.map((e) => (
               <li key={e.id}>
-                <button type="button" className="card card-incident" onClick={() => onOpenEvent(e.id)}>
+                <button
+                  type="button"
+                  className="card card-incident"
+                  onClick={() => onOpenEvent(e.id)}
+                  aria-label={`${e.title} — interrupt, resolve now`}
+                >
                   <span className="card-title">{e.title}</span>
                   <span className="card-cta">Resolve →</span>
                 </button>
@@ -140,7 +172,12 @@ export function TurnScreen({
               const cost = cheapestSlotCost(state, e);
               return (
                 <li key={e.id}>
-                  <button type="button" className="card card-obligation" onClick={() => onOpenEvent(e.id)}>
+                  <button
+                    type="button"
+                    className="card card-obligation"
+                    onClick={() => onOpenEvent(e.id)}
+                    aria-label={`Due: ${cardLabel(e, cost)}`}
+                  >
                     <span className="card-title">{e.title}</span>
                     <span className="card-tags">
                       {e.requires_travel && <span className="tag tag-travel">travel</span>}
@@ -165,7 +202,12 @@ export function TurnScreen({
               const cost = cheapestSlotCost(state, e);
               return (
                 <li key={e.id}>
-                  <button type="button" className="card" onClick={() => onOpenEvent(e.id)}>
+                  <button
+                    type="button"
+                    className="card"
+                    onClick={() => onOpenEvent(e.id)}
+                    aria-label={cardLabel(e, cost)}
+                  >
                     <span className="card-title">{e.title}</span>
                     <span className="card-tags">
                       {(e.tags ?? []).map((t) => (

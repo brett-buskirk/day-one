@@ -122,7 +122,9 @@ export function EventDetail({
           {isPending && <span className="badge badge-incident">This week interrupts</span>}
         </header>
 
-        <p className="prompt">{event.prompt}</p>
+        {/* Once an outcome is showing, drop the (already-read) full prompt so the
+            result + Continue aren't pushed down the screen. */}
+        {!outcomeText && <p className="prompt">{event.prompt}</p>}
 
         {outcomeText ? (
           <div className="outcome" role="status" aria-live="polite">

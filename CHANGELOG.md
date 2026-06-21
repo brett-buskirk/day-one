@@ -7,6 +7,23 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+- **Card accessibility** — action, obligation, and "interrupt" cards now carry explicit
+  screen-reader labels (title + tags + day cost) for cleaner announcements.
+- **Days-left clarity** — the turn header now labels the day dots ("Days left this
+  week") and explains a short week (e.g. "1 day a week already goes to mandated
+  treatment").
+
+### Changed
+- Outcome screens no longer repeat the full event prompt, so the result and **Continue**
+  sit higher on small screens.
+- Character-select cards humanize the housing line (e.g. "with family/a friend" instead
+  of the raw `couch`), so it no longer contradicts a build's story (Renae's spare room).
+
+### Fixed
+- Debrief "footing" wording no longer reads "holding steady" on a slight decline — the
+  word tracks the change, and the line notes footing is the average of the five pools.
+
 ## [1.2.0] - 2026-06-21
 
 A sixth build, deeper content on the thinnest tracks, clearer in-game feedback, and a

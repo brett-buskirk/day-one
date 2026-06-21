@@ -39,7 +39,6 @@ choices:
           text: >
             You catch them at a good moment and they move it to next week. Slot
             saved — but the clock's just deferred, not cleared.
-          schedule: { event: evt_parole_checkin, in_turns: 1 }
       - weight: 60
         effects:
           text: >
@@ -47,4 +46,3 @@ choices:
             how good standing slips.
           pools: { morale: -6 }
           tracks: { legal: { status: parole, readiness: -10 } }
-          schedule: { event: evt_parole_checkin, in_turns: 1 }

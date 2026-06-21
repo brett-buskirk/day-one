@@ -31,6 +31,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   update is deferred to Continue for this. Reduced-motion-aware: the number still
   shows; only the animation is gated.
 
+### Fixed
+- **You can skip a parole/probation check-in again.** Its "reschedule" branch
+  redundantly re-scheduled the check-in as a *forced* incident, which blocked ending
+  the week. The check-in already recurs weekly on its own, and a missed one already
+  files a violation — so it's back to a normal, skippable obligation: forget it and
+  take the technical violation, as intended.
+
 ## [1.1.0] - 2026-06-21
 
 Reentry resources, surfaced in the end-of-run debrief **and** an always-available

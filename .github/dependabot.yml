@@ -1,22 +1,30 @@
 version: 2
+
+# Deliberately quiet. Major-version bumps are breaking and are handled by hand, so
+# they're ignored here (a bundled major upgrade once broke the build — js-yaml 5
+# dropped its default export). Dependabot still batches safe minor/patch updates
+# once a month, and security updates come through regardless of these rules.
 updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 10
+      interval: monthly
+    open-pull-requests-limit: 5
     groups:
-      # Group only safe minor/patch bumps into a single PR. Major bumps are left
-      # ungrouped, so each breaking upgrade arrives as its own reviewable PR — a
-      # bundled major once broke the build (js-yaml 5 dropped its default export)
-      # and took the safe bumps down with it.
       minor-and-patch:
         patterns: ["*"]
         update-types: ["minor", "patch"]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: weekly
+      interval: monthly
     groups:
       github-actions:
         patterns: ["*"]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]

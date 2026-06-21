@@ -112,16 +112,23 @@ about React.
   monthly economy amounts, terminal threshold, tech-gap years) live in
   `src/engine/tuning.ts`.
 
-## Deploy
+## Workflow & deploy
 
-Live on **DigitalOcean App Platform** (static site) from this repo's `main`, with
-`deploy_on_push` on — **every push to `main` auto-builds and redeploys**. Spec:
-[`.do/app.yaml`](.do/app.yaml). Details + the DNS gotcha we hit: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+`main` is **protected** — no direct pushes. Work on a branch, open a PR, let **CI**
+(`.github/workflows/ci.yml`: content validation + typecheck + tests + build) go
+green, then merge. Self-merge is allowed (0 required approvals). See
+[`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+Production is **live** on **DigitalOcean App Platform** (static site) from `main`
+with `deploy_on_push` on, so **merging a PR to `main` auto-builds and redeploys**.
+Spec: [`.do/app.yaml`](.do/app.yaml). The app is a static PWA, so it also self-hosts
+behind nginx or Docker. Full paths + the DNS gotcha we hit: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ## Gotchas
 
 - Don't commit `src/content/corpus.generated.json` (gitignored; regenerated).
-- Pushing to `main` **deploys to production** — keep it green (`npm run build` + `npm test`).
+- **Never push directly to `main`** — it's protected, and landing a change there
+  deploys to production. Branch → PR → green CI → merge. Keep it green locally first
+  (`npm run typecheck && npm test && npm run build`).
 - Node is via nvm here; if a tool reports "npm not found" in a non-interactive shell
   it's a PATH/nvm issue, not a repo problem.
-- Keep commit/push to `main` only when asked; the user has been driving that.

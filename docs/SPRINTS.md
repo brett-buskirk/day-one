@@ -1,16 +1,20 @@
 # Day One — build roadmap
 
+> **Status (shipped in v1.0.0):** Sprints 0–3 are **complete**, and the Sprint 4+
+> (v2) candidates have **all shipped except a real, jurisdiction-specific resource
+> directory** (still a data hook only — see §10/§14 of `docs/DESIGN.md`). This file
+> is the original roadmap, kept for history; for what actually shipped, sprint by
+> sprint, see [`DEVELOPMENT.md`](../DEVELOPMENT.md).
+
 Sprints are vertical slices, not horizontal layers. Each one ends with something
 that runs. Sprint 1 is the **walking skeleton**: thin across every subsystem,
-playable end-to-end. Depth comes later. Build Sprint 0 and Sprint 1 first, then
-stop for review before Sprint 2.
+playable end-to-end. Depth comes later.
 
-Read `docs/DESIGN.md` before starting — it is the source of truth for everything
-below.
+Read `docs/DESIGN.md` first — it is the source of truth for everything below.
 
 ---
 
-## Sprint 0 — scaffold and pipeline
+## Sprint 0 — scaffold and pipeline ✓
 
 **Goal:** an empty-but-correct PWA that compiles validated content.
 
@@ -30,7 +34,7 @@ loudly if you corrupt a seed event.
 
 ---
 
-## Sprint 1 — the walking skeleton
+## Sprint 1 — the walking skeleton ✓
 
 **Goal:** a playable run, start to debrief, on a phone.
 
@@ -53,7 +57,7 @@ summarize for review.**
 
 ---
 
-## Sprint 2 — incidents, crises, scoring
+## Sprint 2 — incidents, crises, scoring ✓
 
 **Goal:** the loop gets its teeth and its fairness.
 
@@ -69,7 +73,7 @@ explains *why* the run landed where it did.
 
 ---
 
-## Sprint 3 — modes, persistence, group hooks
+## Sprint 3 — modes, persistence, group hooks ✓
 
 **Goal:** serve both audiences and make runs durable.
 
@@ -85,12 +89,14 @@ can be exported.
 
 ---
 
-## Sprint 4+ — depth (v2)
+## Sprint 4+ — depth (v2) — shipped, except the resource directory
 
-- Broaden the corpus per track (this is mostly content authoring, not engine work).
-- Random character generation.
-- Classroom/facilitator features built on the deterministic + export hooks.
-- A real, jurisdiction-specific resource directory.
+- ✓ Broaden the corpus per track (now **25 events / 18 actions** across all four tracks).
+- ✓ Random character generation (`randomOrigin(seed)` — the "Surprise me" build).
+- ✓ Classroom/facilitator features on the deterministic + export hooks
+  (`character.mode.seed` scenario codes).
+- ☐ A real, jurisdiction-specific resource directory — **still open**: ships the
+  `content/resources.yaml` data hook only; the debrief renders it once populated.
 
 ---
 

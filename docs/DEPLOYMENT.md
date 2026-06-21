@@ -58,7 +58,8 @@ Put it behind your own TLS-terminating reverse proxy / ingress in production.
 
 > Status: **live** at **https://dayone-sim.app** (and the default
 > `https://day-one-a7fs5.ondigitalocean.app`), building from `main` with
-> `deploy_on_push` — every push to `main` auto-builds and redeploys.
+> `deploy_on_push` — every change merged to `main` auto-builds and redeploys.
+> (`main` is branch-protected, so changes arrive via merged PRs, not direct pushes.)
 
 - **App:** `day-one` (static site), in the **"Day One"** DO project.
 - **Spec:** [`.do/app.yaml`](../.do/app.yaml).
@@ -113,11 +114,15 @@ doctl apps logs <APP_ID> --type build|deploy  # logs
 doctl apps create-deployment <APP_ID>         # manual redeploy (or just push to main)
 ```
 
-Rollback: revert the offending commit and push, or redeploy a prior good deployment.
+Rollback: revert the offending commit (via a PR), or redeploy a prior good deployment.
 
 ---
 
-## Pre-deploy / pre-push checklist (push to main = production)
+## Pre-merge checklist (merging to `main` deploys to production)
 
-- [ ] `npm run build` clean (CI also runs `build:content` + `typecheck` + `test`).
+`main` is branch-protected, so changes reach production by **merging a PR**, and
+**CI must pass first** (`.github/workflows/ci.yml`: content validation + typecheck +
+tests + build). Before opening the PR, sanity-check locally:
+
+- [ ] `npm run build` clean.
 - [ ] `npm test` green.

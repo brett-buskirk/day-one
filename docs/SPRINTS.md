@@ -1,10 +1,10 @@
 # Day One — build roadmap
 
-> **Status (shipped in v1.0.0):** Sprints 0–3 are **complete**, and the Sprint 4+
-> (v2) candidates have **all shipped except a real, jurisdiction-specific resource
-> directory** (still a data hook only — see §10/§14 of `docs/DESIGN.md`). This file
-> is the original roadmap, kept for history; for what actually shipped, sprint by
-> sprint, see [`DEVELOPMENT.md`](../DEVELOPMENT.md).
+> **Status:** Sprints 0–3 are **complete** (v1.0.0), and the Sprint 4+ (v2)
+> candidates have all shipped; the resource directory now ships a **national
+> baseline**, with local/jurisdiction listings the remaining enhancement (see §10/§14
+> of `docs/DESIGN.md`). This file is the original roadmap, kept for history; for what
+> actually shipped, sprint by sprint, see [`DEVELOPMENT.md`](../DEVELOPMENT.md).
 
 Sprints are vertical slices, not horizontal layers. Each one ends with something
 that runs. Sprint 1 is the **walking skeleton**: thin across every subsystem,
@@ -89,14 +89,15 @@ can be exported.
 
 ---
 
-## Sprint 4+ — depth (v2) — shipped, except the resource directory
+## Sprint 4+ — depth (v2)
 
 - ✓ Broaden the corpus per track (now **25 events / 18 actions** across all four tracks).
 - ✓ Random character generation (`randomOrigin(seed)` — the "Surprise me" build).
 - ✓ Classroom/facilitator features on the deterministic + export hooks
   (`character.mode.seed` scenario codes).
-- ☐ A real, jurisdiction-specific resource directory — **still open**: ships the
-  `content/resources.yaml` data hook only; the debrief renders it once populated.
+- ◐ A jurisdiction-specific resource directory — **national baseline shipped**:
+  `content/resources.yaml` ships verified national resources, surfaced in the training
+  debrief. Local/jurisdiction listings (and an optional selector) are still open.
 
 ---
 

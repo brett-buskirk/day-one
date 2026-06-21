@@ -674,6 +674,9 @@ button {
   margin-bottom: 8px;
 }
 .block-resources {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   border: 1px dashed var(--line);
   border-radius: var(--radius);
   padding: 14px;

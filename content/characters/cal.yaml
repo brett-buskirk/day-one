@@ -1,0 +1,39 @@
+id: cal
+name: Cal
+display_age: 47
+summary: >
+  Eight years in, served to the last day — "maxed out," so he walked out with no
+  parole, no officer, and no plan: nobody assigned to check whether he makes it.
+  Freedom on paper, a shelter cot in practice. No documents, a forklift cert and a
+  GED that no one's there to connect to an actual job, and not one name left in his
+  phone that still picks up. The build that asks the quiet question: what happens
+  when the system simply lets go?
+
+time_inside_years: 8
+
+# The defining trait: no supervision at all. No check-ins, no fees, no mandated
+# hours — a full, untaxed week. The catch is the flip side of that freedom: no
+# parole officer to point him at services, no structure, and no one in his corner.
+supervision:
+  type: none
+  years: 0
+  conditions: []
+
+landing:
+  night_one: shelter
+  housing_clock_turns: 3
+  support: isolated
+  job_lined_up: false
+  documents: []
+  transportation: none
+  gate_money: 96
+
+person:
+  in_recovery: false
+  chronic_health_issue: false
+  mental_health_issue: false
+  credentials: [ged, cert_forklift]
+
+offense:
+  category: robbery
+  registry_required: false

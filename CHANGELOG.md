@@ -8,6 +8,11 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **New archetype — Cal, an unsupervised "max-out" build.** Released after serving
+  the full sentence: no parole or probation (and so no check-ins, fees, or slot tax —
+  a full week), but isolated and unsupported, in a shelter with nothing. The first
+  build that isn't on paper; teaches that "no supervision" means "no scaffolding,"
+  not "easier." Pure origin data — no engine changes.
 - **Transportation & housing content** — three new events: restore a suspended
   license (clears the unpaid-fines trap), get a community/used bike, and recovery /
   sober-living housing. Fills the thinnest tracks (transportation went from one event

@@ -236,11 +236,14 @@ recovery with a chronic back injury, $120 gate money, a drug-related felony. The
 thesis build: the skill is real; the wall is everything around *using* it. The
 chargen mapping for Marcus is documented in his file.
 
-The shipped roster adds four more, each authored purely as origin data: **Renae**
+The shipped roster adds five more, each authored purely as origin data: **Renae**
 (a supported build — family, money, transport — the same content at a gentler
 difficulty), **Dana** (probation: fees and mandated community-service hours),
-**Theo** (the registry deep-end build for empathy mode), and **Ray** (the longtimer
-— 24 years inside, a technology gap, and chronic mental-health weight).
+**Theo** (the registry deep-end build for empathy mode), **Ray** (the longtimer —
+24 years inside, a technology gap, and chronic mental-health weight), and **Cal**
+(a "max-out" release with `supervision: none` → legal status `unsupervised`: no
+check-ins, fees, or slot tax, but isolated and unsupported — freedom without
+scaffolding).
 
 ---
 

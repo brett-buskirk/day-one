@@ -54,6 +54,10 @@ export default function App() {
   } | null>(null);
   const [activeEventId, setActiveEventId] = useState<string | null>(null);
   const [outcomeText, setOutcomeText] = useState<string | null>(null);
+  // The resolved state of a choice, held until the player taps Continue. We reveal
+  // the new pools only after the outcome sheet closes (and we scroll the bars into
+  // view), so the pulse isn't hidden behind the dimmed sheet or off-screen.
+  const [pendingResolved, setPendingResolved] = useState<GameState | null>(null);
   const [savedRun, setSavedRun] = useState<GameState | null>(null);
   // Where to return when the always-available Help view is closed (it can be opened
   // from the landing page, About, or mid-run).
@@ -151,12 +155,21 @@ export default function App() {
     const event = corpus.events[activeEventId];
     const next = resolveChoice(state, event, choice, corpus);
     setOutcomeText(next.log[next.log.length - 1]?.text ?? "");
-    commit(next);
+    // Hold the resolved state; the pools (and their pulse) are revealed on Continue.
+    setPendingResolved(next);
   };
 
   const handleContinueAfterOutcome = () => {
     setActiveEventId(null);
     setOutcomeText(null);
+    if (pendingResolved) {
+      // Now reveal the resolved pools — the bars pulse and show their deltas — and
+      // scroll them into view (after the sheet closes) so the pulse is always seen,
+      // even when the choice was picked from the bottom of a long list.
+      commit(pendingResolved);
+      setPendingResolved(null);
+      requestAnimationFrame(() => window.scrollTo(0, 0));
+    }
   };
 
   const handleEndWeek = () => {

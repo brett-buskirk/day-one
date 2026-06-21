@@ -7,6 +7,12 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+- **Transportation & housing content** — three new events: restore a suspended
+  license (clears the unpaid-fines trap), get a community/used bike, and recovery /
+  sober-living housing. Fills the thinnest tracks (transportation went from one event
+  to three); 28 events total.
+
 ## [1.1.0] - 2026-06-21
 
 Reentry resources, surfaced in the end-of-run debrief **and** an always-available

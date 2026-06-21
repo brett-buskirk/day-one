@@ -18,6 +18,7 @@
     "has_transit_pass",
     "owes_supervision_fees",
     "tech_gap",
-    "chronic_mental_health"
+    "chronic_mental_health",
+    "has_license"
   ]
 }

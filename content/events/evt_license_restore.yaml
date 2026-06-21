@@ -1,0 +1,57 @@
+id: evt_license_restore
+kind: action
+title: Get your license back
+tags: [transportation, legal, money]
+
+# A license suspended over unpaid fines is one of the quietest reentry traps: no
+# license makes work and everything else harder, while the debt just sits there
+# growing. Clearing it — or a hardship payment plan — puts the road back under you.
+# Not offered to the long-timer, whose license lapsed decades ago (tech_gap).
+conditions:
+  - flags.has_license == false
+  - flags.tech_gap == false
+  - pools.transportation < 70
+
+prompt: >
+  Old traffic fines suspended your license years back, and the balance only grew
+  while you were away. The clerk says you can clear it — pay it down, or set up a
+  plan — and get back on the road. Driving changes what a week can even hold.
+
+choices:
+
+  - id: pay_in_full
+    quality: durable
+    label: Clear the fines and reinstate it
+    requires:
+      - pools.money >= 40
+    cost: { money: 40 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Receipt in hand, license reinstated. It's a real bite out of what
+            little you had — and the whole map just opened back up.
+          flags: { has_license: true }
+          pools: { transportation: 35, morale: 8 }
+
+  - id: payment_plan
+    quality: durable
+    label: Set up a hardship payment plan
+    requires:
+      - pools.money >= 12
+    cost: { money: 12 }
+    outcomes:
+      - weight: 80
+        modifier: { stat: social_capital, scale: 0.15 }
+        effects:
+          text: >
+            They take a first payment and a signature and hand your license back on
+            the promise of the rest. Driving again — with a tab still running.
+          flags: { has_license: true }
+          pools: { transportation: 28, morale: 4 }
+      - weight: 20
+        effects:
+          text: >
+            The plan needs more down than you can spare today. You leave with a form
+            to bring back when the money's there.
+          pools: { morale: -3 }

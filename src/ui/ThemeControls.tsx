@@ -1,3 +1,4 @@
+// Appearance picker: a light/dark segmented toggle + accent-color swatches.
 import { ACCENTS, type Accent, type ThemeMode } from "../theme";
 
 interface Props {

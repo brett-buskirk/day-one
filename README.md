@@ -173,10 +173,20 @@ AJV (content validation) · js-yaml · Vitest.
 
 ## Deployment
 
-**Live** on DigitalOcean App Platform (static site) at **https://dayone-sim.app**
-(and `https://day-one-a7fs5.ondigitalocean.app`), building from `main` with
-`deploy_on_push` — **every push to `main` auto-deploys**. Spec: [`.do/app.yaml`](.do/app.yaml);
-details + the DNS gotcha we hit: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+**Live** at **https://dayone-sim.app** (DigitalOcean App Platform, auto-deploys on
+every push to `main`).
+
+It's a static PWA, so it hosts anywhere static. The whole deployable artifact is the
+`dist/` folder:
+
+```bash
+npm ci && npm run build      # → dist/  (serve with any static host / nginx)
+```
+
+[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) has step-by-step paths for **self-hosting
+with nginx**, **Docker** (`docker build -t day-one . && docker run -p 8080:80 day-one`
+— no Node needed on the host, via the included [`Dockerfile`](Dockerfile) +
+[`nginx.conf`](nginx.conf)), and **DigitalOcean App Platform** (incl. the DNS notes).
 
 ---
 
@@ -193,3 +203,16 @@ If a build decision ever conflicts with one of these, this list wins (expanded i
    single `hardFail` flag.
 4. **Group-ready for free.** Deterministic (seedable RNG) and serializable runs.
 5. **Phone-first, offline, accessible.** Old Android, metered plan, bad Wi-Fi.
+
+---
+
+## Contributing
+
+`main` is protected — work on a branch, open a PR, let CI (build + typecheck +
+tests) pass, then merge. See [`CONTRIBUTING.md`](CONTRIBUTING.md) and, for working
+in the codebase, [`CLAUDE.md`](CLAUDE.md).
+
+## License
+
+[MIT](LICENSE) © Brett Buskirk. Use it, deploy it, adapt it — including at your own
+organization. If it helps people coming home, it's doing its job.

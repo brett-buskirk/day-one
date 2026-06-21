@@ -1,3 +1,4 @@
+// One labeled, accessible resource meter (a pool): number + bar + tone band.
 import type { PoolKey } from "../engine";
 import { POOL_META } from "./format";
 

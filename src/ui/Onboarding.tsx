@@ -1,3 +1,5 @@
+// The between-screens step that sets the mode's emotional contract (training vs
+// empathy) and primes how a week works before a run begins.
 import type { CharacterOrigin, Mode } from "../engine";
 
 interface Props {

@@ -1,0 +1,9 @@
+node_modules
+dist
+dev-dist
+.git
+.github
+.do
+coverage
+*.log
+src/content/corpus.generated.json

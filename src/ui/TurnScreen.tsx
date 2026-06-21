@@ -1,3 +1,5 @@
+// The weekly turn screen: pools, days left, due obligations, eligible actions,
+// forced incident cards, and the end-of-week / end-of-run controls.
 import type { Corpus, GameEvent, GameState } from "../engine";
 import {
   eligibleActions,

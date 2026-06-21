@@ -417,6 +417,9 @@ bad Wi-Fi in the room.
 - **Offline** — service worker precaches the app shell and the compiled content
   corpus so a run works with no connection. Dexie (IndexedDB) stores saved runs;
   a player can close the tab and resume.
+- **Updates** — `registerType: "prompt"`: when a new build is deployed, the app shows
+  a small "new version — Refresh" banner (`src/ui/UpdatePrompt.tsx`) and applies it on
+  tap, rather than silently reloading a player out of a run mid-week.
 - **Lightweight** — keep the initial payload small; this is the core reason React
   was chosen over heavier web targets. Lazy-load anything non-essential.
 - **Mobile-first** — single-column layout, touch targets ≥ 44px, large legible

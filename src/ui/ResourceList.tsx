@@ -1,7 +1,7 @@
 // The reusable resource list, shared by the debrief and the standalone Help
 // screen so both render the same `content/resources.yaml` data identically.
 import type { ResourceItem } from "../engine";
-import { humanizeCategory } from "./format";
+import { humanizeCategory, shortUrl } from "./format";
 
 export function ResourceList({ resources }: { resources: ResourceItem[] }) {
   return (
@@ -15,7 +15,7 @@ export function ResourceList({ resources }: { resources: ResourceItem[] }) {
             {r.phone && <span>{r.phone}</span>}
             {r.url && (
               <a href={r.url} target="_blank" rel="noreferrer">
-                {r.url.replace(/^https?:\/\//, "")}
+                {shortUrl(r.url)}
               </a>
             )}
           </span>

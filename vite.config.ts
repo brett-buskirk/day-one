@@ -50,7 +50,10 @@ export default defineConfig({
     contentPipeline(),
     react(),
     VitePWA({
-      registerType: "autoUpdate",
+      // "prompt", not "autoUpdate": a new deploy surfaces a "Refresh" prompt
+      // (see src/ui/UpdatePrompt.tsx) instead of silently reloading an open tab,
+      // so a player is never yanked out of a run mid-week.
+      registerType: "prompt",
       // We own public/manifest.webmanifest (linked from index.html), so the
       // plugin manages only the service worker, not the manifest.
       manifest: false,

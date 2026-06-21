@@ -1,12 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { registerSW } from "virtual:pwa-register";
 import App from "./App";
 import "./styles.css";
 
-// Auto-update the service worker so a cached install picks up new builds without
-// an app store. No-op in dev (devOptions.enabled = false).
-registerSW({ immediate: true });
+// The service worker is registered by <UpdatePrompt> (src/ui/UpdatePrompt.tsx),
+// which also surfaces the "new version — Refresh" prompt. No-op in dev.
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

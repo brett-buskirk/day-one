@@ -31,7 +31,7 @@ export function PoolBar({ poolKey, value }: Props) {
       prev.current = value;
       if (d !== 0) {
         setDelta(d);
-        const t = setTimeout(() => setDelta(null), 1500);
+        const t = setTimeout(() => setDelta(null), 2400);
         return () => clearTimeout(t);
       }
     }

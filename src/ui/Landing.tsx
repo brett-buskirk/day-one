@@ -10,6 +10,7 @@ interface Props {
   onPlay: () => void;
   onAbout: () => void;
   onResume: () => void;
+  onHelp: () => void;
 }
 
 export function Landing({
@@ -21,6 +22,7 @@ export function Landing({
   onPlay,
   onAbout,
   onResume,
+  onHelp,
 }: Props) {
   return (
     <div className="screen landing">
@@ -50,6 +52,10 @@ export function Landing({
           About
         </button>
       </div>
+
+      <button type="button" className="help-link" onClick={onHelp}>
+        Where to get help
+      </button>
 
       <ThemeControls mode={themeMode} accent={accent} onMode={onThemeMode} onAccent={onAccent} />
 

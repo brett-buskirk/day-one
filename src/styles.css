@@ -682,6 +682,23 @@ button {
   padding: 14px;
 }
 
+/* The "Where to get help" entry point (landing, About, in-game info card). */
+.help-link {
+  display: block;
+  width: fit-content;
+  margin: 4px auto;
+  min-height: 44px;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
 /* ---- Mode picker + appearance controls (start screen) -------------- */
 
 .mode-pick {

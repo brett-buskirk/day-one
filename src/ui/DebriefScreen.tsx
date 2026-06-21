@@ -3,7 +3,7 @@ import type { Corpus, GameState } from "../engine";
 import { buildDebrief } from "../engine";
 import { downloadRun, copyRun } from "./runShare";
 import { RunCodeShare } from "./RunCodeShare";
-import { humanizeCategory } from "./format";
+import { ResourceList } from "./ResourceList";
 
 interface Props {
   state: GameState;
@@ -103,23 +103,7 @@ export function DebriefScreen({ state, corpus, characterName, onPlayAgain }: Pro
               Free, confidential places to start — these are national, and your area
               likely has more.
             </p>
-            <ul className="resources">
-              {resources.map((r, i) => (
-                <li key={i} className="resource">
-                  <span className="resource-cat">{humanizeCategory(r.category)}</span>
-                  <span className="resource-name">{r.name}</span>
-                  {r.note && <span className="muted small">{r.note}</span>}
-                  <span className="resource-contact">
-                    {r.phone && <span>{r.phone}</span>}
-                    {r.url && (
-                      <a href={r.url} target="_blank" rel="noreferrer">
-                        {r.url.replace(/^https?:\/\//, "")}
-                      </a>
-                    )}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <ResourceList resources={resources} />
           </div>
         </section>
       )}

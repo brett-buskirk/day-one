@@ -8,10 +8,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
-- **Reentry resource directory** — the training debrief now surfaces a verified
-  national baseline of free resources (National Reentry Resource Center, 988, SAMHSA,
-  211, CareerOneStop, Benefits.gov, HRSA, LawHelp), with a documented hook for sites
-  to add their own local listings in `content/resources.yaml`.
+- **Reentry resource directory** — surfaces a verified national baseline of free
+  resources (National Reentry Resource Center, 988, SAMHSA, 211, CareerOneStop,
+  Benefits.gov, HRSA, LawHelp), with a documented hook for sites to add their own
+  local listings in `content/resources.yaml`.
+- **Always-available "Where to get help" screen** — the resource directory is now
+  reachable from the landing page, the in-game info (ⓘ) card, and About — not only the
+  end-of-run debrief — so help never requires finishing, or even starting, a run.
 - Screenshots in the README.
 
 ### Changed

@@ -3,11 +3,12 @@ import { HowYouPlay } from "./HowYouPlay";
 interface Props {
   onBack: () => void;
   onPlay: () => void;
+  onHelp: () => void;
 }
 
 // A condensed, in-app version of docs/ABOUT.md — for a public visitor deciding
 // whether to play.
-export function AboutScreen({ onBack, onPlay }: Props) {
+export function AboutScreen({ onBack, onPlay, onHelp }: Props) {
   return (
     <div className="screen about">
       <header className="hero">
@@ -73,6 +74,9 @@ export function AboutScreen({ onBack, onPlay }: Props) {
 
       <button type="button" className="primary big" onClick={onPlay}>
         Play
+      </button>
+      <button type="button" className="help-link" onClick={onHelp}>
+        Where to get help
       </button>
       <button type="button" className="link-btn" onClick={onBack}>
         ← Back

@@ -7,6 +7,10 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.2.2] - 2026-06-21
+
+A gameplay fix: housing now climbs a ladder instead of looping back on itself.
+
 ### Fixed
 - **Housing now moves only up a ladder.** Once you reached transitional housing, the
   game kept offering (and let you re-pick) transitional housing. Housing states now
@@ -146,7 +150,8 @@ after release, one weekly turn at a time, as an installable, offline PWA.
 ### Deployed
 - Live at [dayone-sim.app](https://dayone-sim.app) on DigitalOcean App Platform.
 
-[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/brett-buskirk/day-one/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/brett-buskirk/day-one/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/brett-buskirk/day-one/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/brett-buskirk/day-one/compare/v1.0.0...v1.1.0

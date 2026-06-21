@@ -41,7 +41,6 @@ choices:
           text: >
             You reach them and they allow it, once. The slot's yours back this
             week — but the clock only moved, it didn't stop.
-          schedule: { event: evt_probation_checkin, in_turns: 1 }
       - weight: 60
         effects:
           text: >
@@ -49,4 +48,3 @@ choices:
             a technical violation gets written.
           pools: { morale: -6 }
           tracks: { legal: { status: probation, readiness: -10 } }
-          schedule: { event: evt_probation_checkin, in_turns: 1 }

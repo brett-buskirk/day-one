@@ -4,11 +4,19 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 10
     groups:
-      dev-dependencies:
-        dependency-type: development
+      # Group only safe minor/patch bumps into a single PR. Major bumps are left
+      # ungrouped, so each breaking upgrade arrives as its own reviewable PR — a
+      # bundled major once broke the build (js-yaml 5 dropped its default export)
+      # and took the safe bumps down with it.
+      minor-and-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: weekly
+    groups:
+      github-actions:
+        patterns: ["*"]

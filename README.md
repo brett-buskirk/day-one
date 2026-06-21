@@ -31,13 +31,18 @@ are remembered, not imagined.
 
 ## Screenshots
 
-| The landing page | The document catch-22, on screen |
+| The landing page | Who will you play? |
 | :---: | :---: |
-| ![Day One's landing page — sunrise logo, Play / About, theme controls](docs/screenshots/landing.png) | ![An event with the right next move shown locked, listing what it requires](docs/screenshots/event-state-id.png) |
+| ![Day One's landing page — sunrise logo, Play / About, theme controls](docs/screenshots/landing.png) | ![Character select — reentry builds, each with time inside, supervision, and where they're sleeping](docs/screenshots/character-select.png) |
+| **The weekly turn** | **The document catch-22** |
+| ![A week in play — resource bars, a "rent is due" interrupt, a parole check-in due, and the actions you can take](docs/screenshots/turn-screen.png) | ![Getting a state ID — the right next move shown locked, listing what it requires](docs/screenshots/event-state-id.png) |
+| **Your situation** | **Ninety days — the debrief** |
+| ![The situation panel — housing, work, supervision, support, getting around, and a shareable run code](docs/screenshots/situation-panel.png) | ![The debrief — where each track landed and why, scored on trajectory rather than final position](docs/screenshots/debrief.png) |
 
 The right next move is visible but **locked**, with the reason spelled out (*need a
 birth certificate · need proof of address · need money ≥ 30*) — that gap is the
-simulation.
+simulation. There's no "you lost" screen: a run ends in a **debrief** that scores
+trajectory and decisions, not just where you finished.
 
 ---
 
@@ -81,8 +86,10 @@ you can do today:
 - **Find real help** — a "Where to get help" screen (free, national reentry resources)
   is one tap from the landing page, the in-game info card, and the end-of-run debrief.
 
-What's still open (content breadth, and local/jurisdiction resource listings on top
-of the shipped national baseline) is at the bottom of [`DEVELOPMENT.md`](DEVELOPMENT.md).
+What's planned next — new archetypes, deeper content, a facilitator guide — lives in
+[`ROADMAP.md`](ROADMAP.md). Lower-level open threads (content breadth, and
+local/jurisdiction resource listings on top of the shipped national baseline) are at
+the bottom of [`DEVELOPMENT.md`](DEVELOPMENT.md).
 
 ---
 

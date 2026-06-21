@@ -12,6 +12,7 @@ import {
   relationshipsLabel,
   transportLabel,
   heldThings,
+  standingLabel,
 } from "./format";
 
 interface Props {
@@ -23,10 +24,15 @@ interface Props {
 export function CharacterPanel({ state, origin, onClose }: Props) {
   const title = origin ? `${origin.name}, ${origin.display_age}` : "Your situation";
   const held = heldThings(state.flags);
+  const legal = state.tracks.legal;
+  const standing = standingLabel(legal.status, legal.readiness ?? 0);
+  const supervision = standing
+    ? `${supervisionLabel(legal.status)} · ${standing}`
+    : supervisionLabel(legal.status);
   const rows: Array<[string, string]> = [
     ["Housing", housingLabel(state.tracks.housing.status)],
     ["Work", workLabel(state.tracks.employment.status)],
-    ["Supervision", supervisionLabel(state.tracks.legal.status)],
+    ["Supervision", supervision],
     ["People", relationshipsLabel(state.tracks.relationships.status)],
     ["Getting around", transportLabel(state.pools.transportation)],
   ];

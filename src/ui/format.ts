@@ -151,3 +151,12 @@ const HELD_LABELS: Array<[string, string]> = [
 export function heldThings(flags: Record<string, boolean>): string[] {
   return HELD_LABELS.filter(([flag]) => flags[flag]).map(([, label]) => label);
 }
+
+// Supervision standing from the legal track's readiness — mirrors the debrief's
+// paroleDimension. Returns null when unsupervised (no standing to show).
+export function standingLabel(legalStatus: string, readiness: number): string | null {
+  if (legalStatus === "unsupervised") return null;
+  if (readiness >= 50) return "good standing";
+  if (readiness >= 20) return "warned";
+  return "violation pending";
+}

@@ -86,8 +86,9 @@ they all get the **identical** run: the same character, the same situations, the
 same luck. The *only* thing that differs is the choices each person makes — which is
 exactly what you then compare in the debrief. ("You got the ID by week nine; I never
 did — what did you do differently?") The code shows up on the start screen, on the
-in-game info (ⓘ) card, and on the debrief, so a run can be shared before, during, or
-after. (For handing someone a half-finished run to *continue*, there's also a full
+in-game "Your situation" panel (the 👤 button), and on the debrief, so a run can be
+shared before, during, or after. (For handing someone a half-finished run to
+*continue*, there's also a full
 "export this run" file.)
 
 ---

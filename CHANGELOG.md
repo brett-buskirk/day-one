@@ -17,6 +17,10 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   license (clears the unpaid-fines trap), get a community/used bike, and recovery /
   sober-living housing. Fills the thinnest tracks (transportation went from one event
   to three); 28 events total.
+- **"Your situation" panel** — a 👤 button in the turn header opens a live read of
+  the character's current standing (housing, work, supervision, ties, how they get
+  around) and the papers/assets they're carrying. The shareable run code moved here
+  from the ⓘ "How to play" card, which now holds gameplay info + the help link.
 
 ### Changed
 - **Pool bars now show what moved.** When you tap **Continue** after an outcome, the

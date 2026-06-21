@@ -7,15 +7,17 @@ import {
   dueObligations,
   isObligation,
   effectiveSlotCost,
+  randomOrigin,
+  RANDOM_ID,
 } from "../engine";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { ThemeMode } from "../theme";
 import { POOL_META, slotsLabel } from "./format";
 import { PoolBar } from "./PoolBar";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { InfoModal } from "./InfoModal";
 import { HowYouPlay } from "./HowYouPlay";
-import { RunCodeShare } from "./RunCodeShare";
+import { CharacterPanel } from "./CharacterPanel";
 
 interface Props {
   state: GameState;
@@ -47,6 +49,16 @@ export function TurnScreen({
 }: Props) {
   const [confirmingEnd, setConfirmingEnd] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [showCharacter, setShowCharacter] = useState(false);
+  // The origin behind this run (a corpus build, or one generated from the seed) —
+  // for the character panel's name/age. Reproducible, so it's safe to derive here.
+  const origin = useMemo(
+    () =>
+      state.characterId === RANDOM_ID
+        ? randomOrigin(state.seed)
+        : corpus.characters[state.characterId] ?? null,
+    [state.characterId, state.seed, corpus]
+  );
   const pending = pendingEvents(state, corpus);
   const obligations = dueObligations(state, corpus);
   const actions = eligibleActions(state, corpus).filter((e) => !isObligation(e));
@@ -60,6 +72,14 @@ export function TurnScreen({
             Week {state.turn} <span className="of">of {state.endTurn}</span>
           </span>
           <div className="turn-head-actions">
+            <button
+              type="button"
+              className="head-icon-btn"
+              onClick={() => setShowCharacter(true)}
+              aria-label="Your situation"
+            >
+              👤
+            </button>
             <button
               type="button"
               className="head-icon-btn"
@@ -196,7 +216,6 @@ export function TurnScreen({
       {showInfo && (
         <InfoModal title="How to play" onClose={() => setShowInfo(false)}>
           <HowYouPlay />
-          <RunCodeShare state={state} hint="Share this code so others play the identical run." />
           <button
             type="button"
             className="help-link"
@@ -208,6 +227,10 @@ export function TurnScreen({
             Where to get help
           </button>
         </InfoModal>
+      )}
+
+      {showCharacter && (
+        <CharacterPanel state={state} origin={origin} onClose={() => setShowCharacter(false)} />
       )}
 
       {confirmingEnd && (

@@ -95,8 +95,12 @@ export function DebriefScreen({ state, corpus, characterName, onPlayAgain }: Pro
       )}
 
       {debrief.framing.showResources && resources.length > 0 && (
-        <section className="block block-resources" aria-label="Local resources">
-          <h2 className="block-title">Local resources</h2>
+        <section className="block block-resources" aria-label="Where to get help">
+          <h2 className="block-title">Where to get help</h2>
+          <p className="muted small">
+            Free, confidential places to start — these are national, and your area
+            likely has more.
+          </p>
           <ul className="resources">
             {resources.map((r, i) => (
               <li key={i} className="resource">

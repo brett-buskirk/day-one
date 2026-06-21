@@ -33,6 +33,7 @@ import { TurnScreen } from "./ui/TurnScreen";
 import { EventDetail } from "./ui/EventDetail";
 import { DebriefScreen } from "./ui/DebriefScreen";
 import { HelpScreen } from "./ui/HelpScreen";
+import { UpdatePrompt } from "./ui/UpdatePrompt";
 
 type View = "landing" | "about" | "start" | "onboarding" | "playing" | "debrief" | "help";
 
@@ -287,6 +288,8 @@ export default function App() {
           onPlayAgain={handlePlayAgain}
         />
       )}
+
+      <UpdatePrompt />
     </main>
   );
 }

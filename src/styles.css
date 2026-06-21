@@ -682,6 +682,37 @@ button {
   padding: 14px;
 }
 
+/* Service-worker update prompt — appears when a new deploy is ready. */
+.update-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 60;
+  width: calc(100% - 24px);
+  max-width: 440px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 28px var(--shadow);
+}
+.update-banner-text {
+  flex: 1 1 100%;
+  font-size: 0.95rem;
+}
+.update-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* The "Where to get help" entry point (landing, About, in-game info card). */
 .help-link {
   display: block;
@@ -994,8 +1025,18 @@ button {
 }
 .resource-contact {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 12px;
   font-size: 0.9rem;
+}
+/* Keep the short phone on one line; let a long link wrap instead of overflowing. */
+.resource-contact > span {
+  white-space: nowrap;
+}
+.resource-contact a {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* Visually hidden but available to screen readers. */

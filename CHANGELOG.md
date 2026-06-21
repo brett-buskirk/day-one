@@ -15,7 +15,14 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Always-available "Where to get help" screen** — the resource directory is now
   reachable from the landing page, the in-game info (ⓘ) card, and About — not only the
   end-of-run debrief — so help never requires finishing, or even starting, a run.
+- **In-app update prompt** — when a new build is deployed, a small "new version —
+  Refresh" banner appears and applies it on tap (`registerType: "prompt"`), instead of
+  silently reloading an open tab and interrupting a run.
 - Screenshots in the README.
+
+### Fixed
+- Resource contact line could overflow on mobile for a long URL (e.g. CareerOneStop):
+  it now shows the host (not the full path) and wraps instead of bleeding off-screen.
 
 ### Changed
 - Renamed the debrief's resources section from "Local resources" to "Where to get

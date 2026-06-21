@@ -54,6 +54,16 @@ export function humanizeCategory(id: string): string {
   return id.replace(/_/g, " ");
 }
 
+// A long URL's path overflows the contact line on mobile; show just the host
+// (e.g. "careeronestop.org") while the link itself still points at the full URL.
+export function shortUrl(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url.replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+  }
+}
+
 // Turn a single `requires` predicate into a short phrase for a locked choice.
 export function humanizeRequirement(pred: Predicate): string {
   try {

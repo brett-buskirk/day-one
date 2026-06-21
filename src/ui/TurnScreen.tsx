@@ -26,6 +26,7 @@ interface Props {
   onEndWeek: () => void;
   onEndRun: () => void;
   onQuitToStart: () => void;
+  onHelp: () => void;
 }
 
 function cheapestSlotCost(state: GameState, event: GameEvent): number {
@@ -42,6 +43,7 @@ export function TurnScreen({
   onEndWeek,
   onEndRun,
   onQuitToStart,
+  onHelp,
 }: Props) {
   const [confirmingEnd, setConfirmingEnd] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
@@ -195,6 +197,16 @@ export function TurnScreen({
         <InfoModal title="How to play" onClose={() => setShowInfo(false)}>
           <HowYouPlay />
           <RunCodeShare state={state} hint="Share this code so others play the identical run." />
+          <button
+            type="button"
+            className="help-link"
+            onClick={() => {
+              setShowInfo(false);
+              onHelp();
+            }}
+          >
+            Where to get help
+          </button>
         </InfoModal>
       )}
 

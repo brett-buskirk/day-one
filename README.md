@@ -62,7 +62,7 @@ live in production. Playable end-to-end; Sprints 0–5 of the roadmap are comple
   **random character generation**.
 
 Currently: **5 archetypes + a generated random build**, **25 events**, two modes
-(training / empathy), light/dark + accent theming, and **84 passing tests**. What
+(training / empathy), light/dark + accent theming, and **86 passing tests**. What
 you can do today:
 
 - From the landing page, read the About or jump straight to Play. Pick one of five
@@ -77,6 +77,8 @@ you can do today:
   work, and feel money move month to month (benefits in, fees and fares out).
 - Install it to a phone, play offline, close the tab and resume, switch theme, end
   a run early, and export/import a run.
+- **Find real help** — a "Where to get help" screen (free, national reentry resources)
+  is one tap from the landing page, the in-game info card, and the end-of-run debrief.
 
 What's still open (content breadth, and local/jurisdiction resource listings on top
 of the shipped national baseline) is at the bottom of [`DEVELOPMENT.md`](DEVELOPMENT.md).
@@ -166,7 +168,7 @@ day-one/
 │   │   ├── flags.{ts,json}       the flag registry (single source of truth)
 │   │   └── *.test.ts             engine, per-sprint, and playthrough tests
 │   ├── ui/                       React screens & components (Landing, About,
-│   │                             Start, Onboarding, Turn, EventDetail, Debrief)
+│   │                             Start, Onboarding, Turn, EventDetail, Debrief, Help)
 │   ├── content/corpus.ts         typed access to the compiled corpus
 │   ├── theme.ts                  light/dark + accent theming
 │   ├── db.ts                     Dexie save/resume

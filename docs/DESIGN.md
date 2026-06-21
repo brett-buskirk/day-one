@@ -401,7 +401,9 @@ The training debrief should be able to surface real, local reentry resources
 (housing, benefits, recovery, legal aid). The data hook is `content/resources.yaml`,
 which ships a verified **national** baseline and is built so a site can add its own
 **local** listings per jurisdiction. Do not hardcode resources — author them there.
-*(Shipped: the national baseline renders in the training debrief.)*
+*(Shipped: the national baseline renders in the training debrief and in an
+always-available "Where to get help" screen — reachable from the landing page, the
+in-game info card, and About — so resources never require finishing a run.)*
 
 ---
 

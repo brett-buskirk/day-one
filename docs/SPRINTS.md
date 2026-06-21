@@ -97,7 +97,8 @@ can be exported.
   (`character.mode.seed` scenario codes).
 - ◐ A jurisdiction-specific resource directory — **national baseline shipped**:
   `content/resources.yaml` ships verified national resources, surfaced in the training
-  debrief. Local/jurisdiction listings (and an optional selector) are still open.
+  debrief and an always-available "Where to get help" screen. Local/jurisdiction
+  listings (and an optional selector) are still open.
 
 ---
 

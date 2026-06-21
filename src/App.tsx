@@ -32,8 +32,9 @@ import { Onboarding } from "./ui/Onboarding";
 import { TurnScreen } from "./ui/TurnScreen";
 import { EventDetail } from "./ui/EventDetail";
 import { DebriefScreen } from "./ui/DebriefScreen";
+import { HelpScreen } from "./ui/HelpScreen";
 
-type View = "landing" | "about" | "start" | "onboarding" | "playing" | "debrief";
+type View = "landing" | "about" | "start" | "onboarding" | "playing" | "debrief" | "help";
 
 // The origin behind a run — a corpus archetype, or one generated from the seed
 // (random builds are reproducible: same seed ⇒ same person).
@@ -53,6 +54,9 @@ export default function App() {
   const [activeEventId, setActiveEventId] = useState<string | null>(null);
   const [outcomeText, setOutcomeText] = useState<string | null>(null);
   const [savedRun, setSavedRun] = useState<GameState | null>(null);
+  // Where to return when the always-available Help view is closed (it can be opened
+  // from the landing page, About, or mid-run).
+  const [helpReturn, setHelpReturn] = useState<View>("landing");
 
   // Appearance (light/dark + accent), persisted and applied to <html>.
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => loadThemeMode());
@@ -185,6 +189,12 @@ export default function App() {
     setView("start");
   };
 
+  // Open the always-available Help view, remembering where to return to.
+  const openHelp = () => {
+    setHelpReturn(view);
+    setView("help");
+  };
+
   const activeEvent = activeEventId ? corpus.events[activeEventId] : null;
   const pendingOrigin = pendingStart ? originFor(pendingStart.characterId, pendingStart.seed ?? 1) : null;
 
@@ -200,11 +210,20 @@ export default function App() {
           onPlay={() => setView("start")}
           onAbout={() => setView("about")}
           onResume={handleResume}
+          onHelp={openHelp}
         />
       )}
 
       {view === "about" && (
-        <AboutScreen onBack={() => setView("landing")} onPlay={() => setView("start")} />
+        <AboutScreen
+          onBack={() => setView("landing")}
+          onPlay={() => setView("start")}
+          onHelp={openHelp}
+        />
+      )}
+
+      {view === "help" && (
+        <HelpScreen resources={corpus.resources ?? []} onBack={() => setView(helpReturn)} />
       )}
 
       {view === "start" && (
@@ -244,6 +263,7 @@ export default function App() {
             onEndWeek={handleEndWeek}
             onEndRun={handleEndRun}
             onQuitToStart={handlePlayAgain}
+            onHelp={openHelp}
           />
           {activeEvent && (
             <EventDetail

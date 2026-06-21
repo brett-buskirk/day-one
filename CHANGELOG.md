@@ -7,6 +7,11 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-06-21
+
+Reentry resources, surfaced in the end-of-run debrief **and** an always-available
+"Where to get help" screen — plus an in-app update prompt and post-1.0.0 hardening.
+
 ### Added
 - **Reentry resource directory** — surfaces a verified national baseline of free
   resources (National Reentry Resource Center, 988, SAMHSA, 211, CareerOneStop,
@@ -73,5 +78,6 @@ after release, one weekly turn at a time, as an installable, offline PWA.
 ### Deployed
 - Live at [dayone-sim.app](https://dayone-sim.app) on DigitalOcean App Platform.
 
-[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/brett-buskirk/day-one/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/brett-buskirk/day-one/releases/tag/v1.0.0

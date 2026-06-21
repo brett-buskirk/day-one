@@ -7,6 +7,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-06-21
+
+A sixth build, deeper content on the thinnest tracks, clearer in-game feedback, and a
+check-in fix: the unsupervised "max-out" archetype, transportation/housing events, a
+live character "situation" panel, pool bars that show what changed, and a
+parole/probation check-in you can skip again.
+
 ### Added
 - **New archetype — Cal, an unsupervised "max-out" build.** Released after serving
   the full sentence: no parole or probation (and so no check-ins, fees, or slot tax —
@@ -109,6 +116,7 @@ after release, one weekly turn at a time, as an installable, offline PWA.
 ### Deployed
 - Live at [dayone-sim.app](https://dayone-sim.app) on DigitalOcean App Platform.
 
-[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/brett-buskirk/day-one/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/brett-buskirk/day-one/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/brett-buskirk/day-one/releases/tag/v1.0.0

@@ -1,4 +1,5 @@
 // One labeled, accessible resource meter (a pool): number + bar + tone band.
+import { useEffect, useRef, useState } from "react";
 import type { PoolKey } from "../engine";
 import { POOL_META } from "./format";
 
@@ -18,11 +19,38 @@ function band(value: number): "low" | "mid" | "high" {
 export function PoolBar({ poolKey, value }: Props) {
   const meta = POOL_META.find((p) => p.key === poolKey)!;
   const tone = band(value);
+
+  // Post-choice feedback: when the value changes, briefly flash the bar and show
+  // the delta (+N / −N), so a fast pool update is legible — "what just moved?".
+  // The number renders regardless; only the motion is gated on reduced-motion (CSS).
+  const prev = useRef(value);
+  const [delta, setDelta] = useState<number | null>(null);
+  useEffect(() => {
+    if (prev.current !== value) {
+      const d = Math.round(value - prev.current);
+      prev.current = value;
+      if (d !== 0) {
+        setDelta(d);
+        const t = setTimeout(() => setDelta(null), 2400);
+        return () => clearTimeout(t);
+      }
+    }
+  }, [value]);
+
+  const dir = delta == null ? "" : delta > 0 ? "pool-up" : "pool-down";
+
   return (
-    <div className="pool">
+    <div className={`pool ${dir}`.trim()}>
       <div className="pool-head">
         <span className="pool-label">{meta.label}</span>
-        <span className="pool-value">{value}</span>
+        <span className="pool-value">
+          {value}
+          {delta != null && (
+            <span className="pool-delta" aria-hidden="true">
+              {delta > 0 ? `+${delta}` : delta}
+            </span>
+          )}
+        </span>
       </div>
       <div
         className={`pool-track tone-${tone}`}

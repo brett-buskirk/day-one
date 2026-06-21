@@ -365,6 +365,46 @@ button {
   background: var(--good);
 }
 
+/* Post-choice feedback: show the delta + flash the bar when a pool changes, so a
+   fast update is legible. The number is always shown; only the motion below is
+   gated on reduced-motion. */
+.pool-delta {
+  margin-left: 6px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.pool-up .pool-delta {
+  color: var(--good);
+}
+.pool-down .pool-delta {
+  color: var(--hard);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pool-delta {
+    animation: pool-delta-pop 2.4s ease-out forwards;
+  }
+  .pool-up .pool-track {
+    animation: pool-pulse-good 1.2s ease-out;
+  }
+  .pool-down .pool-track {
+    animation: pool-pulse-hard 1.2s ease-out;
+  }
+}
+@keyframes pool-delta-pop {
+  0% { opacity: 0; transform: translateY(3px); }
+  12% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-3px); }
+}
+@keyframes pool-pulse-good {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  30% { box-shadow: 0 0 0 2px var(--good); }
+}
+@keyframes pool-pulse-hard {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  30% { box-shadow: 0 0 0 2px var(--hard); }
+}
+
 /* ---- Blocks / action cards ------------------------------------------ */
 
 .block {

@@ -18,6 +18,14 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   sober-living housing. Fills the thinnest tracks (transportation went from one event
   to three); 28 events total.
 
+### Changed
+- **Pool bars now show what moved.** When you tap **Continue** after an outcome, the
+  screen scrolls to the pools and each changed bar pulses and shows its delta (`+10`,
+  `−6`) — so the change is always seen, instead of flickering behind the dimmed sheet
+  (or off-screen when the choice was picked from the bottom of a long list). The pool
+  update is deferred to Continue for this. Reduced-motion-aware: the number still
+  shows; only the animation is gated.
+
 ## [1.1.0] - 2026-06-21
 
 Reentry resources, surfaced in the end-of-run debrief **and** an always-available

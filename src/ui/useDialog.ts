@@ -9,7 +9,11 @@ export function useDialogFocus(onClose: () => void) {
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;
     ref.current?.focus();
-    return () => prev?.focus?.();
+    // Restore focus to the trigger WITHOUT scrolling it back into view: on the
+    // event sheet, the trigger sits below the pool bars, so a scrolling restore
+    // would yank the bars off-screen right as they pulse (App scrolls to the bars
+    // on Continue). preventScroll keeps that scroll under our control.
+    return () => prev?.focus?.({ preventScroll: true });
   }, []);
 
   const onKeyDown = (e: KeyboardEvent) => {

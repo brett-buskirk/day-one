@@ -1,3 +1,4 @@
+// Character + mode selection, plus run import and the classroom (shared-run) panel.
 import { useState } from "react";
 import { RANDOM_ID, type CharacterOrigin, type Mode } from "../engine";
 import { humanizeCredential } from "./format";

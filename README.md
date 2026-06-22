@@ -33,7 +33,7 @@ are remembered, not imagined.
 
 | The landing page | Who will you play? |
 | :---: | :---: |
-| ![Day One's landing page — sunrise logo, Play / About, theme controls](docs/screenshots/landing.png) | ![Character select — reentry builds, each with time inside, supervision, and where they're sleeping](docs/screenshots/character-select.png) |
+| ![Day One's landing page — sunrise logo, Play / About, theme controls](docs/screenshots/landing.png) | ![Character select — nine builds, each with an avatar and a one-line identity; tap to expand and Play](docs/screenshots/character-select.png) |
 | **The weekly turn** | **The document catch-22** |
 | ![A week in play — resource bars, a "rent is due" interrupt, a parole check-in due, and the actions you can take](docs/screenshots/turn-screen.png) | ![Getting a state ID — the right next move shown locked, listing what it requires](docs/screenshots/event-state-id.png) |
 | **Your situation** | **Ninety days — the debrief** |

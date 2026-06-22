@@ -1,0 +1,42 @@
+id: evt_life_loss
+kind: incident
+title: A call you weren't ready for
+tags: [life, relationships]
+repeatable: false
+
+# One of the random "life happens" beats (scheduled once per run from a salted seed;
+# see chargen.lifeEventSchedule). The hardest one — losing someone who was in your
+# corner. Recoverable: how you carry it is the choice, never a fail screen (§ non-neg 4).
+prompt: >
+  The call comes on an ordinary afternoon. Someone who showed up for you — who took
+  the collect calls, who believed you'd make it — is gone, suddenly, the way these
+  things happen. The floor tilts. The week doesn't stop to let you feel it.
+
+choices:
+
+  - id: lean_on_people
+    quality: durable
+    label: Let people in — don't carry it alone
+    requires:
+      - tracks.relationships.status != "isolated"
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            You let the others sit with you. It still guts you — a person who can't
+            be replaced — but you're not alone in it, and that's what carries you to
+            the next morning.
+          pools: { morale: -10, social_capital: -6 }
+
+  - id: bury_it
+    quality: desperate
+    label: Bury it and push through the week
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You keep moving because stopping isn't an option. The bills come, the
+            check-ins come, and somewhere you can't reach, a light goes out.
+          pools: { morale: -18, social_capital: -8 }

@@ -1,0 +1,26 @@
+id: evt_life_kindness
+kind: incident
+title: On the house
+tags: [life]
+repeatable: false
+
+# A random "life happens" beat (see chargen.lifeEventSchedule): unearned generosity
+# that lands hard on a thin week. A blessing — small things that add up to proof the
+# world isn't all teeth.
+prompt: >
+  It comes out of nowhere. A barber waves off the fee — "first one's on me, go get
+  that job." A church group quietly covers a month of bus fare. A stranger pays for
+  your coffee and means it. Small things. On this week, they land like more.
+
+choices:
+
+  - id: take_it_in
+    quality: durable
+    label: Accept it — and let it land
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You say thank you and you mean it. Proof, on a hard week, that some doors
+            open just because a person decided they should. You walk a little taller.
+          pools: { morale: 14, transportation: 8, money: 10 }

@@ -350,6 +350,17 @@ dead-end visit; it returns when the cert lands:
 
 Author one event per file under `content/events/`. New content is fill-in-the-blanks.
 
+### Life events (the random beat)
+
+Every run also schedules exactly one **life event** at a seed-varied mid-game turn
+(weeks `LIFE_EVENT_TURN_MIN`–`MAX`), drawn from a small pool that cuts both ways — a
+loss (a death in the support circle, a sudden health setback) or a blessing (an old
+friend turns up; an act of unearned kindness). It's rolled at chargen from a *salted*
+seed (`LIFE_EVENT_SEED_SALT`) so it's fully reproducible yet never perturbs the main
+outcome RNG stream. The point is felt unpredictability: reentry throws curveballs both
+ways and you never know which is coming. Like every setback, the losses branch and
+recover — never a fail screen. Tunables live in `tuning.ts`.
+
 ---
 
 ## 10. Win and lose

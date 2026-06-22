@@ -7,6 +7,14 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+- **Random life events.** Every run now schedules one unexpected "life happens" beat at
+  a seed-varied mid-game week, drawn from a pool that cuts both ways — a **loss** (a
+  death in your support circle, a sudden health setback) or a **blessing** (an old
+  friend turns up; an act of unearned kindness). You never know which is coming, the way
+  reentry actually goes. It's rolled from a salted seed, so it's fully reproducible
+  (classroom codes still match) and the losses branch and recover — never a fail screen.
+
 ### Fixed
 - **Getting around now scales like housing.** "Get a bike" kept reappearing after you
   already had one (it only checked the transportation pool). Wheels now form a ladder —

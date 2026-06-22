@@ -66,8 +66,8 @@ live in production. Playable end-to-end; Sprints 0–5 of the roadmap are comple
   rules), an in-game info card, **facilitator/classroom scenario codes**, and
   **random character generation**.
 
-Currently: **6 archetypes + a generated random build**, **29 events**, two modes
-(training / empathy), light/dark + accent theming, and **100 passing tests**. What
+Currently: **6 archetypes + a generated random build**, **33 events**, two modes
+(training / empathy), light/dark + accent theming, and **103 passing tests**. What
 you can do today:
 
 - From the landing page, read the About or jump straight to Play. Pick one of six
@@ -81,6 +81,8 @@ you can do today:
 - Feel the document catch-22, hit crises that branch instead of ending the run,
   keep (or miss) a weekly check-in, watch the registry wall reshape housing and
   work, and feel money move month to month (benefits in, fees and fares out).
+- Get blindsided, once a run, by an unexpected **life event** — a loss or a blessing
+  alike — that lands at a moment you can't predict, the way reentry actually goes.
 - Install it to a phone, play offline, close the tab and resume, switch theme, end
   a run early, and export/import a run.
 - **Find real help** — a "Where to get help" screen (free, national reentry resources)

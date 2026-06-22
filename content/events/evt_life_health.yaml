@@ -1,0 +1,40 @@
+id: evt_life_health
+kind: incident
+title: Your body picks the worst week
+tags: [life, health]
+repeatable: false
+
+# A random "life happens" beat (see chargen.lifeEventSchedule): a sudden health
+# setback that collides with a budget that has no slack. The classic care-vs-cash
+# bind — recoverable either way.
+prompt: >
+  It's been building and you ignored it — and now it won't be ignored. A tooth, a
+  back, a chest that won't quit aching. No insurance worth the name, and the clinic
+  wants money you'd already spent in your head three times over.
+
+choices:
+
+  - id: get_seen
+    quality: durable
+    label: Spend the money and get it looked at
+    requires:
+      - pools.money >= 20
+    cost: { slots: 1, money: 20 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            A long wait, a real answer, something to take for it. It cost you what
+            you didn't have to spare — but you can stand up straight again.
+          pools: { health: 8, morale: 4 }
+
+  - id: tough_it_out
+    quality: desperate
+    label: Tough it out — you can't afford the hit
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You ride it out. Some days you can barely move, and everything you try to
+            do costs double for it. It'll pass. Probably. It has to.
+          pools: { health: -12, morale: -8 }

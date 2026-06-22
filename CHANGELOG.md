@@ -22,7 +22,17 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   reentry actually goes. It's rolled from a salted seed, so it's fully reproducible
   (classroom codes still match) and the losses branch and recover — never a fail screen.
 
+### Changed
+- **Character select, redesigned.** Each build now has a circle **avatar** (a deliberate
+  mix of genders and skin tones) and a **unique** at-a-glance tag (no more three builds
+  reading "has people in their corner"). The roster is now a compact list that **expands
+  on tap** to reveal the build, pick a mode, and a **"Play [name]"** button that starts
+  the run — with a hint up top so it's clear you tap a person, then Play. The in-game
+  "your situation" button wears the character's avatar to match.
+
 ### Fixed
+- **The event drawer's grab-handle closes it.** The little tab atop the slide-up sheet
+  was decorative; tapping it now dismisses the drawer (like tapping the backdrop).
 - **Getting around now scales like housing.** "Get a bike" kept reappearing after you
   already had one (it only checked the transportation pool). Wheels now form a ladder —
   bike < transit pass < car — gated by flags, so each option only shows when it's a real

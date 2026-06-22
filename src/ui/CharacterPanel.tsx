@@ -13,6 +13,8 @@ import {
   transportLabel,
   heldThings,
   standingLabel,
+  avatarFor,
+  avatarStyle,
 } from "./format";
 
 interface Props {
@@ -39,6 +41,13 @@ export function CharacterPanel({ state, origin, onClose }: Props) {
 
   return (
     <InfoModal title={title} onClose={onClose}>
+      {origin && (
+        <div className="panel-avatar">
+          <span className="avatar avatar-lg" style={avatarStyle(origin.id)} aria-hidden="true">
+            {avatarFor(origin.id)}
+          </span>
+        </div>
+      )}
       <p className="muted small">Where things stand right now — this shifts as you play.</p>
       <dl className="origin-grid">
         {rows.map(([label, value]) => (

@@ -3,16 +3,20 @@ kind: action
 title: Getting your state ID
 tags: [documents, legal]
 requires_travel: true
-repeatable: true   # the hub: revisit across weeks (order cert, then come back
-                   # and apply); the condition below retires it once the ID is in
-                   # hand, and each choice self-gates via `requires`.
+repeatable: true   # the hub: revisit across weeks (order the prerequisite birth
+                   # cert, then come back and apply). Retires once the ID is in hand,
+                   # and goes quiet while a birth cert is in the mail (awaiting_birth_cert)
+                   # so it doesn't re-offer a no-op; each choice also self-gates.
 
 conditions:
   - flags.has_state_id == false
+  - flags.awaiting_birth_cert == false
 
 prompt: >
   The ID is the key that turns other keys — no job onboarding, no lease, no bank
-  account without it. The DMV is a 40-minute bus ride across town.
+  account without it. But it isn't the first key: the DMV won't issue one without a
+  **birth certificate** and proof of address to prove who you are. The window's a
+  40-minute bus ride across town.
 
 choices:
 
@@ -48,8 +52,10 @@ choices:
       - weight: 20
         modifier: { stat: social_capital, scale: 0.3 }
         effects:
-          text: A clerk takes pity and hands you a referral that smooths the next try.
-          flags: { knows_id_requirements: true }
+          text: >
+            A clerk takes pity and walks you through it: your birth certificate is on
+            its way, ordered from the back office. Come back when it lands.
+          flags: { knows_id_requirements: true, awaiting_birth_cert: true }
           schedule: { event: evt_birth_cert_arrives, in_turns: 2 }
 
   - id: order_by_mail
@@ -62,7 +68,7 @@ choices:
       - weight: 100
         effects:
           text: >
-            A money order at the post office. Slow — but it actually works. It'll
-            come in a few weeks.
-          flags: { birth_cert_ordered: true }
+            A money order at the post office for the birth certificate. Slow — but it
+            actually works. It'll come in a few weeks.
+          flags: { birth_cert_ordered: true, awaiting_birth_cert: true }
           schedule: { event: evt_birth_cert_arrives, in_turns: 3 }

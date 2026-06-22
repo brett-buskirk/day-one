@@ -6,6 +6,7 @@
     "has_proof_of_address",
     "has_ssn_card",
     "birth_cert_ordered",
+    "awaiting_birth_cert",
     "knows_id_requirements",
     "has_bank_account",
     "has_cert_webdev",

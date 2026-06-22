@@ -84,6 +84,19 @@ describe("day labor — the ID-free early income path (economy fix)", () => {
   });
 });
 
+describe("the document chain (state-ID hub)", () => {
+  it("goes quiet while a birth cert is in the mail, then returns when it lands", () => {
+    const base = createRun(corpus, "marcus", { seed: 1 });
+    expect(eligibleIds(base).has("evt_dmv_state_id")).toBe(true); // Marcus needs an ID
+    // Birth cert ordered and in transit → the hub stops re-offering a no-op move:
+    const waiting = { ...base, flags: { ...base.flags, birth_cert_ordered: true, awaiting_birth_cert: true } };
+    expect(eligibleIds(waiting).has("evt_dmv_state_id")).toBe(false);
+    // Cert arrived (awaiting cleared) → the hub returns so you can finally apply:
+    const arrived = { ...base, flags: { ...base.flags, has_birth_cert: true, awaiting_birth_cert: false } };
+    expect(eligibleIds(arrived).has("evt_dmv_state_id")).toBe(true);
+  });
+});
+
 describe("registry-gated housing (§8): the wall is in the data", () => {
   it("a registry build sees the registry housing event, not the open search", () => {
     const theo = eligibleIds(createRun(corpus, "theo", { seed: 1 }));

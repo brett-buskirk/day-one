@@ -7,6 +7,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-06-22
+
+The biggest content release yet: three new character builds (nine total) — including a
+reunifying-parent **custody arc** — **random life events** that cut both ways, housing &
+transport **ladders**, a redesigned character-select with **avatars**, plus a clearer
+document chain and accessibility wins.
+
 ### Added
 - **Three new character builds**, bringing the roster to nine: **Jaylen** (a young
   first-timer, walled by inexperience rather than a record), **Gloria** (the "has it all"
@@ -191,7 +198,8 @@ after release, one weekly turn at a time, as an installable, offline PWA.
 ### Deployed
 - Live at [dayone-sim.app](https://dayone-sim.app) on DigitalOcean App Platform.
 
-[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/brett-buskirk/day-one/compare/v1.2.2...v1.3.0
 [1.2.2]: https://github.com/brett-buskirk/day-one/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/brett-buskirk/day-one/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/brett-buskirk/day-one/compare/v1.1.0...v1.2.0

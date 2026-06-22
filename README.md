@@ -48,8 +48,13 @@ trajectory and decisions, not just where you finished.
 
 ## Status
 
-**Released as [v1.0.0](https://github.com/brett-buskirk/day-one/releases/tag/v1.0.0)**,
-live in production. Playable end-to-end; Sprints 0–5 of the roadmap are complete:
+**Live in production**, released through
+**[v1.3.0](https://github.com/brett-buskirk/day-one/releases/tag/v1.3.0)**. The v1.0.0
+foundation — Sprints 0–5 — is summarized below; every release since (see
+[`CHANGELOG.md`](CHANGELOG.md)) layered on more: the "Where to get help" resource
+directory, three more archetypes, housing & transport **ladders**, **random life
+events**, a reunifying-parent **custody arc**, and a redesigned character-select.
+Playable end-to-end:
 
 - **Sprint 0** — scaffold + content pipeline (YAML → validated JSON).
 - **Sprint 1** — the walking skeleton: a full ~13-week run to a debrief.

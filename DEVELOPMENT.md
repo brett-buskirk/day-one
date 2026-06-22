@@ -1,7 +1,9 @@
-# Day One — development notes (Sprints 0–5, shipped as v1.0.0)
+# Day One — development notes (build log)
 
 A phone-first reentry simulator, playable start-to-debrief and **live in production
-(v1.0.0)**. This file is the per-sprint build log — how to run it and what was built.
+(through v1.3.0)**. This file is the per-sprint build log — how to run it and what was
+built. The v1.0.0 foundation (Sprints 0–5) is below; releases since are in
+[`CHANGELOG.md`](CHANGELOG.md).
 The design source of truth is `docs/DESIGN.md`; the roadmap is `docs/SPRINTS.md`.
 
 ## Run it
@@ -183,11 +185,13 @@ Everything past the original roadmap, built out before the first release:
   finishing or even starting a run. Still open: jurisdiction-specific **local** listings
   (the file documents how to add them) and an optional jurisdiction selector.
 - **Content breadth (ongoing):** a transportation/housing pass added three events
-  (license restoration, a community/used bike, and recovery housing) — now **28 events
-  / 21 actions**, with transportation no longer a one-event track. A sixth archetype,
-  **Cal**, added the first **unsupervised "max-out"** build (`supervision: none`,
-  pure origin data) — every prior build was on parole or probation.
-- **Still open:** the local resource listings above, more archetype diversity (an
-  unsupervised build landed; a reunifying-parent or young-first-timer build are next),
-  and ongoing balance/field-testing.
+  (license restoration, a community/used bike, and recovery housing); **Cal** added the
+  first **unsupervised "max-out"** build. Since then: housing & transport **ladders**
+  (you only move up), **random life events** (one loss or blessing per run), and three
+  more archetypes — **Jaylen** (young first-timer), **Gloria** ("has it all"), and
+  **Tasha** (a reunifying parent with a custody arc) — bringing the roster to **nine**
+  and the corpus to **35 events**. The character-select screen was redesigned (avatars,
+  unique tags, expandable cards).
+- **Still open:** the local resource listings above, deeper per-track content and the
+  custody arc, plus ongoing balance/field-testing. See [`ROADMAP.md`](ROADMAP.md).
 ```

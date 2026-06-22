@@ -1,0 +1,33 @@
+id: jaylen
+name: Jaylen
+display_age: 21
+summary: >
+  Twenty-one, a year inside on a first mistake, and nothing yet to point to — no
+  work history, no trade, a network as young and thin as he is. The barrier isn't a
+  long gap or a heavy record; it's never having started. Green enough to stumble,
+  young enough to bend.
+
+time_inside_years: 1
+
+supervision:
+  type: probation
+  years: 2
+  conditions: [weekly_checkin, community_service]   # community service -> a standing day
+
+landing:
+  night_one: couch                # back at a relative's
+  housing_clock_turns: 6          # a longer family welcome
+  support: one_tie                # one tie, and a young one
+  job_lined_up: false
+  documents: [state_id]           # young enough to still have his ID
+  transportation: bus_pass        # -> has_transit_pass
+  gate_money: 80                  # almost nothing -> money ~10
+
+person:
+  in_recovery: false
+  chronic_health_issue: false
+  credentials: []                 # no trade -> low employment readiness is the wall
+
+offense:
+  category: property
+  registry_required: false

@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { corpus } from "../content/corpus";
 import { createRun } from "./index";
+import { beginTurn } from "./engine";
 import { LIFE_EVENTS, LIFE_EVENT_TURN_MIN, LIFE_EVENT_TURN_MAX } from "./tuning";
 
 // One unexpected "life happens" beat per run — a loss or a blessing — scheduled at
@@ -20,9 +21,17 @@ describe("random life events", () => {
   });
 
   it("gives every build exactly one", () => {
-    for (const id of ["marcus", "renae", "dana", "theo", "ray", "cal"]) {
+    for (const id of ["marcus", "renae", "dana", "theo", "ray", "cal", "jaylen", "tasha", "gloria"]) {
       expect(lifeOf(createRun(corpus, id, { seed: 7 }))).toHaveLength(1);
     }
+  });
+
+  it("actually fires into pending when its week begins (not just scheduled)", () => {
+    const base = createRun(corpus, "marcus", { seed: 1 });
+    const life = lifeOf(base)[0];
+    // Jump to the scheduled week and begin it — the incident must surface as pending.
+    const begun = beginTurn({ ...base, turn: life.onTurn }, corpus);
+    expect(begun.pending).toContain(life.event);
   });
 
   it("cuts both ways — losses and blessings both occur across seeds", () => {

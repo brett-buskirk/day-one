@@ -243,14 +243,25 @@ recovery with a chronic back injury, $120 gate money, a drug-related felony. The
 thesis build: the skill is real; the wall is everything around *using* it. The
 chargen mapping for Marcus is documented in his file.
 
-The shipped roster adds five more, each authored purely as origin data: **Renae**
+The shipped roster adds eight more, each authored purely as origin data: **Renae**
 (a supported build — family, money, transport — the same content at a gentler
 difficulty), **Dana** (probation: fees and mandated community-service hours),
 **Theo** (the registry deep-end build for empathy mode), **Ray** (the longtimer —
-24 years inside, a technology gap, and chronic mental-health weight), and **Cal**
+24 years inside, a technology gap, and chronic mental-health weight), **Cal**
 (a "max-out" release with `supervision: none` → legal status `unsupervised`: no
 check-ins, fees, or slot tax, but isolated and unsupported — freedom without
-scaffolding).
+scaffolding), **Jaylen** (a young first-timer whose wall is inexperience — no work
+history, low employment readiness — rather than a record), **Gloria** (the "has it
+all" contrast build: a job, savings, a car, all documents, network support, on the
+gentlest setting — proof of how much the starting deck matters), and **Tasha** (a
+reunifying parent).
+
+Tasha carries the one build-specific arc: `person.reunifying: true` derives a
+`reunifying` flag and schedules a **custody hearing** (week 9). A recurring
+`evt_custody_visit` keeps the bond warm; the hearing's "make your case" choice is a
+catch-22 gated on built stability (`housing.readiness ≥ 3`, `legal.readiness ≥ 50`,
+`money ≥ 40`) — so the whole run *is* the case, and falling short is supervised
+visits and another date, never a fail screen.
 
 ---
 

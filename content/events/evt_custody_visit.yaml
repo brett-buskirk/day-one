@@ -1,0 +1,33 @@
+id: evt_custody_visit
+kind: action
+title: A visit with your daughter
+tags: [life, relationships]
+requires_travel: true
+repeatable: true
+
+# The reunifying parent's emotional anchor (gated on the reunifying flag; retires once
+# custody is regained). Optional, and it costs a day you can't spare — which is the
+# point. The hearing (evt_custody_hearing) is the payoff this keeps you pointed at.
+conditions:
+  - flags.reunifying == true
+  - flags.custody_regained == false
+
+prompt: >
+  A supervised hour at the family center — a coloring book, a snack from the machine,
+  a too-short goodbye. It costs you a day you can't really spare. It is also the
+  entire reason for every other day.
+
+choices:
+
+  - id: go_see_her
+    quality: durable
+    label: Go — nothing matters more
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            She shows you a drawing and you carry it the rest of the week like a
+            warrant. Tired, broke, and absolutely certain what all of this is for.
+          pools: { morale: 10 }

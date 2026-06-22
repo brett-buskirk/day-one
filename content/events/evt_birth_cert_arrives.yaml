@@ -15,7 +15,7 @@ choices:
       - weight: 100
         effects:
           text: >
-            One document down. The DMV's "apply" path is within reach now — you
-            just need proof of address to go with it.
-          flags: { has_birth_cert: true }
+            One document down. The DMV's "apply" path is within reach now — bring
+            this birth certificate and proof of address, and you can get the ID itself.
+          flags: { has_birth_cert: true, awaiting_birth_cert: false }
           pools: { morale: 5 }

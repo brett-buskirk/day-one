@@ -333,10 +333,12 @@ Unknown flags evaluate as `false`.
 ### How the seed events chain (the walking skeleton's spine)
 
 `evt_dmv_state_id` is the hub. Its prepared path is locked until you hold both a
-birth certificate and proof of address:
+birth certificate and proof of address — and the hub goes quiet (the
+`awaiting_birth_cert` flag) while a cert is in the mail, so it doesn't re-offer a
+dead-end visit; it returns when the cert lands:
 
-- `evt_birth_cert_arrives` (incident, scheduled by the DMV "order by mail" choice)
-  sets `has_birth_cert`.
+- `evt_birth_cert_arrives` (incident, scheduled by the DMV "order by mail" choice or
+  the in-person referral) sets `has_birth_cert` and clears `awaiting_birth_cert`.
 - `evt_proof_of_address` (action) sets `has_proof_of_address` via the sibling.
 - With both, the DMV prepared path unlocks → `has_state_id` → which is the
   `condition` for `evt_apply_job_onboarding` (the payoff, where the web-dev cert

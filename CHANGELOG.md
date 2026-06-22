@@ -16,6 +16,10 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   reason — the catch-22, the core teaching moment — used the native `disabled` attribute,
   which dropped it from the accessibility tree. It's now `aria-disabled` with the reason
   described (and the click guarded), so the wall is announced, not just drawn.
+- **The state-ID step reads as a document chain.** The "Getting your state ID" prompt now
+  makes clear the ID needs a **birth certificate** (a different document) and proof of
+  address first — and once a cert is in the mail, the hub goes quiet instead of
+  re-offering a dead-end DMV trip, returning when the cert arrives.
 
 ## [1.2.2] - 2026-06-21
 

@@ -8,6 +8,7 @@ tags: [transportation]
 # "invest to save time" decision in the game.
 conditions:
   - flags.has_transit_pass == false
+  - flags.has_license == false
   - pools.transportation < 60
 
 prompt: >

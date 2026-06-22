@@ -7,6 +7,16 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Fixed
+- **Getting around now scales like housing.** "Get a bike" kept reappearing after you
+  already had one (it only checked the transportation pool). Wheels now form a ladder —
+  bike < transit pass < car — gated by flags, so each option only shows when it's a real
+  step up and retires once you have it or anything better.
+- **Locked event choices are announced to screen readers.** The locked move and its
+  reason — the catch-22, the core teaching moment — used the native `disabled` attribute,
+  which dropped it from the accessibility tree. It's now `aria-disabled` with the reason
+  described (and the click guarded), so the wall is announced, not just drawn.
+
 ## [1.2.2] - 2026-06-21
 
 A gameplay fix: housing now climbs a ladder instead of looping back on itself.

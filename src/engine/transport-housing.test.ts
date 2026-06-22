@@ -44,4 +44,18 @@ describe("transportation + housing content gating", () => {
     const inRental = { ...base, tracks: { ...base.tracks, housing: { status: "rental", readiness: 4 } } };
     expect(ids(inRental)).not.toContain("evt_own_place");
   });
+
+  it("getting-around rungs retire once you have wheels (bike < pass < car)", () => {
+    const base = createRun(corpus, "ray", { seed: 1 }); // Ray starts with no transport
+    const ids = (s: typeof base) => eligibleActions(s, corpus).map((e) => e.id);
+    expect(ids(base)).toContain("evt_get_bike"); // offered a bike at the bottom rung
+    // A bike you already have isn't re-offered:
+    expect(ids({ ...base, flags: { ...base.flags, has_bike: true } })).not.toContain("evt_get_bike");
+    // A higher rung also retires the bike (no point offering one):
+    expect(ids({ ...base, flags: { ...base.flags, has_transit_pass: true } })).not.toContain("evt_get_bike");
+    // A car retires both the bike and the bus pass:
+    const withCar = { ...base, flags: { ...base.flags, has_license: true } };
+    expect(ids(withCar)).not.toContain("evt_get_bike");
+    expect(ids(withCar)).not.toContain("evt_transit_pass");
+  });
 });

@@ -70,8 +70,11 @@ function ChoiceButton({
       <button
         type="button"
         className="choice-btn"
-        onClick={() => onChoose(choice)}
-        disabled={!selectable}
+        // Keep a locked choice in the a11y tree (aria-disabled, not the native
+        // `disabled` attribute) so a screen reader reaches it and announces the
+        // locked move AND its reason — the catch-22 is the teaching moment. The
+        // click is guarded instead of the button being pulled from focus order.
+        onClick={() => selectable && onChoose(choice)}
         aria-disabled={!selectable}
         aria-describedby={reasons.length ? `${choice.id}-why` : undefined}
       >

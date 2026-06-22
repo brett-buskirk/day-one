@@ -63,14 +63,18 @@ it aren't imagined — they're remembered.
   where things landed and a week-by-week replay of *how* you got there — the part
   you can actually learn from.
 
-You choose **who** to play and **why** you're here. There are six hand-built
-people, ranging from hard to brutal — someone with real skills but no documents;
+You choose **who** to play and **why** you're here. There are nine hand-built
+people, ranging from gentle to brutal — someone with real skills but no documents;
 someone whose family showed up, to show what support changes; someone carrying the
 weight of probation (fees, court dates, mandated hours); someone with a registry
 requirement that makes housing and work near-impossible; a "longtimer" home after
 two decades, facing a technology gap and the mental-health weight of all those
-years; and someone who "maxed out" — released with no supervision at all, and so
-no officer, no programs, and no one pointing the way. There's also a **"Surprise
+years; someone who "maxed out" — released with no supervision at all, and so no
+officer, no programs, and no one pointing the way; a young first-timer whose wall is
+inexperience rather than a record; a parent bending every week toward a custody
+hearing to get her daughter back; and — for contrast — someone who came home to
+everything intact (a job, savings, support), to show how much the starting deck
+matters. There's also a **"Surprise
 me"** option that generates a fresh,
 coherent person for you. And you pick a framing: **Training** (practice, always a
 way forward) or **Empathy** (feel the wall — the deep end). Throughout, the system

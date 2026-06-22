@@ -4,7 +4,7 @@ This is the source of truth for the build. It captures the decisions made during
 design so the engine can be implemented without re-deriving them. Where it says
 "tuning," the exact number is a knob to balance later, not a thing to block on.
 
-> **Implementation status:** built and shipped as **v1.0.0**, and the spec still
+> **Implementation status:** built and live in production (through **v1.3.0**), and the spec still
 > holds. Where it scoped features as "v2" (§8, §14) — random character generation
 > and the classroom/facilitator hooks — those have since shipped; a real resource
 > directory remains a data hook only. See [`DEVELOPMENT.md`](../DEVELOPMENT.md) for
@@ -510,6 +510,6 @@ Not in the walking skeleton, deliberately. *(Status added post-v1.0.0.)*
   (`content/resources.yaml` ships verified national resources, rendered in the training
   debrief); a jurisdiction-specific directory / selector is still future.
 - A deep build on any single track — v1 stayed thin across all four; the depth since
-  has been breadth *across* tracks (now 28 events), not one track deep.
+  has been breadth *across* tracks (now 35 events), not one track deep.
 
 When in doubt, ship the skeleton thin and complete rather than one track deep.

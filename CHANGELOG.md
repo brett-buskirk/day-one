@@ -8,6 +8,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **Three new character builds**, bringing the roster to nine: **Jaylen** (a young
+  first-timer, walled by inexperience rather than a record), **Gloria** (the "has it all"
+  contrast build — a job, savings, and support all intact, to show how much the deck
+  matters), and **Tasha** (a parent fighting to regain custody). Tasha's build carries a
+  **custody arc** — supervised visits each week and a mid-game **hearing** whose
+  "make your case" option stays locked until you've built the stability family court
+  demands (a real roof, income, a clean record), so the whole run becomes the case.
 - **Random life events.** Every run now schedules one unexpected "life happens" beat at
   a seed-varied mid-game week, drawn from a pool that cuts both ways — a **loss** (a
   death in your support circle, a sudden health setback) or a **blessing** (an old
@@ -19,7 +26,9 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Getting around now scales like housing.** "Get a bike" kept reappearing after you
   already had one (it only checked the transportation pool). Wheels now form a ladder —
   bike < transit pass < car — gated by flags, so each option only shows when it's a real
-  step up and retires once you have it or anything better.
+  step up and retires once you have it or anything better. Builds now also start on the
+  ladder: the getting-around they come home with (Marcus's bike, Gloria's car) is set at
+  creation, so they're never offered wheels they already own.
 - **Locked event choices are announced to screen readers.** The locked move and its
   reason — the catch-22, the core teaching moment — used the native `disabled` attribute,
   which dropped it from the accessibility tree. It's now `aria-disabled` with the reason

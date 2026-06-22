@@ -1,0 +1,34 @@
+id: tasha
+name: Tasha
+display_age: 30
+summary: >
+  Two years away, and a five-year-old who's been with her sister the whole time.
+  Everything now bends toward one thing: getting her daughter back. Family court
+  wants stability — an address, an income, clean check-ins — before it will even
+  talk about custody, and the clock on a child's life doesn't pause for paperwork.
+
+time_inside_years: 2
+
+supervision:
+  type: probation
+  years: 3
+  conditions: [weekly_checkin, mandated_treatment]   # treatment -> a standing day
+
+landing:
+  night_one: couch                # staying with the sister who has her daughter
+  housing_clock_turns: 5
+  support: supported              # the sister — a real anchor
+  job_lined_up: false
+  documents: [state_id, ssn_card]
+  transportation: bus_pass        # -> has_transit_pass
+  gate_money: 160                 # money ~20
+
+person:
+  in_recovery: true               # part of the case against her; a condition now
+  chronic_health_issue: false
+  credentials: [cert_cna]         # trained inside — employable as a nursing assistant
+  reunifying: true                # -> flags.reunifying; schedules the custody hearing (wk 9)
+
+offense:
+  category: drug_felony
+  registry_required: false

@@ -21,6 +21,8 @@
     "owes_supervision_fees",
     "tech_gap",
     "chronic_mental_health",
-    "has_license"
+    "has_license",
+    "reunifying",
+    "custody_regained"
   ]
 }

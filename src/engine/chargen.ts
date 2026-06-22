@@ -111,6 +111,15 @@ function deriveFlags(origin: CharacterOrigin): Flags {
   for (const cred of origin.person.credentials ?? []) flags[`has_${cred}`] = true;
   if (origin.person.in_recovery) flags.in_recovery_support = true;
   if (origin.landing.job_lined_up) flags.has_job = true;
+  // The getting-around they already have, placed on the transport ladder (§6) so they
+  // aren't offered wheels they own — e.g. Marcus comes home on a bike.
+  const tFlag: Record<string, string> = {
+    car: "has_license",
+    bus_pass: "has_transit_pass",
+    bike: "has_bike",
+  };
+  const startFlag = tFlag[origin.landing.transportation];
+  if (startFlag) flags[startFlag] = true;
   // A registry requirement is the heaviest single barrier (DESIGN §8) — it
   // reshapes housing and employment. Surfaced as a flag so content can gate on
   // it (housing/employment events become near-impossible); framed as a barrier,
@@ -124,6 +133,9 @@ function deriveFlags(origin: CharacterOrigin): Flags {
   // until it's closed; long-term incarceration also carries mental-health weight.
   if (origin.time_inside_years >= TECH_GAP_YEARS) flags.tech_gap = true;
   if (origin.person.mental_health_issue) flags.chronic_mental_health = true;
+  // A parent fighting to regain custody — surfaced as a flag so the custody arc
+  // (the hearing, the visits) can gate on it.
+  if (origin.person.reunifying) flags.reunifying = true;
   return flags;
 }
 
@@ -153,6 +165,11 @@ function deriveSchedule(origin: CharacterOrigin): GameState["scheduled"] {
   // the morale-floor trigger (§ tuning) catches anyone else who crashes.
   if (origin.person.mental_health_issue) {
     out.push({ event: "evt_mental_health_crisis", onTurn: 3 });
+  }
+  // The reunifying parent's arc peaks at a custody hearing mid-game (week 9); the
+  // stability they've built by then — housing, income, clean standing — decides it.
+  if (origin.person.reunifying) {
+    out.push({ event: "evt_custody_hearing", onTurn: 9 });
   }
   return out;
 }

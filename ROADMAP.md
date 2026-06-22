@@ -10,13 +10,16 @@ land one.
 
 ## Recently shipped
 
-Through **v1.2.1** (see the changelog for detail):
+Through the latest `[Unreleased]` (see [`CHANGELOG.md`](CHANGELOG.md) for detail):
 
-- Six character archetypes + a generated random build; training and empathy modes.
+- **Nine character archetypes** + a generated random build; training and empathy modes —
+  including a young first-timer, a "has it all" contrast build, and a parent with a
+  **custody arc** (weekly supervised visits + a stability-gated hearing).
+- **Random life events** — one unexpected loss or blessing per run.
 - A reentry **resource directory** ("Where to get help"), reachable any time.
-- Transportation & housing content; the live **situation panel**; pool-change feedback.
-- A **housing ladder** so housing only moves up (street → couch → transitional → rental).
-- UX & accessibility polish; an installable, offline PWA.
+- Transportation & housing **ladders** (you only ever move up); the live **situation
+  panel**; pool-change feedback.
+- A clearer document chain; UX & accessibility polish; an installable, offline PWA.
 
 ## Next up
 
@@ -54,16 +57,13 @@ second live playtest.
 
 ### New characters & content
 
-- **"Has it all" archetype** _(playtest notes)_ — a best-case build that comes home with
-  a job, skills, money, support, and stable housing, to show by contrast how much easier
-  reentry is with the ducks already in a row. Mostly origin data.
-- **Reunifying-parent archetype** — a build whose central pressure is family court,
-  custody, and child support. Needs a small arc of family/court events plus the origin
-  data. The hardest, most human path we haven't modeled yet.
-- **Young first-timer archetype** — short time inside, no work history; the barrier is
-  inexperience and thin support rather than a long gap. Mostly origin data.
+- **Deepen the custody arc** — the reunifying parent ships with weekly visits and a
+  stability-gated hearing; a child-support economy drain and a second review/appeal would
+  give it more texture.
 - **More content depth** — widen the thinnest tracks, especially the registry/employment
   wall and the relationships path, so repeat runs keep surfacing fresh decisions.
+- **More life events** — the random loss/blessing pool is four deep; more variety keeps
+  the beat fresh across replays.
 
 ### Tooling & docs
 

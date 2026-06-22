@@ -66,16 +66,19 @@ live in production. Playable end-to-end; Sprints 0–5 of the roadmap are comple
   rules), an in-game info card, **facilitator/classroom scenario codes**, and
   **random character generation**.
 
-Currently: **6 archetypes + a generated random build**, **33 events**, two modes
-(training / empathy), light/dark + accent theming, and **103 passing tests**. What
+Currently: **9 archetypes + a generated random build**, **35 events**, two modes
+(training / empathy), light/dark + accent theming, and **109 passing tests**. What
 you can do today:
 
-- From the landing page, read the About or jump straight to Play. Pick one of six
+- From the landing page, read the About or jump straight to Play. Pick one of nine
   builds — **Marcus** (the thesis build), **Renae** (supported), **Dana** (on
   probation), **Theo** (the registry deep-end), **Ray** (the longtimer — 24 years
-  inside, with a technology gap and mental-health weight), or **Cal** (a "max-out"
-  release: no supervision, but no support or structure either) — or **Surprise me**
-  for a randomly generated person, then play ~13 weeks to a narrative debrief.
+  inside, with a technology gap and mental-health weight), **Cal** (a "max-out"
+  release: no supervision, but no support or structure either), **Jaylen** (a young
+  first-timer, walled by inexperience rather than a record), **Tasha** (a parent
+  fighting to regain custody — a family-court arc), or **Gloria** (the "has it all"
+  contrast build: a job, savings, and support all intact) — or **Surprise me** for a
+  randomly generated person, then play ~13 weeks to a narrative debrief.
 - Play a **shared run** — a `character.mode.seed` code makes everyone's run identical,
   so a room can compare how their choices diverged.
 - Feel the document catch-22, hit crises that branch instead of ending the run,

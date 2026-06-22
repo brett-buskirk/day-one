@@ -1,0 +1,33 @@
+id: gloria
+name: Gloria
+display_age: 49
+summary: >
+  Eighteen months for a white-collar charge, and the life she left mostly kept its
+  shape. The house is still hers, the savings held, a spouse who never wavered, an
+  old colleague holding a job. Reentry on the gentlest setting — the contrast build,
+  and proof of how much the deck matters before the first hand is even dealt.
+
+time_inside_years: 1
+
+supervision:
+  type: probation
+  years: 2
+  conditions: [weekly_checkin]    # light — no standing slot tax
+
+landing:
+  night_one: stable               # she owns the house — no rent crisis
+  housing_clock_turns: 0
+  support: network                # a wide circle that stood by her
+  job_lined_up: true              # a colleague held a role
+  documents: [state_id, birth_cert, ssn_card, proof_of_address]   # nothing missing
+  transportation: car             # -> has_license, no transport grind
+  gate_money: 600                 # savings intact -> money ~75
+
+person:
+  in_recovery: false
+  chronic_health_issue: false
+  credentials: []                 # her income is the held job, not a trade
+
+offense:
+  category: white_collar
+  registry_required: false

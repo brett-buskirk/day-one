@@ -1,0 +1,50 @@
+id: evt_custody_hearing
+kind: incident
+title: The custody hearing
+tags: [life, relationships, legal]
+repeatable: false
+
+# The reunifying arc's payoff (scheduled at week 9 by chargen for reunifying builds).
+# "Make your case" is a catch-22: it stays locked until you've actually built the
+# stability the court demands — a real roof, money coming in, a clean record — which
+# turns the whole run into the case. Not getting there isn't a fail screen: it's
+# supervised visits and another date down the road (§ non-neg 4).
+conditions:
+  - flags.reunifying == true
+
+prompt: >
+  The date you've bent every week toward. A courtroom, a caseworker's report, and a
+  judge who will weigh whether your daughter comes home. They want what they always
+  want: stability. A roof that's yours. An income. A clean record since you walked
+  out.
+
+choices:
+
+  - id: make_the_case
+    quality: durable
+    label: Make your case — show them the life you've built
+    requires:
+      - tracks.housing.readiness >= 3
+      - tracks.legal.readiness >= 50
+      - pools.money >= 40
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            The caseworker reads it into the record: stable housing, money coming in,
+            every check-in kept. The judge looks at you a long moment — and nods.
+            Reunification, on a plan. She's coming home.
+          flags: { custody_regained: true }
+          pools: { morale: 25, social_capital: 8 }
+
+  - id: ask_for_time
+    quality: desperate
+    label: Ask for more time — you're not there yet
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Supervised visits for now, another review down the road. Not a no — but
+            not the yes you came for. You hold her for an hour and let go again, and
+            swear the next date will be different.
+          pools: { morale: -12, social_capital: 2 }

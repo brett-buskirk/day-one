@@ -1,0 +1,38 @@
+id: evt_life_friend
+kind: incident
+title: A familiar face, no questions
+tags: [life, relationships]
+repeatable: false
+
+# A random "life happens" beat (see chargen.lifeEventSchedule) — the bright twin of
+# evt_life_loss. Someone from before turns up for you, no judgment attached. A
+# blessing: net positive either way you take it.
+prompt: >
+  You almost don't recognize them — someone from the old block who never once wrote
+  you off. They heard you were home. They've got a spare afternoon, a working truck,
+  and not a single question about where you've been.
+
+choices:
+
+  - id: accept_help
+    quality: durable
+    label: Take the hand — let them help
+    outcomes:
+      - weight: 100
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            It's not charity, they say — it's just what you do. A name back in your
+            phone, a door that opens. You'd forgotten how much lighter that feels.
+          pools: { morale: 12, social_capital: 10 }
+
+  - id: keep_distance
+    quality: neutral
+    label: Thank them, but keep your distance for now
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You're not ready to owe anybody, not yet. They leave the number anyway.
+            "Whenever you're ready." It's something to hold on a hard week.
+          pools: { morale: 5 }

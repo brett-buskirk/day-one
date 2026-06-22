@@ -5,8 +5,18 @@
 // content/characters/marcus.yaml. All numbers are tuning.
 
 import type { CharacterOrigin, Flags, GameState, Pools, Tracks } from "./types";
-import { BASE_SLOTS, END_TURN, TECH_GAP_YEARS, clampPool, housingRank } from "./tuning";
-import { seedToState } from "./rng";
+import {
+  BASE_SLOTS,
+  END_TURN,
+  TECH_GAP_YEARS,
+  clampPool,
+  housingRank,
+  LIFE_EVENT_SEED_SALT,
+  LIFE_EVENT_TURN_MIN,
+  LIFE_EVENT_TURN_MAX,
+  LIFE_EVENTS,
+} from "./tuning";
+import { seedToState, next } from "./rng";
 
 const SUPPORT_TO_CAPITAL: Record<string, number> = {
   isolated: 8,
@@ -147,6 +157,19 @@ function deriveSchedule(origin: CharacterOrigin): GameState["scheduled"] {
   return out;
 }
 
+// One unexpected "life happens" beat per run — a loss or a blessing — at a
+// seed-varied mid-game turn. Rolled from a salted seed (not GameState.rngState) so
+// it's fully reproducible yet never perturbs the main outcome stream.
+function lifeEventSchedule(seed: number): GameState["scheduled"] {
+  const start = (seedToState(seed) ^ LIFE_EVENT_SEED_SALT) | 0;
+  const r1 = next(start);
+  const span = LIFE_EVENT_TURN_MAX - LIFE_EVENT_TURN_MIN + 1;
+  const onTurn = LIFE_EVENT_TURN_MIN + Math.floor(r1.value * span);
+  const r2 = next(r1.state);
+  const event = LIFE_EVENTS[Math.floor(r2.value * LIFE_EVENTS.length)];
+  return [{ event, onTurn }];
+}
+
 export interface ChargenOptions {
   seed: number; // determinism lives here — pass an explicit seed
   mode?: GameState["mode"];
@@ -177,7 +200,7 @@ export function chargen(origin: CharacterOrigin, opts: ChargenOptions): GameStat
 
     completed: [],
     actedThisTurn: [],
-    scheduled: deriveSchedule(origin),
+    scheduled: [...deriveSchedule(origin), ...lifeEventSchedule(opts.seed)],
     pending: [],
     log: [],
 

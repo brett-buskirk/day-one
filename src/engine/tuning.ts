@@ -32,6 +32,21 @@ export function housingRank(status: string): number {
   return HOUSING_RANK[status] ?? 0;
 }
 
+// Random "life happens" beat: exactly one per run, scheduled at a seed-varied
+// mid-game turn (see chargen.lifeEventSchedule). The pool cuts both ways — losses
+// and blessings — so a run might be knocked back or lifted up, and you never know
+// which is coming. Rolled from a salted seed so it stays reproducible without
+// disturbing the main outcome RNG stream.
+export const LIFE_EVENT_SEED_SALT = 0x4c494645; // "LIFE"
+export const LIFE_EVENT_TURN_MIN = 3;
+export const LIFE_EVENT_TURN_MAX = 10;
+export const LIFE_EVENTS = [
+  "evt_life_loss", // a death in the support circle
+  "evt_life_health", // a sudden health setback
+  "evt_life_friend", // someone from before shows up for you
+  "evt_life_kindness", // unexpected generosity, no strings
+];
+
 // Weighted-outcome modifier (§9): effectiveWeight = max(0, weight + (stat-50)*scale)
 export const POOL_BASELINE = 50;
 

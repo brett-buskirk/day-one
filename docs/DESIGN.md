@@ -145,7 +145,11 @@ the shared currency every track spends against — that coupling is the simulati
 - **social_capital** — the strength and willingness of one's support network. Low
   by default for the isolated. Spent when leaning on people; can sour a tie if
   overdrawn. Tilts the odds on outcomes that depend on goodwill.
-- **transportation** — ability to get around (see §4 for its slot multiplier).
+- **transportation** — ability to get around (see §4 for its slot multiplier). The
+  acquisition events form a **getting-around ladder** via flags (`has_bike` <
+  `has_transit_pass` < `has_license`): each option only surfaces when it's a step up and
+  retires once you have it or anything better, so you're never re-offered wheels you've
+  got.
 - **health** — physical and recovery wellbeing combined. Many people come home
   with chronic issues and/or in recovery. Physical labor and stress drain it;
   rest, treatment, and recovery support refill it. Low health raises relapse/crisis

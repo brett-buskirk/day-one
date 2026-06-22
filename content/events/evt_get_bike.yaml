@@ -5,8 +5,13 @@ tags: [transportation]
 
 # The cheapest way to buy back time when you can't drive: a set of wheels. A
 # reentry/community program is the durable path; a cash purchase is the quicker
-# one. Only surfaces while getting around is genuinely hard, and retires once used.
+# one. The bottom rung of the getting-around ladder (bike < transit pass < car):
+# only surfaces while mobility is genuinely hard AND you don't already have a bike
+# or anything better, so it retires once used and never re-offers.
 conditions:
+  - flags.has_bike == false
+  - flags.has_transit_pass == false
+  - flags.has_license == false
   - pools.transportation < 50
 
 prompt: >
@@ -28,6 +33,7 @@ choices:
             A volunteer sizes you up, tightens a brake, and rolls a solid bike your
             way — no charge, just a handshake. Rain or shine, you can get there now.
           pools: { transportation: 18, morale: 6 }
+          flags: { has_bike: true }
       - weight: 25
         effects:
           text: >
@@ -48,3 +54,4 @@ choices:
             Fifteen dollars and a quick meetup later, you're rolling. It squeaks and
             the seat's wrong, but it goes — and so do you.
           pools: { transportation: 20, morale: 3 }
+          flags: { has_bike: true }

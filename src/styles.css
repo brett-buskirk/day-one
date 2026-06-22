@@ -595,7 +595,8 @@ button {
   gap: 7px;
   font-weight: 600;
 }
-.choice-btn:disabled {
+.choice-btn:disabled,
+.choice-btn[aria-disabled="true"] {
   border-color: var(--line);
   color: var(--muted);
   background: var(--surface-2);

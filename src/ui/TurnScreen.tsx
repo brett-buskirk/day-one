@@ -12,7 +12,7 @@ import {
 } from "../engine";
 import { useMemo, useState } from "react";
 import type { ThemeMode } from "../theme";
-import { POOL_META, slotsLabel } from "./format";
+import { POOL_META, slotsLabel, avatarFor } from "./format";
 import { PoolBar } from "./PoolBar";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { InfoModal } from "./InfoModal";
@@ -97,11 +97,11 @@ export function TurnScreen({
           <div className="turn-head-actions">
             <button
               type="button"
-              className="head-icon-btn"
+              className="head-icon-btn head-avatar-btn"
               onClick={() => setShowCharacter(true)}
               aria-label="Your situation"
             >
-              👤
+              <span aria-hidden="true">{avatarFor(origin?.id ?? "")}</span>
             </button>
             <button
               type="button"

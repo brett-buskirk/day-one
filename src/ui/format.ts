@@ -5,6 +5,28 @@
 import { parsePredicate } from "../engine";
 import type { PoolKey, Predicate } from "../engine";
 
+// Per-character presentation: a circle avatar (emoji — a deliberate mix of genders
+// and skin tones) and a UNIQUE at-a-glance tag, so every build on the select screen
+// reads distinctly. Random / generated builds fall back to a derived tag.
+const CHARACTER_FACE: Record<string, { avatar: string; tag: string }> = {
+  marcus: { avatar: "👨🏿", tag: "Skills, walled off" },
+  renae: { avatar: "👩🏽", tag: "Family in her corner" },
+  dana: { avatar: "👩🏼", tag: "Probation — fees & hours" },
+  theo: { avatar: "👨🏻", tag: "Registry — the deepest end" },
+  ray: { avatar: "👴🏼", tag: "24 years in — the longtimer" },
+  cal: { avatar: "👨🏽", tag: "Maxed out — no safety net" },
+  jaylen: { avatar: "👨🏾", tag: "Young, green, first time" },
+  tasha: { avatar: "👩🏿", tag: "Fighting for her daughter" },
+  gloria: { avatar: "👩🏻", tag: "Came home to everything" },
+};
+export const avatarFor = (id: string): string => CHARACTER_FACE[id]?.avatar ?? "🧑";
+export const tagForId = (id: string): string | null => CHARACTER_FACE[id]?.tag ?? null;
+// A soft, stable per-character tint for the avatar circle.
+export function avatarStyle(id: string) {
+  const hue = [...id].reduce((a, ch) => a + ch.charCodeAt(0), 0) % 360;
+  return { backgroundColor: `hsl(${hue} 55% 85%)` };
+}
+
 export const POOL_META: { key: PoolKey; label: string; hint: string }[] = [
   { key: "money", label: "Money", hint: "Cash on hand" },
   { key: "morale", label: "Morale", hint: "Hope and momentum" },

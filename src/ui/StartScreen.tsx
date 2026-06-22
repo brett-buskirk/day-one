@@ -1,7 +1,8 @@
 // Character + mode selection, plus run import and the classroom (shared-run) panel.
+// Compact cards expand on tap to reveal the build, pick a mode, and Play.
 import { useState } from "react";
 import { RANDOM_ID, type CharacterOrigin, type Mode } from "../engine";
-import { humanizeCredential, nightOneShort } from "./format";
+import { humanizeCredential, nightOneShort, avatarFor, tagForId, avatarStyle } from "./format";
 import { encodeScenario, parseScenario } from "./scenario";
 
 interface Props {
@@ -21,14 +22,32 @@ const MODES: { key: Mode; label: string; blurb: string }[] = [
   { key: "empathy", label: "Empathy", blurb: "Feel the wall. The deep end — a run can be walked to the edge." },
 ];
 
-// A short identity tag per archetype, derived from the origin data.
+// Fallback tag for the random / generated build (the fixed roster has unique tags
+// via tagForId).
 function archetypeTag(o: CharacterOrigin): string {
-  if (o.time_inside_years >= 20) return "The longtimer · deepest end";
-  if (o.offense.registry_required) return "Registry · deep end";
-  if (o.landing.support === "supported" || o.landing.support === "network") return "Has people in their corner";
+  if (o.time_inside_years >= 20) return "The longtimer";
+  if (o.offense.registry_required) return "Registry — the deep end";
+  if (o.supervision.type === "none") return "Maxed out — no net";
   if (o.supervision.type === "probation") return "On probation";
-  if (o.supervision.type === "none") return "Maxed out · no safety net";
-  return "The thesis build";
+  return "Fresh out";
+}
+
+function metaLine(c: CharacterOrigin): string {
+  const creds = (c.person.credentials ?? []).length
+    ? ` · ${c.person.credentials!.map(humanizeCredential).join(", ")}`
+    : "";
+  return `${c.time_inside_years} yrs in · ${c.supervision.type} · ${nightOneShort(c.landing.night_one)}${creds}`;
+}
+
+interface Card {
+  id: string;
+  name: string;
+  age: number | null;
+  avatar: string;
+  tag: string;
+  summary: string;
+  meta: string | null;
+  playName: string;
 }
 
 export function StartScreen({
@@ -42,7 +61,7 @@ export function StartScreen({
   onImport,
   onBack,
 }: Props) {
-  const [selectedId, setSelectedId] = useState<string>(characters[0]?.id ?? "");
+  const [expandedId, setExpandedId] = useState<string>("");
   const [mode, setMode] = useState<Mode>("training");
   const [importText, setImportText] = useState("");
   const [importError, setImportError] = useState<string | null>(null);
@@ -55,8 +74,33 @@ export function StartScreen({
   // A typed seed makes the run you start reproducible; blank = random.
   const seedNum = /^\d+$/.test(seedText.trim()) ? Number(seedText.trim()) : undefined;
   const validSeed = seedNum !== undefined && seedNum > 0 && seedNum <= 0xffffffff;
-  const shareCode =
-    validSeed && selectedId ? encodeScenario({ characterId: selectedId, mode, seed: seedNum! }) : null;
+  const startSeed = () => (validSeed ? seedNum : undefined);
+  const codeTarget = expandedId || characters[0]?.id || "";
+  const shareCode = validSeed && codeTarget ? encodeScenario({ characterId: codeTarget, mode, seed: seedNum! }) : null;
+
+  const cards: Card[] = [
+    ...characters.map((c) => ({
+      id: c.id,
+      name: c.name,
+      age: c.display_age,
+      avatar: avatarFor(c.id),
+      tag: tagForId(c.id) ?? archetypeTag(c),
+      summary: c.summary ?? "",
+      meta: metaLine(c),
+      playName: c.name,
+    })),
+    {
+      id: RANDOM_ID,
+      name: "Surprise me",
+      age: null,
+      avatar: "🎲",
+      tag: "Random — reproducible from its seed",
+      summary:
+        "A fresh life, generated for you — and reproducible from its seed, so a group can share one.",
+      meta: null,
+      playName: "a random life",
+    },
+  ];
 
   const tryImport = () => {
     setImportError(null);
@@ -100,80 +144,70 @@ export function StartScreen({
 
       <section aria-label="Choose a character">
         <h2 className="block-title">Who will you play?</h2>
-        <ul className="char-list" role="radiogroup" aria-label="Characters">
-          {characters.map((c) => (
-            <li key={c.id}>
-              <button
-                type="button"
-                role="radio"
-                aria-checked={selectedId === c.id}
-                className={`char-card ${selectedId === c.id ? "char-card-on" : ""}`}
-                onClick={() => setSelectedId(c.id)}
-              >
-                <span className="char-head">
-                  <span className="char-name">
-                    {c.name}, {c.display_age}
+        <p className="muted small select-hint">
+          Tap a person to meet them — then press <strong>Play</strong>.
+        </p>
+        <ul className="char-list">
+          {cards.map((c) => {
+            const open = expandedId === c.id;
+            return (
+              <li key={c.id} className={`char-item ${open ? "char-item-on" : ""}`}>
+                <button
+                  type="button"
+                  className="char-card-head"
+                  aria-expanded={open}
+                  onClick={() => setExpandedId(open ? "" : c.id)}
+                >
+                  <span className="avatar" style={avatarStyle(c.id)} aria-hidden="true">
+                    {c.avatar}
                   </span>
-                  <span className="char-tag">{archetypeTag(c)}</span>
-                </span>
-                {c.summary && <span className="char-summary">{c.summary}</span>}
-                <span className="char-meta">
-                  {c.time_inside_years} yrs in · {c.supervision.type} · {nightOneShort(c.landing.night_one)}
-                  {(c.person.credentials ?? []).length > 0
-                    ? ` · ${c.person.credentials!.map(humanizeCredential).join(", ")}`
-                    : ""}
-                </span>
-              </button>
-            </li>
-          ))}
-          <li>
-            <button
-              type="button"
-              role="radio"
-              aria-checked={selectedId === RANDOM_ID}
-              className={`char-card ${selectedId === RANDOM_ID ? "char-card-on" : ""}`}
-              onClick={() => setSelectedId(RANDOM_ID)}
-            >
-              <span className="char-head">
-                <span className="char-name">Surprise me</span>
-                <span className="char-tag">Random</span>
-              </span>
-              <span className="char-summary">
-                A fresh life, generated for you — and reproducible from its seed, so a
-                group can share one.
-              </span>
-            </button>
-          </li>
+                  <span className="char-head-text">
+                    <span className="char-name">
+                      {c.name}
+                      {c.age ? `, ${c.age}` : ""}
+                    </span>
+                    <span className="char-tag">{c.tag}</span>
+                  </span>
+                  <span className="char-chevron" aria-hidden="true">
+                    {open ? "▾" : "▸"}
+                  </span>
+                </button>
+                {open && (
+                  <div className="char-body">
+                    {c.summary && <p className="char-summary">{c.summary}</p>}
+                    {c.meta && <p className="char-meta">{c.meta}</p>}
+                    <div className="char-mode">
+                      <span className="char-mode-label">Why are you here?</span>
+                      <div className="segmented" role="radiogroup" aria-label="Choose a mode">
+                        {MODES.map((m) => (
+                          <button
+                            key={m.key}
+                            type="button"
+                            role="radio"
+                            aria-checked={mode === m.key}
+                            className={`segment ${mode === m.key ? "segment-on" : ""}`}
+                            onClick={() => setMode(m.key)}
+                          >
+                            {m.label}
+                          </button>
+                        ))}
+                      </div>
+                      <p className="muted small">{activeBlurb}</p>
+                    </div>
+                    <button
+                      type="button"
+                      className="primary big"
+                      onClick={() => onChoose(c.id, mode, startSeed())}
+                    >
+                      Play {c.playName}
+                    </button>
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </section>
-
-      <section aria-label="Mode" className="mode-pick">
-        <h2 className="block-title">Why are you here?</h2>
-        <div className="segmented" role="radiogroup" aria-label="Choose a mode">
-          {MODES.map((m) => (
-            <button
-              key={m.key}
-              type="button"
-              role="radio"
-              aria-checked={mode === m.key}
-              className={`segment ${mode === m.key ? "segment-on" : ""}`}
-              onClick={() => setMode(m.key)}
-            >
-              {m.label}
-            </button>
-          ))}
-        </div>
-        <p className="muted small">{activeBlurb}</p>
-      </section>
-
-      <button
-        type="button"
-        className="primary big"
-        onClick={() => selectedId && onChoose(selectedId, mode, validSeed ? seedNum : undefined)}
-        disabled={!selectedId}
-      >
-        Continue
-      </button>
 
       <details className="disclosure">
         <summary>Classroom / shared run</summary>

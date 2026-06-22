@@ -119,7 +119,9 @@ export function EventDetail({
         onKeyDown={onKeyDown}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sheet-handle" aria-hidden="true" />
+        <button type="button" className="sheet-handle-btn" aria-label="Close" onClick={dismiss}>
+          <span className="sheet-handle" aria-hidden="true" />
+        </button>
         <header className="sheet-head">
           <h2 id="sheet-title">{event.title}</h2>
           {isPending && <span className="badge badge-incident">This week interrupts</span>}

@@ -47,6 +47,18 @@ export const LIFE_EVENTS = [
   "evt_life_kindness", // unexpected generosity, no strings
 ];
 
+// A second random "the unexpected happens" beat per run — an interrupt that pulls you in
+// a direction you didn't plan. Its own salt + window so it's independent of the life
+// event. Each has more choices than a pool-floor crisis; all recoverable.
+export const INTERRUPT_SEED_SALT = 0x494e5452; // "INTR"
+export const INTERRUPT_TURN_MIN = 4;
+export const INTERRUPT_TURN_MAX = 11;
+export const INTERRUPTS = [
+  "evt_collision", // pulled two directions — a competing-demand week
+  "evt_windfall_offer", // a good thing, on a deadline
+  "evt_old_contact", // someone from the old life resurfaces
+];
+
 // Weighted-outcome modifier (§9): effectiveWeight = max(0, weight + (stat-50)*scale)
 export const POOL_BASELINE = 50;
 

@@ -1,0 +1,40 @@
+id: evt_collision
+kind: incident
+title: Two places at once
+tags: [life, relationships]
+repeatable: false
+
+# The competing-demand interrupt (from the reviewer's "pulled in different directions"):
+# two things you both need, the same week, and you can only make one. Not a pool-floor
+# crisis — a real tradeoff. Recoverable either way (§ non-neg 4).
+prompt: >
+  It lands the same afternoon: the call you've been chasing — an interview, a viewing, a
+  slot that won't wait — and, the same hour, someone who needs you, now, not later. You
+  can be one place. Not both.
+
+choices:
+
+  - id: chase_it
+    quality: durable
+    label: Chase the opportunity — you may not get another
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: morale, scale: 0.1 }
+        effects:
+          text: >
+            You go, and you make the most of it — and carry the other thing like a stone
+            the whole time. Progress, bought with someone's disappointment.
+          pools: { morale: 4, social_capital: -8 }
+
+  - id: show_up_for_them
+    quality: durable
+    label: Show up for the person who needs you
+    outcomes:
+      - weight: 100
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            You're there when it counts, and they won't forget it. The opportunity closes
+            behind you — there'll be others, you tell yourself.
+          pools: { morale: 2, social_capital: 10 }

@@ -14,11 +14,14 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   deadline that eats your week), or an **old contact** (easy money that pays now and
   **schedules its own reckoning** a week or two out — a second-order ripple). From the
   reviewer's "more interruptions, with more choices, that pull us in different directions."
-- **Home detention.** A new supervision condition (from lived-experience feedback): a
-  relentless **weekly monitoring fee** — often the most crippling cost of being watched
-  at home — plus a **restricted week** (a standing day you can't freely use; the turn
-  header attributes it). **Dana** now carries it (in place of her community-service
-  hours), stacking it on her supervision fees. Tunable; the fee is a starting number.
+- **Home detention** (from lived-experience feedback) — now its own supervision **status**,
+  not just a condition: a relentless **weekly monitoring fee** (often the most crippling
+  cost of being watched at home) plus a **restricted week** (a standing day you can't
+  freely use; the turn header attributes it). **Dana's** supervision *is* home detention
+  — she reads as "on home detention," not probation (people are often on one or the other,
+  or home detention first) — with the monitoring fee in place of the old probation fees.
+  It routes through the probation check-in/violation machinery under the hood. Tunable;
+  the fee is a starting number.
 - **Surprise home visit.** A new interrupt for any build on paper: your officer shows up
   unannounced for a compliance check, scheduled once per run at a turn you can't predict.
   How you meet it (cooperate, or freeze) nudges your standing. Recoverable, never a fail

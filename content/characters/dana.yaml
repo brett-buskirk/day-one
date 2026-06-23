@@ -2,19 +2,21 @@ id: dana
 name: Dana
 display_age: 26
 summary: >
-  A short year inside, and now three years of probation trailing it — weekly
-  court check-ins, supervision fees pulled from money she doesn't have, and home
-  detention: an ankle monitor with a weekly fee that bleeds her, and a week she
-  mostly can't leave. No registry, but the record still closes doors. Back at her
-  mom's, rebuilding the paper trail like everyone else. A build for the weight — and
-  the relentless cost — of supervision itself.
+  A short year inside, and now home detention — an ankle monitor, weekly check-ins, and
+  a monitoring fee pulled from money she doesn't have, week after week, and a week she
+  mostly can't leave. (Often it comes first, with probation to follow; she's living the
+  part that bites hardest.) No registry, but the record still closes doors. Back at her
+  mom's, rebuilding the paper trail like everyone else. A build for the weight — and the
+  relentless cost — of supervision itself.
 
 time_inside_years: 1
 
+# type is home_detention (her supervision *status*, shown as such); the matching
+# condition carries the mechanics (the weekly fee + the restricted-week slot tax).
 supervision:
-  type: probation
+  type: home_detention
   years: 3
-  conditions: [weekly_checkin, supervision_fees, home_detention]
+  conditions: [weekly_checkin, home_detention]
 
 landing:
   night_one: couch

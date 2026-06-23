@@ -58,11 +58,12 @@ describe("recurring monthly economy", () => {
   });
 
   it("charges probation supervision fees monthly", () => {
-    const dana = createRun(corpus, "dana", { seed: 1 });
-    expect(dana.flags.owes_supervision_fees).toBe(true);
-    const s = { ...dana, turn: 4 };
+    // A build that owes supervision fees (probation builds get them via randomchar; the
+    // mechanic is tested directly so it doesn't depend on one fixed build carrying it).
+    const base = createRun(corpus, "marcus", { seed: 1 });
+    const s = { ...base, turn: 4, flags: { ...base.flags, owes_supervision_fees: true }, pools: { ...base.pools, money: 60 } };
     const after = beginTurn(s, corpus);
-    expect(after.pools.money).toBeLessThan(s.pools.money);
+    expect(after.pools.money).toBeLessThan(60);
     expect(after.log.some((l) => l.choiceId === "supervision_fees")).toBe(true);
   });
 });

@@ -51,6 +51,10 @@ const TRANSPORT_TO_POOL: Record<string, number> = {
 const SUPERVISION_TO_LEGAL: Record<string, string> = {
   parole: "parole",
   probation: "probation",
+  // Home detention is its own *status* for the player (displayed as such), but its
+  // compliance machinery — check-ins, violations, standing — is the probation sub-arc,
+  // so it routes there mechanically. The display override lives in the situation panel.
+  home_detention: "probation",
   none: "unsupervised",
 };
 

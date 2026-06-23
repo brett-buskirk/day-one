@@ -150,6 +150,7 @@ const WORK_LABELS: Record<string, string> = {
 const LEGAL_LABELS: Record<string, string> = {
   parole: "On parole",
   probation: "On probation",
+  home_detention: "On home detention",
   unsupervised: "No supervision",
 };
 const RELATIONSHIP_LABELS: Record<string, string> = {

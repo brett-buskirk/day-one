@@ -20,6 +20,13 @@ Through the latest `[Unreleased]` (see [`CHANGELOG.md`](CHANGELOG.md) for detail
 - Transportation & housing **ladders** (you only ever move up); the live **situation
   panel**; pool-change feedback.
 - A clearer document chain; UX & accessibility polish; an installable, offline PWA.
+- **The technology layer** — a phone (with a recurring plan bill that can lapse) and a
+  laptop that gates remote skilled work, each with a real subsidized path (Lifeline; a
+  workforce refurb-laptop program).
+- **A reentry fee-waiver** that breaks the document poverty trap, and harness-validated
+  **day-budget tuning** (a 7-day week; reliable transit removes the errand tax).
+- **A second stage of reentry** — court debt, deferred health, giving back, sealing your
+  record, getting off supervision early, and mending family, so stabilizing isn't the end.
 
 ## Next up
 
@@ -28,11 +35,6 @@ second live playtest.
 
 ### Accessibility _(pass-2 review)_
 
-- **Announce locked choices in event sheets (high).** The locked-move-with-its-reason
-  is the core teaching device, but locked choices use the native `disabled` attribute —
-  so they're dropped from the screen-reader tree and the unmet-requirement text (already
-  wired via `aria-describedby`) is never announced. Switch to `aria-disabled` plus an
-  onClick guard so the wall is announced, not just drawn.
 - **Name the character-select radios (medium).** Give each `role="radio"` an explicit,
   concise accessible name (character + build + the key facts already shown).
 - **Audit modal a11y on the newer surfaces (medium).** Confirm the modals added after
@@ -42,18 +44,6 @@ second live playtest.
 - **Real-device ~360px pass + reduced-motion spot-check (low).** Both reviews ran at
   ~500px; verify thumb reach / scrolling on a real phone, and that the pool-delta pulse
   honors `prefers-reduced-motion`.
-
-### Gameplay fixes
-
-- **Transportation ladder** _(playtest notes)_ — getting-around should scale like
-  housing, so an option you already took retires instead of re-offering. Today
-  `evt_get_bike` gates only on the `transportation` pool, so someone who already has a
-  bike but low mobility is offered another. Model a ladder (none → bike → transit pass →
-  car), or at minimum a `has_bike` gate.
-- **Document-chain clarity** _(playtest notes)_ — the "Getting your state ID" hub
-  conflates the ID with its prerequisite **birth certificate** (two different
-  documents), and it keeps reappearing with no useful action while you wait on a mailed
-  cert. Clarify the framing, and quiet the hub until the cert arrives.
 
 ### New characters & content
 
@@ -69,6 +59,32 @@ second live playtest.
 
 - **Facilitator guide** — a short doc for running the classroom/group mode (shared seed
   codes, debrief discussion prompts) in a training or workshop setting.
+
+### Contributor pipeline
+
+Make it easy for visitors to contribute — with a guard rail. (The headliner for an
+upcoming release.)
+
+- **"View source" link in the app** — a GitHub link (e.g. on the About page) so anyone
+  can find and read the code.
+- **Issue templates** — bug report, feature request, **archetype request**, and **event
+  request** forms, so visitors have a clear, structured path to propose ideas.
+- **Project board, labels, and milestones** — set up the repo's issue/PR management
+  (labels by type / area / priority; milestones per release) so contributions can be
+  triaged and tracked.
+- **(Stretch) AI-assisted issue triage, human-in-the-loop** — a GitHub Action that runs
+  Claude on a newly filed issue to check it's well-formed, on-thesis (holds to the
+  `docs/DESIGN.md` north stars), and not a duplicate, then labels and summarizes it for
+  **maintainer approval**. Approved issues get actioned on a branch + PR. Claude triages
+  and drafts; a human always decides.
+
+### Deployment
+
+- **Secure-facility build mode** — incarcerated users often can't reach the outside world,
+  so a build flag should strip the **"Where to get help"** resource directory (and any
+  external links) for deployments into secure environments. Lean toward a *build-time* mode
+  — a separate artifact with the resources omitted from the bundle entirely, so there are
+  no dead links — over a runtime toggle.
 
 ## Later / ideas
 

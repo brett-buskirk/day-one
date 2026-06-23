@@ -126,10 +126,13 @@ export const SUPERVISION_FEE = 6; // money/month while owes_supervision_fees (pr
 export const PHONE_PLAN_FEE = 6; // money/month while owes_phone_plan
 export const PHONE_LAPSE_MORALE_DROP = 6; // morale lost when the phone gets shut off
 // Court debt (LFOs): ignore the balance once you're earning and the court garnishes your
-// wages — a heavier, forced monthly bite than a payment plan would cost. Only hits the
-// employed-and-non-compliant (no wages to garnish, or a plan = compliance). NOTE: tuning.
-export const COURT_GARNISHMENT = 10; // money/month while owes_court_debt + has_job + !on_payment_plan
-export const COURT_GARNISHMENT_MORALE = 3; // the indignity of it
+// paycheck — a *weekly* bite you see every check (not a quiet monthly nibble), only on the
+// employed-and-non-compliant (no wages to garnish, or a plan = compliance). Let it ride for
+// ~a month (COURT_SUMMONS_AFTER garnishments) and it escalates to a bench warrant
+// (evt_court_summons). NOTE: tuning.
+export const COURT_GARNISHMENT = 4; // money/week while owes_court_debt + has_job + !on_payment_plan
+export const COURT_GARNISHMENT_MORALE = 1; // a small weekly indignity that adds up
+export const COURT_SUMMONS_AFTER = 4; // weekly garnishments ignored before the warrant lands
 
 // A steady WEEKLY paycheck while employed (has_job). The lack of one made landing a
 // job an economic dead-end (it retires day labor but paid nothing recurring). Applies

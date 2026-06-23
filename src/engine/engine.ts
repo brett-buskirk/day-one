@@ -37,6 +37,7 @@ import {
   PHONE_LAPSE_MORALE_DROP,
   COURT_GARNISHMENT,
   COURT_GARNISHMENT_MORALE,
+  COURT_SUMMONS_AFTER,
   clampPool,
   transportFactor,
   housingRank,
@@ -228,6 +229,7 @@ export function beginTurn(state: GameState, corpus: Corpus): GameState {
   if (s.turn > 1) {
     applyWeeklyWage(s);
     applyWeeklyFees(s);
+    applyCourtDebt(s); // weekly garnishment off the paycheck, escalating to a warrant
   }
   applyMonthlyFlows(s);
 
@@ -384,20 +386,27 @@ function applyMonthlyFlows(s: GameState): void {
       });
     }
   }
+}
 
-  // Court debt (LFOs): ignore the balance once you're earning and the court takes it —
-  // wage garnishment, forced and heavier than a payment plan would cost. A plan
-  // (evt_court_debt) sets on_payment_plan and keeps you in compliance, so this never fires.
-  if (s.flags.owes_court_debt && s.flags.has_job && !s.flags.on_payment_plan) {
-    const paid = Math.min(COURT_GARNISHMENT, s.pools.money);
-    s.pools.money = clampPool(s.pools.money - paid);
-    s.pools.morale = clampPool(s.pools.morale - COURT_GARNISHMENT_MORALE);
-    s.log.push({
-      turn: s.turn,
-      eventId: "system",
-      choiceId: "court_garnishment",
-      text: `The court garnished your wages (−${paid}). Ignoring the balance doesn't make it go away.`,
-    });
+// Court debt (LFOs), a WEEKLY consequence: ignore the balance once you're earning and the
+// court garnishes each paycheck — visible every week, not a quiet monthly nibble. Let it
+// ride ~a month and it escalates to a bench warrant (evt_court_summons). A payment plan
+// (evt_court_debt) sets on_payment_plan = compliance, so none of this fires.
+function applyCourtDebt(s: GameState): void {
+  if (!(s.flags.owes_court_debt && s.flags.has_job && !s.flags.on_payment_plan)) return;
+  const paid = Math.min(COURT_GARNISHMENT, s.pools.money);
+  s.pools.money = clampPool(s.pools.money - paid);
+  s.pools.morale = clampPool(s.pools.morale - COURT_GARNISHMENT_MORALE);
+  s.log.push({
+    turn: s.turn,
+    eventId: "system",
+    choiceId: "court_garnishment",
+    text: `The court garnished your paycheck (−${paid}) for the balance you've been ignoring.`,
+  });
+  // Sustained ignoring escalates to a bench warrant — fired once.
+  const garnishments = s.log.filter((l) => l.choiceId === "court_garnishment").length;
+  if (garnishments >= COURT_SUMMONS_AFTER && !s.completed.includes("evt_court_summons")) {
+    queueIncident(s, "evt_court_summons", s.turn + 1);
   }
 }
 

@@ -29,8 +29,10 @@ choices:
         modifier: { stat: morale, scale: 0.1 }
         effects:
           text: >
-            Granted. No more check-ins, no more fees, no more permission slips for your own
-            life. The leash comes off — and the air is genuinely different out here.
+            Granted. No more check-ins, no more supervision fees, no more permission slips
+            for your own life. (The fines and restitution are still yours to settle — that
+            debt doesn't walk out with the supervision.) But the leash is off, and the air
+            out here is genuinely different.
           pools: { morale: 18 }
           tracks: { legal: { status: unsupervised } }
           flags: { owes_supervision_fees: false, owes_home_detention_fees: false }

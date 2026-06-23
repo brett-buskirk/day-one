@@ -7,6 +7,15 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+- **The phone pays off** (technology resource, Phase 2). A new phone-only **"Work the
+  phone"** action lets you do the legwork *remotely* — chase job leads (employment progress)
+  or return calls and keep your network close (support) — without spending a bus fare on
+  every errand. It's a **soft advantage, not a gate**: builds without a phone aren't blocked
+  from work or housing, they just lean on the slower, travel-heavy in-person paths. Once a
+  week, so it's a modest option, not a grind. (Phase 1 made the phone a cost; this makes it
+  worth keeping.)
+
 ### Changed
 - **The transport squeeze is now attributable** (reviewer Area 1 — the day budget shouldn't
   read as *arbitrarily* tight). When getting around without a car inflates errands, the turn

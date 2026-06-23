@@ -51,4 +51,11 @@ describe("the phone (a recurring cost, not a gate)", () => {
     expect(broke.flags.has_phone).toBe(false);
     expect(broke.flags.owes_phone_plan).toBe(false);
   });
+
+  it("a phone unlocks remote legwork ('Work the phone') — a soft edge, not a gate", () => {
+    // Phase 2: the phone *pays off* but never blocks. The action is offered with a phone,
+    // absent without one — but the phone-less still have every in-person path.
+    expect(eligibleIds(createRun(corpus, "gloria", { seed: 1 })).has("evt_work_the_phone")).toBe(true);
+    expect(eligibleIds(createRun(corpus, "marcus", { seed: 1 })).has("evt_work_the_phone")).toBe(false);
+  });
 });

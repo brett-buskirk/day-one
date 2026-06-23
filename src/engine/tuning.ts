@@ -125,6 +125,11 @@ export const SUPERVISION_FEE = 6; // money/month while owes_supervision_fees (pr
 // it; the Lifeline subsidized phone carries no plan fee. NOTE: starting numbers, playtest.
 export const PHONE_PLAN_FEE = 6; // money/month while owes_phone_plan
 export const PHONE_LAPSE_MORALE_DROP = 6; // morale lost when the phone gets shut off
+// Court debt (LFOs): ignore the balance once you're earning and the court garnishes your
+// wages — a heavier, forced monthly bite than a payment plan would cost. Only hits the
+// employed-and-non-compliant (no wages to garnish, or a plan = compliance). NOTE: tuning.
+export const COURT_GARNISHMENT = 10; // money/month while owes_court_debt + has_job + !on_payment_plan
+export const COURT_GARNISHMENT_MORALE = 3; // the indignity of it
 
 // A steady WEEKLY paycheck while employed (has_job). The lack of one made landing a
 // job an economic dead-end (it retires day labor but paid nothing recurring). Applies

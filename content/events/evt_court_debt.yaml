@@ -11,11 +11,14 @@ repeatable: true
 # you're earning. Engages money + supervision standing in the mid/late game. Gated on a job.
 conditions:
   - flags.has_job == true
+  - flags.owes_court_debt == true
+  - flags.on_payment_plan == false
 
 prompt: >
   A letter from the clerk of court: the balance on your case — fines, fees, the restitution
   the judge ordered — is past due, and now that there's a paycheck, they expect to see it
-  moving. It's more than you have. But standing still on court debt is how a warrant starts.
+  moving. It's more than you have. Ignore it and they don't forget — they just start
+  garnishing it straight out of your check, on their terms instead of yours.
 
 choices:
 
@@ -28,9 +31,11 @@ choices:
         effects:
           text: >
             A monthly amount small enough to survive, documented and on file. The balance
-            barely moves — but you're "in compliance," and that's what keeps the warrant away.
+            barely moves — but you're "in compliance," and that keeps the garnishment off
+            your paycheck.
           pools: { money: -8, morale: 5 }
           tracks: { legal: { readiness: 4 } }
+          flags: { on_payment_plan: true }
 
   - id: pay_down
     quality: durable
@@ -47,6 +52,7 @@ choices:
             there are fewer strings on your future than there were this morning.
           pools: { money: -30, morale: 12 }
           tracks: { legal: { readiness: 8 } }
+          flags: { on_payment_plan: true }
 
   - id: request_relief
     quality: durable
@@ -61,6 +67,7 @@ choices:
             paycheck you're trying to build on.
           pools: { morale: 7 }
           tracks: { legal: { readiness: 5 } }
+          flags: { on_payment_plan: true }
       - weight: 40
         effects:
           text: >

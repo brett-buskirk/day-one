@@ -35,6 +35,8 @@ import {
   HOME_DETENTION_FEE,
   PHONE_PLAN_FEE,
   PHONE_LAPSE_MORALE_DROP,
+  COURT_GARNISHMENT,
+  COURT_GARNISHMENT_MORALE,
   clampPool,
   transportFactor,
   housingRank,
@@ -381,6 +383,21 @@ function applyMonthlyFlows(s: GameState): void {
         text: "Your phone got shut off — you couldn't cover the plan. Off the grid, and harder to reach.",
       });
     }
+  }
+
+  // Court debt (LFOs): ignore the balance once you're earning and the court takes it —
+  // wage garnishment, forced and heavier than a payment plan would cost. A plan
+  // (evt_court_debt) sets on_payment_plan and keeps you in compliance, so this never fires.
+  if (s.flags.owes_court_debt && s.flags.has_job && !s.flags.on_payment_plan) {
+    const paid = Math.min(COURT_GARNISHMENT, s.pools.money);
+    s.pools.money = clampPool(s.pools.money - paid);
+    s.pools.morale = clampPool(s.pools.morale - COURT_GARNISHMENT_MORALE);
+    s.log.push({
+      turn: s.turn,
+      eventId: "system",
+      choiceId: "court_garnishment",
+      text: `The court garnished your wages (−${paid}). Ignoring the balance doesn't make it go away.`,
+    });
   }
 }
 

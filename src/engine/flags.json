@@ -23,6 +23,8 @@
     "has_laptop",
     "owes_supervision_fees",
     "owes_home_detention_fees",
+    "owes_court_debt",
+    "on_payment_plan",
     "tech_gap",
     "chronic_mental_health",
     "has_license",

@@ -140,6 +140,17 @@ interface Week {
 function playRun(buildId: string, seed: number, policy: Policy) {
   let s = createRun(corpus, buildId, { seed });
   const weeks: Week[] = [];
+  // money flows: every positive delta is earned, every negative is drained; peak = the
+  // most they ever held (did they ever get a buffer, or live hand-to-mouth all run?).
+  let earned = 0;
+  let spent = 0;
+  let peak = s.pools.money;
+  const trackMoney = (before: number) => {
+    const d = s.pools.money - before;
+    if (d > 0) earned += d;
+    else spent += -d;
+    if (s.pools.money > peak) peak = s.pools.money;
+  };
   let guard = 0;
   while (!isRunOver(s) && guard++ < 25) {
     const wk: Week = {
@@ -171,7 +182,9 @@ function playRun(buildId: string, seed: number, policy: Policy) {
         wk.travelSpent += eff;
         wk.travelTax += eff - base;
       }
+      const moneyBefore = s.pools.money;
       s = resolveChoice(s, inc, choice, corpus);
+      trackMoney(moneyBefore);
     }
 
     // discretionary actions
@@ -189,7 +202,9 @@ function playRun(buildId: string, seed: number, policy: Policy) {
         wk.travelSpent += eff;
         wk.travelTax += eff - base;
       }
+      const moneyBefore = s.pools.money;
       s = resolveChoice(s, event, choice, corpus);
+      trackMoney(moneyBefore);
     }
 
     wk.unused = s.slots;
@@ -198,9 +213,21 @@ function playRun(buildId: string, seed: number, policy: Policy) {
     wk.morale = s.pools.morale;
     wk.health = s.pools.health;
     weeks.push(wk);
-    if (!isRunOver(s)) s = beginTurn(s, corpus);
+    if (!isRunOver(s)) {
+      const moneyBefore = s.pools.money;
+      s = beginTurn(s, corpus); // the recurring economy tick (wages in, fees out)
+      trackMoney(moneyBefore);
+    }
   }
-  return { weeks, final: s };
+  return { weeks, final: s, earned, spent, peak };
+}
+
+// Count the recurring-economy log entries (paycheck, fees) over a run, so we can see what
+// drains the hand-to-mouth builds.
+function sysCounts(s: GameState): Record<string, number> {
+  const c: Record<string, number> = {};
+  for (const l of s.log) if (l.eventId === "system") c[l.choiceId] = (c[l.choiceId] ?? 0) + 1;
+  return c;
 }
 
 // ---- aggregation + formatting ----------------------------------------------
@@ -221,6 +248,9 @@ function summarize(buildId: string, policy: Policy) {
     endMorale: avg(runs.map((r) => r.final.pools.morale)),
     endHealth: avg(runs.map((r) => r.final.pools.health)),
     weeksPlayed: avg(runs.map((r) => r.weeks.length)),
+    earned: avg(runs.map((r) => r.earned)),
+    spent: avg(runs.map((r) => r.spent)),
+    peak: avg(runs.map((r) => r.peak)),
   };
 }
 
@@ -276,6 +306,39 @@ describe("budget / day-economy simulation (reviewer Area 1)", () => {
     for (const b of BUILDS) {
       const row = POLICIES.map((p) => Math.round(summarize(b, p).endMorale));
       lines.push("  " + pad(b, 9) + padN(row[0], 9) + padN(row[1], 10) + padN(row[2], 10));
+    }
+
+    // [4] economy — earned vs. drained, peak buffer, and what the recurring drains are.
+    lines.push("");
+    lines.push("[4] ECONOMY (builder) — do they ever get a buffer ($), and what drains them?");
+    lines.push(
+      "  " +
+        pad("build", 9) +
+        padN("earned", 8) +
+        padN("spent", 7) +
+        padN("peak$", 7) +
+        padN("end$", 6) +
+        "  recurring flows (seed 1)"
+    );
+    for (const b of BUILDS) {
+      const m = summarize(b, builder);
+      const fin = playRun(b, 1, builder).final;
+      const counts = sysCounts(fin);
+      const flows = Object.entries(counts)
+        .map(([k, n]) => `${k.replace(/_/g, " ")}×${n}`)
+        .join(" ");
+      const status = `${fin.tracks.employment.status}/${fin.flags.has_state_id ? "ID" : "no-ID"}`;
+      lines.push(
+        "  " +
+          pad(b, 9) +
+          padN(Math.round(m.earned), 7) +
+          padN(Math.round(m.spent), 6) +
+          padN(Math.round(m.peak), 6) +
+          padN(Math.round(m.endMoney), 5) +
+          "  " +
+          pad(status, 16) +
+          (flows || "—")
+      );
     }
 
     // Detail — per-week trace for the hard builds under good play (where days go).

@@ -42,9 +42,9 @@ describe("chargen(Marcus)", () => {
     });
   });
   it("pre-spends one standing-commitment slot (mandated treatment)", () => {
-    expect(s.baseSlots).toBe(6);
+    expect(s.baseSlots).toBe(7);
     expect(s.standingSlots).toBe(1);
-    expect(s.slots).toBe(5);
+    expect(s.slots).toBe(6);
   });
   it("sets the opening tracks and flags", () => {
     expect(s.tracks.housing.status).toBe("couch");
@@ -110,10 +110,10 @@ describe("transportation slot multiplier (§4)", () => {
   it("×1 with a reliable car (≥70)", () => {
     expect(effectiveSlotCost(at(80), travelEvent, travelChoice)).toBe(1);
   });
-  it("×1.5 on a bus pass (30–69), rounded up", () => {
-    expect(effectiveSlotCost(at(45), travelEvent, travelChoice)).toBe(2);
+  it("×1 with a bus pass (≥30) — reliable transit, no tax", () => {
+    expect(effectiveSlotCost(at(45), travelEvent, travelChoice)).toBe(1);
   });
-  it("×2 on a bike (<30) — the grind", () => {
+  it("×2 on foot / an unreliable bike (<30) — the grind", () => {
     expect(effectiveSlotCost(at(18), travelEvent, travelChoice)).toBe(2);
   });
   it("does not multiply non-travel events", () => {

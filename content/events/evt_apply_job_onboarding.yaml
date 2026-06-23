@@ -51,8 +51,7 @@ choices:
       - weight: 100
         effects:
           text: >
-            You pick up shift work that doesn't ask many questions. It pays now
-            and it taxes the back that already hurts.
-          flags: { has_job: true }
+            You pick up shift work that doesn't ask many questions — cash in hand this
+            week, and a tax on the back that already hurts. It's a stopgap, not a job:
+            the real role (and day labor) are still there to come back to.
           pools: { money: 14, health: -8 }
-          tracks: { employment: { status: employed } }

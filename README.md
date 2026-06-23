@@ -49,11 +49,13 @@ trajectory and decisions, not just where you finished.
 ## Status
 
 **Live in production**, released through
-**[v1.3.0](https://github.com/brett-buskirk/day-one/releases/tag/v1.3.0)**. The v1.0.0
+**[v1.4.0](https://github.com/brett-buskirk/day-one/releases/tag/v1.4.0)**. The v1.0.0
 foundation — Sprints 0–5 — is summarized below; every release since (see
 [`CHANGELOG.md`](CHANGELOG.md)) layered on more: the "Where to get help" resource
 directory, three more archetypes, housing & transport **ladders**, **random life
-events**, a reunifying-parent **custody arc**, and a redesigned character-select.
+events**, a reunifying-parent **custody arc**, a redesigned character-select, and — in
+v1.4.0 — a **weekly wage**, **home detention** as its own supervision status, a **phone**
+(and its plan bill) as a resource, and more **interrupts** that pull you off-plan.
 Playable end-to-end:
 
 - **Sprint 0** — scaffold + content pipeline (YAML → validated JSON).

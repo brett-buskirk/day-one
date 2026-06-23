@@ -7,6 +7,15 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-06-22
+
+A reentry-realism release shaped by returning-citizen and reviewer feedback: getting a job
+now pays a **weekly wage**, **home detention** becomes its own supervision status (with its
+own weekly fee and check-in), a **phone** is a resource whose monthly plan is a recurring
+burden, and more of the **unexpected** — collisions, windfalls, and old contacts — now
+interrupts the plan. Plus the driver's-license-vs-car split and a batch of situation-panel
+and content-fit fixes.
+
 ### Added
 - **A phone is a resource now** (from lived-experience feedback; Phase 1). Not everyone
   comes home with one — some builds start without (the first barrier), some with one and

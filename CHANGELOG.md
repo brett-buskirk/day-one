@@ -8,6 +8,16 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **A second stage of reentry — life after the basics.** The simulation showed builds that
+  stabilize early (a job, an ID, a roof) then *idle* for weeks, with whole resources — health
+  especially — sitting untouched. Four new mid/late-game events give that phase weight: **court
+  debt** (the legal financial obligations that collection ramps up once you're earning — a real,
+  heavy burden), **deferred health** (finally tending the body you've been outrunning — it now
+  *moves* the health pool instead of leaving it frozen), **giving back** (mentoring someone on
+  their day one; the pay-it-forward arc the reentry community runs on), and **sealing your
+  record** (a hard-won late milestone, gated on clean time and good standing, with a pro-bono
+  legal-aid path). They're gated on stability, so they enrich the late game without cluttering
+  the survival phase. In simulation, the stabilized builds' idle weeks roughly halve.
 - **A reentry program waives document fees** (surfaced by the budget simulation). The ID
   chain's fees — a birth certificate, then the DMV — were a **poverty trap**: a build that
   came home with nothing couldn't afford the ID, so couldn't get a job, so never earned the

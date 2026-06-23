@@ -1,0 +1,47 @@
+id: evt_give_back
+kind: action
+title: Reach back
+tags: [relationships, life]
+requires_travel: true
+repeatable: true
+
+# Second-stage content: the pay-it-forward arc that the reentry community runs on. Once
+# you've got a foothold, you become the person you needed on day one — mentoring someone
+# just out, volunteering at the program that helped you. A morale + support gain that's
+# uniquely available to builds who've made it, so it gives the stabilized late game meaning.
+conditions:
+  - flags.has_job == true
+
+prompt: >
+  Someone in the program is on their day one — the way you were not long ago, all sharp
+  edges and no map. You know exactly what the next ninety days will throw at them. You could
+  be the call they don't have to be afraid to make.
+
+choices:
+
+  - id: mentor
+    quality: durable
+    label: Mentor someone who's just out
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: morale, scale: 0.1 }
+        effects:
+          text: >
+            An hour of your time, the truth told plainly, your number in their phone. It
+            costs you almost nothing and it lands like everything. You stand a little taller.
+          pools: { morale: 10, social_capital: 8 }
+          flags: { giving_back: true }
+
+  - id: volunteer
+    quality: durable
+    label: Put in hours at the program that helped you
+    cost: { slots: 1, money: 4 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Stacking chairs, working intake, being a face that made it. The room is better
+            for you in it — and so, it turns out, are you.
+          pools: { morale: 8, social_capital: 6 }
+          flags: { giving_back: true }

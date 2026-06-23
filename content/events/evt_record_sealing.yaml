@@ -1,0 +1,66 @@
+id: evt_record_sealing
+kind: action
+title: Petition to seal your record
+tags: [legal, life]
+requires_travel: true
+
+# A late-game milestone for builds who've stayed clean and stable: petitioning to seal or
+# expunge the record that's been quietly closing doors. A real, hard-won reentry goal —
+# gated on an ID, good standing, and clean time served (turn >= 9), so it's an aspiration
+# you earn, not an early option. Non-repeatable: once sealed, it's done.
+conditions:
+  - flags.has_state_id == true
+  - flags.record_sealed == false
+  - tracks.legal.readiness >= 50
+  - turn >= 9
+
+prompt: >
+  A legal-aid attorney says you might be eligible: enough clean time, the right kind of case,
+  and the record that's been closing doors on you could be sealed. It's paperwork, a filing
+  fee, and a hearing — and on the other side, a version of your name that doesn't come with
+  an asterisk.
+
+choices:
+
+  - id: file_petition
+    quality: durable
+    label: File the petition
+    requires:
+      - pools.money >= 20
+    cost: { slots: 1, money: 20 }
+    outcomes:
+      - weight: 75
+        modifier: { stat: morale, scale: 0.1 }
+        effects:
+          text: >
+            Granted. The clerk stamps it and just like that a door that was nailed shut is
+            only closed — and closed doors open. You read your own record and don't flinch.
+          pools: { morale: 20 }
+          tracks: { legal: { readiness: 12 } }
+          flags: { record_sealed: true }
+      - weight: 25
+        effects:
+          text: >
+            Continued — a document missing, a box unchecked. Not a no, just a not-yet. You'll
+            refile. The hope, once lit, is hard to put down.
+          pools: { morale: -4 }
+
+  - id: legal_aid_waiver
+    quality: durable
+    label: Ask legal aid to file it pro bono, fees waived
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 60
+        effects:
+          text: >
+            The clinic takes the case, filing-fee waiver and all. Slower — their docket is
+            buried — but it moves, and it doesn't cost you a dime.
+          pools: { morale: 14 }
+          tracks: { legal: { readiness: 10 } }
+          flags: { record_sealed: true }
+      - weight: 40
+        effects:
+          text: >
+            "We'll add you to the list." The list is long. Still — you're on it now, which is
+            further than you were yesterday.
+          pools: { morale: 2 }

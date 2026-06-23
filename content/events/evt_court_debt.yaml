@@ -1,0 +1,69 @@
+id: evt_court_debt
+kind: action
+title: The court wants its money
+tags: [legal, money]
+requires_travel: true
+repeatable: true
+
+# Second-stage content (for builds that have stabilized — the sim showed them idling once
+# they had a job + ID + roof). Legal financial obligations (LFOs) — fines, fees, court-
+# ordered restitution — are a heavy, real reentry burden that collection ramps up on once
+# you're earning. Engages money + supervision standing in the mid/late game. Gated on a job.
+conditions:
+  - flags.has_job == true
+
+prompt: >
+  A letter from the clerk of court: the balance on your case — fines, fees, the restitution
+  the judge ordered — is past due, and now that there's a paycheck, they expect to see it
+  moving. It's more than you have. But standing still on court debt is how a warrant starts.
+
+choices:
+
+  - id: payment_plan
+    quality: durable
+    label: Set up a payment plan you can actually keep
+    cost: { slots: 1, money: 8 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            A monthly amount small enough to survive, documented and on file. The balance
+            barely moves — but you're "in compliance," and that's what keeps the warrant away.
+          pools: { money: -8, morale: 5 }
+          tracks: { legal: { readiness: 4 } }
+
+  - id: pay_down
+    quality: durable
+    label: Throw a real chunk at the balance
+    requires:
+      - pools.money >= 30
+    cost: { slots: 1, money: 30 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: morale, scale: 0.1 }
+        effects:
+          text: >
+            It stings to hand over that much — but the balance drops, the weight lifts, and
+            there are fewer strings on your future than there were this morning.
+          pools: { money: -30, morale: 12 }
+          tracks: { legal: { readiness: 8 } }
+
+  - id: request_relief
+    quality: durable
+    label: Ask the court to convert it to community service
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 60
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            The judge signs off: hours instead of dollars. Doable — and it doesn't bleed the
+            paycheck you're trying to build on.
+          pools: { morale: 7 }
+          tracks: { legal: { readiness: 5 } }
+      - weight: 40
+        effects:
+          text: >
+            "The original order stands." Worth asking — it cost nothing but the afternoon —
+            but the balance is right where it was.
+          pools: { morale: -2 }

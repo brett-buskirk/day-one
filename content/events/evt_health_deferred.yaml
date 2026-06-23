@@ -1,0 +1,53 @@
+id: evt_health_deferred
+kind: action
+title: The body keeps the score
+tags: [health]
+requires_travel: true
+repeatable: true
+
+# Second-stage content + engages the health pool, which the sim showed sits frozen all run
+# for most builds — neither a pressure nor something you tend. Once you're working, the
+# long-deferred stuff (the tooth, the back, the thing you haven't let yourself feel) is
+# finally addressable. Gated on a job (access + the means to take the time).
+conditions:
+  - flags.has_job == true
+
+prompt: >
+  You've been outrunning your own body since you got out — the tooth, the back, the sleep
+  that won't come, the appointments that were never the priority when the priority was a
+  roof. There's time now, barely. Tending it costs a day you'd rather spend elsewhere.
+
+choices:
+
+  - id: see_someone
+    quality: durable
+    label: Finally get it looked at
+    cost: { slots: 1, money: 10 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: health, scale: 0.1 }
+        effects:
+          text: >
+            A clinic, a co-pay, a plan. Nothing dramatic — but you walk out a little less
+            braced against yourself, and that's its own kind of repair.
+          pools: { health: 12, money: -10, morale: 5 }
+          flags: { managing_health: true }
+
+  - id: free_clinic
+    quality: durable
+    label: Find a sliding-scale or free clinic
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        effects:
+          text: >
+            A community clinic takes you on a sliding scale. A long wait in a hard chair —
+            and then someone who actually listens. It helps.
+          pools: { health: 8, morale: 4 }
+          flags: { managing_health: true }
+      - weight: 30
+        effects:
+          text: >
+            Booked solid for weeks; you get a slip and a date. Not nothing — but not today,
+            and your body knows the difference.
+          pools: { morale: -2 }

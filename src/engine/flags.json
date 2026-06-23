@@ -19,6 +19,7 @@
     "has_transit_pass",
     "has_bike",
     "owes_supervision_fees",
+    "owes_home_detention_fees",
     "tech_gap",
     "chronic_mental_health",
     "has_license",

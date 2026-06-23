@@ -3,17 +3,18 @@ name: Dana
 display_age: 26
 summary: >
   A short year inside, and now three years of probation trailing it — weekly
-  court check-ins, supervision fees pulled from money she doesn't have, and
-  court-ordered hours that eat a day every week. No registry, but the record
-  still closes doors. Back at her mom's, rebuilding the paper trail like everyone
-  else. A build for the weight of supervision itself.
+  court check-ins, supervision fees pulled from money she doesn't have, and home
+  detention: an ankle monitor with a weekly fee that bleeds her, and a week she
+  mostly can't leave. No registry, but the record still closes doors. Back at her
+  mom's, rebuilding the paper trail like everyone else. A build for the weight — and
+  the relentless cost — of supervision itself.
 
 time_inside_years: 1
 
 supervision:
   type: probation
   years: 3
-  conditions: [weekly_checkin, supervision_fees, community_service]
+  conditions: [weekly_checkin, supervision_fees, home_detention]
 
 landing:
   night_one: couch

@@ -1,0 +1,47 @@
+id: evt_home_visit
+kind: incident
+title: A knock you weren't expecting
+tags: [legal, life]
+repeatable: false
+
+# A surprise compliance visit from the supervising officer (scheduled once per run for
+# builds on paper; see chargen.homeVisitSchedule). The visit itself is the stressor; how
+# you meet it nudges your standing. Recoverable — never a fail screen (§ non-neg 4).
+prompt: >
+  Three hard knocks, the middle of the afternoon. Your officer, unannounced, clipboard
+  in hand — a compliance check. They want to see the place, see you, see that the story
+  you've been telling holds up. Your heart's already going before the door's open.
+
+choices:
+
+  - id: cooperate
+    quality: durable
+    label: Open up, stay calm, let them look
+    outcomes:
+      - weight: 100
+        modifier: { stat: morale, scale: 0.1 }
+        effects:
+          text: >
+            You let them in, answer straight, keep your hands visible and your voice
+            level. Ten minutes and they're gone. Nothing to find — and they noted it.
+          pools: { morale: -5 }
+          tracks: { legal: { readiness: 4 } }
+
+  - id: rattled
+    quality: desperate
+    label: Freeze up and fumble through it
+    outcomes:
+      - weight: 60
+        effects:
+          text: >
+            You stumble on a question, can't find a document fast enough, and the
+            silence stretches. It passes — but it left a mark on the file.
+          pools: { morale: -10 }
+          tracks: { legal: { readiness: -6 } }
+      - weight: 40
+        modifier: { stat: morale, scale: 0.2 }
+        effects:
+          text: >
+            Nerves and all, the place is clean and your answers hold. They leave
+            satisfied; you sit down and shake for a minute after the door closes.
+          pools: { morale: -6 }

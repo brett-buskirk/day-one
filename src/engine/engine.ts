@@ -32,6 +32,7 @@ import {
   TRANSIT_LAPSE_DROP,
   SUPERVISION_FEE,
   WEEKLY_WAGE,
+  HOME_DETENTION_FEE,
   clampPool,
   transportFactor,
   housingRank,
@@ -218,10 +219,33 @@ export function beginTurn(state: GameState, corpus: Corpus): GameState {
     if (!s.pending.includes(event.id)) s.pending.push(event.id);
   }
 
-  applyWeeklyWage(s);
+  // Weekly income/costs start from week 2 — week 1 is the opening state, so a build's
+  // starting money is its chargen money (the monthly flows already skip turn 1 this way).
+  if (s.turn > 1) {
+    applyWeeklyWage(s);
+    applyWeeklyFees(s);
+  }
   applyMonthlyFlows(s);
 
   return s;
+}
+
+// Home-detention monitoring fee — a relentless WEEKLY drain while supervised at home.
+// Takes what it can if you're short (the shortfall is its own pressure, caught by the
+// money-floor crisis). Logged so the cost is attributable, never arbitrary.
+function applyWeeklyFees(s: GameState): void {
+  if (!s.flags.owes_home_detention_fees) return;
+  const paid = Math.min(HOME_DETENTION_FEE, s.pools.money);
+  s.pools.money = clampPool(s.pools.money - paid);
+  s.log.push({
+    turn: s.turn,
+    eventId: "system",
+    choiceId: "home_detention_fee",
+    text:
+      paid >= HOME_DETENTION_FEE
+        ? `Home-detention monitoring fee (−${HOME_DETENTION_FEE}). The cost of being watched at home.`
+        : `Home-detention fee due (−${HOME_DETENTION_FEE}); you could only cover ${paid}. The arrears follow you.`,
+  });
 }
 
 // A steady weekly paycheck while employed — the income that makes landing a job worth

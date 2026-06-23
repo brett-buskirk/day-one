@@ -8,6 +8,15 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **Home detention.** A new supervision condition (from lived-experience feedback): a
+  relentless **weekly monitoring fee** — often the most crippling cost of being watched
+  at home — plus a **restricted week** (a standing day you can't freely use; the turn
+  header attributes it). **Dana** now carries it (in place of her community-service
+  hours), stacking it on her supervision fees. Tunable; the fee is a starting number.
+- **Surprise home visit.** A new interrupt for any build on paper: your officer shows up
+  unannounced for a compliance check, scheduled once per run at a turn you can't predict.
+  How you meet it (cooperate, or freeze) nudges your standing. Recoverable, never a fail
+  screen.
 - **A car is now its own step.** A reinstated driver's **license** is permission to drive
   (a modest mobility bump), not a vehicle — it no longer reads as "a car" in your
   situation. The license gates a new **"Get a car of your own"** event, where you buy a

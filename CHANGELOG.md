@@ -8,6 +8,14 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **A reentry program waives document fees** (surfaced by the budget simulation). The ID
+  chain's fees — a birth certificate, then the DMV — were a **poverty trap**: a build that
+  came home with nothing couldn't afford the ID, so couldn't get a job, so never earned the
+  money for the ID, frozen all 90 days. A new fee-waived **"Reentry program — help with your
+  papers"** action is the safety net (states and nonprofits really do this): the *same*
+  sequence (cert → proof → ID), no money gate — but slower, with an eligibility step, so it's
+  the broke build's route, not a shortcut past paying. In simulation it flips the
+  resource-poor builds from permanently unemployed to working within the run.
 - **A laptop gates remote skilled work** (technology resource, Phase 3). The remote dev
   role genuinely needs a computer — so a certified build that came home without one (Marcus)
   is *qualified and walled off*: the dev job shows as a **visible locked "Need a laptop"**

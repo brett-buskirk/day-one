@@ -245,6 +245,10 @@ button {
   margin: 2px 0 0;
   font-weight: 600;
 }
+/* Papers & assets spans the full width so the list (and "in the mail:") has room. */
+.origin-grid .origin-grid-full {
+  grid-column: 1 / -1;
+}
 
 /* ---- Turn header ---------------------------------------------------- */
 

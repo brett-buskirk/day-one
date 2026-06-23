@@ -18,6 +18,10 @@ import {
   HOME_VISIT_SEED_SALT,
   HOME_VISIT_TURN_MIN,
   HOME_VISIT_TURN_MAX,
+  INTERRUPT_SEED_SALT,
+  INTERRUPT_TURN_MIN,
+  INTERRUPT_TURN_MAX,
+  INTERRUPTS,
 } from "./tuning";
 import { seedToState, next } from "./rng";
 
@@ -207,6 +211,18 @@ function homeVisitSchedule(seed: number, origin: CharacterOrigin): GameState["sc
   return [{ event: "evt_home_visit", onTurn }];
 }
 
+// A second random interrupt per run — pulled in a direction you didn't plan — drawn from
+// the INTERRUPTS pool at a seed-varied turn (its own salt). State-agnostic, so it fires
+// for any build.
+function interruptSchedule(seed: number): GameState["scheduled"] {
+  const r1 = next((seedToState(seed) ^ INTERRUPT_SEED_SALT) | 0);
+  const span = INTERRUPT_TURN_MAX - INTERRUPT_TURN_MIN + 1;
+  const onTurn = INTERRUPT_TURN_MIN + Math.floor(r1.value * span);
+  const r2 = next(r1.state);
+  const event = INTERRUPTS[Math.floor(r2.value * INTERRUPTS.length)];
+  return [{ event, onTurn }];
+}
+
 export interface ChargenOptions {
   seed: number; // determinism lives here — pass an explicit seed
   mode?: GameState["mode"];
@@ -241,6 +257,7 @@ export function chargen(origin: CharacterOrigin, opts: ChargenOptions): GameStat
       ...deriveSchedule(origin),
       ...lifeEventSchedule(opts.seed),
       ...homeVisitSchedule(opts.seed, origin),
+      ...interruptSchedule(opts.seed),
     ],
     pending: [],
     log: [],

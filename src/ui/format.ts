@@ -2,7 +2,7 @@
 // costs into legible, human text for the choice UI (so a locked choice explains
 // itself — the catch-22 the player can read).
 
-import { parsePredicate } from "../engine";
+import { parsePredicate, transportFactor } from "../engine";
 import type { PoolKey, Predicate } from "../engine";
 
 // Per-character presentation: a circle avatar (emoji — a deliberate mix of genders
@@ -174,6 +174,20 @@ export function transportLabel(pool: number, flags: Record<string, boolean> = {}
   if (pool >= 35) return "A bus pass / borrowed rides";
   if (pool >= 15) return "A bike";
   return "On foot";
+}
+
+// Attribute the transportation slot-tax (DESIGN §4; reviewer Area 1): turn the silent
+// "this errand costs 2 days" into a stated reason the player can act on. Null when there's
+// no tax (a car, ×1) — only a poor commute inflates errands.
+export function travelTaxNote(transportation: number): string | null {
+  const mult = transportFactor(transportation);
+  if (mult <= 1) return null;
+  const how =
+    transportation < 30
+      ? "On foot, every errand across town costs double"
+      : "Without a car, errands across town run longer";
+  const fix = transportation < 30 ? "a bus pass or car" : "a car";
+  return `${how} (travel ×${mult}) — ${fix} would ease the squeeze.`;
 }
 
 // Documents and assets the character is currently carrying (the gated reentry keys).

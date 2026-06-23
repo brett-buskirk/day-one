@@ -293,6 +293,9 @@ button {
   font-size: 0.8rem;
   opacity: 0.85;
 }
+.turn-travel {
+  margin-top: 2px; /* group the transport note under the commitment note */
+}
 .turn-head-actions {
   display: flex;
   align-items: center;

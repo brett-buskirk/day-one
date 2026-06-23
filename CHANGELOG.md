@@ -7,6 +7,14 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Changed
+- **The transport squeeze is now attributable** (reviewer Area 1 — the day budget shouldn't
+  read as *arbitrarily* tight). When getting around without a car inflates errands, the turn
+  header says so ("On foot, every errand across town costs double — a bus pass or car would
+  ease the squeeze"), and each travel card shows the multiplier (`travel ×2`) instead of a
+  bare "travel" tag. Same costs as before — now you can see *why* the week is tight, and what
+  would loosen it.
+
 ## [1.4.0] - 2026-06-22
 
 A reentry-realism release shaped by returning-citizen and reviewer feedback: getting a job

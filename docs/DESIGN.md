@@ -124,6 +124,12 @@ slot cost is `baseSlots × transportFactor(pools.transportation)`:
 transportation *is* the grind — fewer real moves per week — modeled honestly
 rather than narrated.
 
+The tax is also **attributed** in the UI (reviewer Area 1: the day budget shouldn't read
+as *arbitrarily* tight): the turn header states it when it applies ("On foot, every errand
+across town costs double — a bus pass or car would ease the squeeze"), and each travel card
+shows the multiplier (`travel ×2`). The squeeze becomes a consequence the player can see
+and act on, not a number that just happens to them.
+
 ### Obligations
 
 Events tagged `obligation` (e.g. the parole check-in) are auto-presented each turn

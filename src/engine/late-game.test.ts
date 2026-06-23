@@ -29,4 +29,25 @@ describe("late-game content (for builds that stabilize)", () => {
     expect(ids(withStanding(5)).has("evt_record_sealing")).toBe(false); // too early (turn < 9)
     expect(ids(withStanding(10)).has("evt_record_sealing")).toBe(true); // earned it
   });
+
+  it("early termination needs supervision, good standing, and clean time", () => {
+    const base = createRun(corpus, "marcus", { seed: 1 }); // on parole
+    const supervised = (turn: number) => ({
+      ...base,
+      turn,
+      tracks: { ...base.tracks, legal: { ...base.tracks.legal, readiness: 70 } },
+    });
+    expect(ids(supervised(6)).has("evt_off_supervision")).toBe(false); // too early
+    expect(ids(supervised(11)).has("evt_off_supervision")).toBe(true); // earned it
+    // An already-unsupervised build (Cal: supervision none) never sees it:
+    const cal = createRun(corpus, "cal", { seed: 1 });
+    const calLate = { ...cal, turn: 11, tracks: { ...cal.tracks, legal: { ...cal.tracks.legal, readiness: 70 } } };
+    expect(ids(calLate).has("evt_off_supervision")).toBe(false);
+  });
+
+  it("mending family ties opens once stable (employed), not before", () => {
+    const fresh = createRun(corpus, "marcus", { seed: 1 });
+    expect(ids(fresh).has("evt_mend_family")).toBe(false);
+    expect(ids({ ...fresh, flags: { ...fresh.flags, has_job: true } }).has("evt_mend_family")).toBe(true);
+  });
 });

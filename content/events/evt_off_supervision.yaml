@@ -1,0 +1,42 @@
+id: evt_off_supervision
+kind: action
+title: Ask to come off supervision early
+tags: [legal, life]
+requires_travel: true
+
+# A late-game milestone for supervised builds who've stayed clean and stable: a motion for
+# early termination. Gated on good standing, clean time (turn >= 10), and actually being on
+# supervision — so it's an aspiration you earn. The payoff is real: no more check-ins, no
+# more fees, the status flips to unsupervised. Non-repeatable (once you're off, you're off).
+conditions:
+  - tracks.legal.status != "unsupervised"
+  - tracks.legal.readiness >= 60
+  - turn >= 10
+
+prompt: >
+  Your officer floats it, almost offhand: you've made every appointment, stayed clean, kept
+  your nose down. There's a motion for early termination — a judge could sign you off
+  supervision ahead of schedule. It isn't automatic. But you've earned the ask.
+
+choices:
+
+  - id: file_motion
+    quality: durable
+    label: File the motion for early termination
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        modifier: { stat: morale, scale: 0.1 }
+        effects:
+          text: >
+            Granted. No more check-ins, no more fees, no more permission slips for your own
+            life. The leash comes off — and the air is genuinely different out here.
+          pools: { morale: 18 }
+          tracks: { legal: { status: unsupervised } }
+          flags: { owes_supervision_fees: false, owes_home_detention_fees: false }
+      - weight: 30
+        effects:
+          text: >
+            "Not yet — but you're on the right track. Keep it up." A no with the door left
+            open. You'll ask again when the calendar gives you a little more clean time.
+          pools: { morale: -2 }

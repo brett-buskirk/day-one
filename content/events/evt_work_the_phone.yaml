@@ -1,0 +1,51 @@
+id: evt_work_the_phone
+kind: action
+title: Work the phone
+tags: [work, relationships]
+repeatable: true
+
+# Phone Phase 2 — the phone *pays off* (a soft advantage, never a hard gate, per the
+# Phase 1 call). With a phone you can do the legwork remotely — chase work or keep your
+# people close — instead of spending a bus fare on every errand. Phone-less builds aren't
+# blocked; they just lean on the slower, travel-heavy in-person paths. Only shows with a
+# phone; once per turn (engine limit), so it's a modest weekly option, not a grind.
+conditions:
+  - flags.has_phone == true
+
+prompt: >
+  A phone in your hand means the legwork doesn't need a bus fare. An afternoon you could
+  spend chasing down work — or keeping the people in your corner close.
+
+choices:
+
+  - id: chase_leads
+    quality: durable
+    label: Calls and online applications — chase job leads
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 65
+        modifier: { stat: morale, scale: 0.1 }
+        effects:
+          text: >
+            A couple of dead ends, one "we'll call you," and a real application in for a
+            job that fits. Progress you didn't have to cross town for.
+          tracks: { employment: { readiness: 8 } }
+      - weight: 35
+        effects:
+          text: >
+            Voicemails and auto-rejections, mostly — but a line in the water is a line in
+            the water, and it cost you a fare you didn't pay.
+          tracks: { employment: { readiness: 3 } }
+
+  - id: stay_connected
+    quality: durable
+    label: Return calls, check in — keep your people close
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: social_capital, scale: 0.1 }
+        effects:
+          text: >
+            An hour of catching up, a few "good to hear your voice"s. Staying reachable is
+            how a network stays a network.
+          pools: { social_capital: 8, morale: 3 }

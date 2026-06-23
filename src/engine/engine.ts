@@ -31,6 +31,7 @@ import {
   TRANSIT_FEE,
   TRANSIT_LAPSE_DROP,
   SUPERVISION_FEE,
+  WEEKLY_WAGE,
   clampPool,
   transportFactor,
   housingRank,
@@ -217,9 +218,24 @@ export function beginTurn(state: GameState, corpus: Corpus): GameState {
     if (!s.pending.includes(event.id)) s.pending.push(event.id);
   }
 
+  applyWeeklyWage(s);
   applyMonthlyFlows(s);
 
   return s;
+}
+
+// A steady weekly paycheck while employed — the income that makes landing a job worth
+// it (its absence made "get a job" an economic dead-end: day labor retires on has_job,
+// but a job paid nothing recurring). Deterministic; logged so the player attributes it.
+function applyWeeklyWage(s: GameState): void {
+  if (!s.flags.has_job) return;
+  s.pools.money = clampPool(s.pools.money + WEEKLY_WAGE);
+  s.log.push({
+    turn: s.turn,
+    eventId: "system",
+    choiceId: "paycheck",
+    text: `Paycheck from the job landed (+${WEEKLY_WAGE}).`,
+  });
 }
 
 // Step 2–3: take a choice, deduct cost, roll the outcome, apply effects, log.

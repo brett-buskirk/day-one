@@ -104,3 +104,9 @@ export const BENEFITS_STIPEND = 8; // +money/month while has_benefits
 export const TRANSIT_FEE = 8; // money/month to keep the pass
 export const TRANSIT_LAPSE_DROP = 30; // transportation lost when the pass lapses
 export const SUPERVISION_FEE = 6; // money/month while owes_supervision_fees (probation)
+
+// A steady WEEKLY paycheck while employed (has_job). The lack of one made landing a
+// job an economic dead-end (it retires day labor but paid nothing recurring). Applies
+// only after a real job — i.e. after the ID — so it never loosens the early money gate.
+// NOTE: a starting default; balance with the seed harness + a playtest. (Tuning.)
+export const WEEKLY_WAGE = 10; // +money/week while has_job

@@ -7,6 +7,15 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Fixed
+- **A job now pays a weekly wage.** Landing a job set a flag but produced *no* recurring
+  income — and it retired day labor — so getting hired actually left you poorer. A real
+  job now deposits a weekly paycheck (`WEEKLY_WAGE`), and "skip it and take whatever pays"
+  is a one-week **gig** (cash now, no lock-in) rather than a permanent no-pay job, so it
+  no longer closes off day labor *or* the real role. The wage lands only after the ID, so
+  the deliberately tight early-game money gate is untouched. *(Starting number; to be
+  balanced with the seed harness and a playtest, per the reviewer feedback.)*
+
 ## [1.3.0] - 2026-06-22
 
 The biggest content release yet: three new character builds (nine total) — including a

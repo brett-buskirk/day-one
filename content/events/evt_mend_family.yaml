@@ -1,0 +1,40 @@
+id: evt_mend_family
+kind: action
+title: Make the call you've been avoiding
+tags: [relationships, life]
+requires_travel: true
+repeatable: true
+
+# Second-stage social arc: rebuilding the ties prison strained or severed. Once you've got
+# something to show — a job, a roof — reaching out feels less like asking and more like
+# returning. Engages social_capital + morale; gated on a job so it's a stabilized-phase move.
+conditions:
+  - flags.has_job == true
+
+prompt: >
+  There's a number you've scrolled past a hundred times — a sister, a kid, a parent, someone
+  the years inside put a wall between. You've got something to say now that isn't an apology
+  or an ask. Just: I'm still here, and I'm doing the work.
+
+choices:
+
+  - id: reach_out
+    quality: durable
+    label: Make the call
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            It's awkward, and then it isn't. A long talk, a longer silence, and at the end of
+            it a door that was closed is at least unlocked. You're not so alone today.
+          pools: { social_capital: 12, morale: 10 }
+          flags: { mending_ties: true }
+      - weight: 30
+        effects:
+          text: >
+            Voicemail — or worse, a coldness you can't argue with. Some walls took years to
+            build and won't come down on your schedule. You tried; that counts for something.
+          pools: { morale: -3, social_capital: 2 }
+          flags: { mending_ties: true }

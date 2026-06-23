@@ -8,6 +8,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **Two more second-stage arcs: getting off paper, and mending ties.** **Early termination
+  of supervision** (`evt_off_supervision`) — a hard-earned milestone for builds who've stayed
+  clean and stable: file the motion and a judge may sign you off supervision ahead of
+  schedule, ending the check-ins and fees (the status flips to unsupervised). And **mending
+  family ties** (`evt_mend_family`) — the call you've been avoiding, now that you've got
+  something to show; rebuilding the support that prison strained. Both gated on stability,
+  extending the late game the previous batch opened up.
 - **A second stage of reentry — life after the basics.** The simulation showed builds that
   stabilize early (a job, an ID, a roof) then *idle* for weeks, with whole resources — health
   especially — sitting untouched. Four new mid/late-game events give that phase weight: **court

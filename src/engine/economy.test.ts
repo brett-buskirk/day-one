@@ -37,4 +37,17 @@ describe("the job economy", () => {
     const onboard = corpus.events["evt_apply_job_onboarding"].choices.find((c) => c.id === "onboard_dev")!;
     expect(onboard.outcomes.some((o) => o.effects?.flags?.has_job === true)).toBe(true);
   });
+
+  it("the dev onboarding is web-dev-only; everyone else gets the generic job path", () => {
+    const withId = (id: string) => {
+      const s = createRun(corpus, id, { seed: 1 });
+      return eligibleIds({ ...s, flags: { ...s.flags, has_state_id: true } });
+    };
+    // Marcus (web-dev cert) → the dev gig, not the generic path:
+    expect(withId("marcus").has("evt_apply_job_onboarding")).toBe(true);
+    expect(withId("marcus").has("evt_get_hired")).toBe(false);
+    // Tasha (a CNA, no web-dev cert) → generic steady work, never the nonsensical dev gig:
+    expect(withId("tasha").has("evt_get_hired")).toBe(true);
+    expect(withId("tasha").has("evt_apply_job_onboarding")).toBe(false);
+  });
 });

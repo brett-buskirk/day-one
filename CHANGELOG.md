@@ -16,6 +16,11 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   alone still leaves the bike and bus pass on the table; only a car retires them.
 
 ### Fixed
+- **The job chain fits the character.** The web-dev onboarding event ("The dev gig the
+  program referred") showed to *every* ID-holder — so e.g. Tasha (a CNA who never did a
+  dev program) kept getting a dev job she could never onboard, with prose about a program
+  she never attended. It's now scoped to web-dev cert holders, and everyone else gets a
+  generic **"Land steady work"** path (a real, waged job — warehouse, kitchen, care work).
 - **About count** — the in-app About screen still read "six hand-built people"; it's now
   **nine** (the v1.3.0 doc pass updated `docs/ABOUT.md` but missed the React screen).
 - **Situation panel — "Papers & assets"** now matches the rest of the panel (a labeled

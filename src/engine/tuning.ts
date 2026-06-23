@@ -4,14 +4,17 @@
 import type { PoolKey } from "./types";
 
 // Turn loop (§4)
-export const BASE_SLOTS = 6; // discretionary slots/week before commitments
+export const BASE_SLOTS = 7; // discretionary slots/week before commitments
 export const END_TURN = 13; // ~90 days; turns 1..13 are playable
 
 // Transportation slot multiplier (§4). Effective cost = ceil(base × factor).
+// Because cost rounds up and almost every errand is a 1-day base, a fractional middle
+// tier (×1.5) was identical to ×2 for the common case — the bus-pass rung did nothing.
+// So it's two real tiers: reliable transit (a car, or a bus pass / borrowed rides) gets
+// you across town in the day; on foot or an unreliable bike, every errand eats it twice.
 export function transportFactor(transportation: number): number {
-  if (transportation >= 70) return 1; // reliable car
-  if (transportation >= 30) return 1.5; // bus pass / borrowed
-  return 2; // bike / intermittent
+  if (transportation >= 30) return 1; // reliable transit — a car or a bus pass
+  return 2; // on foot / intermittent — errands cost double
 }
 
 // Housing ladder (§6): which housing state is "better." Kept in sync with

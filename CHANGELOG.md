@@ -24,6 +24,15 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   worth keeping.)
 
 ### Changed
+- **The week is 7 days, and a bus pass finally matters** (reviewer Area 1, tuned against a
+  new simulation harness). Two data-driven fixes to the day budget: (1) the base week is now
+  **7 days** instead of 6 — a more intuitive week, and the extra day lands almost entirely on
+  the constrained-but-trying builds (e.g. Marcus goes from slowly bleeding out to viable),
+  while the already-comfortable builds simply have more slack. (2) The transport tax is now
+  **two tiers, not three**: because errand costs round up, the old middle tier (a bus pass,
+  ×1.5) was mechanically *identical* to being on foot (×2), so a hard-won pass changed
+  nothing. Now **reliable transit — a car *or* a bus pass — removes the tax**, giving the
+  squeezed builds a reachable escape; on foot, errands still cost double.
 - **The transport squeeze is now attributable** (reviewer Area 1 — the day budget shouldn't
   read as *arbitrarily* tight). When getting around without a car inflates errands, the turn
   header says so ("On foot, every errand across town costs double — a bus pass or car would

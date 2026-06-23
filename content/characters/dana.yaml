@@ -25,6 +25,7 @@ landing:
   job_lined_up: false
   documents: []
   transportation: bus_pass
+  has_phone: true              # a phone, and the plan bill stacked on the monitor's
   gate_money: 100
 
 person:

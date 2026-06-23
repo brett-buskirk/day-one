@@ -21,6 +21,7 @@ landing:
   job_lined_up: false
   documents: []                  # still has to rebuild the document trail
   transportation: bus_pass
+  has_phone: true              # family kept her connected
   gate_money: 240
 
 person:

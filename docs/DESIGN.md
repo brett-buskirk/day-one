@@ -160,6 +160,13 @@ the shared currency every track spends against — that coupling is the simulati
 The **action budget (slots)** is a per-turn currency, not a [0,100] pool; it
 resets each week (see §4). Treat it separately in state.
 
+**Technology (Phase 1)** is modeled as *flags + a recurring cost*, not a pool — a phone
+is something you have or don't, not a gradient. `has_phone` (some builds start with one,
+some without — the first barrier) and `owes_phone_plan` (a paid plan) drive a monthly
+**plan fee** that, unpaid, shuts the phone off; the **Lifeline / ACP** subsidized phone
+(`evt_get_phone`) carries no fee. Phase 1 makes it a cost and a disconnection, not a hard
+gate; gating high-value events on `has_phone` (and a laptop for skilled work) is future.
+
 ---
 
 ## 6. Tracks

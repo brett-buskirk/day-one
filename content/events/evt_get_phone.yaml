@@ -1,0 +1,56 @@
+id: evt_get_phone
+kind: action
+title: Get a phone
+tags: [money]
+requires_travel: true
+repeatable: true
+
+# Phase 1 of the technology resource: a phone is a recurring *cost*, not a hard gate.
+# Two ways back online — a cheap prepaid (fast, but a paid plan that can lapse) or the
+# real federal Lifeline / ACP subsidized program (slower, but no monthly bill). Only
+# surfaces while you don't have one.
+conditions:
+  - flags.has_phone == false
+
+prompt: >
+  No phone means no callbacks, no appointments you can confirm, no easy way for a job, a
+  landlord, or your officer to reach you. There's a cheap prepaid at the corner store —
+  or the federal **Lifeline / ACP** program, which covers a basic phone and plan for
+  people who qualify. (Coming home, you do.)
+
+choices:
+
+  - id: buy_prepaid
+    quality: neutral
+    label: Buy a cheap prepaid + a month of service
+    requires:
+      - pools.money >= 18
+    cost: { slots: 1, money: 18 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            A cheap handset and a month of minutes. Reachable again — and a bill that'll
+            come due like clockwork.
+          flags: { has_phone: true, owes_phone_plan: true }
+          pools: { morale: 8 }
+
+  - id: lifeline_program
+    quality: durable
+    label: Sign up for the Lifeline / ACP subsidized program
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        modifier: { stat: social_capital, scale: 0.1 }
+        effects:
+          text: >
+            Paperwork, an eligibility check, a short wait — and a basic phone on a covered
+            plan. Nothing fancy. It works, and it doesn't bleed you every month.
+          flags: { has_phone: true }
+          pools: { morale: 10 }
+      - weight: 30
+        effects:
+          text: >
+            The application stalls on a document you don't have yet. "Come back when you've
+            got it." The phone's real; the wait is too.
+          pools: { morale: -3 }

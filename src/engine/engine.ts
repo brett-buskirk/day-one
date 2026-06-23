@@ -33,6 +33,8 @@ import {
   SUPERVISION_FEE,
   WEEKLY_WAGE,
   HOME_DETENTION_FEE,
+  PHONE_PLAN_FEE,
+  PHONE_LAPSE_MORALE_DROP,
   clampPool,
   transportFactor,
   housingRank,
@@ -355,6 +357,30 @@ function applyMonthlyFlows(s: GameState): void {
           ? `Supervision fees due (−${SUPERVISION_FEE}). The cost of being watched.`
           : `Supervision fees due — they take what little there is (−${paid}).`,
     });
+  }
+
+  // The phone's network plan — pay it, or the phone gets shut off. (A Lifeline phone has
+  // no owes_phone_plan, so it's never charged here.)
+  if (s.flags.owes_phone_plan) {
+    if (s.pools.money >= PHONE_PLAN_FEE) {
+      s.pools.money = clampPool(s.pools.money - PHONE_PLAN_FEE);
+      s.log.push({
+        turn: s.turn,
+        eventId: "system",
+        choiceId: "phone_plan",
+        text: `Phone plan due (−${PHONE_PLAN_FEE}). Staying reachable isn't free.`,
+      });
+    } else {
+      s.flags.has_phone = false;
+      s.flags.owes_phone_plan = false;
+      s.pools.morale = clampPool(s.pools.morale - PHONE_LAPSE_MORALE_DROP);
+      s.log.push({
+        turn: s.turn,
+        eventId: "system",
+        choiceId: "phone_lapse",
+        text: "Your phone got shut off — you couldn't cover the plan. Off the grid, and harder to reach.",
+      });
+    }
   }
 }
 

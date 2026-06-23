@@ -8,6 +8,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **A phone is a resource now** (from lived-experience feedback; Phase 1). Not everyone
+  comes home with one — some builds start without (the first barrier), some with one and
+  a **monthly plan bill** they struggle to keep up. Can't cover it and the phone gets
+  **shut off**. A new **"Get a phone"** action offers a cheap prepaid (a paid plan) or the
+  real federal **Lifeline / ACP** subsidized program (a basic phone with *no* monthly
+  bill). No hard gating yet — being without a phone is a cost and a disconnection, not a
+  wall. Tunable; the fee is a starting number.
 - **More interrupts (the unexpected, with real choices).** A second random beat now fires
   each run, independent of the life event — a **collision** (two things you need the same
   week; you can be one place, not both), a **windfall** (real money, fast, but on a

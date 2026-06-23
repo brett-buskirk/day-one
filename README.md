@@ -71,8 +71,8 @@ Playable end-to-end:
   rules), an in-game info card, **facilitator/classroom scenario codes**, and
   **random character generation**.
 
-Currently: **9 archetypes + a generated random build**, **42 events**, two modes
-(training / empathy), light/dark + accent theming, and **118 passing tests**. What
+Currently: **9 archetypes + a generated random build**, **45 events**, two modes
+(training / empathy), light/dark + accent theming, and **121 passing tests**. What
 you can do today:
 
 - From the landing page, read the About or jump straight to Play. Pick one of nine

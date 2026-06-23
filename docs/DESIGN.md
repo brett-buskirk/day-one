@@ -151,6 +151,11 @@ the shared currency every track spends against — that coupling is the simulati
 
 - **money** — cash on hand. Gate money seeds it. Fees, fares, and rent drain it;
   income refills it. Hitting the floor triggers a money crisis, never death (§10).
+  *Poverty-trap guard:* the ID chain's fees (birth cert + DMV) once locked out the builds
+  who came home with nothing — no ID → no job → no income → never affording the ID. A
+  fee-waived **reentry document program** (`evt_reentry_doc_help`) is the safety net: same
+  sequence, no money gate, but slower and with an eligibility step, so it's the broke
+  build's route, not a shortcut past paying. (Surfaced by the `budget-sim` harness.)
 - **morale** — hope and momentum. Fragile early. Setbacks drain it; milestones and
   small wins refill it. Low morale can gate or worsen some outcomes (tuning).
 - **social_capital** — the strength and willingness of one's support network. Low

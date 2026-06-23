@@ -1,0 +1,61 @@
+id: evt_reentry_doc_help
+kind: action
+title: Reentry program — help with your papers
+tags: [documents, legal]
+requires_travel: true
+repeatable: true # the hub's fee-waived twin: order the cert, then come back for the ID.
+                 # Self-gates per choice; goes quiet while a cert is in the mail.
+
+# Breaks the document poverty trap the sim surfaced: the ID chain's fees (birth cert ~$25 +
+# DMV ~$30) lock out the builds who come home with nothing — no ID, so no job, so no money
+# for the ID, forever. A real reentry / legal-aid program waives those fees (states and
+# nonprofits do this). It's *slower* and carries an eligibility step, so it's the safety net
+# for the broke, not a shortcut past the paid DMV route. Same sequence, no money gate.
+conditions:
+  - flags.has_state_id == false
+  - flags.awaiting_birth_cert == false
+
+prompt: >
+  A reentry program two bus stops over helps people just home sort out their papers — the
+  fee waivers and the bureaucracy the rest of the system assumes you can simply pay for. No
+  money up front; it runs on grant funding and patience.
+
+choices:
+
+  - id: waived_birth_cert
+    quality: durable
+    label: Have them order your birth certificate, fees waived
+    requires:
+      - flags.birth_cert_ordered == false
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            The navigator files for your birth certificate under a fee waiver. It takes a
+            little longer through the program — but it costs you nothing but the afternoon.
+          flags: { birth_cert_ordered: true, awaiting_birth_cert: true }
+          schedule: { event: evt_birth_cert_arrives, in_turns: 4 }
+
+  - id: waived_id
+    quality: durable
+    label: Apply for your ID with the program's fee waiver
+    requires:
+      - flags.has_birth_cert == true
+      - flags.has_proof_of_address == true
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 75
+        effects:
+          text: >
+            Birth certificate, proof of address, and a fee-waiver voucher the program
+            signed off on. You walk out with a temporary ID — and not a dollar poorer.
+          flags: { has_state_id: true }
+          pools: { morale: 12 }
+          unlocks: [evt_apply_job_onboarding]
+      - weight: 25
+        effects:
+          text: >
+            The waiver needs one more signature the office didn't have today. "Come back
+            next week." So close you can taste it.
+          pools: { morale: -3 }

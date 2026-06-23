@@ -165,9 +165,11 @@ export const workLabel = (s: string): string => WORK_LABELS[s] ?? s;
 export const supervisionLabel = (s: string): string => LEGAL_LABELS[s] ?? s;
 export const relationshipsLabel = (s: string): string => RELATIONSHIP_LABELS[s] ?? s;
 
-// How they get around, from the transportation pool (mirrors the chargen bands).
-export function transportLabel(pool: number): string {
-  if (pool >= 70) return "A car of your own";
+// How they get around. A car is a possession (has_car — owned or regularly borrowed),
+// NOT just a high pool: a reinstated license is permission to drive, not a vehicle.
+// Below that, the band comes from the transportation pool.
+export function transportLabel(pool: number, flags: Record<string, boolean> = {}): string {
+  if (flags.has_car) return "A car";
   if (pool >= 35) return "A bus pass / borrowed rides";
   if (pool >= 15) return "A bike";
   return "On foot";

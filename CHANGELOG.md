@@ -7,6 +7,14 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+- **A car is now its own step.** A reinstated driver's **license** is permission to drive
+  (a modest mobility bump), not a vehicle — it no longer reads as "a car" in your
+  situation. The license gates a new **"Get a car of your own"** event, where you buy a
+  cheap beater or arrange to regularly borrow a friend or family member's — that's what
+  actually opens the week up (`has_car`, the top of the transport ladder). A license
+  alone still leaves the bike and bus pass on the table; only a car retires them.
+
 ### Fixed
 - **About count** — the in-app About screen still read "six hand-built people"; it's now
   **nine** (the v1.3.0 doc pass updated `docs/ABOUT.md` but missed the React screen).

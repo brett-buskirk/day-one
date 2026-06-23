@@ -11,7 +11,7 @@ tags: [transportation]
 conditions:
   - flags.has_bike == false
   - flags.has_transit_pass == false
-  - flags.has_license == false
+  - flags.has_car == false
   - pools.transportation < 50
 
 prompt: >

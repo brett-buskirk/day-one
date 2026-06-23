@@ -3,10 +3,10 @@ kind: action
 title: Get your license back
 tags: [transportation, legal, money]
 
-# A license suspended over unpaid fines is one of the quietest reentry traps: no
-# license makes work and everything else harder, while the debt just sits there
-# growing. Clearing it — or a hardship payment plan — puts the road back under you.
-# Not offered to the long-timer, whose license lapsed decades ago (tech_gap).
+# A license suspended over unpaid fines is one of the quietest reentry traps. Clearing
+# it is *permission* to drive, not a vehicle — a modest mobility bump (you can borrow or
+# rent now and then); a car of your own is evt_get_car, gated behind this. Not offered
+# to the long-timer, whose license lapsed decades ago (tech_gap).
 conditions:
   - flags.has_license == false
   - flags.tech_gap == false
@@ -15,7 +15,8 @@ conditions:
 prompt: >
   Old traffic fines suspended your license years back, and the balance only grew
   while you were away. The clerk says you can clear it — pay it down, or set up a
-  plan — and get back on the road. Driving changes what a week can even hold.
+  plan — and you're cleared to drive again. (The license is the permission; a car of
+  your own is a separate problem. But it's the door that's been shut.)
 
 choices:
 
@@ -29,10 +30,10 @@ choices:
       - weight: 100
         effects:
           text: >
-            Receipt in hand, license reinstated. It's a real bite out of what
-            little you had — and the whole map just opened back up.
+            Receipt in hand, license reinstated. A real bite out of what little you
+            had — but you can legally drive again, the day you get your hands on a car.
           flags: { has_license: true }
-          pools: { transportation: 35, morale: 8 }
+          pools: { transportation: 12, morale: 8 }
 
   - id: payment_plan
     quality: durable
@@ -46,9 +47,10 @@ choices:
         effects:
           text: >
             They take a first payment and a signature and hand your license back on
-            the promise of the rest. Driving again — with a tab still running.
+            the promise of the rest. Cleared to drive — with a tab still running, and
+            still no car in the driveway.
           flags: { has_license: true }
-          pools: { transportation: 28, morale: 4 }
+          pools: { transportation: 10, morale: 4 }
       - weight: 20
         effects:
           text: >

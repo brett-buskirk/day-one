@@ -53,9 +53,15 @@ describe("transportation + housing content gating", () => {
     expect(ids({ ...base, flags: { ...base.flags, has_bike: true } })).not.toContain("evt_get_bike");
     // A higher rung also retires the bike (no point offering one):
     expect(ids({ ...base, flags: { ...base.flags, has_transit_pass: true } })).not.toContain("evt_get_bike");
-    // A car retires both the bike and the bus pass:
-    const withCar = { ...base, flags: { ...base.flags, has_license: true } };
+    // A license is permission, not wheels — the bike is still offered, and a car is now
+    // on the table (gated behind the license):
+    const licensed = { ...base, flags: { ...base.flags, has_license: true } };
+    expect(ids(licensed)).toContain("evt_get_bike");
+    expect(ids(licensed)).toContain("evt_get_car");
+    // An actual car (has_car) retires both the bike and the bus pass:
+    const withCar = { ...base, flags: { ...base.flags, has_license: true, has_car: true } };
     expect(ids(withCar)).not.toContain("evt_get_bike");
     expect(ids(withCar)).not.toContain("evt_transit_pass");
+    expect(ids(withCar)).not.toContain("evt_get_car"); // and the car rung itself retires
   });
 });

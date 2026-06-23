@@ -42,6 +42,7 @@ const FLAG_LABELS: Record<string, string> = {
   has_ssn_card: "an SSN card",
   has_bank_account: "a bank account",
   has_cert_webdev: "the web-dev certificate",
+  has_laptop: "a laptop",
   has_job: "a job",
   birth_cert_ordered: "the birth cert ordered",
   knows_id_requirements: "the ID requirements",
@@ -200,6 +201,7 @@ const HELD_LABELS: Array<[string, string]> = [
   ["has_license", "a driver's license"],
   ["has_transit_pass", "a transit pass"],
   ["has_phone", "a phone"],
+  ["has_laptop", "a laptop"],
   ["has_resume", "a résumé"],
 ];
 export function heldThings(flags: Record<string, boolean>): string[] {

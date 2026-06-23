@@ -173,8 +173,12 @@ unpaid, shuts the phone off; the **Lifeline / ACP** subsidized phone (`evt_get_p
 carries no fee. **Phase 1** makes it a cost and a disconnection. **Phase 2** makes it *pay
 off* — a phone-only **"Work the phone"** action (`evt_work_the_phone`) lets you chase job
 leads and keep your network close *remotely*, a **soft advantage rather than a gate**: the
-phone-less aren't blocked, they just lean on the slower, travel-heavy in-person paths. A
-laptop for skilled work remains future.
+phone-less aren't blocked, they just lean on the slower, travel-heavy in-person paths.
+**Phase 3** is the **laptop** (`has_laptop`), rarer than a phone — and here a hard gate is
+*faithful*: the remote dev role genuinely needs a computer, so a certified-but-computerless
+build (Marcus) sees the dev job as a **visible locked button** (§2.3, the catch-22) with a
+path out (`evt_get_laptop`: buy refurbished, or a workforce refurb-laptop program). It gates
+only that one skilled route — other jobs need no laptop — so employment at large stays open.
 
 ---
 

@@ -13,9 +13,9 @@ conditions:
 
 prompt: >
   The cert program left you a contact: a small shop that hires its graduates for
-  junior remote work. With an ID in hand you can finally onboard — fill out the
-  paperwork, set up direct deposit, prove you're you. The skills were never the
-  problem.
+  junior remote work. With an ID in hand you can onboard — paperwork, direct deposit,
+  prove you're you. But remote work needs a machine to do it on, and the skills were
+  never the problem; the gear is.
 
 choices:
 
@@ -25,6 +25,7 @@ choices:
     requires:
       - flags.has_cert_webdev == true
       - flags.tech_gap == false
+      - flags.has_laptop == true       # remote dev work needs a computer — the catch-22
     cost: { slots: 1 }
     outcomes:
       - weight: 70

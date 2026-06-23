@@ -133,6 +133,7 @@ export interface CharacterOrigin {
     documents: string[]; // flags the character starts holding, if any
     transportation: "car" | "bus_pass" | "bike" | "none";
     has_phone?: boolean; // came home with a (paid-plan) phone? not guaranteed
+    has_laptop?: boolean; // a computer at home? rarer still — gates remote skilled work
     gate_money: number; // dollars
   };
   person: {

@@ -11,7 +11,7 @@ import type { PoolKey, Predicate } from "../engine";
 const CHARACTER_FACE: Record<string, { avatar: string; tag: string }> = {
   marcus: { avatar: "👨🏿", tag: "Skills, walled off" },
   renae: { avatar: "👩🏽", tag: "Family in her corner" },
-  dana: { avatar: "👩🏼", tag: "Probation — fees & hours" },
+  dana: { avatar: "👩🏼", tag: "Home detention — bled by fees" },
   theo: { avatar: "👨🏻", tag: "Registry — the deepest end" },
   ray: { avatar: "👴🏼", tag: "24 years in — the longtimer" },
   cal: { avatar: "👨🏽", tag: "Maxed out — no safety net" },

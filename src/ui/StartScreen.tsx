@@ -36,7 +36,8 @@ function metaLine(c: CharacterOrigin): string {
   const creds = (c.person.credentials ?? []).length
     ? ` · ${c.person.credentials!.map(humanizeCredential).join(", ")}`
     : "";
-  return `${c.time_inside_years} yrs in · ${c.supervision.type} · ${nightOneShort(c.landing.night_one)}${creds}`;
+  const supervision = c.supervision.type.replace(/_/g, " "); // e.g. "home_detention" → "home detention"
+  return `${c.time_inside_years} yrs in · ${supervision} · ${nightOneShort(c.landing.night_one)}${creds}`;
 }
 
 interface Card {

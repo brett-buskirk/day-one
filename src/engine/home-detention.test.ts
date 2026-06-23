@@ -1,17 +1,23 @@
 import { describe, it, expect } from "vitest";
 import { corpus } from "../content/corpus";
-import { createRun, beginTurn } from "./index";
+import { createRun, beginTurn, endTurn, eligibleActions } from "./index";
 import { HOME_DETENTION_FEE } from "./tuning";
 
 describe("home detention", () => {
-  it("Dana's supervision *is* home detention (not probation), with the fee + slot tax", () => {
-    expect(corpus.characters.dana.supervision.type).toBe("home_detention"); // her status, displayed as such
+  it("Dana's supervision *is* home detention — its own status, with its own check-in", () => {
+    expect(corpus.characters.dana.supervision.type).toBe("home_detention");
     const dana = createRun(corpus, "dana", { seed: 1 });
-    expect(dana.tracks.legal.status).toBe("probation"); // routes through the probation sub-arc mechanically
+    expect(dana.tracks.legal.status).toBe("home_detention"); // a first-class status, not probation
+    const due = new Set(eligibleActions(dana, corpus).map((e) => e.id));
+    expect(due).toContain("evt_home_detention_checkin"); // her own check-in, not the probation one
+    expect(due).not.toContain("evt_probation_checkin");
     expect(dana.flags.owes_home_detention_fees).toBe(true);
     expect(dana.flags.owes_supervision_fees).toBeFalsy(); // not both — home detention only
     expect(dana.standingSlots).toBeGreaterThanOrEqual(1); // the restriction eats a day
-    // A build not on home detention doesn't owe it:
+    // Missing the check-in files a home-detention violation (its own, not "probation"):
+    const ended = endTurn(dana, corpus);
+    expect(ended.scheduled.some((x) => x.event === "evt_home_detention_violation")).toBe(true);
+    // A build not on home detention doesn't owe the fee:
     expect(createRun(corpus, "marcus", { seed: 1 }).flags.owes_home_detention_fees).toBeFalsy();
   });
 

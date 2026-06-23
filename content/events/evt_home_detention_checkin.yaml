@@ -1,0 +1,50 @@
+id: evt_home_detention_checkin
+kind: action
+title: Home-detention check-in
+tags: [legal, obligation]
+requires_travel: true
+repeatable: true
+
+# The home-detention analog of the parole/probation check-in (a missed one routes to
+# evt_home_detention_violation). Compliance: the monitor read, the fees, proof you've
+# been where the box says. Only appears while on home detention.
+conditions:
+  - tracks.legal.status == "home_detention"
+
+prompt: >
+  Compliance day. They want eyes on you and the monitor — the fees ledger checked, the
+  approved schedule confirmed, proof you've been where the box says you've been. It's not
+  optional, and being a few minutes off your window is its own kind of trouble.
+
+choices:
+
+  - id: make_checkin
+    quality: durable
+    label: Make the check-in
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Monitor read, fees noted, schedule clean. Conditions met — one more week the
+            box has nothing to say about you.
+          tracks: { legal: { status: home_detention, readiness: 5 } }
+
+  - id: reschedule
+    quality: desperate
+    label: Call and try to push it a week
+    cost: { slots: 0 }
+    outcomes:
+      - weight: 40
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            You reach them and they allow it, once. The slot's yours back this week — but
+            the clock only moved, it didn't stop.
+      - weight: 60
+        effects:
+          text: >
+            No answer, no confirmation. Missing a home-detention check-in unannounced is
+            how a violation gets written.
+          pools: { morale: -6 }
+          tracks: { legal: { status: home_detention, readiness: -10 } }

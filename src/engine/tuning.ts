@@ -97,6 +97,7 @@ export const OBLIGATION_MISS_READINESS_PENALTY = 15;
 export const VIOLATION_EVENTS: Record<string, string> = {
   parole: "evt_parole_violation",
   probation: "evt_probation_violation",
+  home_detention: "evt_home_detention_violation",
 };
 export function violationEventFor(legalStatus: string): string {
   return VIOLATION_EVENTS[legalStatus] ?? "evt_parole_violation";

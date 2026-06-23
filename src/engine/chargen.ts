@@ -154,6 +154,10 @@ function deriveFlags(origin: CharacterOrigin): Flags {
   if ((origin.supervision.conditions ?? []).includes("home_detention")) {
     flags.owes_home_detention_fees = true;
   }
+  // Legal financial obligations (fines, fees, restitution) are near-universal for the
+  // justice-involved. Ignoring them once you're earning gets your wages garnished (see the
+  // monthly economy); a payment plan (evt_court_debt) keeps you in compliance instead.
+  flags.owes_court_debt = true;
   // A long stretch inside opens a technology gap that walls off skilled work
   // until it's closed; long-term incarceration also carries mental-health weight.
   if (origin.time_inside_years >= TECH_GAP_YEARS) flags.tech_gap = true;

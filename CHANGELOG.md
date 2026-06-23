@@ -7,6 +7,15 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Changed
+- **Court debt now bites if you ignore it.** "The court wants its money" had no teeth — you
+  could skip it all game with no blowback, which isn't how legal financial obligations work.
+  Now everyone carries court debt, and once you're earning, ignoring it gets your **wages
+  garnished** every month (forced, and heavier than a payment plan would cost). Engaging —
+  a payment plan, a real payment, or converting it to community service — puts you **in
+  compliance**, which stops the garnishment and retires the prompt. Pay on your terms, or
+  the court collects on theirs.
+
 ## [1.5.0] - 2026-06-23
 
 The data-driven release. A headless **simulation harness** turned balance from guesswork

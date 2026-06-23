@@ -28,6 +28,9 @@
     "has_license",
     "has_car",
     "reunifying",
-    "custody_regained"
+    "custody_regained",
+    "managing_health",
+    "giving_back",
+    "record_sealed"
   ]
 }

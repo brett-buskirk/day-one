@@ -83,7 +83,9 @@ discrete slots (the usable days), and spends them on actions until they run out 
 choose to end the week. This is the core tension: "this week I can hit the DMV, or
 the benefits office, or the interview — not all three."
 
-- **Base budget:** 6 slots/week (tuning).
+- **Base budget:** 7 slots/week (tuning) — one per day. Standing commitments and the
+  travel tax visibly subtract from it (see below), so the squeeze reads as attribution,
+  not an unexplained short week.
 - **Standing commitments** pre-spend slots before the player chooses — e.g. a
   weekly parole check-in and mandated treatment. These are obligations (see below)
   and reduce the discretionary budget.
@@ -114,15 +116,18 @@ Transportation is a first-class pool because, without a car, every errand taxes
 the rest of the week. For any event with `requires_travel: true`, the effective
 slot cost is `baseSlots × transportFactor(pools.transportation)`:
 
-| transportation pool | meaning              | factor |
-| ------------------- | -------------------- | ------ |
-| ≥ 70                | reliable car         | ×1     |
-| 30–69               | bus pass / borrowed  | ×1.5   |
-| < 30                | bike / intermittent  | ×2     |
+| transportation pool | meaning                            | factor |
+| ------------------- | ---------------------------------- | ------ |
+| ≥ 30                | reliable transit — a car or a pass | ×1     |
+| < 30                | on foot / an unreliable bike       | ×2     |
 
-(Thresholds and factors are tuning.) Round the result up. This is why low
-transportation *is* the grind — fewer real moves per week — modeled honestly
-rather than narrated.
+(Thresholds are tuning.) Round the result up. **Two tiers, not three, on purpose:**
+because the cost rounds up and almost every errand is a 1-day base, a fractional middle
+tier (×1.5) was *identical* to ×2 for the common case — so a hard-won bus pass changed
+nothing. Collapsing it means reliable transit (a car **or** a pass) actually removes the
+tax, giving the squeezed builds a *reachable* escape; on foot, every errand still eats the
+day twice. This is why low transportation *is* the grind — fewer real moves per week —
+modeled honestly rather than narrated.
 
 The tax is also **attributed** in the UI (reviewer Area 1: the day budget shouldn't read
 as *arbitrarily* tight): the turn header states it when it applies ("On foot, every errand

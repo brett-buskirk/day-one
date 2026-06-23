@@ -36,9 +36,10 @@ export function CharacterPanel({ state, origin, onClose }: Props) {
   const papers = awaiting.length ? `${inHand} · in the mail: ${awaiting.join(", ")}` : inHand;
   const legal = state.tracks.legal;
   const standing = standingLabel(legal.status, legal.readiness ?? 0);
-  const supervision = standing
-    ? `${supervisionLabel(legal.status)} · ${standing}`
-    : supervisionLabel(legal.status);
+  // Home detention routes through the probation sub-arc mechanically, but reads as its
+  // own supervision status to the player.
+  const supType = origin?.supervision.type === "home_detention" ? "home_detention" : legal.status;
+  const supervision = standing ? `${supervisionLabel(supType)} · ${standing}` : supervisionLabel(supType);
   const rows: Array<[string, string]> = [
     ["Housing", housingLabel(state.tracks.housing.status)],
     ["Work", workLabel(state.tracks.employment.status)],

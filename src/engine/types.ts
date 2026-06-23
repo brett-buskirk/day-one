@@ -121,7 +121,7 @@ export interface CharacterOrigin {
 
   time_inside_years: number;
   supervision: {
-    type: "parole" | "probation" | "none";
+    type: "parole" | "probation" | "home_detention" | "none";
     years?: number;
     conditions?: string[]; // e.g. ["weekly_checkin", "curfew", "mandated_treatment"]
   };

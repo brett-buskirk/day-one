@@ -70,16 +70,16 @@ describe("recurring monthly economy", () => {
 
 describe("probation obligations (§4) route to the probation sub-arc", () => {
   it("a probation build is due the probation check-in, not the parole one", () => {
-    const dana = createRun(corpus, "dana", { seed: 1 });
-    const due = new Set(eligibleActions(dana, corpus).map((e) => e.id));
-    expect(dana.tracks.legal.status).toBe("probation");
+    const tasha = createRun(corpus, "tasha", { seed: 1 }); // Tasha is on probation
+    const due = new Set(eligibleActions(tasha, corpus).map((e) => e.id));
+    expect(tasha.tracks.legal.status).toBe("probation");
     expect(due).toContain("evt_probation_checkin");
     expect(due).not.toContain("evt_parole_checkin");
   });
 
   it("missing it files a probation violation (not a parole one)", () => {
-    const dana = createRun(corpus, "dana", { seed: 1 });
-    const ended = endTurn(dana, corpus); // didn't make the check-in
+    const tasha = createRun(corpus, "tasha", { seed: 1 });
+    const ended = endTurn(tasha, corpus); // didn't make the check-in
     expect(ended.violations).toBe(1);
     expect(ended.scheduled.some((x) => x.event === "evt_probation_violation")).toBe(true);
     expect(ended.scheduled.some((x) => x.event === "evt_parole_violation")).toBe(false);

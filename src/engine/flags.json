@@ -20,6 +20,7 @@
     "has_bike",
     "has_phone",
     "owes_phone_plan",
+    "has_laptop",
     "owes_supervision_fees",
     "owes_home_detention_fees",
     "tech_gap",

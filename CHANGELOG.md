@@ -8,6 +8,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **A laptop gates remote skilled work** (technology resource, Phase 3). The remote dev
+  role genuinely needs a computer — so a certified build that came home without one (Marcus)
+  is *qualified and walled off*: the dev job shows as a **visible locked "Need a laptop"**
+  button (the catch-22 the whole design is built around), with a path out — a new **"Get a
+  computer"** action to buy a refurbished machine or apply to a **workforce refurb-laptop
+  program**. Only that one skilled route is gated; every other job needs no laptop, so work
+  at large stays open. (Gloria, the "has it all" build, comes home with one.)
 - **The phone pays off** (technology resource, Phase 2). A new phone-only **"Work the
   phone"** action lets you do the legwork *remotely* — chase job leads (employment progress)
   or return calls and keep your network close (support) — without spending a bus fare on

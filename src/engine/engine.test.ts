@@ -199,6 +199,9 @@ describe("the document catch-22 chains end-to-end (§9)", () => {
     const jobNowEligible = eligibleActions(s, corpus).some((e) => e.id === "evt_apply_job_onboarding");
     expect(jobNowEligible).toBe(true);
 
+    // The remote dev role also needs a computer (the Phase 3 catch-22, covered in
+    // laptop.test.ts); grant it so this document-chain test reaches the payoff.
+    s = { ...s, flags: { ...s.flags, has_laptop: true } };
     const [jobEvent, onboard] = choiceOf("evt_apply_job_onboarding", "onboard_dev");
     s = resolveChoice(s, jobEvent, onboard, corpus);
     // Either employed (paycheck) or interviewing (background check stall) — both

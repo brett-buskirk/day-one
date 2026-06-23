@@ -1,0 +1,57 @@
+id: evt_get_laptop
+kind: action
+title: Get a computer to work on
+tags: [employment]
+requires_travel: true
+repeatable: true
+
+# Phone Phase 3 — the laptop. The remote dev role needs a computer; a certified build that
+# came home without one is qualified and can't work (the catch-22, see evt_apply_job_onboarding).
+# A new machine is real money; a workforce/nonprofit refurbished-laptop program is the
+# realistic path (a real resource, like Lifeline for the phone). Only the certified-but-
+# computerless see it.
+conditions:
+  - flags.has_cert_webdev == true
+  - flags.has_laptop == false
+
+prompt: >
+  The remote dev role needs a machine to do it on, and you don't have one. A new laptop is
+  real money you don't have. But reentry and workforce programs run refurbished-laptop
+  pipelines — older, slower, and plenty to write code on.
+
+choices:
+
+  - id: buy_laptop
+    quality: neutral
+    label: Buy a refurbished laptop outright
+    requires:
+      - pools.money >= 40
+    cost: { slots: 1, money: 40 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Not new, not fast, but it boots and the keyboard works — the one tool the whole
+            certificate was waiting on.
+          flags: { has_laptop: true }
+          pools: { morale: 10 }
+
+  - id: refurb_program
+    quality: durable
+    label: Apply to a workforce refurbished-laptop program
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 65
+        modifier: { stat: social_capital, scale: 0.1 }
+        effects:
+          text: >
+            A caseworker, a short form, a week's wait — and a refurbished machine for next
+            to nothing. The program exists for exactly this.
+          flags: { has_laptop: true }
+          pools: { morale: 12 }
+      - weight: 35
+        effects:
+          text: >
+            The waitlist is long and intake is backed up. "Check back next month." The
+            machine is coming; it isn't here yet.
+          pools: { morale: -3 }

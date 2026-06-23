@@ -137,6 +137,9 @@ function deriveFlags(origin: CharacterOrigin): Flags {
     flags.has_phone = true;
     flags.owes_phone_plan = true;
   }
+  // A computer at home is rarer than a phone — most come home without one. It gates the
+  // remote skilled-work path (the certified-but-computerless catch-22; see evt_get_laptop).
+  if (origin.landing.has_laptop) flags.has_laptop = true;
   // A registry requirement is the heaviest single barrier (DESIGN §8) — it
   // reshapes housing and employment. Surfaced as a flag so content can gate on
   // it (housing/employment events become near-impossible); framed as a barrier,

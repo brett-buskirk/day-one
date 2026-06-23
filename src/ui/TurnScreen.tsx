@@ -7,12 +7,13 @@ import {
   dueObligations,
   isObligation,
   effectiveSlotCost,
+  transportFactor,
   randomOrigin,
   RANDOM_ID,
 } from "../engine";
 import { useMemo, useState } from "react";
 import type { ThemeMode } from "../theme";
-import { POOL_META, slotsLabel, avatarFor } from "./format";
+import { POOL_META, slotsLabel, avatarFor, travelTaxNote } from "./format";
 import { PoolBar } from "./PoolBar";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { InfoModal } from "./InfoModal";
@@ -87,6 +88,9 @@ export function TurnScreen({
     state.standingSlots > 0 && commitments.length
       ? `${slotsLabel(state.standingSlots)} a week already goes to ${commitments.join(" and ")}.`
       : null;
+  // Attribute the transport slot-tax so a 2-day errand reads as a consequence, not a quirk.
+  const travelMult = transportFactor(state.pools.transportation);
+  const travelNote = travelTaxNote(state.pools.transportation);
 
   return (
     <div className="screen">
@@ -136,6 +140,7 @@ export function TurnScreen({
           </span>
         </div>
         {commitmentNote && <p className="turn-commit">{commitmentNote}</p>}
+        {travelNote && <p className="turn-commit turn-travel">{travelNote}</p>}
       </header>
 
       <section className="pools" aria-label="Resources">
@@ -181,7 +186,11 @@ export function TurnScreen({
                   >
                     <span className="card-title">{e.title}</span>
                     <span className="card-tags">
-                      {e.requires_travel && <span className="tag tag-travel">travel</span>}
+                      {e.requires_travel && (
+                        <span className="tag tag-travel">
+                          {travelMult > 1 ? `travel ×${travelMult}` : "travel"}
+                        </span>
+                      )}
                       <span className="tag tag-cost">{cost > 0 ? `from ${slotsLabel(cost)}` : "free"}</span>
                     </span>
                   </button>
@@ -216,7 +225,11 @@ export function TurnScreen({
                           {t}
                         </span>
                       ))}
-                      {e.requires_travel && <span className="tag tag-travel">travel</span>}
+                      {e.requires_travel && (
+                        <span className="tag tag-travel">
+                          {travelMult > 1 ? `travel ×${travelMult}` : "travel"}
+                        </span>
+                      )}
                       <span className="tag tag-cost">{cost > 0 ? `from ${slotsLabel(cost)}` : "free"}</span>
                     </span>
                   </button>

@@ -112,14 +112,14 @@ function deriveFlags(origin: CharacterOrigin): Flags {
   if (origin.person.in_recovery) flags.in_recovery_support = true;
   if (origin.landing.job_lined_up) flags.has_job = true;
   // The getting-around they already have, placed on the transport ladder (§6) so they
-  // aren't offered wheels they own — e.g. Marcus comes home on a bike.
-  const tFlag: Record<string, string> = {
-    car: "has_license",
-    bus_pass: "has_transit_pass",
-    bike: "has_bike",
+  // aren't offered wheels they own — e.g. Marcus comes home on a bike. A car means both
+  // the vehicle (has_car) and the license to drive it.
+  const tFlags: Record<string, string[]> = {
+    car: ["has_license", "has_car"],
+    bus_pass: ["has_transit_pass"],
+    bike: ["has_bike"],
   };
-  const startFlag = tFlag[origin.landing.transportation];
-  if (startFlag) flags[startFlag] = true;
+  for (const f of tFlags[origin.landing.transportation] ?? []) flags[f] = true;
   // A registry requirement is the heaviest single barrier (DESIGN §8) — it
   // reshapes housing and employment. Surfaced as a flag so content can gate on
   // it (housing/employment events become near-impossible); framed as a barrier,

@@ -44,7 +44,7 @@ export function CharacterPanel({ state, origin, onClose }: Props) {
     ["Work", workLabel(state.tracks.employment.status)],
     ["Supervision", supervision],
     ["People", relationshipsLabel(state.tracks.relationships.status)],
-    ["Getting around", transportLabel(state.pools.transportation)],
+    ["Getting around", transportLabel(state.pools.transportation, state.flags)],
   ];
 
   return (

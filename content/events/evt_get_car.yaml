@@ -1,0 +1,52 @@
+id: evt_get_car
+kind: action
+title: Get a car of your own
+tags: [transportation, money]
+requires_travel: true
+repeatable: true
+
+# The top rung of the getting-around ladder, gated behind the license (the permission;
+# see evt_license_restore). A car — owned or regularly borrowed — is what actually opens
+# the week up. Sets has_car (the mobility), and retires once you have one.
+conditions:
+  - flags.has_license == true
+  - flags.has_car == false
+
+prompt: >
+  With a license in your pocket, a set of wheels finally changes the math — no more
+  bending the week around bus schedules and other people's favors. There's a beater
+  for sale cheap, or someone who'd let you use theirs if you ask right.
+
+choices:
+
+  - id: buy_beater
+    quality: durable
+    label: Buy a cheap used car
+    requires:
+      - pools.money >= 35
+    cost: { slots: 1, money: 35 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: money, scale: 0.15 }
+        effects:
+          text: >
+            It rattles, the check-engine light's a fixture, and it's yours. The whole
+            map just opened back up — on your own schedule, for once.
+          flags: { has_car: true }
+          pools: { transportation: 45, morale: 10 }
+
+  - id: borrow_regular
+    quality: neutral
+    label: Arrange to borrow a friend or family member's car
+    requires:
+      - tracks.relationships.status != "isolated"
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: social_capital, scale: 0.2 }
+        effects:
+          text: >
+            They hand you a spare key with a look that says don't make me regret it.
+            Regular wheels on someone else's goodwill — you'll be careful with both.
+          flags: { has_car: true }
+          pools: { transportation: 35, social_capital: -8, morale: 6 }

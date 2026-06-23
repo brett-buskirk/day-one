@@ -147,9 +147,11 @@ the shared currency every track spends against — that coupling is the simulati
   overdrawn. Tilts the odds on outcomes that depend on goodwill.
 - **transportation** — ability to get around (see §4 for its slot multiplier). The
   acquisition events form a **getting-around ladder** via flags (`has_bike` <
-  `has_transit_pass` < `has_license`): each option only surfaces when it's a step up and
+  `has_transit_pass` < `has_car`): each option only surfaces when it's a step up and
   retires once you have it or anything better, so you're never re-offered wheels you've
-  got.
+  got. A driver's **license is permission, not a vehicle** — `has_license` (a modest
+  mobility bump) gates `evt_get_car`, where you actually buy or regularly borrow one
+  (`has_car`, the top rung); only `has_car` reads as "a car."
 - **health** — physical and recovery wellbeing combined. Many people come home
   with chronic issues and/or in recovery. Physical labor and stress drain it;
   rest, treatment, and recovery support refill it. Low health raises relapse/crisis

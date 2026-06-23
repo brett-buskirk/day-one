@@ -1,0 +1,43 @@
+id: evt_get_hired
+kind: action
+title: Land steady work
+tags: [employment]
+repeatable: true   # an HR stall shouldn't end the search; retires once has_job.
+
+# The general path to a real (waged) job, for builds without the web-dev cert's
+# specialized route (evt_apply_job_onboarding). Needs an ID; pays a weekly wage once
+# landed. Registry builds face evt_job_registry instead.
+conditions:
+  - flags.has_state_id == true
+  - flags.has_job == false
+  - flags.registry_required == false
+  - flags.has_cert_webdev == false
+
+prompt: >
+  With an ID in hand, steady work opens up — a warehouse, a kitchen, a care facility,
+  a front desk. Nothing glamorous; the kind of job that mostly needs you to show up,
+  on time, every day. A real paycheck, on a real schedule.
+
+choices:
+
+  - id: take_steady_job
+    quality: durable
+    label: Apply for a steady job
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 70
+        modifier: { stat: social_capital, scale: 0.15 }
+        effects:
+          text: >
+            An application, a short interview, a start date. It's work, and it's yours
+            — a paycheck on the calendar and a reason to set an alarm.
+          flags: { has_job: true }
+          pools: { morale: 14, money: 8 }
+          tracks: { employment: { status: employed } }
+      - weight: 30
+        effects:
+          text: >
+            "We'll be in touch." They aren't, not this week. The search grinds on, and
+            the bills don't wait for it.
+          pools: { morale: -4 }
+          tracks: { employment: { status: interviewing } }

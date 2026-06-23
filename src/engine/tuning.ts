@@ -110,3 +110,14 @@ export const SUPERVISION_FEE = 6; // money/month while owes_supervision_fees (pr
 // only after a real job — i.e. after the ID — so it never loosens the early money gate.
 // NOTE: a starting default; balance with the seed harness + a playtest. (Tuning.)
 export const WEEKLY_WAGE = 10; // +money/week while has_job
+
+// Home-detention monitoring fee — a WEEKLY, often crippling cost of being supervised at
+// home (the ankle monitor isn't free). A relentless drain that the constantly tight
+// early economy feels. NOTE: a starting default; balance with a playtest. (Tuning.)
+export const HOME_DETENTION_FEE = 8; // money/week while owes_home_detention_fees
+
+// A surprise home visit from the supervising officer — one per run for builds on paper,
+// at a seed-varied turn (its own salt; see chargen.homeVisitSchedule).
+export const HOME_VISIT_SEED_SALT = 0x484f4d45; // "HOME"
+export const HOME_VISIT_TURN_MIN = 2;
+export const HOME_VISIT_TURN_MAX = 11;

@@ -15,6 +15,9 @@ import {
   LIFE_EVENT_TURN_MIN,
   LIFE_EVENT_TURN_MAX,
   LIFE_EVENTS,
+  HOME_VISIT_SEED_SALT,
+  HOME_VISIT_TURN_MIN,
+  HOME_VISIT_TURN_MAX,
 } from "./tuning";
 import { seedToState, next } from "./rng";
 
@@ -54,6 +57,7 @@ const SUPERVISION_TO_LEGAL: Record<string, string> = {
 const COMMITMENT_SLOT_COST: Record<string, number> = {
   mandated_treatment: 1,
   community_service: 1, // court-ordered hours — a standing claim on the week
+  home_detention: 1, // confined except for approved activities — a standing claim too
   curfew: 0,
   weekly_checkin: 0,
   supervision_fees: 0, // a money cost (recurring), not a slot cost
@@ -129,6 +133,11 @@ function deriveFlags(origin: CharacterOrigin): Flags {
   if ((origin.supervision.conditions ?? []).includes("supervision_fees")) {
     flags.owes_supervision_fees = true;
   }
+  // Home-detention monitoring is a standing *weekly* fee — often the most crippling cost
+  // of being supervised at home.
+  if ((origin.supervision.conditions ?? []).includes("home_detention")) {
+    flags.owes_home_detention_fees = true;
+  }
   // A long stretch inside opens a technology gap that walls off skilled work
   // until it's closed; long-term incarceration also carries mental-health weight.
   if (origin.time_inside_years >= TECH_GAP_YEARS) flags.tech_gap = true;
@@ -187,6 +196,17 @@ function lifeEventSchedule(seed: number): GameState["scheduled"] {
   return [{ event, onTurn }];
 }
 
+// A surprise home visit from the supervising officer — one per run for builds on paper
+// (parole/probation), at a seed-varied turn. Its own salt, so it doesn't perturb the
+// main stream or the life event.
+function homeVisitSchedule(seed: number, origin: CharacterOrigin): GameState["scheduled"] {
+  if (origin.supervision.type === "none") return []; // no officer, no visit
+  const r = next((seedToState(seed) ^ HOME_VISIT_SEED_SALT) | 0);
+  const span = HOME_VISIT_TURN_MAX - HOME_VISIT_TURN_MIN + 1;
+  const onTurn = HOME_VISIT_TURN_MIN + Math.floor(r.value * span);
+  return [{ event: "evt_home_visit", onTurn }];
+}
+
 export interface ChargenOptions {
   seed: number; // determinism lives here — pass an explicit seed
   mode?: GameState["mode"];
@@ -217,7 +237,11 @@ export function chargen(origin: CharacterOrigin, opts: ChargenOptions): GameStat
 
     completed: [],
     actedThisTurn: [],
-    scheduled: [...deriveSchedule(origin), ...lifeEventSchedule(opts.seed)],
+    scheduled: [
+      ...deriveSchedule(origin),
+      ...lifeEventSchedule(opts.seed),
+      ...homeVisitSchedule(opts.seed, origin),
+    ],
     pending: [],
     log: [],
 

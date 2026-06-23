@@ -247,7 +247,9 @@ chargen mapping for Marcus is documented in his file.
 
 The shipped roster adds eight more, each authored purely as origin data: **Renae**
 (a supported build — family, money, transport — the same content at a gentler
-difficulty), **Dana** (probation: fees and mandated community-service hours),
+difficulty), **Dana** (probation under the weight of its costs: supervision fees *and*
+**home detention** — a relentless weekly monitoring fee plus a restricted week — and a
+surprise officer home visit, like any supervised build),
 **Theo** (the registry deep-end build for empathy mode), **Ray** (the longtimer —
 24 years inside, a technology gap, and chronic mental-health weight), **Cal**
 (a "max-out" release with `supervision: none` → legal status `unsupervised`: no

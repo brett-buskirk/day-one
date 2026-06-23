@@ -48,6 +48,7 @@ function cardLabel(e: GameEvent, cost: number): string {
 const SLOT_COMMITMENTS: Record<string, string> = {
   mandated_treatment: "mandated treatment",
   community_service: "community service",
+  home_detention: "home detention",
 };
 
 export function TurnScreen({

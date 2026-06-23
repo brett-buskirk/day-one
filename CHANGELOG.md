@@ -7,6 +7,16 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-06-23
+
+The data-driven release. A headless **simulation harness** turned balance from guesswork
+into measurement — and it shaped the rest: a **7-day week** with a transport tax you can
+finally escape, a **reentry fee-waiver** that breaks the document *poverty trap* which left
+the poorest builds frozen all 90 days, the **technology arc** finished (the phone pays off;
+a laptop gates skilled work), and a whole **second stage of reentry** — court debt, health,
+giving back, sealing your record, getting off supervision, mending family — so stabilizing
+early isn't the end of the story.
+
 ### Added
 - **Two more second-stage arcs: getting off paper, and mending ties.** **Early termination
   of supervision** (`evt_off_supervision`) — a hard-earned milestone for builds who've stayed

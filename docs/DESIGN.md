@@ -376,6 +376,13 @@ outcome RNG stream. The point is felt unpredictability: reentry throws curveball
 ways and you never know which is coming. Like every setback, the losses branch and
 recover — never a fail screen. Tunables live in `tuning.ts`.
 
+A second, independent beat fires the same way: one random **interrupt** per run
+(`INTERRUPTS` pool, its own salt/window) — a **collision** (two things you need the same
+week; you can only make one), a **windfall** (good money, on a deadline that eats your
+days), or an **old contact** (easy money that schedules its own reckoning a week or two
+out — a second-order ripple). The collision and ripple patterns answer the field
+feedback for "more interrupts, with more choices, that pull you in different directions."
+
 ---
 
 ## 10. Win and lose

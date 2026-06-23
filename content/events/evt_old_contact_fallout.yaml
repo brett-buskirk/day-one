@@ -1,0 +1,41 @@
+id: evt_old_contact_fallout
+kind: incident
+title: The other shoe
+tags: [legal, life]
+repeatable: false
+
+# The second-order ripple from taking the "easy money" (scheduled by evt_old_contact).
+# The unexpected echoes — and it lands on your standing, not your life. Recoverable.
+prompt: >
+  It catches up, the way it always does. A knock, a question you can't quite answer, the
+  sense of a net pulling tight. The "easy money" came with a bill, and it's due.
+
+choices:
+
+  - id: get_ahead_of_it
+    quality: durable
+    label: Get ahead of it — come clean, do damage control
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You don't wait for it to land on you. It's ugly, and it costs, but you steer
+            it — a warning instead of a wreck. A lesson bought at a steep price.
+          pools: { morale: -8 }
+          tracks: { legal: { readiness: -8 } }
+
+  - id: hope_it_passes
+    quality: desperate
+    label: Lie low and hope it blows over
+    outcomes:
+      - weight: 50
+        effects:
+          text: It passes. This time. You don't breathe right for a week.
+          pools: { morale: -6 }
+      - weight: 50
+        effects:
+          text: >
+            It doesn't pass. The mark lands on your record, heavier than the money was
+            ever worth.
+          pools: { morale: -12 }
+          tracks: { legal: { readiness: -16 } }

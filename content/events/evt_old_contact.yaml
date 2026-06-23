@@ -1,0 +1,46 @@
+id: evt_old_contact
+kind: incident
+title: A number you knew by heart
+tags: [life, legal]
+repeatable: false
+
+# An old contact resurfaces with "easy money." The desperate choice pays now but
+# schedules its own reckoning (evt_old_contact_fallout) — a second-order ripple, so the
+# unexpected echoes instead of resolving clean. Recoverable.
+prompt: >
+  An old number lights up your phone — someone from before, from the life that put you
+  inside. They're not calling to catch up. There's "easy money" in it, the kind that's
+  never actually easy, and they're offering you in.
+
+choices:
+
+  - id: walk_away
+    quality: durable
+    label: Don't pick up — you know exactly how this ends
+    outcomes:
+      - weight: 100
+        modifier: { stat: morale, scale: 0.1 }
+        effects:
+          text: >
+            You let it ring out, and again when they try back. It costs you nothing but
+            the part of you that's tired and broke and tempted. You're still standing.
+          pools: { morale: 4 }
+
+  - id: hear_them_out
+    quality: desperate
+    label: Hear them out — you're broke and it's right there
+    outcomes:
+      - weight: 55
+        effects:
+          text: >
+            A quick thing, they swear. The cash is real and so is the knot in your gut.
+            You tell yourself it's the last time. It schedules its own reckoning.
+          pools: { money: 25, morale: -6 }
+          schedule: { event: evt_old_contact_fallout, in_turns: 2 }
+      - weight: 45
+        modifier: { stat: morale, scale: -0.2 }
+        effects:
+          text: >
+            You almost do it — and then you don't, hanging up mid-sentence. Close. Too
+            close. You sit with how easy it would have been.
+          pools: { morale: -4 }

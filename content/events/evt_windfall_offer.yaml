@@ -1,0 +1,38 @@
+id: evt_windfall_offer
+kind: incident
+title: A door, open for a day
+tags: [life, money]
+repeatable: false
+
+# A *good* surprise with a deadline (the reviewer wanted these too, not only bad ones):
+# real money, fast — but it eats the week you'd planned. The cost is the time, not a trap.
+prompt: >
+  A friend of a friend needs a hand this week — cash, off the books, gone by Friday if you
+  can't jump on it. It's real money, fast, and it won't keep. The catch is it eats the
+  days you'd earmarked for everything else.
+
+choices:
+
+  - id: jump_on_it
+    quality: durable
+    label: Take it — money now beats a plan later
+    cost: { slots: 2 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: money, scale: 0.1 }
+        effects:
+          text: >
+            Long days, sore everything, and a fold of cash that changes the math for a
+            while. You bought yourself some room.
+          pools: { money: 30, health: -6 }
+
+  - id: let_it_pass
+    quality: neutral
+    label: Let it pass — you can't spare the days
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You watch it go. The right call, probably — your week was already full — but
+            you'll wonder about that cash for a minute.
+          pools: { morale: -3 }

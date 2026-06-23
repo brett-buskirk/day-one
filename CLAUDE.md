@@ -46,13 +46,15 @@ about React.
 
 ### Engine systems (where to look)
 
-- **Turn loop** (`engine.ts`): `beginTurn` replenishes slots, fires scheduled
-  incidents into `pending`, and runs the **monthly economy tick** (turns 4/8/12):
-  benefits stipend in, transit-pass fee (lapses if unpaid), probation supervision
-  fees. `endTurn` enforces missed obligations, fires **edge-triggered pool-floor
-  crises** (money/health/morale via `CRISIS_TRIGGERS`), snapshots pools, and handles
-  the gated terminal chain. A missed obligation schedules a violation event chosen by
-  supervision type (`violationEventFor`: parole vs probation).
+- **Turn loop** (`engine.ts`): `beginTurn` replenishes slots (base 7 − standing
+  commitments), fires scheduled incidents into `pending`, applies **weekly** flows
+  (wage while `has_job`; the weekly home-detention fee), and runs the **monthly economy
+  tick** (turns 4/8/12): benefits stipend in, and the lapsing fees — transit pass, phone
+  plan (both drop the asset if unpaid), probation supervision fees. `endTurn` enforces
+  missed obligations, fires **edge-triggered pool-floor crises** (money/health/morale via
+  `CRISIS_TRIGGERS`), snapshots pools, and handles the gated terminal chain. A missed
+  obligation schedules a violation event chosen by supervision type (`violationEventFor`:
+  parole, probation, or home detention).
 - **Scoring** (`debrief.ts`): ending profile + milestones + trajectory (pool-vitality
   momentum) + decision quality (durable vs desperate, from per-choice `quality` tags
   recorded in the log) + mode-aware framing.
@@ -109,8 +111,11 @@ about React.
   data, not in code.** Several barrier flags are *derived* by chargen, not authored:
   `registry_required` (from `offense.registry_required`), `tech_gap` (long time
   inside ≥ `TECH_GAP_YEARS`), `chronic_mental_health` (from `person.mental_health_issue`),
-  `owes_supervision_fees` (from a `supervision_fees` condition). Standing slot taxes
-  come from supervision conditions (`mandated_treatment`, `community_service`).
+  `reunifying` (from `person.reunifying`), `owes_supervision_fees` (from a
+  `supervision_fees` condition), `owes_home_detention_fees` (from a `home_detention`
+  condition), and `has_phone`/`owes_phone_plan` + `has_laptop` (from `landing.has_phone` /
+  `landing.has_laptop`). Standing slot taxes come from supervision conditions
+  (`mandated_treatment`, `community_service`, `home_detention`).
 - **Difficulty/mechanics knobs** (slot tax, transport multiplier, crisis floors,
   monthly economy amounts, terminal threshold, tech-gap years) live in
   `src/engine/tuning.ts`.

@@ -188,6 +188,14 @@ export function heldThings(flags: Record<string, boolean>): string[] {
   return HELD_LABELS.filter(([flag]) => flags[flag]).map(([, label]) => label);
 }
 
+// Papers ordered but not yet in hand — surfaced separately so "in the mail" reads
+// differently from "held" (e.g. a birth cert that's been ordered and is en route).
+export function awaitingThings(flags: Record<string, boolean>): string[] {
+  const out: string[] = [];
+  if (flags.awaiting_birth_cert) out.push("a birth certificate");
+  return out;
+}
+
 // Supervision standing from the legal track's readiness — mirrors the debrief's
 // paroleDimension. Returns null when unsupervised (no standing to show).
 export function standingLabel(legalStatus: string, readiness: number): string | null {

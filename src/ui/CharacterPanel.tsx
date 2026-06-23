@@ -12,6 +12,7 @@ import {
   relationshipsLabel,
   transportLabel,
   heldThings,
+  awaitingThings,
   standingLabel,
   avatarFor,
   avatarStyle,
@@ -26,6 +27,13 @@ interface Props {
 export function CharacterPanel({ state, origin, onClose }: Props) {
   const title = origin ? `${origin.name}, ${origin.display_age}` : "Your situation";
   const held = heldThings(state.flags);
+  const awaiting = awaitingThings(state.flags);
+  const inHand = held.length
+    ? held.join(", ")
+    : awaiting.length
+      ? "nothing in hand yet"
+      : "nothing yet — that's the first wall";
+  const papers = awaiting.length ? `${inHand} · in the mail: ${awaiting.join(", ")}` : inHand;
   const legal = state.tracks.legal;
   const standing = standingLabel(legal.status, legal.readiness ?? 0);
   const supervision = standing
@@ -56,11 +64,11 @@ export function CharacterPanel({ state, origin, onClose }: Props) {
             <dd>{value}</dd>
           </div>
         ))}
+        <div className="origin-grid-full">
+          <dt>Papers &amp; assets</dt>
+          <dd>{papers}</dd>
+        </div>
       </dl>
-      <p className="muted small">
-        <strong>Papers &amp; assets:</strong>{" "}
-        {held.length > 0 ? held.join(", ") : "nothing yet — that's the first wall"}.
-      </p>
       <RunCodeShare state={state} hint="Share this code so others play the identical run." />
     </InfoModal>
   );

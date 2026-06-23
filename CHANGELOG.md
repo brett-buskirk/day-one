@@ -8,6 +8,12 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Fixed
+- **About count** — the in-app About screen still read "six hand-built people"; it's now
+  **nine** (the v1.3.0 doc pass updated `docs/ABOUT.md` but missed the React screen).
+- **Situation panel — "Papers & assets"** now matches the rest of the panel (a labeled
+  row with its own heading and divider, instead of a stray line), and it distinguishes
+  what you **hold** from what's **in the mail** — a birth certificate that's been ordered
+  but hasn't arrived now reads as "in the mail" rather than simply absent.
 - **A job now pays a weekly wage.** Landing a job set a flag but produced *no* recurring
   income — and it retired day labor — so getting hired actually left you poorer. A real
   job now deposits a weekly paycheck (`WEEKLY_WAGE`), and "skip it and take whatever pays"

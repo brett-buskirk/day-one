@@ -21,6 +21,7 @@ landing:
   job_lined_up: false
   documents: [state_id]           # young enough to still have his ID
   transportation: bus_pass        # -> has_transit_pass
+  has_phone: true                 # young — of course he has a phone (and the bill)
   gate_money: 80                  # almost nothing -> money ~10
 
 person:

@@ -21,6 +21,7 @@ landing:
   job_lined_up: true              # a colleague held a role
   documents: [state_id, birth_cert, ssn_card, proof_of_address]   # nothing missing
   transportation: car             # -> has_license, no transport grind
+  has_phone: true                 # never lost it; the plan's a rounding error for her
   gate_money: 600                 # savings intact -> money ~75
 
 person:

@@ -132,6 +132,7 @@ export interface CharacterOrigin {
     job_lined_up: boolean;
     documents: string[]; // flags the character starts holding, if any
     transportation: "car" | "bus_pass" | "bike" | "none";
+    has_phone?: boolean; // came home with a (paid-plan) phone? not guaranteed
     gate_money: number; // dollars
   };
   person: {

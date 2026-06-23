@@ -130,6 +130,13 @@ function deriveFlags(origin: CharacterOrigin): Flags {
     bike: ["has_bike"],
   };
   for (const f of tFlags[origin.landing.transportation] ?? []) flags[f] = true;
+  // A phone they came home with means a paid plan — a recurring bill that's hard to keep
+  // up (the Lifeline subsidized phone from evt_get_phone carries no such cost). Not
+  // guaranteed: plenty come home without one (the first barrier).
+  if (origin.landing.has_phone) {
+    flags.has_phone = true;
+    flags.owes_phone_plan = true;
+  }
   // A registry requirement is the heaviest single barrier (DESIGN §8) — it
   // reshapes housing and employment. Surfaced as a flag so content can gate on
   // it (housing/employment events become near-impossible); framed as a barrier,

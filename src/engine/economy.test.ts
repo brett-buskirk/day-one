@@ -12,8 +12,9 @@ const eligibleIds = (s: ReturnType<typeof createRun>) =>
 describe("the job economy", () => {
   it("a job pays a weekly wage; no job, no wage", () => {
     const base = createRun(corpus, "marcus", { seed: 1 });
-    // Turn 2 = no monthly tick and nothing scheduled — isolate the wage.
-    const employed = { ...base, turn: 2, flags: { ...base.flags, has_job: true }, pools: { ...base.pools, money: 40 } };
+    // Turn 2 = no monthly tick and nothing scheduled; on_payment_plan suppresses the weekly
+    // court garnishment so we isolate the wage.
+    const employed = { ...base, turn: 2, flags: { ...base.flags, has_job: true, on_payment_plan: true }, pools: { ...base.pools, money: 40 } };
     expect(beginTurn(employed, corpus).pools.money).toBe(40 + WEEKLY_WAGE);
     const jobless = { ...base, turn: 2, pools: { ...base.pools, money: 40 } };
     expect(beginTurn(jobless, corpus).pools.money).toBe(40);

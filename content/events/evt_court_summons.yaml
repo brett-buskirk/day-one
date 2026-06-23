@@ -1,0 +1,51 @@
+id: evt_court_summons
+kind: incident
+title: A warrant, for the money you owe
+tags: [legal, crisis]
+
+# The escalation from sustained ignoring of court debt (queued by the engine's applyCourtDebt
+# after COURT_SUMMONS_AFTER weekly garnishments). The garnishment was the warning; this is the
+# blowback — a bench warrant. Recoverable, never a fail screen. Owning it sets on_payment_plan
+# (compliance, ending the garnishment); running risks county time.
+prompt: >
+  The garnishments weren't a glitch, and the letters you stopped opening didn't stop coming.
+  Now there's a bench warrant with your name on it — for the court debt you've let ride. A
+  traffic stop, a knock at work, your mom's door: it can land any way, any day. This is the
+  part you don't get to look away from.
+
+choices:
+
+  - id: turn_yourself_in
+    quality: durable
+    label: Walk in before they come — clear it and set up a plan
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: morale, scale: 0.1 }
+        effects:
+          text: >
+            You turn yourself in on your own terms: a hearing, a humbling, a payment plan the
+            judge actually signs. The warrant's lifted. It cost you a mark and a hard day — but
+            you steered it instead of letting it hit you.
+          pools: { morale: -6 }
+          tracks: { legal: { readiness: -8 } }
+          flags: { on_payment_plan: true }
+
+  - id: keep_running
+    quality: desperate
+    label: Keep your head down and hope it doesn't land
+    outcomes:
+      - weight: 50
+        effects:
+          text: >
+            Not this week. You flinch at every car that slows and every number you don't
+            recognize. It's no way to live — but you're still out here, for now.
+          pools: { morale: -8 }
+          tracks: { legal: { readiness: -10 } }
+      - weight: 50
+        effects:
+          text: >
+            It lands. A weekend in county on the warrant before they cut you loose, the job
+            wobbling, everything you built rattled. Recoverable — but you felt the floor.
+          pools: { morale: -14, money: -8 }
+          tracks: { legal: { readiness: -18 } }

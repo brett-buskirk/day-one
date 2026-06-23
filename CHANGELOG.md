@@ -8,13 +8,16 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Changed
-- **Court debt now bites if you ignore it.** "The court wants its money" had no teeth — you
-  could skip it all game with no blowback, which isn't how legal financial obligations work.
-  Now everyone carries court debt, and once you're earning, ignoring it gets your **wages
-  garnished** every month (forced, and heavier than a payment plan would cost). Engaging —
-  a payment plan, a real payment, or converting it to community service — puts you **in
-  compliance**, which stops the garnishment and retires the prompt. Pay on your terms, or
-  the court collects on theirs.
+- **Court debt now bites if you ignore it — and escalates.** "The court wants its money" had
+  no teeth; you could skip it all game with no blowback, which isn't how legal financial
+  obligations work. Now everyone carries court debt, and once you're earning, ignoring it
+  **garnishes your paycheck every week** (visible each check, not a quiet monthly nibble) —
+  and if you let it ride for about a month, it escalates to a **bench warrant** (a real
+  crisis: turn yourself in and take the standing hit, or keep running and risk a weekend in
+  county). Engaging — a payment plan, a real payment, or community-service conversion — puts
+  you **in compliance**, stopping all of it. Court debt is also distinct from supervision
+  fees: getting off probation early ends the fees but **not** the fines and restitution, and
+  the early-termination text now says so.
 
 ## [1.5.0] - 2026-06-23
 

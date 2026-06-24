@@ -1,0 +1,68 @@
+name: AI issue triage
+
+# When someone files an issue, run Claude to triage it FOR the maintainer — check it's
+# clear and on-thesis (docs/DESIGN.md), and sketch how a content request would map to the
+# data model — then post a short note as a comment. It never labels-as-final, closes, or
+# actions anything; a human always decides. Human-in-the-loop by design.
+#
+# SETUP: add an `ANTHROPIC_API_KEY` repository secret
+# (Settings → Secrets and variables → Actions). Until it's set, this workflow no-ops
+# gracefully (it won't fail your issues). To curb cost later, switch the trigger from
+# "opened" to a label (e.g. types: [labeled] + an `if` on the label name).
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Triage with Claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+            echo "No ANTHROPIC_API_KEY secret set — skipping triage (no-op until it's configured)."
+            exit 0
+          fi
+
+          DESIGN="$(sed -n '1,160p' docs/DESIGN.md)"
+
+          SYSTEM="You are the triage assistant for Day One, a phone-first reentry-simulator game: an installable offline React PWA whose content (characters, events) is authored as YAML data and whose engine is pure TypeScript. A contributor just filed an issue. Assess it FOR the maintainer, who makes the final call. Cover, briefly: (1) is it clear and actionable, or what's missing; (2) is it on-thesis — does it hold to the design north stars below (barriers are data, setbacks not game-overs, scored on trajectory, two audiences on one engine); (3) for a new character or event, sketch how it would map to the data model (an origin YAML, or an event with choices + conditions). Output a SHORT markdown note: a one-line summary, an assessment (looks actionable / needs info / may not fit — with the why), and a recommended next step. Be concrete and kind. Do not role-play as the maintainer, and do not close, finalize, or label anything — this is only a suggestion."
+
+          USER="$(printf 'Design north stars (excerpt from docs/DESIGN.md):\n---\n%s\n---\n\nISSUE TITLE: %s\n\nISSUE BODY:\n%s' "$DESIGN" "$ISSUE_TITLE" "$ISSUE_BODY")"
+
+          PAYLOAD="$(jq -n \
+            --arg m "claude-sonnet-4-6" \
+            --arg s "$SYSTEM" \
+            --arg u "$USER" \
+            '{model: $m, max_tokens: 1024, system: $s, messages: [{role: "user", content: $u}]}')"
+
+          RESP="$(curl -sS https://api.anthropic.com/v1/messages \
+            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "$PAYLOAD")"
+
+          TEXT="$(printf '%s' "$RESP" | jq -r '.content[0].text // empty' 2>/dev/null || true)"
+          if [ -z "$TEXT" ]; then
+            echo "No triage text returned; leaving the issue untouched. Raw response (truncated):"
+            printf '%s' "$RESP" | head -c 1500
+            exit 0
+          fi
+
+          BODY="$(printf '🤖 **Automated triage** — a first read to help the maintainer, not a decision.\n\n%s\n\n---\n_New work is held to the [design north stars](https://github.com/brett-buskirk/day-one/blob/main/docs/DESIGN.md); a maintainer will confirm._' "$TEXT")"
+          gh issue comment "$ISSUE_NUMBER" --body "$BODY"

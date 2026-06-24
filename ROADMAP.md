@@ -60,18 +60,14 @@ second live playtest.
 - **Facilitator guide** — a short doc for running the classroom/group mode (shared seed
   codes, debrief discussion prompts) in a training or workshop setting.
 
-### Contributor pipeline
+### Contributor pipeline ✓
 
-The on-ramp is mostly in place (see [`CHANGELOG.md`](CHANGELOG.md)): the repo's **labels,
-milestones, and project board**; a **"view source"** link in the app; and structured
-**issue forms** (bug, feature, archetype, event) that land submissions organized and ready
-to triage. What's left:
-
-- **(Stretch) AI-assisted issue triage, human-in-the-loop** — a GitHub Action that runs
-  Claude on a newly filed issue to check it's well-formed, on-thesis (holds to the
-  `docs/DESIGN.md` north stars), and not a duplicate, then labels and summarizes it for
-  **maintainer approval**. Approved issues get actioned on a branch + PR. Claude triages
-  and drafts; a human always decides.
+The on-ramp is in place (details in [`CHANGELOG.md`](CHANGELOG.md)): the repo's **labels,
+milestones, and project board**; a **"view source"** link; structured **issue forms** (bug,
+feature, archetype, event); and an **AI-assisted triage** GitHub Action that posts a Claude
+first-read — well-formed? on-thesis? how would it map to the data model? — on each new issue
+for **maintainer review** (human-in-the-loop; it never decides, labels-as-final, or actions).
+One step activates it: add an `ANTHROPIC_API_KEY` repository secret.
 
 ### Deployment
 

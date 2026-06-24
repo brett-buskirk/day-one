@@ -14,7 +14,9 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   contribution (the story and barriers for a build; the situation, tradeoffs, and lived-
   experience "why" for an event) and auto-apply the right labels. Because content is data
   (YAML), the archetype/event forms map almost one-to-one onto a real change. (The repo's
-  labels, milestones, and project board were set up earlier; AI-assisted triage is next.)
+  labels, milestones, and project board were set up earlier; an **AI triage Action** now
+  posts a Claude first-read on each new issue for maintainer review, once an `ANTHROPIC_API_KEY`
+  secret is configured.)
 - **Import a run by file upload.** A full exported run is large, and pasting it into the
   import box — especially on a phone — can silently get truncated ("that doesn't look like a
   Day One run"). The import screen now has an **Upload .json file** option that reads the

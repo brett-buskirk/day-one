@@ -34,6 +34,7 @@ import { EventDetail } from "./ui/EventDetail";
 import { DebriefScreen } from "./ui/DebriefScreen";
 import { HelpScreen } from "./ui/HelpScreen";
 import { UpdatePrompt } from "./ui/UpdatePrompt";
+import { SECURE_BUILD } from "./ui/build";
 
 type View = "landing" | "about" | "start" | "onboarding" | "playing" | "debrief" | "help";
 
@@ -236,7 +237,7 @@ export default function App() {
         />
       )}
 
-      {view === "help" && (
+      {!SECURE_BUILD && view === "help" && (
         <HelpScreen resources={corpus.resources ?? []} onBack={() => setView(helpReturn)} />
       )}
 

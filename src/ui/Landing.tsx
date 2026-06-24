@@ -1,5 +1,6 @@
 import type { Accent, ThemeMode } from "../theme";
 import { ThemeControls } from "./ThemeControls";
+import { SECURE_BUILD } from "./build";
 
 interface Props {
   hasSavedRun: boolean;
@@ -53,9 +54,11 @@ export function Landing({
         </button>
       </div>
 
-      <button type="button" className="help-link" onClick={onHelp}>
-        Where to get help
-      </button>
+      {!SECURE_BUILD && (
+        <button type="button" className="help-link" onClick={onHelp}>
+          Where to get help
+        </button>
+      )}
 
       <ThemeControls mode={themeMode} accent={accent} onMode={onThemeMode} onAccent={onAccent} />
 

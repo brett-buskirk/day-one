@@ -1,4 +1,5 @@
 import { HowYouPlay } from "./HowYouPlay";
+import { SECURE_BUILD } from "./build";
 
 interface Props {
   onBack: () => void;
@@ -70,25 +71,29 @@ export function AboutScreen({ onBack, onPlay, onHelp }: Props) {
           people walking the same road. The barriers here aren't imagined; they're
           remembered.
         </p>
-        <p className="muted">
-          It's open source.{" "}
-          <a
-            href="https://github.com/brett-buskirk/day-one"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View the code, or propose a build, event, or fix on GitHub
-          </a>
-          .
-        </p>
+        {!SECURE_BUILD && (
+          <p className="muted">
+            It's open source.{" "}
+            <a
+              href="https://github.com/brett-buskirk/day-one"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View the code, or propose a build, event, or fix on GitHub
+            </a>
+            .
+          </p>
+        )}
       </section>
 
       <button type="button" className="primary big" onClick={onPlay}>
         Play
       </button>
-      <button type="button" className="help-link" onClick={onHelp}>
-        Where to get help
-      </button>
+      {!SECURE_BUILD && (
+        <button type="button" className="help-link" onClick={onHelp}>
+          Where to get help
+        </button>
+      )}
       <button type="button" className="link-btn" onClick={onBack}>
         ← Back
       </button>

@@ -171,8 +171,10 @@ export function compileContent(opts = {}) {
 
   // Resource-pointer hook (DESIGN §10): a site fills content/resources.yaml per
   // jurisdiction; the training debrief renders these when present. Empty by default.
+  // A secure-facility build (VITE_SECURE_BUILD=1) omits them from the bundle entirely —
+  // pairs with the UI gating in src/ui/build.ts so there are no outside-world surfaces.
   let resources = [];
-  if (existsSync(resourcesFile)) {
+  if (!process.env.VITE_SECURE_BUILD && existsSync(resourcesFile)) {
     const parsed = loadYaml(resourcesFile);
     if (parsed && Array.isArray(parsed.resources)) resources = parsed.resources;
   }

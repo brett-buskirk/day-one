@@ -1,0 +1,57 @@
+name: New character (archetype)
+description: Propose a new returning-citizen build to play.
+title: "[Archetype]: "
+labels: ["content: archetype", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A character is authored as **data** (an origin YAML): chargen turns their story into starting pools, tracks, and flags. This form captures the human story and the barriers — difficulty is authored in the data, never in code, and barriers are framed as barriers, never moral judgment.
+  - type: input
+    id: name-age
+    attributes:
+      label: Name and age
+      placeholder: "e.g. Marcus, 34"
+    validations:
+      required: true
+  - type: textarea
+    id: story
+    attributes:
+      label: Their story
+      description: Who they are, how long inside, the general shape of the offense (a category, not a verdict), and what they're coming home to.
+    validations:
+      required: true
+  - type: textarea
+    id: barriers
+    attributes:
+      label: The barriers they face — and what it teaches
+      description: What makes their first 90 days hard, and what playing them conveys that the current roster doesn't.
+    validations:
+      required: true
+  - type: dropdown
+    id: supervision
+    attributes:
+      label: Supervision
+      options:
+        - Parole
+        - Probation
+        - Home detention
+        - None (maxed out — no officer, no structure)
+    validations:
+      required: true
+  - type: textarea
+    id: landing
+    attributes:
+      label: Day one — what they come home to
+      description: Night-one housing (street / shelter / a couch / transitional / …), support (isolated → a real network), documents they hold or lack, a phone or laptop (or not), how they get around, and roughly the money in their pocket.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you file
+      options:
+        - label: This is grounded in lived experience, and frames barriers as barriers — never moral judgment.
+          required: true
+        - label: I searched existing issues and this isn't a duplicate.
+          required: true

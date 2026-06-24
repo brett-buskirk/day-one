@@ -262,7 +262,7 @@ A build has two layers:
   function maps origin → state, so new characters are authored as data, not code.
 
 For v1, ship a handful of **hand-authored archetypes** (curated, coherent, each a
-teaching scenario). *(Shipped: five — Marcus, Renae, Dana, Theo, and Ray; see below.
+teaching scenario). *(Shipped: nine — see the roster below.
 Random generation — once scoped as v2 — also shipped, behind a "Surprise me" option:
 `randomOrigin(seed)`.)*
 
@@ -551,6 +551,6 @@ Not in the walking skeleton, deliberately. *(Status added post-v1.0.0.)*
   (`content/resources.yaml` ships verified national resources, rendered in the training
   debrief); a jurisdiction-specific directory / selector is still future.
 - A deep build on any single track — v1 stayed thin across all four; the depth since
-  has been breadth *across* tracks (now 35 events), not one track deep.
+  has been breadth *across* tracks (now 55 events), not one track deep.
 
 When in doubt, ship the skeleton thin and complete rather than one track deep.

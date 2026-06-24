@@ -23,7 +23,7 @@ function CostChips({ event, state, choice }: { event: GameEvent; state: GameStat
   const slots = effectiveSlotCost(state, event, choice);
   const money = choice.cost?.money ?? 0;
   const travelMult = event.requires_travel ? transportFactor(state.pools.transportation) : 1;
-  if (slots === 0 && money === 0) return <span className="chip chip-free">No cost</span>;
+  if (slots === 0 && money === 0) return <span className="chip chip-free">Free</span>;
   return (
     <>
       {slots > 0 && (

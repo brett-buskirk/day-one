@@ -151,8 +151,8 @@ export function TurnScreen({
       </section>
 
       {pending.length > 0 && (
-        <section className="block block-incidents" aria-label="This week interrupts">
-          <h2 className="block-title">This week interrupts</h2>
+        <section className="block block-incidents" aria-label="Interruptions this week">
+          <h2 className="block-title">Interruptions this week</h2>
           <ul className="card-list">
             {pending.map((e) => (
               <li key={e.id}>
@@ -160,7 +160,7 @@ export function TurnScreen({
                   type="button"
                   className="card card-incident"
                   onClick={() => onOpenEvent(e.id)}
-                  aria-label={`${e.title} — interrupt, resolve now`}
+                  aria-label={`${e.title} — interruption, resolve now`}
                 >
                   <span className="card-title">{e.title}</span>
                   <span className="card-cta">Resolve →</span>
@@ -199,7 +199,7 @@ export function TurnScreen({
               );
             })}
           </ul>
-          <p className="muted small">Skip these and the week files a violation — your standing slips.</p>
+          <p className="muted small">Skip these and a violation follows — your standing slips.</p>
         </section>
       )}
 

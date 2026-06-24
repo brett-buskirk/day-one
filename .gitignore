@@ -50,3 +50,8 @@ node_modules/.tmp/
 # OS
 .DS_Store
 Thumbs.db
+
+# Private working notes — playtest reviews, feedback, and run dumps stay local, not public.
+# (The reusable Plaud → Claude Code template under docs/plaud/ IS committed; the raw reviews
+# that template produces are not.)
+docs/reviews/

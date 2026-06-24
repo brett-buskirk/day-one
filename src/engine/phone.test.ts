@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { corpus } from "../content/corpus";
-import { createRun, beginTurn, eligibleActions } from "./index";
+import { createRun, beginTurn, eligibleActions, isChoiceUnlocked } from "./index";
 import { PHONE_PLAN_FEE } from "./tuning";
 
 const eligibleIds = (s: ReturnType<typeof createRun>) =>
@@ -57,5 +57,20 @@ describe("the phone (a recurring cost, not a gate)", () => {
     // absent without one — but the phone-less still have every in-person path.
     expect(eligibleIds(createRun(corpus, "gloria", { seed: 1 })).has("evt_work_the_phone")).toBe(true);
     expect(eligibleIds(createRun(corpus, "marcus", { seed: 1 })).has("evt_work_the_phone")).toBe(false);
+  });
+
+  it("'Work the phone' swaps its choices by job state — hunt when jobless, maintain when employed", () => {
+    const e = corpus.events["evt_work_the_phone"];
+    const chase = e.choices.find((c) => c.id === "chase_leads")!;
+    const maintain = e.choices.find((c) => c.id === "maintain_job")!;
+    const base = createRun(corpus, "gloria", { seed: 1 }); // has a phone
+
+    const jobless = { ...base, flags: { ...base.flags, has_job: false } };
+    expect(isChoiceUnlocked(jobless, chase)).toBe(true);
+    expect(isChoiceUnlocked(jobless, maintain)).toBe(false);
+
+    const employed = { ...base, flags: { ...base.flags, has_job: true } };
+    expect(isChoiceUnlocked(employed, chase)).toBe(false); // no more job-hunting once working
+    expect(isChoiceUnlocked(employed, maintain)).toBe(true);
   });
 });

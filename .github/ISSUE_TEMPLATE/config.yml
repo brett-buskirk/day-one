@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: The design north stars
+    url: https://github.com/brett-buskirk/day-one/blob/main/docs/DESIGN.md
+    about: What Day One is, and the principles any change holds to — worth a skim before proposing one.
+  - name: How contributions land
+    url: https://github.com/brett-buskirk/day-one/blob/main/CONTRIBUTING.md
+    about: The workflow — branch → PR → green CI → merge.

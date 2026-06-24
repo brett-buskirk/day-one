@@ -1,0 +1,50 @@
+name: Bug report
+description: Something in the game isn't working as expected.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping make Day One better. The more reproducible the better — a run code makes it exact.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What went wrong, and where in the game?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: input
+    id: run-code
+    attributes:
+      label: Character / mode / run code
+      description: The `character.mode.seed` code (from the ⓘ info card or the debrief) makes it reproducible. Which build, and what week?
+      placeholder: "e.g. theo.empathy.2026 — around week 8"
+  - type: input
+    id: device
+    attributes:
+      label: Device / browser
+      placeholder: "e.g. iPhone Safari, Chrome on Android"
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you file
+      options:
+        - label: I searched existing issues and this isn't a duplicate.
+          required: true

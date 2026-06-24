@@ -8,6 +8,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **A path to contribute.** A "view source" link on the About page, and four structured
+  **issue forms** — bug report, feature request, **archetype request** (a new character), and
+  **event request** (a new situation). They capture what's actually needed to author a
+  contribution (the story and barriers for a build; the situation, tradeoffs, and lived-
+  experience "why" for an event) and auto-apply the right labels. Because content is data
+  (YAML), the archetype/event forms map almost one-to-one onto a real change. (The repo's
+  labels, milestones, and project board were set up earlier; AI-assisted triage is next.)
 - **Import a run by file upload.** A full exported run is large, and pasting it into the
   import box — especially on a phone — can silently get truncated ("that doesn't look like a
   Day One run"). The import screen now has an **Upload .json file** option that reads the

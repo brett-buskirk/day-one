@@ -1,0 +1,60 @@
+name: New event (a situation)
+description: Propose a new decision point — a situation with real tradeoffs.
+title: "[Event]: "
+labels: ["content: event", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Events are authored as **data** (a YAML event): a situation, and choices whose outcomes move the pools/tracks. Barriers live in a choice's `requires` or an event's `conditions`, never hardcoded. No free wins — and no "you lost": setbacks branch and recover.
+  - type: textarea
+    id: situation
+    attributes:
+      label: The situation
+      description: What's happening — the prompt the player sees.
+    validations:
+      required: true
+  - type: textarea
+    id: choices
+    attributes:
+      label: The choices and their tradeoffs
+      description: Each choice should cost or gain something real — time (days), money, morale, support, standing. What does each one do?
+    validations:
+      required: true
+  - type: input
+    id: applies-to
+    attributes:
+      label: When / to whom does it apply?
+      description: Which build(s), week, or condition (e.g. only on parole, only once you have a job). This becomes the event's conditions.
+      placeholder: "e.g. anyone on probation, mid-game"
+  - type: dropdown
+    id: pools
+    attributes:
+      label: What does it mainly touch?
+      multiple: true
+      options:
+        - Money
+        - Morale
+        - Support
+        - Transportation
+        - Health
+        - Employment
+        - Housing
+        - Legal standing
+        - Relationships
+  - type: textarea
+    id: why
+    attributes:
+      label: The lived-experience reason
+      description: The "why" behind it — the reality it captures. This is the most valuable part.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you file
+      options:
+        - label: It's recoverable (no fail screen), and the barrier is a condition/requirement rather than hardcoded.
+          required: true
+        - label: I searched existing issues and this isn't a duplicate.
+          required: true

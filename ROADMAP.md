@@ -62,16 +62,11 @@ second live playtest.
 
 ### Contributor pipeline
 
-Make it easy for visitors to contribute — with a guard rail. (The headliner for an
-upcoming release.)
+The on-ramp is mostly in place (see [`CHANGELOG.md`](CHANGELOG.md)): the repo's **labels,
+milestones, and project board**; a **"view source"** link in the app; and structured
+**issue forms** (bug, feature, archetype, event) that land submissions organized and ready
+to triage. What's left:
 
-- **"View source" link in the app** — a GitHub link (e.g. on the About page) so anyone
-  can find and read the code.
-- **Issue templates** — bug report, feature request, **archetype request**, and **event
-  request** forms, so visitors have a clear, structured path to propose ideas.
-- **Project board, labels, and milestones** — set up the repo's issue/PR management
-  (labels by type / area / priority; milestones per release) so contributions can be
-  triaged and tracked.
 - **(Stretch) AI-assisted issue triage, human-in-the-loop** — a GitHub Action that runs
   Claude on a newly filed issue to check it's well-formed, on-thesis (holds to the
   `docs/DESIGN.md` north stars), and not a duplicate, then labels and summarizes it for

@@ -1,0 +1,44 @@
+name: Feature or mechanic idea
+description: A new mechanic, UX improvement, or system change. (For a new character or event, use the dedicated forms.)
+title: "[Feature]: "
+labels: ["feature", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For a new **character** or **event**, please use the dedicated forms — they capture what's needed to author it. This form is for mechanics, UX, and systems.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem or gap
+      description: What's missing or frustrating today?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: What you'd like to see
+    validations:
+      required: true
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Who is it for?
+      options:
+        - Training (returning citizens rehearsing decisions)
+        - Empathy (outsiders feeling the wall)
+        - Both
+    validations:
+      required: true
+  - type: textarea
+    id: north-stars
+    attributes:
+      label: How does it fit the design?
+      description: "Day One's north stars (see docs/DESIGN.md): barriers are data, setbacks not game-overs, scored on trajectory, two audiences on one engine. How does your idea hold to them?"
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you file
+      options:
+        - label: I searched existing issues and this isn't a duplicate.
+          required: true

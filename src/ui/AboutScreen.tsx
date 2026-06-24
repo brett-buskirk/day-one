@@ -70,6 +70,17 @@ export function AboutScreen({ onBack, onPlay, onHelp }: Props) {
           people walking the same road. The barriers here aren't imagined; they're
           remembered.
         </p>
+        <p className="muted">
+          It's open source.{" "}
+          <a
+            href="https://github.com/brett-buskirk/day-one"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View the code, or propose a build, event, or fix on GitHub
+          </a>
+          .
+        </p>
       </section>
 
       <button type="button" className="primary big" onClick={onPlay}>

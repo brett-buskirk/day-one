@@ -69,13 +69,13 @@ first-read — well-formed? on-thesis? how would it map to the data model? — o
 for **maintainer review** (human-in-the-loop; it never decides, labels-as-final, or actions).
 One step activates it: add an `ANTHROPIC_API_KEY` repository secret.
 
-### Deployment
+### Deployment ✓
 
-- **Secure-facility build mode** — incarcerated users often can't reach the outside world,
-  so a build flag should strip the **"Where to get help"** resource directory (and any
-  external links) for deployments into secure environments. Lean toward a *build-time* mode
-  — a separate artifact with the resources omitted from the bundle entirely, so there are
-  no dead links — over a runtime toggle.
+- **Secure-facility build mode** — shipped (details in [`CHANGELOG.md`](CHANGELOG.md) /
+  [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)): `VITE_SECURE_BUILD=1 npm run build` is a
+  build-time artifact that strips the **"Where to get help"** resources (omitted from the
+  bundle entirely) and the GitHub link, so a secure-environment deployment has no
+  outside-world surfaces to dead-end on.
 
 ## Later / ideas
 

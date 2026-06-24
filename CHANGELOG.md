@@ -21,6 +21,12 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   import box — especially on a phone — can silently get truncated ("that doesn't look like a
   Day One run"). The import screen now has an **Upload .json file** option that reads the
   exported file directly, sidestepping the paste; the paste error also points you to it.
+- **Secure-facility build mode.** `VITE_SECURE_BUILD=1 npm run build` produces a separate
+  artifact for deployments inside secure facilities — where residents can't dial a number or
+  open a link. It strips every outside-world surface: the "Where to get help" resource
+  directory (the data is **omitted from the bundle entirely**, not just hidden) and the About
+  page's GitHub link. Everything else — the full simulation, both modes, install/offline — is
+  identical. See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ### Fixed
 - **"Work the phone" adapts to whether you have a job.** Once you'd landed work, the action

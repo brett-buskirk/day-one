@@ -25,6 +25,29 @@ need to be in git.
 
 ---
 
+## Secure-facility build (no outside-world surfaces)
+
+For deployments inside a secure facility — where residents can't dial a phone number or
+open a URL — build with the `VITE_SECURE_BUILD` flag:
+
+```bash
+VITE_SECURE_BUILD=1 npm run build      # → dist/  (a secure-facility artifact)
+```
+
+This is a **separate build of the same code**, not a runtime toggle, so there is nothing
+to dead-end on. Compared to the normal build it strips every outside-world surface:
+
+- the **"Where to get help"** resource directory — the `HelpScreen` and its entry points
+  (landing, About, the in-game info card, the debrief) are gone, and the resource data is
+  **omitted from the bundle entirely** (the content pipeline emits `resources: []`);
+- the **"view source" GitHub link** on the About page.
+
+Everything else — the full simulation, training/empathy modes, install/offline — is
+identical. Deploy `dist/` exactly as below (nginx / Docker / static host). A quick check:
+`grep -rl 'dial 211\|github.com' dist/assets/*.js` should return nothing.
+
+---
+
 ## Self-host with nginx
 
 1. Build (above), then copy `dist/` to your web root, e.g. `/var/www/day-one`.

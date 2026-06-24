@@ -19,6 +19,7 @@ import { ConfirmDialog } from "./ConfirmDialog";
 import { InfoModal } from "./InfoModal";
 import { HowYouPlay } from "./HowYouPlay";
 import { CharacterPanel } from "./CharacterPanel";
+import { SECURE_BUILD } from "./build";
 
 interface Props {
   state: GameState;
@@ -272,16 +273,18 @@ export function TurnScreen({
       {showInfo && (
         <InfoModal title="How to play" onClose={() => setShowInfo(false)}>
           <HowYouPlay />
-          <button
-            type="button"
-            className="help-link"
-            onClick={() => {
-              setShowInfo(false);
-              onHelp();
-            }}
-          >
-            Where to get help
-          </button>
+          {!SECURE_BUILD && (
+            <button
+              type="button"
+              className="help-link"
+              onClick={() => {
+                setShowInfo(false);
+                onHelp();
+              }}
+            >
+              Where to get help
+            </button>
+          )}
         </InfoModal>
       )}
 

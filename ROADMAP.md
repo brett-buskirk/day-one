@@ -10,8 +10,15 @@ land one.
 
 ## Recently shipped
 
-Through the latest `[Unreleased]` (see [`CHANGELOG.md`](CHANGELOG.md) for detail):
+Through **v1.6.0** (see [`CHANGELOG.md`](CHANGELOG.md) for detail):
 
+- **The contributor pipeline** — structured issue forms (bug / feature / archetype /
+  event), a "view source" link, and an AI-assisted triage Action that posts a Claude
+  first-read on each new issue for maintainer review.
+- **Secure-facility build mode** — `VITE_SECURE_BUILD=1` ships a separate artifact with the
+  "Where to get help" resources and external links stripped, for in-facility deployments.
+- **Court debt with teeth** — ignore it once you're earning and it garnishes your paycheck
+  weekly, then escalates to a bench-warrant crisis.
 - **Nine character archetypes** + a generated random build; training and empathy modes —
   including a young first-timer, a "has it all" contrast build, and a parent with a
   **custody arc** (weekly supervised visits + a stability-gated hearing).
@@ -59,23 +66,6 @@ second live playtest.
 
 - **Facilitator guide** — a short doc for running the classroom/group mode (shared seed
   codes, debrief discussion prompts) in a training or workshop setting.
-
-### Contributor pipeline ✓
-
-The on-ramp is in place (details in [`CHANGELOG.md`](CHANGELOG.md)): the repo's **labels,
-milestones, and project board**; a **"view source"** link; structured **issue forms** (bug,
-feature, archetype, event); and an **AI-assisted triage** GitHub Action that posts a Claude
-first-read — well-formed? on-thesis? how would it map to the data model? — on each new issue
-for **maintainer review** (human-in-the-loop; it never decides, labels-as-final, or actions).
-One step activates it: add an `ANTHROPIC_API_KEY` repository secret.
-
-### Deployment ✓
-
-- **Secure-facility build mode** — shipped (details in [`CHANGELOG.md`](CHANGELOG.md) /
-  [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)): `VITE_SECURE_BUILD=1 npm run build` is a
-  build-time artifact that strips the **"Where to get help"** resources (omitted from the
-  bundle entirely) and the GitHub link, so a secure-environment deployment has no
-  outside-world surfaces to dead-end on.
 
 ## Later / ideas
 

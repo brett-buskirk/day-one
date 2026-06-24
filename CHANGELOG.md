@@ -7,6 +7,8 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-06-24
+
 ### Added
 - **A path to contribute.** A "view source" link on the About page, and four structured
   **issue forms** — bug report, feature request, **archetype request** (a new character), and
@@ -367,7 +369,10 @@ after release, one weekly turn at a time, as an installable, offline PWA.
 ### Deployed
 - Live at [dayone-sim.app](https://dayone-sim.app) on DigitalOcean App Platform.
 
-[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/brett-buskirk/day-one/compare/v1.5.0...v1.6.0
+[1.5.0]: https://github.com/brett-buskirk/day-one/compare/v1.4.0...v1.5.0
+[1.4.0]: https://github.com/brett-buskirk/day-one/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/brett-buskirk/day-one/compare/v1.2.2...v1.3.0
 [1.2.2]: https://github.com/brett-buskirk/day-one/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/brett-buskirk/day-one/compare/v1.2.0...v1.2.1

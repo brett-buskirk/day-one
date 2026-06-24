@@ -119,7 +119,7 @@ npm run dev        # validates + compiles content, then serves at http://localho
 | ---- | ------- | ----- |
 | Play / develop (hot reload) | `npm run dev` | http://localhost:5173 |
 | Test PWA install + offline | `npm run build && npm run preview` | http://localhost:4173 — the service worker only runs in the production build |
-| Run the test suite | `npm test` | Vitest (engine + end-to-end playthrough) |
+| Run the test suite | `npm test` | Vitest (engine + per-sprint + end-to-end playthrough) |
 | Typecheck | `npm run typecheck` | `tsc -b`, no emit |
 | Compile content only | `npm run build:content` | YAML → `src/content/corpus.generated.json` |
 | Regenerate PWA icons | `npm run icons` | procedural sunrise PNGs |
@@ -168,11 +168,12 @@ day-one/
 │   ├── DESIGN.md                 the design source of truth
 │   ├── DEPLOYMENT.md             self-host / Docker / DigitalOcean guides
 │   ├── SPRINTS.md                build roadmap
+│   ├── plaud/                    the voice-note → Claude Code template (+ a README)
 │   └── screenshots/              images used in this README
 ├── schema/
 │   └── event.schema.json         JSON Schema authored events validate against
 ├── content/
-│   ├── characters/*.yaml         the five archetypes (origins)
+│   ├── characters/*.yaml         the nine archetypes (origins)
 │   ├── events/*.yaml             authored events (the "world")
 │   └── resources.yaml            reentry resources (national baseline + local hook)
 ├── scripts/

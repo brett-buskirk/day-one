@@ -298,7 +298,7 @@ export default function App() {
         <DebriefScreen
           state={state}
           corpus={corpus}
-          characterName={originFor(state.characterId, state.seed)?.name ?? "they"}
+          characterName={originFor(state.characterId, state.seed)?.name ?? "this person"}
           onPlayAgain={handlePlayAgain}
         />
       )}

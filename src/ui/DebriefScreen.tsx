@@ -42,7 +42,7 @@ export function DebriefScreen({ state, corpus, characterName, onPlayAgain }: Pro
         </ul>
       </section>
 
-      <section className="block" aria-label="How it landed here">
+      <section className="block" aria-label="Why it landed here">
         <h2 className="block-title">Why it landed here</h2>
         <p className="trajectory">{debrief.trajectoryNote}</p>
         <ul className="why">

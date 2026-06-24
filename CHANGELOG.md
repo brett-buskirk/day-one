@@ -7,6 +7,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Fixed
+- **Docs + copy accuracy pass.** Corrected a stale event count (35 → 55) in the spec and
+  build-log docs; fixed a debrief section whose `aria-label` ("How it landed here") didn't
+  match its visible heading ("Why it landed here"); and tightened in-game wording — errands
+  cost "days" not "time", a clearer "Interruptions this week" heading, the zero-cost chip
+  reads "Free", and a richer page `<title>` and social-preview description.
+
 ## [1.6.0] - 2026-06-24
 
 ### Added

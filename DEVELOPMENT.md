@@ -189,9 +189,9 @@ Everything past the original roadmap, built out before the first release:
   first **unsupervised "max-out"** build. Since then: housing & transport **ladders**
   (you only move up), **random life events** (one loss or blessing per run), and three
   more archetypes — **Jaylen** (young first-timer), **Gloria** ("has it all"), and
-  **Tasha** (a reunifying parent with a custody arc) — bringing the roster to **nine**
-  and the corpus to **35 events**. The character-select screen was redesigned (avatars,
-  unique tags, expandable cards).
+  **Tasha** (a reunifying parent with a custody arc) — bringing the roster to **nine**.
+  The corpus has since grown to **55 events** across all tracks, and the character-select
+  screen was redesigned (avatars, unique tags, expandable cards).
 - **Still open:** the local resource listings above, deeper per-track content and the
   custody arc, plus ongoing balance/field-testing. See [`ROADMAP.md`](ROADMAP.md).
 ```

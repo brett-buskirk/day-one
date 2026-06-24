@@ -58,7 +58,7 @@ export function AboutScreen({ onBack, onPlay, onHelp }: Props) {
         <HowYouPlay />
         <p className="muted">
           You choose who to play — nine hand-built people, or a randomly generated
-          one (Surprise me) — and why you're here (practice, or feel-the-wall).
+          one (Surprise me) — and why you're here (to practice, or to feel the wall).
           Throughout, the system models barriers and consequences — never moral
           judgment.
         </p>
@@ -79,7 +79,7 @@ export function AboutScreen({ onBack, onPlay, onHelp }: Props) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              View the code, or propose a build, event, or fix on GitHub
+              View the code, or propose a character, event, or fix on GitHub
             </a>
             .
           </p>

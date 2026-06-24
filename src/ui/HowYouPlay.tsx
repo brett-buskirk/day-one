@@ -11,7 +11,7 @@ export function HowYouPlay() {
         You juggle five things — <strong>money, morale, support, getting around,
         and health</strong> — and they trade off.
       </li>
-      <li>Errands cost <strong>time</strong> — more when you can't get around easily.</li>
+      <li>Errands cost <strong>days</strong> — more when you can't get around easily.</li>
       <li>
         The right move often shows up <strong>locked</strong>, with the reason.
         Seeing the wall before you can climb it <em>is</em> the point.

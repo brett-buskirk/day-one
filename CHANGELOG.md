@@ -7,6 +7,18 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+- **Import a run by file upload.** A full exported run is large, and pasting it into the
+  import box — especially on a phone — can silently get truncated ("that doesn't look like a
+  Day One run"). The import screen now has an **Upload .json file** option that reads the
+  exported file directly, sidestepping the paste; the paste error also points you to it.
+
+### Fixed
+- **"Work the phone" adapts to whether you have a job.** Once you'd landed work, the action
+  still offered *job-search* calls — the wrong loop. Now it gates by job state: **chase job
+  leads** when you're hunting, **keep the job running** (shifts, logistics, HR) once you're
+  employed — and *staying connected* either way.
+
 ### Changed
 - **Court debt now bites if you ignore it — and escalates.** "The court wants its money" had
   no teeth; you could skip it all game with no blowback, which isn't how legal financial

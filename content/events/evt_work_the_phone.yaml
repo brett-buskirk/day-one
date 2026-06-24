@@ -14,13 +14,16 @@ conditions:
 
 prompt: >
   A phone in your hand means the legwork doesn't need a bus fare. An afternoon you could
-  spend chasing down work — or keeping the people in your corner close.
+  spend chasing down work — or holding onto the work you've got — and keeping the people in
+  your corner close.
 
 choices:
 
   - id: chase_leads
     quality: durable
     label: Calls and online applications — chase job leads
+    requires:
+      - flags.has_job == false # job-hunting only; once you're working, the phone's job shifts
     cost: { slots: 1 }
     outcomes:
       - weight: 65
@@ -36,6 +39,21 @@ choices:
             Voicemails and auto-rejections, mostly — but a line in the water is a line in
             the water, and it cost you a fare you didn't pay.
           tracks: { employment: { readiness: 3 } }
+
+  - id: maintain_job
+    quality: durable
+    label: Keep the job — confirm shifts, sort the logistics
+    requires:
+      - flags.has_job == true # the phone's job once employed: holding onto the one you have
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: morale, scale: 0.1 }
+        effects:
+          text: >
+            Schedules confirmed, a ride lined up, the supervisor squared away, that HR form
+            finally in. The unglamorous calls that keep a paycheck a paycheck.
+          pools: { morale: 6, money: 4 }
 
   - id: stay_connected
     quality: durable

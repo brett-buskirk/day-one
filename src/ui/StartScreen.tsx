@@ -108,8 +108,26 @@ export function StartScreen({
     try {
       onImport(importText.trim());
     } catch {
-      setImportError("That doesn't look like a Day One run. Paste the full exported text.");
+      setImportError(
+        "That doesn't look like a complete Day One run — a long paste can get cut off on a phone. Try uploading the .json file instead."
+      );
     }
+  };
+
+  // Full runs are large; pasting them (especially on a phone) can truncate. Reading the
+  // exported .json file directly sidesteps the paste entirely.
+  const importFile = (file: File) => {
+    setImportError(null);
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        onImport(String(reader.result ?? "").trim());
+      } catch {
+        setImportError("That file doesn't look like a Day One run.");
+      }
+    };
+    reader.onerror = () => setImportError("Couldn't read that file — try again.");
+    reader.readAsText(file);
   };
 
   const playSharedCode = () => {
@@ -259,7 +277,10 @@ export function StartScreen({
 
       <details className="disclosure">
         <summary>Import a run</summary>
-        <p className="muted small">Paste a run someone exported to pick it up where they left off.</p>
+        <p className="muted small">
+          Pick up a run someone exported. Paste the text — or, more reliably for a full run
+          (a long paste can get cut off on a phone), upload the <code>.json</code> file.
+        </p>
         <label className="sr-only" htmlFor="import-run">
           Exported run text
         </label>
@@ -272,9 +293,24 @@ export function StartScreen({
           placeholder="Paste exported run text…"
         />
         {importError && <p className="choice-why">{importError}</p>}
-        <button type="button" className="primary" onClick={tryImport} disabled={!importText.trim()}>
-          Load run
-        </button>
+        <div className="import-actions">
+          <button type="button" className="primary" onClick={tryImport} disabled={!importText.trim()}>
+            Load pasted run
+          </button>
+          <label className="link-btn import-upload">
+            Upload .json file
+            <input
+              type="file"
+              accept=".json,application/json"
+              className="sr-only"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) importFile(f);
+                e.target.value = ""; // allow re-picking the same file
+              }}
+            />
+          </label>
+        </div>
       </details>
 
       <button type="button" className="link-btn" onClick={onBack}>

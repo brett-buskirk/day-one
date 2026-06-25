@@ -1,0 +1,35 @@
+id: evt_support_group
+kind: action
+title: Keep your people close
+tags: [relationships, support]
+repeatable: true
+
+# A standing source of support for builds not in formal recovery — a community or faith
+# group, a mentor, the people who notice when you go quiet. Earns the same "kept a support
+# routine" milestone that recovery meetings do, so support is a path open to every build,
+# not only those in recovery. (Recovery builds get evt_recovery_meeting instead.)
+conditions:
+  - flags.in_recovery_support == false
+
+prompt: >
+  Nobody walks the first ninety days alone and comes out whole. There's a standing thing
+  you could be part of — a church basement, a community center, an old mentor's porch —
+  people who'll notice if you stop showing up. An hour you could spend earning. An hour
+  that's also how you stay upright.
+
+choices:
+
+  - id: show_up
+    quality: durable
+    label: Show up — keep the circle
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        modifier: { stat: social_capital, scale: 0.1 }
+        effects:
+          text: >
+            Familiar faces, a little honesty, someone who asks how you're really doing and
+            waits for the real answer. You leave steadier than you came — and harder for the
+            weeks to swallow whole.
+          pools: { morale: 5, social_capital: 4, health: 3 }
+          flags: { kept_support_routine: true }

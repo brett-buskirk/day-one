@@ -7,6 +7,17 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Changed
+- **Milestones now fit the build you're playing.** The debrief scored every run against the
+  same fixed seven — so "Parole in good standing" quietly **auto-passed** for a maxed-out,
+  unsupervised build (Cal), and "Stayed in recovery support" was a **permanent, impossible
+  miss** for anyone not in recovery (it was a chargen flag, never actually earned). Now
+  milestones only count the paths a build can walk: **"Supervision in good standing"** applies
+  only to supervised builds, and **"Kept a support routine"** replaces the recovery freebie —
+  an *earned* milestone open to everyone, via recovery meetings for those in recovery and a
+  new **community / faith / mentorship circle** ("Keep your people close") for everyone else.
+  The debrief's "n of N" is honest per build now.
+
 ### Fixed
 - **The second-stage arcs wait for the mid-game now.** "Reach back," "The body keeps the
   score," and "Make the call you've been avoiding" gated on employment alone, so they opened

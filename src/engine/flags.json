@@ -12,6 +12,8 @@
     "has_cert_webdev",
     "has_job",
     "in_recovery_support",
+    "kept_support_routine",
+    "was_supervised",
     "registry_required",
     "has_resume",
     "has_clinic",

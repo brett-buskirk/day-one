@@ -120,6 +120,9 @@ function deriveFlags(origin: CharacterOrigin): Flags {
   // Credentials earned inside (e.g. "cert_webdev" -> has_cert_webdev).
   for (const cred of origin.person.credentials ?? []) flags[`has_${cred}`] = true;
   if (origin.person.in_recovery) flags.in_recovery_support = true;
+  // Came home under supervision? Drives whether the "supervision in good standing"
+  // milestone applies (a maxed-out, unsupervised build isn't scored on it).
+  if (origin.supervision.type !== "none") flags.was_supervised = true;
   if (origin.landing.job_lined_up) flags.has_job = true;
   // The getting-around they already have, placed on the transport ladder (§6) so they
   // aren't offered wheels they own — e.g. Marcus comes home on a bike. A car means both

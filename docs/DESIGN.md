@@ -229,7 +229,8 @@ Seed flags referenced by the starter content (the engine treats any unset flag a
 - `has_state_id`, `has_birth_cert`, `has_proof_of_address`, `has_ssn_card`
 - `birth_cert_ordered`, `knows_id_requirements`
 - `has_bank_account`, `has_cert_webdev`, `has_job`
-- `in_recovery_support`
+- `in_recovery_support` (the recovery track), `kept_support_routine` (earned by a support
+  routine — recovery meetings or a community/mentorship circle), `was_supervised`
 
 Keep a flag registry in the codebase (a `const` union or a documented list) so
 authors don't typo a flag into silent falsehood. Validation can warn on unknown
@@ -551,6 +552,6 @@ Not in the walking skeleton, deliberately. *(Status added post-v1.0.0.)*
   (`content/resources.yaml` ships verified national resources, rendered in the training
   debrief); a jurisdiction-specific directory / selector is still future.
 - A deep build on any single track — v1 stayed thin across all four; the depth since
-  has been breadth *across* tracks (now 55 events), not one track deep.
+  has been breadth *across* tracks (now 56 events), not one track deep.
 
 When in doubt, ship the skeleton thin and complete rather than one track deep.

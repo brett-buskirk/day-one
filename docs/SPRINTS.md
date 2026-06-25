@@ -91,7 +91,7 @@ can be exported.
 
 ## Sprint 4+ — depth (v2)
 
-- ✓ Broaden the corpus per track (now **55 events** across all four tracks).
+- ✓ Broaden the corpus per track (now **56 events** across all four tracks).
 - ✓ Random character generation (`randomOrigin(seed)` — the "Surprise me" build).
 - ✓ Classroom/facilitator features on the deterministic + export hooks
   (`character.mode.seed` scenario codes).

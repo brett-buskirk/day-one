@@ -29,3 +29,4 @@ choices:
             more night on the right side of it, and a couple of numbers in your
             phone.
           pools: { health: 6, morale: 5, social_capital: 2 }
+          flags: { kept_support_routine: true }

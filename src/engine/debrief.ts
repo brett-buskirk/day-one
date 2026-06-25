@@ -105,7 +105,7 @@ function relationshipsDimension(s: GameState): Dimension {
 function buildMilestones(s: GameState): Milestone[] {
   const legal = s.tracks.legal;
   const goodStanding = legal.status === "unsupervised" || (legal.readiness ?? 0) >= 50;
-  return [
+  const ms: Milestone[] = [
     { key: "state_id", label: "Got a state ID", achieved: !!s.flags.has_state_id },
     { key: "birth_cert", label: "Recovered birth certificate", achieved: !!s.flags.has_birth_cert },
     { key: "proof_of_address", label: "Established proof of address", achieved: !!s.flags.has_proof_of_address },
@@ -115,9 +115,17 @@ function buildMilestones(s: GameState): Milestone[] {
       achieved: !!s.flags.has_job || WORK_LEADS.has(s.tracks.employment.status),
     },
     { key: "housing", label: "Secured housing", achieved: HOUSING_SECURED.has(s.tracks.housing.status) },
-    { key: "parole", label: "Parole in good standing", achieved: goodStanding },
-    { key: "recovery", label: "Stayed in recovery support", achieved: !!s.flags.in_recovery_support },
   ];
+  // Only include milestones whose path can actually open for this build, so a run is never
+  // judged on a door the game never offered (and the debrief's "n of N" stays honest).
+  // Supervision is N/A for a build that came home unsupervised (e.g. Cal).
+  if (s.flags.was_supervised) {
+    ms.push({ key: "supervision", label: "Supervision in good standing", achieved: goodStanding });
+  }
+  // A support routine — recovery meetings for those in recovery, a community / faith /
+  // mentorship circle otherwise. Earned by showing up, not handed out at chargen.
+  ms.push({ key: "support", label: "Kept a support routine", achieved: !!s.flags.kept_support_routine });
+  return ms;
 }
 
 /* ---- Trajectory (§10): momentum over the run, not just final position ---- */

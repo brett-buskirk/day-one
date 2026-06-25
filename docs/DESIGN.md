@@ -4,7 +4,7 @@ This is the source of truth for the build. It captures the decisions made during
 design so the engine can be implemented without re-deriving them. Where it says
 "tuning," the exact number is a knob to balance later, not a thing to block on.
 
-> **Implementation status:** built and live in production (through **v1.6.0**), and the spec still
+> **Implementation status:** built and live in production (through **v1.7.0**), and the spec still
 > holds. Where it scoped features as "v2" (§8, §14) — random character generation
 > and the classroom/facilitator hooks — those have since shipped; a real resource
 > directory remains a data hook only. See [`DEVELOPMENT.md`](../DEVELOPMENT.md) for
@@ -433,8 +433,9 @@ strained / isolated. A snapshot, not a score shown to the player.
 
 Grade on momentum and decisions, not just final position:
 
-- **Milestones hit** — got the ID, established housing, 90 days of recovery
-  support, parole in good standing, a job or live leads — each contributes.
+- **Milestones hit** — got the ID, established housing, kept a support routine,
+  supervision in good standing, a job or live leads — each contributes (and only the
+  ones a given build can actually reach are counted, so the tally is honest per build).
 - **Trajectory** — are the pools trending up across the final ~3 turns versus
   mid-game? Rising under a hard build is a *win* on process.
 - **Decision quality** — surfaced from the log: did the player take the durable

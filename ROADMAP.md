@@ -10,8 +10,16 @@ land one.
 
 ## Recently shipped
 
-Through **v1.6.0** (see [`CHANGELOG.md`](CHANGELOG.md) for detail):
+Through **v1.7.0** (see [`CHANGELOG.md`](CHANGELOG.md) for detail):
 
+- **Milestones that fit the build** — the debrief only scores paths a build can walk
+  ("supervision in good standing" for supervised builds; an *earned* "kept a support routine"
+  via recovery meetings or a new community / mentorship circle), so the tally is honest per
+  build instead of penalizing a run for a door the game never opened.
+- **A review-driven polish pass** — the debrief no longer misgenders (per-character
+  pronouns); the second-stage arcs wait for the mid-game instead of firing in week 1; Tasha's
+  custody hearing and recovery are legible in the situation panel; plus a sweep of doc /
+  accuracy and small display fixes.
 - **The contributor pipeline** — structured issue forms (bug / feature / archetype /
   event), a "view source" link, and an AI-assisted triage Action that posts a Claude
   first-read on each new issue for maintainer review.
@@ -37,26 +45,7 @@ Through **v1.6.0** (see [`CHANGELOG.md`](CHANGELOG.md) for detail):
 
 ## Next up
 
-Grouped by theme. Items tagged _(pass-2 review)_ / _(pass-3 review)_ came out of live
-playtests; _(discuss first)_ marks a design question to settle before building.
-
-### Fixes & polish _(pass-3 review)_
-
-- **Debrief uses a hardcoded male pronoun (high).** The intro reads "…how *he* got there"
-  for every build — it only surfaces on the female builds (Renae, Dana, Gloria, Tasha),
-  since the original roster was all male. Thread the character's pronouns into the debrief
-  intro (`src/ui/DebriefScreen.tsx`) and audit other gendered strings. A misgendered debrief
-  is the wrong note for a dignity-first tool — fix promptly.
-- **Doc accuracy: probation → home detention, then a full re-read.** `docs/DESIGN.md`
-  (§6 Tracks, and elsewhere), `docs/ABOUT.md`, and `README.md` (Dana's card) still say
-  "probation" where Dana is on **home detention**; correct them, then re-read each doc
-  end-to-end. Also drop the default DigitalOcean URL from `README.md`.
-- **Render markdown in event prompts (low).** The state-ID prompt shows literal
-  `**birth certificate**`; onboarding renders bold fine, so it's a per-component gap —
-  render markdown in `src/ui/EventDetail.tsx` (or strip `**` from content), and scan all
-  prompts for stray markup.
-- **"Cna" → "CNA" (low).** Tasha's card title-cases her credential (`cert_cna`); fix the
-  acronym casing and check other credential/acronym displays.
+Grouped by theme. The _(pass-2 review)_ items came out of a live playtest.
 
 ### Accessibility _(pass-2 review)_
 
@@ -69,43 +58,11 @@ playtests; _(discuss first)_ marks a design question to settle before building.
   verify thumb reach / scrolling on a real phone, and that the pool-delta pulse honors
   `prefers-reduced-motion`.
 
-### Balance & systems _(pass-3 review)_
-
-- **Second-stage arcs fire on employment alone — in week 1 (medium).** "Reach back," "The
-  body keeps the score," and "Make the call you've been avoiding" all open the instant a job
-  lands, cluttering the survival phase the 1.5.0 work meant to protect. Tighten their gates
-  (require a few stable weeks, not just `has_job`) in `src/engine/tuning.ts` / the event
-  conditions.
-- **Verify the custody hearing's housing gate is reachable (verify).** "Make your case" needs
-  `housing.readiness >= 3` (transitional), but transitional housing sits behind a waitlist and
-  Tasha starts on a couch. Confirm with the **budget-sim harness** that a housing-first player
-  can clear the waitlist before the fixed week-9 hearing; if not, the best path is unwinnable
-  through no fault of the player (the `ask_for_time` fallback keeps it from being a *fail*, but
-  an unreachable best path still undercuts the arc).
-- **Reassess the milestone system (discuss first).** "Stay in Recovery Support" can be
-  permanently unmeetable for builds that never surface recovery — a "locked-forever" miss on a
-  path that never opened. Make milestone availability/scoring **data-driven** so a milestone
-  only appears (or only scores) where its pathway can surface under normal play; consider
-  reframing "Stay in Recovery Support" more broadly (a pro-social support routine — community,
-  faith, mentorship). Reproducible from character + mode + seed; no hardcoded exceptions; don't
-  break builds where it works today. *Open questions: which builds never surface recovery;
-  global-conditional vs build-specific milestone catalogs; how milestones weight scoring; which
-  other milestones feel obsolete.*
-
 ### New characters & content
 
 - **Deepen the custody arc** — the reunifying parent ships with weekly visits and a
   stability-gated hearing; a child-support economy drain and a second review/appeal would
   give it more texture.
-- **Surface Tasha's recovery in her bio + situation panel** _(pass-3)_ — her recovery
-  (`in_recovery`, `mandated_treatment`, a `drug_felony`) is authored and intentional, but her
-  `summary` and the situation panel are all about custody, so recovery content reads as a
-  non-sequitur in play. Surface it (a `summary` line + a treatment note in the panel); don't
-  gate it — her recovery is part of *why* custody is hard.
-- **Show the custody hearing goal in the situation panel** _(pass-3)_ — the panel omits her
-  daughter and the hearing, her whole reason for the run. Add **"Custody hearing: week 9"**
-  plus her standing on the three gates (housing ≥ transitional, clean record, money ≥ 40),
-  turning the hidden catch-22 into a visible, actionable goal.
 - **More content depth** — widen the thinnest tracks, especially the registry/employment
   wall and the relationships path, so repeat runs keep surfacing fresh decisions.
 - **More life events** — the random loss/blessing pool is four deep; more variety keeps

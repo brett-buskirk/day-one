@@ -7,6 +7,8 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-06-25
+
 ### Changed
 - **Milestones now fit the build you're playing.** The debrief scored every run against the
   same fixed seven — so "Parole in good standing" quietly **auto-passed** for a maxed-out,
@@ -405,7 +407,8 @@ after release, one weekly turn at a time, as an installable, offline PWA.
 ### Deployed
 - Live at [dayone-sim.app](https://dayone-sim.app) on DigitalOcean App Platform.
 
-[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/brett-buskirk/day-one/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/brett-buskirk/day-one/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/brett-buskirk/day-one/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/brett-buskirk/day-one/compare/v1.3.0...v1.4.0

@@ -7,15 +7,22 @@ const ids = (s: ReturnType<typeof createRun>) => new Set(eligibleActions(s, corp
 // Second-stage content: things to do once the basics are handled, so builds that stabilize
 // early aren't left idling. Gated on stability so they don't clutter the survival phase.
 describe("late-game content (for builds that stabilize)", () => {
-  it("the job-gated 'second stage' appears once employed, not before", () => {
-    const STAGE2 = ["evt_court_debt", "evt_health_deferred", "evt_give_back"];
+  it("court debt bites as soon as you're earning; the enrichment arcs wait a few weeks", () => {
     const fresh = createRun(corpus, "marcus", { seed: 1 }); // no job yet
     const before = ids(fresh);
-    for (const id of STAGE2) expect(before.has(id)).toBe(false);
+    for (const id of ["evt_court_debt", "evt_health_deferred", "evt_give_back"]) {
+      expect(before.has(id)).toBe(false);
+    }
 
-    const employed = { ...fresh, flags: { ...fresh.flags, has_job: true } };
-    const after = ids(employed);
-    for (const id of STAGE2) expect(after.has(id)).toBe(true);
+    // Employed in week 1: court debt is live (it bites once earning); the enrichment arcs aren't.
+    const earlyEmployed = ids({ ...fresh, turn: 1, flags: { ...fresh.flags, has_job: true } });
+    expect(earlyEmployed.has("evt_court_debt")).toBe(true);
+    expect(earlyEmployed.has("evt_health_deferred")).toBe(false);
+    expect(earlyEmployed.has("evt_give_back")).toBe(false);
+
+    // Employed and a few weeks in (turn >= 6): the enrichment arcs open too.
+    const stable = ids({ ...fresh, turn: 6, flags: { ...fresh.flags, has_job: true } });
+    for (const id of ["evt_health_deferred", "evt_give_back"]) expect(stable.has(id)).toBe(true);
   });
 
   it("record sealing is a late milestone — needs an ID, good standing, and clean time", () => {
@@ -45,9 +52,12 @@ describe("late-game content (for builds that stabilize)", () => {
     expect(ids(calLate).has("evt_off_supervision")).toBe(false);
   });
 
-  it("mending family ties opens once stable (employed), not before", () => {
+  it("mending family ties opens once stable — employed and a few weeks in", () => {
     const fresh = createRun(corpus, "marcus", { seed: 1 });
-    expect(ids(fresh).has("evt_mend_family")).toBe(false);
-    expect(ids({ ...fresh, flags: { ...fresh.flags, has_job: true } }).has("evt_mend_family")).toBe(true);
+    expect(ids(fresh).has("evt_mend_family")).toBe(false); // no job
+    // Employed but week 1 — still the survival phase, not yet.
+    expect(ids({ ...fresh, turn: 1, flags: { ...fresh.flags, has_job: true } }).has("evt_mend_family")).toBe(false);
+    // Employed and a few weeks in — open.
+    expect(ids({ ...fresh, turn: 6, flags: { ...fresh.flags, has_job: true } }).has("evt_mend_family")).toBe(true);
   });
 });

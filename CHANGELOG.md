@@ -8,6 +8,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Fixed
+- **The second-stage arcs wait for the mid-game now.** "Reach back," "The body keeps the
+  score," and "Make the call you've been avoiding" gated on employment alone, so they opened
+  the instant a job landed — even in week 1, cluttering the survival phase they were meant to
+  *follow*. They now also require a few weeks in (`turn >= 6`). Court debt still bites the
+  moment you're earning — that part's correct. Also verified with the budget-sim harness that
+  the custody hearing's housing gate stays reachable: a housing-first Tasha clears transitional
+  housing well before the fixed week-9 hearing.
 - **Tasha's custody arc and recovery are legible now.** Her "Your situation" panel surfaces
   the **custody hearing** (week 9, with her live standing on the three gates — a roof, a clean
   record, $40) and her **recovery**, which her bio now names too — previously her whole reason

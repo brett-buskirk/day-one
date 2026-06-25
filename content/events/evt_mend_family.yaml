@@ -10,6 +10,7 @@ repeatable: true
 # returning. Engages social_capital + morale; gated on a job so it's a stabilized-phase move.
 conditions:
   - flags.has_job == true
+  - turn >= 6 # second stage opens a few weeks in, not the first employed week
 
 prompt: >
   There's a number you've scrolled past a hundred times — a sister, a kid, a parent, someone

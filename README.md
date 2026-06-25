@@ -49,7 +49,7 @@ trajectory and decisions, not just where you finished.
 ## Status
 
 **Live in production**, released through
-**[v1.6.0](https://github.com/brett-buskirk/day-one/releases/tag/v1.6.0)**. The v1.0.0
+**[v1.7.0](https://github.com/brett-buskirk/day-one/releases/tag/v1.7.0)**. The v1.0.0
 foundation — Sprints 0–5 — is summarized below; every release since (see
 [`CHANGELOG.md`](CHANGELOG.md)) layered on more: the "Where to get help" resource
 directory, three more archetypes, housing & transport **ladders**, **random life

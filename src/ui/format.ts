@@ -61,6 +61,13 @@ function prettyPool(name: string): string {
 // Credentials are authored as ids (e.g. "cert_webdev"); show players prose.
 const CREDENTIAL_LABELS: Record<string, string> = {
   cert_webdev: "Web development certificate",
+  cert_cna: "Certified nursing assistant (CNA)",
+  cert_medassist: "Medical assistant certificate",
+  cert_hvac: "HVAC certificate",
+  cert_culinary: "Culinary certificate",
+  cert_forklift: "Forklift certification",
+  cert_paralegal: "Paralegal certificate",
+  ged: "GED",
 };
 
 export function humanizeCredential(id: string): string {

@@ -46,6 +46,16 @@ export function CharacterPanel({ state, origin, onClose }: Props) {
     ["People", relationshipsLabel(state.tracks.relationships.status)],
     ["Getting around", transportLabel(state.pools.transportation, state.flags)],
   ];
+  if (origin?.person?.in_recovery) {
+    rows.push(["Recovery", "In recovery — keeping clean time"]);
+  }
+
+  // The custody hearing's "make your case" gate (mirrors evt_custody_hearing.yaml,
+  // scheduled week 9) — surfaced so her defining goal is legible, not a hidden catch-22.
+  const reunifying = origin?.person?.reunifying === true;
+  const custodyHousing = (state.tracks.housing.readiness ?? 0) >= 3;
+  const custodyRecord = (state.tracks.legal.readiness ?? 0) >= 50;
+  const custodyMoney = state.pools.money >= 40;
 
   return (
     <InfoModal title={title} onClose={onClose}>
@@ -68,6 +78,19 @@ export function CharacterPanel({ state, origin, onClose }: Props) {
           <dt>Papers &amp; assets</dt>
           <dd>{papers}</dd>
         </div>
+        {reunifying && (
+          <div className="origin-grid-full">
+            <dt>Custody hearing — week 9</dt>
+            <dd>
+              Reach all three and she comes home:
+              <ul className="how-list">
+                <li>A roof of your own — transitional or better {custodyHousing ? "(done)" : "(not yet)"}</li>
+                <li>A clean record {custodyRecord ? "(done)" : "(not yet)"}</li>
+                <li>$40 set aside {custodyMoney ? "(done)" : `($${state.pools.money} so far)`}</li>
+              </ul>
+            </dd>
+          </div>
+        )}
       </dl>
       <RunCodeShare state={state} hint="Share this code so others play the identical run." />
     </InfoModal>

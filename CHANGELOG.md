@@ -8,6 +8,12 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Fixed
+- **Tasha's custody arc and recovery are legible now.** Her "Your situation" panel surfaces
+  the **custody hearing** (week 9, with her live standing on the three gates — a roof, a clean
+  record, $40) and her **recovery**, which her bio now names too — previously her whole reason
+  for the run was invisible in play. Two display fixes ride along: event prompts render
+  `**bold**` (the state-ID prompt was showing literal asterisks), and credential acronyms read
+  right (**CNA** / **GED** / **HVAC**, not "Cna" / "Ged" / "Hvac").
 - **Debrief no longer misgenders female builds.** The debrief intro hardcoded "…how *he*
   got there," which only surfaced on the women (Renae, Dana, Gloria, Tasha) since the
   original roster was all male. Pronouns are now authored per character and threaded into

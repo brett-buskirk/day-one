@@ -25,6 +25,7 @@ landing:
   gate_money: 80
 
 person:
+  pronoun: he
   in_recovery: false
   chronic_health_issue: true
   credentials: [cert_forklift]

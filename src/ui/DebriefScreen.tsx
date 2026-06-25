@@ -9,11 +9,12 @@ interface Props {
   state: GameState;
   corpus: Corpus;
   characterName: string;
+  pronoun: string;
   onPlayAgain: () => void;
 }
 
-export function DebriefScreen({ state, corpus, characterName, onPlayAgain }: Props) {
-  const debrief = buildDebrief(state, characterName);
+export function DebriefScreen({ state, corpus, characterName, pronoun, onPlayAgain }: Props) {
+  const debrief = buildDebrief(state, characterName, pronoun);
   const resources = corpus.resources ?? [];
   const [copied, setCopied] = useState(false);
 

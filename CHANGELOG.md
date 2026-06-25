@@ -8,6 +8,11 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Fixed
+- **Debrief no longer misgenders female builds.** The debrief intro hardcoded "…how *he*
+  got there," which only surfaced on the women (Renae, Dana, Gloria, Tasha) since the
+  original roster was all male. Pronouns are now authored per character and threaded into
+  the debrief (defaulting to "they" for a random build). On a tool about dignity, this one
+  mattered.
 - **Docs + copy accuracy pass.** Corrected a stale event count (35 → 55) in the spec and
   build-log docs; fixed a debrief section whose `aria-label` ("How it landed here") didn't
   match its visible heading ("Why it landed here"); and tightened in-game wording — errands

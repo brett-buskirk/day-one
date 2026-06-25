@@ -25,6 +25,7 @@ landing:
   gate_money: 160                 # money ~20
 
 person:
+  pronoun: she
   in_recovery: true               # part of the case against her; a condition now
   chronic_health_issue: false
   credentials: [cert_cna]         # trained inside — employable as a nursing assistant

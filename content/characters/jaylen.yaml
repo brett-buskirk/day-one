@@ -25,6 +25,7 @@ landing:
   gate_money: 80                  # almost nothing -> money ~10
 
 person:
+  pronoun: he
   in_recovery: false
   chronic_health_issue: false
   credentials: []                 # no trade -> low employment readiness is the wall

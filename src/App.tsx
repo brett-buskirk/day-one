@@ -299,6 +299,7 @@ export default function App() {
           state={state}
           corpus={corpus}
           characterName={originFor(state.characterId, state.seed)?.name ?? "this person"}
+          pronoun={originFor(state.characterId, state.seed)?.person?.pronoun ?? "they"}
           onPlayAgain={handlePlayAgain}
         />
       )}

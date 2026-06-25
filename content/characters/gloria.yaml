@@ -26,6 +26,7 @@ landing:
   gate_money: 600                 # savings intact -> money ~75
 
 person:
+  pronoun: she
   in_recovery: false
   chronic_health_issue: false
   credentials: []                 # her income is the held job, not a trade

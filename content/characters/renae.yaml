@@ -25,6 +25,7 @@ landing:
   gate_money: 240
 
 person:
+  pronoun: she
   in_recovery: false
   chronic_health_issue: false
   credentials: [cert_medassist]

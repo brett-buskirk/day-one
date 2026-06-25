@@ -25,6 +25,7 @@ landing:
   gate_money: 120
 
 person:
+  pronoun: he
   in_recovery: true
   chronic_health_issue: true
   credentials: [cert_webdev]

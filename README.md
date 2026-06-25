@@ -20,7 +20,7 @@ It serves two audiences, weighted equally:
 Built by a returning citizen, for returning citizens — the barriers modeled here
 are remembered, not imagined.
 
-**Live:** [dayone-sim.app](https://dayone-sim.app) · [default URL](https://day-one-a7fs5.ondigitalocean.app)
+**Live:** [dayone-sim.app](https://dayone-sim.app)
 
 > **New here?** Start with [`docs/ABOUT.md`](docs/ABOUT.md) — a plain-language tour
 > of what Day One is and how it works. **Design source of truth:**
@@ -82,7 +82,7 @@ you can do today:
 
 - From the landing page, read the About or jump straight to Play. Pick one of nine
   builds — **Marcus** (the thesis build), **Renae** (supported), **Dana** (on
-  probation), **Theo** (the registry deep-end), **Ray** (the longtimer — 24 years
+  home detention), **Theo** (the registry deep-end), **Ray** (the longtimer — 24 years
   inside, with a technology gap and mental-health weight), **Cal** (a "max-out"
   release: no supervision, but no support or structure either), **Jaylen** (a young
   first-timer, walled by inexperience rather than a record), **Tasha** (a parent

@@ -127,9 +127,10 @@ Everything past the original roadmap, built out before the first release:
 - **Recurring monthly economy** (`engine.ts` `beginTurn`, turns 4/8/12) — a benefits
   stipend in, a transit-pass fee out (the pass lapses if you can't pay it), and
   probation supervision fees. Money now moves month to month, not only per event.
-- **Probation as a full supervision path** — **Dana**: fees and mandated
-  community-service hours as standing slot taxes; a missed obligation routes to a
-  probation-specific violation (`violationEventFor`), distinct from parole's.
+- **Probation as a full supervision path** — fees and mandated hours as standing slot
+  taxes; a missed obligation routes to a probation-specific violation (`violationEventFor`),
+  distinct from parole's. (First built on Dana, since moved to **home detention**; **Tasha**
+  now carries probation.)
 - **The Longtimer** — **Ray**, 24 years inside, with two new rule systems: a
   **technology gap** (`tech_gap`, derived from a long stretch inside, gating the
   skilled-job routes until `evt_digital_literacy` closes it) and **mental health** (a

@@ -206,7 +206,7 @@ movement. Suggested statuses (extend as needed):
   (`HOUSING_RANK` in tuning): the engine keeps `housing.readiness` in sync with the
   status as a rank, so a housing rung gates on `tracks.housing.readiness < N` — a move
   only ever goes *up*, and an outgrown rung stops being offered.
-- **legal** — `parole` / `probation` / `unsupervised`, with sub-state for standing:
+- **legal** — `parole` / `probation` / `home_detention` / `unsupervised`, with sub-state for standing:
   `good` / `warned` / `violation_pending`. Conditions live here as flags/obligations.
 - **relationships** — `isolated` / `strained` / `one_tie` / `supported` /
   `network`. Housing and crises often depend on this.
@@ -244,7 +244,7 @@ A build has two layers:
 - **Origin** — the human-readable story. Authored as data. Four dimensions plus
   offense type:
   - *Time inside* — drives the tech gap, frayed ties, disorientation.
-  - *Supervision* — parole/probation/none and its conditions; pure friction on the
+  - *Supervision* — parole / probation / home detention / none and its conditions; pure friction on the
     budget via obligations.
   - *The landing* — where you sleep night one, who's in your corner, whether a job
     is lined up, which documents you hold, what you get around on, and gate money.
@@ -277,9 +277,9 @@ chargen mapping for Marcus is documented in his file.
 
 The shipped roster adds eight more, each authored purely as origin data: **Renae**
 (a supported build — family, money, transport — the same content at a gentler
-difficulty), **Dana** (probation under the weight of its costs: supervision fees *and*
-**home detention** — a relentless weekly monitoring fee plus a restricted week — and a
-surprise officer home visit, like any supervised build),
+difficulty), **Dana** (home detention under the weight of its costs — a relentless weekly
+monitoring fee and a restricted week, plus the weekly check-in and a surprise officer home
+visit, like any supervised build),
 **Theo** (the registry deep-end build for empathy mode), **Ray** (the longtimer —
 24 years inside, a technology gap, and chronic mental-health weight), **Cal**
 (a "max-out" release with `supervision: none` → legal status `unsupervised`: no

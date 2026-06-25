@@ -65,8 +65,8 @@ it aren't imagined — they're remembered.
 
 You choose **who** to play and **why** you're here. There are nine hand-built
 people, ranging from gentle to brutal — someone with real skills but no documents;
-someone whose family showed up, to show what support changes; someone carrying the
-weight of probation (fees, court dates, mandated hours); someone with a registry
+someone whose family showed up, to show what support changes; someone under home
+detention — a weekly monitoring fee and a curfew that boxes in the week; someone with a registry
 requirement that makes housing and work near-impossible; a "longtimer" home after
 two decades, facing a technology gap and the mental-health weight of all those
 years; someone who "maxed out" — released with no supervision at all, and so no

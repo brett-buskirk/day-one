@@ -9,6 +9,14 @@ import {
 import { humanizeRequirement, slotsLabel } from "./format";
 import { useDialogFocus } from "./useDialog";
 
+// Authored prose (an event prompt) may use **bold**; render it inline rather than
+// showing literal asterisks.
+function withEmphasis(text: string) {
+  return text
+    .split(/\*\*(.+?)\*\*/g)
+    .map((seg, i) => (i % 2 === 1 ? <strong key={i}>{seg}</strong> : seg));
+}
+
 interface Props {
   event: GameEvent;
   state: GameState;
@@ -129,7 +137,7 @@ export function EventDetail({
 
         {/* Once an outcome is showing, drop the (already-read) full prompt so the
             result + Continue aren't pushed down the screen. */}
-        {!outcomeText && <p className="prompt">{event.prompt}</p>}
+        {!outcomeText && <p className="prompt">{withEmphasis(event.prompt)}</p>}
 
         {outcomeText ? (
           <div className="outcome" role="status" aria-live="polite">

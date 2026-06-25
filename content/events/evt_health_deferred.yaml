@@ -11,6 +11,7 @@ repeatable: true
 # finally addressable. Gated on a job (access + the means to take the time).
 conditions:
   - flags.has_job == true
+  - turn >= 6 # second stage opens a few weeks in, not the first employed week
 
 prompt: >
   You've been outrunning your own body since you got out — the tooth, the back, the sleep

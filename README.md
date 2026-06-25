@@ -77,7 +77,7 @@ Playable end-to-end:
   **random character generation**.
 
 Currently: **9 archetypes + a generated random build**, **55 events**, two modes
-(training / empathy), light/dark + accent theming, and **143 passing tests**. What
+(training / empathy), light/dark + accent theming, and **145 passing tests**. What
 you can do today:
 
 - From the landing page, read the About or jump straight to Play. Pick one of nine

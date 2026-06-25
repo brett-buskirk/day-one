@@ -11,6 +11,7 @@ repeatable: true
 # uniquely available to builds who've made it, so it gives the stabilized late game meaning.
 conditions:
   - flags.has_job == true
+  - turn >= 6 # second stage opens a few weeks in, not the first employed week
 
 prompt: >
   Someone in the program is on their day one — the way you were not long ago, all sharp

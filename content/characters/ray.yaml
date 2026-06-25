@@ -27,6 +27,7 @@ landing:
   gate_money: 200          # saved over decades of prison wages — the one cushion
 
 person:
+  pronoun: he
   in_recovery: false
   chronic_health_issue: true        # an injury the system never treated
   mental_health_issue: true         # the weight of the years

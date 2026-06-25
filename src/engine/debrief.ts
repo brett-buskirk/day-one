@@ -245,7 +245,7 @@ function buildFraming(s: GameState): Framing {
 
 /* ---- Assemble ---- */
 
-export function buildDebrief(s: GameState, characterName: string): Debrief {
+export function buildDebrief(s: GameState, characterName: string, pronoun: string = "they"): Debrief {
   const profile = [
     housingDimension(s),
     workDimension(s),
@@ -264,7 +264,7 @@ export function buildDebrief(s: GameState, characterName: string): Debrief {
   const headline = endedTerminal
     ? `The run ended early — a revocation, from violations that stacked up rather than any single slip. ` +
       `That weight is how the system often works. Here is the shape of how ${characterName}'s ninety days went.`
-    : `Ninety days home. Here's where ${characterName} stands — and, below, exactly how he got there. ` +
+    : `Ninety days home. Here's where ${characterName} stands — and, below, exactly how ${pronoun} got there. ` +
       `This is a snapshot of a trajectory, not a verdict.`;
 
   const trajectoryNote =

@@ -171,7 +171,10 @@ function deriveFlags(origin: CharacterOrigin): Flags {
   if (origin.person.mental_health_issue) flags.chronic_mental_health = true;
   // A parent fighting to regain custody — surfaced as a flag so the custody arc
   // (the hearing, the visits) can gate on it.
-  if (origin.person.reunifying) flags.reunifying = true;
+  if (origin.person.reunifying) {
+    flags.reunifying = true;
+    flags.owes_child_support = true; // a standing monthly drain; the arrears notice (week 4) lets you plan it down
+  }
   return flags;
 }
 

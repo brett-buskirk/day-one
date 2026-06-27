@@ -39,9 +39,11 @@ choices:
         effects:
           text: >
             You can't clear it, but you can show up for it: a plan, signed, a little each month.
-            Not nothing — to the court, a plan in good standing reads as a parent who's trying.
+            Not nothing — to the court, a plan in good standing reads as a parent who's trying. And
+            the monthly bite eases to something you can actually carry.
           pools: { money: -6, morale: 2 }
           tracks: { legal: { readiness: 4 } }
+          flags: { child_support_plan: true }
 
   - id: let_it_ride
     quality: desperate

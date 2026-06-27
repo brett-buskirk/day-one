@@ -31,6 +31,9 @@ import {
   TRANSIT_FEE,
   TRANSIT_LAPSE_DROP,
   SUPERVISION_FEE,
+  CHILD_SUPPORT,
+  CHILD_SUPPORT_PLAN,
+  UI_BENEFIT,
   WEEKLY_WAGE,
   PROMOTION_RAISE,
   HOME_DETENTION_FEE,
@@ -236,6 +239,7 @@ export function beginTurn(state: GameState, corpus: Corpus): GameState {
   // starting money is its chargen money (the monthly flows already skip turn 1 this way).
   if (s.turn > 1) {
     applyWeeklyWage(s);
+    applyUnemployment(s);
     applyWeeklyFees(s);
     applyCourtDebt(s); // weekly garnishment off the paycheck, escalating to a warrant
   }
@@ -274,6 +278,26 @@ function applyWeeklyWage(s: GameState): void {
     eventId: "system",
     choiceId: "paycheck",
     text: `Paycheck from the job landed (+${wage}).`,
+  });
+}
+
+// A few-week unemployment bridge after a layoff (evt_layoff sets on_unemployment and schedules
+// evt_ui_expires, the benefits cliff). Pays weekly while you're between jobs; stops the week the
+// cliff card fires — so it can't be farmed by leaving that card unresolved — and ends the moment
+// you land work again.
+function applyUnemployment(s: GameState): void {
+  if (!s.flags.on_unemployment) return;
+  if (s.flags.has_job) {
+    s.flags.on_unemployment = false; // re-employed — the bridge isn't needed
+    return;
+  }
+  if (s.pending.includes("evt_ui_expires")) return; // the cliff has arrived; the checks have stopped
+  s.pools.money = clampPool(s.pools.money + UI_BENEFIT);
+  s.log.push({
+    turn: s.turn,
+    eventId: "system",
+    choiceId: "unemployment",
+    text: `Unemployment check came through (+${UI_BENEFIT}) — a bridge, not a wage.`,
   });
 }
 
@@ -369,6 +393,23 @@ function applyMonthlyFlows(s: GameState): void {
         paid >= SUPERVISION_FEE
           ? `Supervision fees due (−${SUPERVISION_FEE}). The cost of being watched.`
           : `Supervision fees due — they take what little there is (−${paid}).`,
+    });
+  }
+
+  // Child support — a standing monthly obligation for a reunifying parent. A payment plan
+  // (evt_arrears_notice) brings it down to something sustainable; without one it bites in full.
+  if (s.flags.owes_child_support) {
+    const due = s.flags.child_support_plan ? CHILD_SUPPORT_PLAN : CHILD_SUPPORT;
+    const paid = Math.min(due, s.pools.money);
+    s.pools.money = clampPool(s.pools.money - paid);
+    s.log.push({
+      turn: s.turn,
+      eventId: "system",
+      choiceId: "child_support",
+      text:
+        paid >= due
+          ? `Child support came due (−${due}) — for the kid you're working to get back.`
+          : `Child support due (−${due}); you could only send ${paid}. It's on the record.`,
     });
   }
 

@@ -132,6 +132,9 @@ export const BENEFITS_STIPEND = 8; // +money/month while has_benefits
 export const TRANSIT_FEE = 8; // money/month to keep the pass
 export const TRANSIT_LAPSE_DROP = 30; // transportation lost when the pass lapses
 export const SUPERVISION_FEE = 6; // money/month while owes_supervision_fees (probation)
+export const CHILD_SUPPORT = 8; // money/month while owes_child_support (a reunifying parent)
+export const CHILD_SUPPORT_PLAN = 4; // reduced money/month once a payment plan is set (child_support_plan)
+export const UI_BENEFIT = 6; // +money/WEEK while on_unemployment — a few-week bridge after a layoff. (Tuning.)
 // A phone's network plan — a recurring bill that, per the field feedback, is often the
 // hardest part of *keeping* a phone. Lapses (the phone gets shut off) if you can't cover
 // it; the Lifeline subsidized phone carries no plan fee. NOTE: starting numbers, playtest.

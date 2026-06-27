@@ -1,0 +1,41 @@
+id: evt_ui_expires
+kind: incident
+title: The last check
+tags: [money, crisis]
+repeatable: false
+
+# The benefits cliff: unemployment runs out (scheduled ~4 weeks after evt_layoff's file-for-UI).
+# Gated on still drawing it — land work and on_unemployment is already cleared, so this never
+# fires. Both choices end the bridge; the question is how you absorb the drop.
+conditions:
+  - flags.on_unemployment == true
+
+prompt: >
+  The letter says your unemployment has run its course. No more checks. The cliff everyone warns
+  about — and here you are at the edge of it, still looking, the rent still coming.
+
+choices:
+
+  - id: lean_on_people
+    quality: durable
+    label: Ask the people in your corner to bridge it
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You hate the ask, and you ask anyway — a little help, a couch offer, a "we've got you
+            for now." It costs your pride and spends some goodwill, but it holds.
+          pools: { morale: -2, social_capital: -6 }
+          flags: { on_unemployment: false }
+
+  - id: tighten_the_belt
+    quality: desperate
+    label: Tighten the belt and ride it out alone
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You cut everything to the bone and carry it yourself. Lighter on your pride, heavier on
+            everything else — the worry settles into your chest and your body.
+          pools: { morale: -7, health: -4 }
+          flags: { on_unemployment: false }

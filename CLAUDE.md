@@ -48,9 +48,10 @@ about React.
 
 - **Turn loop** (`engine.ts`): `beginTurn` replenishes slots (base 7 − standing
   commitments), fires scheduled incidents into `pending`, applies **weekly** flows
-  (wage while `has_job`; the weekly home-detention fee), and runs the **monthly economy
-  tick** (turns 4/8/12): benefits stipend in, and the lapsing fees — transit pass, phone
-  plan (both drop the asset if unpaid), probation supervision fees. `endTurn` enforces
+  (wage while `has_job`; a few-week unemployment bridge after a layoff; the weekly
+  home-detention fee), and runs the **monthly economy tick** (turns 4/8/12): benefits
+  stipend in, and the drains out — transit pass, phone plan (both drop the asset if
+  unpaid), probation supervision fees, and child support for a reunifying parent. `endTurn` enforces
   missed obligations, fires **edge-triggered pool-floor crises** (money/health/morale via
   `CRISIS_TRIGGERS`), snapshots pools, and handles the gated terminal chain. A missed
   obligation schedules a violation event chosen by supervision type (`violationEventFor`:

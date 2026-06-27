@@ -143,6 +143,7 @@ export interface CharacterOrigin {
     mental_health_issue?: boolean; // sets chronic_mental_health (mental-health crises)
     credentials?: string[]; // e.g. ["cert_webdev"]
     reunifying?: boolean; // fighting to regain custody of a child -> the custody arc
+    veteran?: boolean; // a justice-involved veteran -> VA benefits + healthcare; gates VSO / VA-claim content
   };
   offense: {
     // barrier-mechanical only; drives the heaviest modifiers

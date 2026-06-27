@@ -9,6 +9,7 @@
     "awaiting_birth_cert",
     "knows_id_requirements",
     "has_bank_account",
+    "veteran",
     "has_cert_webdev",
     "has_job",
     "promoted",

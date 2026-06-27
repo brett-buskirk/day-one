@@ -175,6 +175,14 @@ function deriveFlags(origin: CharacterOrigin): Flags {
     flags.reunifying = true;
     flags.owes_child_support = true; // a standing monthly drain; the arrears notice (week 4) lets you plan it down
   }
+  // A veteran comes home with the VA's institutional support — a benefits stipend and VA
+  // healthcare — even when the personal network has frayed. The wounds (PTSD, a service injury,
+  // often self-medication) live in person.*; this is the leg up that offsets them.
+  if (origin.person.veteran) {
+    flags.veteran = true;
+    flags.has_benefits = true;
+    flags.has_clinic = true;
+  }
   return flags;
 }
 

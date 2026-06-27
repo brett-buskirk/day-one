@@ -33,7 +33,7 @@ are remembered, not imagined.
 
 | The landing page | Who will you play? |
 | :---: | :---: |
-| ![Day One's landing page — sunrise logo, Play / About, theme controls](docs/screenshots/landing.png) | ![Character select — nine builds, each with an avatar and a one-line identity; tap to expand and Play](docs/screenshots/character-select.png) |
+| ![Day One's landing page — sunrise logo, Play / About, theme controls](docs/screenshots/landing.png) | ![Character select — ten builds, each with an avatar and a one-line identity; tap to expand and Play](docs/screenshots/character-select.png) |
 | **The weekly turn** | **The document catch-22** |
 | ![A week in play — resource bars, a "rent is due" interrupt, a parole check-in due, and the actions you can take](docs/screenshots/turn-screen.png) | ![Getting a state ID — the right next move shown locked, listing what it requires](docs/screenshots/event-state-id.png) |
 | **Your situation** | **Ninety days — the debrief** |
@@ -76,18 +76,19 @@ Playable end-to-end:
   rules), an in-game info card, **facilitator/classroom scenario codes**, and
   **random character generation**.
 
-Currently: **9 archetypes + a generated random build**, **68 events**, two modes
-(training / empathy), light/dark + accent theming, and **159 passing tests**. What
+Currently: **10 archetypes + a generated random build**, **70 events**, two modes
+(training / empathy), light/dark + accent theming, and **161 passing tests**. What
 you can do today:
 
-- From the landing page, read the About or jump straight to Play. Pick one of nine
+- From the landing page, read the About or jump straight to Play. Pick one of ten
   builds — **Marcus** (the thesis build), **Renae** (supported), **Dana** (on
   home detention), **Theo** (the registry deep-end), **Ray** (the longtimer — 24 years
   inside, with a technology gap and mental-health weight), **Cal** (a "max-out"
   release: no supervision, but no support or structure either), **Jaylen** (a young
   first-timer, walled by inexperience rather than a record), **Tasha** (a parent
-  fighting to regain custody — a family-court arc), or **Gloria** (the "has it all"
-  contrast build: a job, savings, and support all intact) — or **Surprise me** for a
+  fighting to regain custody — a family-court arc), **Gloria** (the "has it all"
+  contrast build: a job, savings, and support all intact), or **Hector** (a justice-involved
+  veteran — the VA's support and the war's wounds, both) — or **Surprise me** for a
   randomly generated person, then play ~13 weeks to a narrative debrief.
 - Play a **shared run** — a `character.mode.seed` code makes everyone's run identical,
   so a room can compare how their choices diverged.
@@ -173,7 +174,7 @@ day-one/
 ├── schema/
 │   └── event.schema.json         JSON Schema authored events validate against
 ├── content/
-│   ├── characters/*.yaml         the nine archetypes (origins)
+│   ├── characters/*.yaml         the ten archetypes (origins)
 │   ├── events/*.yaml             authored events (the "world")
 │   └── resources.yaml            reentry resources (national baseline + local hook)
 ├── scripts/

@@ -1,0 +1,38 @@
+id: hector
+name: Hector
+display_age: 41
+summary: >
+  Two tours and a Purple Heart, then a slow unraveling no homecoming prepared him for: a back
+  the VA keeps "evaluating," nights that don't end, and a bottle — then worse — to quiet what the
+  war left running. The charge that put him inside grew straight out of that. What he carries home
+  is real: VA benefits, VA healthcare, a Service Org that has his six — and the war itself, still
+  with him. Supported and wounded, both at once.
+
+time_inside_years: 3
+
+supervision:
+  type: probation
+  years: 4
+  conditions: [weekly_checkin, mandated_treatment]   # a veterans' treatment court — court-ordered care
+
+landing:
+  night_one: couch                 # a battle buddy's spare room
+  housing_clock_turns: 4
+  support: one_tie                 # personal ties frayed; the VA fills the institutional gap
+  job_lined_up: false
+  documents: [state_id]            # he kept his ID — his walls are elsewhere
+  transportation: none
+  has_phone: true
+  gate_money: 100
+
+person:
+  pronoun: he
+  veteran: true                    # VA benefits + healthcare at chargen; gates the VSO / VA-claim content
+  in_recovery: true                # self-medicated the trauma -> a recovery arc
+  chronic_health_issue: true       # a service injury the VA is slow to treat
+  mental_health_issue: true        # PTSD -> the morale-floor crisis + counseling
+  credentials: [cert_cna]          # a combat medic's skills, on paper at last
+
+offense:
+  category: drug_felony
+  registry_required: false

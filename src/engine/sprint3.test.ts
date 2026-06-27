@@ -8,7 +8,7 @@ import { buildDebrief } from "./debrief";
 describe("archetypes", () => {
   it("offers the builds in a deliberate order", () => {
     expect(archetypes.map((a) => a.id)).toEqual([
-      "marcus", "renae", "dana", "theo", "ray", "cal", "jaylen", "tasha", "gloria",
+      "marcus", "renae", "dana", "theo", "ray", "cal", "jaylen", "tasha", "gloria", "hector",
     ]);
   });
 

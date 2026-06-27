@@ -28,10 +28,11 @@ choices:
         effects:
           text: >
             Forms, a phone queue, a benefits office that's seen a thousand of you. It won't
-            replace the wage, but a check is coming — enough to keep the lights on while you
+            replace the wage, but the checks start coming — a bridge for a few weeks while you
             look. The ID you fought for is what makes it possible.
-          pools: { money: 15, morale: 2 }
-          flags: { has_job: false, laid_off: true }
+          pools: { money: 6, morale: 2 }
+          flags: { has_job: false, laid_off: true, on_unemployment: true }
+          schedule: { event: evt_ui_expires, in_turns: 4 }
 
   - id: work_your_network
     quality: durable

@@ -8,6 +8,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **Closed the economy loops — unemployment and child support are ongoing now.** The layoff's
+  one-time cushion became a real **few-week unemployment bridge**: a weekly check while you're
+  between jobs, then **the benefits cliff** ("the last check" — a card you absorb by leaning on
+  people or tightening the belt). And for a reunifying parent, child support is now a **recurring
+  monthly drain** rather than a single notice — the arrears notice's *payment plan* eases it to
+  something sustainable, while ignoring it keeps the full bite **and** costs you standing at the
+  custody hearing. (Engine: a weekly `applyUnemployment` flow + a monthly child-support drain.)
 - **Job volatility — a promotion or a layoff.** Employed builds can now hit an **employment
   shock**: a supervisor offers a step up (a raise — more on every check, at the cost of hours
   and some time for the people in your corner), or the company downsizes and you're **let go**

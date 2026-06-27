@@ -1,0 +1,38 @@
+id: evt_day_that_matters
+kind: incident
+title: A day that matters to someone else
+tags: [life, relationships]
+repeatable: false
+
+# The relational cost of survival mode: a day that matters to someone you love — a kid's
+# recital, a parent's surgery, a friend's hearing — on a week you can't spare. Going feeds the
+# bond and costs the time; missing it saves the time and costs something quieter.
+prompt: >
+  Someone you love has a day this week — a kid's recital, a parent under the knife, a friend's
+  court date. They didn't ask you to come. That's how you know it matters. And your week was
+  already full before it landed.
+
+choices:
+
+  - id: show_up
+    quality: durable
+    label: Show up — some things you don't miss
+    cost: { slots: 2 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You lose the hours you didn't have, and you go anyway. The look on their face when
+            they see you is worth a week of errands. Some ledgers don't balance in money.
+          pools: { morale: 6, social_capital: 8 }
+
+  - id: cant_make_it
+    quality: neutral
+    label: You can't make it — not this week
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You send word and mean the apology, and they say they understand, and maybe they do.
+            It still sits in your chest. There's only so much of you to go around.
+          pools: { morale: -5, social_capital: -3 }

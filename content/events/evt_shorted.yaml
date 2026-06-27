@@ -1,0 +1,46 @@
+id: evt_shorted
+kind: incident
+title: Shorted
+tags: [work, money]
+repeatable: false
+
+# The everyday exploitation of low-wage, marginal work — and it lands on the people with the
+# least room to push back. Only fires while employed (has_job); part of the employment-shock
+# pool, held by beginTurn until you actually have a job to be cheated out of.
+conditions:
+  - flags.has_job == true
+
+prompt: >
+  Your check is light. Hours you worked, gone from the math. "A mistake," the boss says, not
+  looking up — the kind of mistake that only ever runs one direction. You know the number. The
+  question is what it's worth to say so.
+
+choices:
+
+  - id: speak_up
+    quality: durable
+    label: Speak up — those are your hours
+    outcomes:
+      - weight: 65
+        effects:
+          text: >
+            You bring the number, calm and exact. They don't love it, but the math is the math,
+            and it gets fixed. You're a little more "trouble" now — and a little harder to cheat.
+          pools: { money: 10, social_capital: -2 }
+      - weight: 35
+        effects:
+          text: >
+            You bring the number and get a shrug and a story. The pay doesn't come back, and now
+            there's a chill on the floor. Some places, being right just costs you twice.
+          pools: { morale: -6 }
+
+  - id: let_it_go
+    quality: desperate
+    label: Let it go — you can't lose this job
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You swallow it. The job's worth more than the hours they took, and they're counting
+            on you knowing that. It sits wrong all week.
+          pools: { money: -6, morale: -5 }

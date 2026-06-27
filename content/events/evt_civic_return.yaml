@@ -1,0 +1,31 @@
+id: evt_civic_return
+kind: action
+title: On the rolls again
+tags: [life, relationships]
+repeatable: false
+
+# Citizenship comes back slowly, in small papers: a voter registration where your rights allow
+# it, a library card, a name on a list that isn't a docket. A dignity beat — re-belonging, not
+# a barrier. Needs an ID, the one document that quietly unlocks the civic world too.
+conditions:
+  - flags.has_state_id == true
+
+prompt: >
+  With an ID in hand, doors you forgot existed open quietly. A voter registration, where your
+  rights allow it. A library card. A name written down somewhere that isn't a case file. Small
+  papers that say: you're part of this place again.
+
+choices:
+
+  - id: sign_on
+    quality: durable
+    label: Sign on — claim your place again
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            It takes ten minutes and means more than ten minutes should. Not a docket number,
+            not an inmate number — just your name, on the rolls, like anyone's. You stand a
+            little straighter walking out.
+          pools: { morale: 8, social_capital: 3 }

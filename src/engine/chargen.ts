@@ -205,6 +205,9 @@ function deriveSchedule(origin: CharacterOrigin): GameState["scheduled"] {
   // The reunifying parent's arc peaks at a custody hearing mid-game (week 9); the
   // stability they've built by then — housing, income, clean standing — decides it.
   if (origin.person.reunifying) {
+    // Back child-support surfaces mid-arc (a debt and a pressure on the hearing's standing),
+    // then the hearing itself decides it.
+    out.push({ event: "evt_arrears_notice", onTurn: 4 });
     out.push({ event: "evt_custody_hearing", onTurn: 9 });
   }
   return out;

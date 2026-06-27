@@ -60,16 +60,19 @@ export const INTERRUPTS = [
   "evt_collision", // pulled two directions — a competing-demand week
   "evt_windfall_offer", // a good thing, on a deadline
   "evt_old_contact", // someone from the old life resurfaces
+  "evt_predatory_offer", // a payday-loan / fee-scam trap that bites later
+  "evt_closed_door", // the background-check stigma, in a human moment
+  "evt_day_that_matters", // a loved one's day vs the week you can't spare
 ];
 
-// An employment shock — a promotion or a layoff — for builds that land work. Real job
+// An employment shock — a promotion, a layoff, or a shorted paycheck — for builds that land work. Real job
 // volatility hits returning citizens hard. Scheduled like an interrupt (own salt + window)
 // but gated on has_job: beginTurn makes it *wait* until you're actually employed, and it
 // simply never fires for a build that never lands a job.
 export const EMP_SHOCK_SEED_SALT = 0x454d504c; // "EMPL"
 export const EMP_SHOCK_TURN_MIN = 4;
 export const EMP_SHOCK_TURN_MAX = 10;
-export const EMPLOYMENT_SHOCKS = ["evt_promotion", "evt_layoff"];
+export const EMPLOYMENT_SHOCKS = ["evt_promotion", "evt_layoff", "evt_shorted"];
 
 // Weighted-outcome modifier (§9): effectiveWeight = max(0, weight + (stat-50)*scale)
 export const POOL_BASELINE = 50;

@@ -1,0 +1,43 @@
+id: evt_closed_door
+kind: incident
+title: A door that won't open
+tags: [life, relationships]
+repeatable: false
+
+# The wall isn't only paperwork — it's the face that changes when "background check" comes up.
+# A landlord, a manager, a neighbor. You can make your case (a gamble, a small chance it moves)
+# or save your energy — either way it's a real cost the simulation should make you feel.
+prompt: >
+  It was going fine — the apartment, the shift, the conversation — until the background check
+  came up, and the temperature dropped. No one says the word. They don't have to. The door
+  that was open a second ago is closing, polite and final.
+
+choices:
+
+  - id: make_the_case
+    quality: durable
+    label: Make your case — you're more than the worst day
+    outcomes:
+      - weight: 55
+        effects:
+          text: >
+            You say it plainly: what you did, what you've done since, who you are now. This time
+            something shifts — a second look, a maybe. Not a yes. But not the door, either.
+          pools: { morale: 4, social_capital: 3 }
+      - weight: 45
+        effects:
+          text: >
+            You say it plainly, and it doesn't matter — the wall was up before you opened your
+            mouth. You leave with your dignity and nothing else, which is its own kind of tired.
+          pools: { morale: -6 }
+
+  - id: let_it_close
+    quality: neutral
+    label: Let it close — save your energy for a yes
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You don't spend yourself on a no that already decided itself. There are other doors.
+            You tell yourself that, and mostly you believe it.
+          pools: { morale: -3 }

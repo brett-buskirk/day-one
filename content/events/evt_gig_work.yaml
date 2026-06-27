@@ -1,0 +1,44 @@
+id: evt_gig_work
+kind: action
+title: A gig on your phone
+tags: [employment, money]
+repeatable: true
+
+# The gig economy as an income path for the equipped: app delivery or rides, if you've got a
+# phone (a car earns more than two feet). Quick, legal money that taxes the body — a real option
+# that rewards the tech and transport you've fought to get.
+conditions:
+  - flags.has_phone == true
+
+prompt: >
+  The apps don't run a background check — they just want a phone and your time. Deliver on foot
+  or by bike, or drive if you've got the car. It's not a career, but it's money today, legal and
+  yours, on a schedule no one else sets.
+
+choices:
+
+  - id: drive_rideshare
+    quality: durable
+    label: Drive for the app (your car)
+    requires:
+      - flags.has_car == true
+    cost: { slots: 2 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            A long shift behind the wheel, the city scrolling by. The fares add up faster than
+            day labor and easier on the back — the car earning its keep.
+          pools: { money: 16, health: -3 }
+
+  - id: deliver_on_foot
+    quality: durable
+    label: Run deliveries (phone only)
+    cost: { slots: 2 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Bags and stairs and miles, all day, for tips and a per-drop rate. It pays — not much
+            per run, but it adds up, and no one asked where you've been.
+          pools: { money: 9, health: -6 }

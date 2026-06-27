@@ -1,0 +1,56 @@
+id: evt_arrears_notice
+kind: incident
+title: The arrears notice
+tags: [legal, money]
+repeatable: false
+
+# Back child-support, surfacing for a parent already fighting to come home to their kid. It's a
+# debt and a custody-arc pressure at once: paying it down isn't only money, it's standing for
+# the hearing. Scheduled for reunifying builds; gated on reunifying.
+conditions:
+  - flags.reunifying == true
+
+prompt: >
+  A state envelope, and you know before you open it. Child support, accrued while you were
+  inside earning nothing — a number with your name and your child's name on it. The court that
+  decides custody is the same one counting this. They are not separate questions.
+
+choices:
+
+  - id: pay_it_down
+    quality: durable
+    label: Pay toward it — it's your kid and your case
+    requires:
+      - pools.money >= 25
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            It hurts to send, and you send it anyway — a real payment on the record, money the
+            court will see, proof you're showing up for the obligation behind all of this.
+          pools: { money: -25, morale: 4 }
+          tracks: { legal: { readiness: 8 } }
+
+  - id: set_a_plan
+    quality: durable
+    label: Set up a payment plan — show good faith
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You can't clear it, but you can show up for it: a plan, signed, a little each month.
+            Not nothing — to the court, a plan in good standing reads as a parent who's trying.
+          pools: { money: -6, morale: 2 }
+          tracks: { legal: { readiness: 4 } }
+
+  - id: let_it_ride
+    quality: desperate
+    label: Let it ride — you can't spare it right now
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You set it aside for a week you can survive instead. Understandable. But the number
+            grows, and the same court reads silence as a parent who didn't.
+          pools: { morale: -6 }
+          tracks: { legal: { readiness: -8 } }

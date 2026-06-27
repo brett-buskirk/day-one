@@ -16,6 +16,16 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   for leads, or take the hit. It's scheduled once per run but **waits until you actually have a
   job**, and never fires for a build that never lands work. (Engine: scheduled incidents now
   respect their `conditions`.)
+- **A content-depth pass — nine new events for replayability and texture.** The random interrupt
+  pool nearly doubled (each run now draws from six, not three): a **predatory loan / fee-scam**
+  that looks like help and bites weeks later (it schedules its own reckoning), the
+  **background-check stigma** as a door that closes mid-conversation, and **a loved one's day**
+  you can't be two places for. The employment-shock pool gained a **shorted paycheck** (speak up
+  and risk it, or eat it). Two new player actions reward what you've earned: **gig work** (a phone
+  gets you deliveries; a car gets you better-paying rides) and a small, chosen **joy** (a meal, a
+  haircut — morale you buy on purpose). Plus two dignity / relationship beats: registering to vote
+  or a library card once you've got an ID (**"on the rolls again"**), and, for a reunifying parent,
+  a **back-child-support notice** that's a debt *and* a pressure on the custody hearing's standing.
 
 ## [1.7.0] - 2026-06-25
 

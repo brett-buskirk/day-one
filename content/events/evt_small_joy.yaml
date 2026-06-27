@@ -1,0 +1,29 @@
+id: evt_small_joy
+kind: action
+title: Something that's just yours
+tags: [life, health]
+repeatable: true
+
+# Reentry isn't only grind. A small, chosen comfort — a real meal, a haircut, a thing for your
+# room — is morale you buy on purpose: a quiet act of being a person again. Gated on having a
+# little to spare, so it never competes with rent you genuinely can't make.
+conditions:
+  - pools.money >= 20
+
+prompt: >
+  Not everything has to be survival. A hot meal you didn't cook, a fresh cut, one small thing
+  for the corner you sleep in — a few dollars spent on being a person, not just a case number.
+
+choices:
+
+  - id: treat_yourself
+    quality: neutral
+    label: Treat yourself — you've earned a little
+    cost: { slots: 1, money: 6 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Small and ordinary and yours. For an hour you're not a checklist of barriers — just
+            someone having a decent day. It's worth more than it cost.
+          pools: { morale: 9, health: 2 }

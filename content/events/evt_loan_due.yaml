@@ -1,0 +1,38 @@
+id: evt_loan_due
+kind: incident
+title: The terms come due
+tags: [money, crisis]
+repeatable: false
+
+# The other half of the payday-loan trap (scheduled by evt_predatory_offer): the balance, the
+# fees on the fees, the call you can't dodge. It lands now, when you'd half-forgotten it — and
+# it takes back more than it ever gave, which is the whole point of the lesson.
+prompt: >
+  The number you signed for has grown teeth. The balance, plus the fees, plus the fees on the
+  fees — and the calls have started. The cash that saved last month is taking this one.
+
+choices:
+
+  - id: pay_it_off
+    quality: durable
+    label: Pay what it takes — kill it before it grows
+    requires:
+      - pools.money >= 28
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            It clears you out, but it's done — no more calls, no more growing. You bought the
+            lesson at full price, and you won't forget it.
+          pools: { money: -28, morale: 2 }
+
+  - id: pay_what_you_can
+    quality: neutral
+    label: Pay what you can — keep them off your back
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            A partial payment buys some quiet, not freedom. It still hangs over you, but the
+            calls slow, and you can breathe enough to keep moving.
+          pools: { money: -12, morale: -5 }

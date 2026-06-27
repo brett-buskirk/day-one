@@ -1,0 +1,38 @@
+id: evt_predatory_offer
+kind: incident
+title: An offer that's too good
+tags: [life, money]
+repeatable: false
+
+# Predators read the desperation of a fresh release like a map: payday loans, rent-to-own,
+# "jobs" that want a fee up front. The lesson is recognizing the trap — the cash now costs
+# more later (a scheduled bite via evt_loan_due); walking away is the quiet, durable win.
+prompt: >
+  A flyer, a too-friendly voice outside the store: money today, no credit check, no questions.
+  Or a "job" that just needs a small fee to get you started. It would cover this week and then
+  some. It would also cost you — you can feel it — more than it gives.
+
+choices:
+
+  - id: take_the_cash
+    quality: desperate
+    label: Take the cash — this week won't wait
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            It covers the gap, and for a few days you breathe. The terms are buried in the part
+            they told you not to worry about. You'll worry about it soon enough.
+          pools: { money: 18, morale: -2 }
+          schedule: { event: evt_loan_due, in_turns: 3 }
+
+  - id: walk_away
+    quality: durable
+    label: Walk away — you know this script
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You've seen where that road goes, and you don't take the first step. Nothing in your
+            pocket to show for it but the small, steadying pride of not being played.
+          pools: { morale: 4 }

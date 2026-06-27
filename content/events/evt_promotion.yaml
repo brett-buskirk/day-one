@@ -1,0 +1,42 @@
+id: evt_promotion
+kind: incident
+title: A step up
+tags: [work, money]
+repeatable: false
+
+# The good half of job volatility: a supervisor notices and offers more — more money, but
+# more hours and less of your week your own. Only fires while employed (has_job); beginTurn
+# holds it until you've actually got a job to be promoted in.
+conditions:
+  - flags.has_job == true
+
+prompt: >
+  Your supervisor pulls you aside — not the bad kind. They've noticed: you show up, you
+  don't quit, you've earned a step up. More money on the check, and more hours with it —
+  less of your week that's yours. A real raise, with a real cost in time.
+
+choices:
+
+  - id: take_the_raise
+    quality: durable
+    label: Take it — the money changes the math
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            A bump on every check from here on, and your name said with a little more weight.
+            The hours bite — less time for the people and the errands — but the cushion is
+            real, and you earned it.
+          pools: { morale: 8, money: 8, social_capital: -4 }
+          flags: { promoted: true }
+
+  - id: stay_put
+    quality: neutral
+    label: Stay where you are — you can't spare the hours
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You thank them and keep your hours where they are. The week you're protecting is
+            worth more than the raise right now — though you wonder if the offer comes twice.
+          pools: { morale: -2 }

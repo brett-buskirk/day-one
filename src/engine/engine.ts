@@ -32,6 +32,7 @@ import {
   TRANSIT_LAPSE_DROP,
   SUPERVISION_FEE,
   WEEKLY_WAGE,
+  PROMOTION_RAISE,
   HOME_DETENTION_FEE,
   PHONE_PLAN_FEE,
   PHONE_LAPSE_MORALE_DROP,
@@ -221,6 +222,13 @@ export function beginTurn(state: GameState, corpus: Corpus): GameState {
     if (!event) continue; // dangling schedule target — ignore
     // A non-repeatable incident that already happened does not re-fire.
     if (event.repeatable === false && s.completed.includes(event.id)) continue;
+    // A scheduled incident waits for its conditions to hold — e.g. an employment shock
+    // only lands while you actually have a job. (Existing scheduled incidents have no
+    // conditions, or always-true ones, so this leaves them unchanged.)
+    if (!evalAll(s, event.conditions)) {
+      if (s.turn < s.endTurn) s.scheduled.push({ event: event.id, onTurn: s.turn + 1 });
+      continue;
+    }
     if (!s.pending.includes(event.id)) s.pending.push(event.id);
   }
 
@@ -259,12 +267,13 @@ function applyWeeklyFees(s: GameState): void {
 // but a job paid nothing recurring). Deterministic; logged so the player attributes it.
 function applyWeeklyWage(s: GameState): void {
   if (!s.flags.has_job) return;
-  s.pools.money = clampPool(s.pools.money + WEEKLY_WAGE);
+  const wage = WEEKLY_WAGE + (s.flags.promoted ? PROMOTION_RAISE : 0);
+  s.pools.money = clampPool(s.pools.money + wage);
   s.log.push({
     turn: s.turn,
     eventId: "system",
     choiceId: "paycheck",
-    text: `Paycheck from the job landed (+${WEEKLY_WAGE}).`,
+    text: `Paycheck from the job landed (+${wage}).`,
   });
 }
 

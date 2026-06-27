@@ -62,6 +62,15 @@ export const INTERRUPTS = [
   "evt_old_contact", // someone from the old life resurfaces
 ];
 
+// An employment shock — a promotion or a layoff — for builds that land work. Real job
+// volatility hits returning citizens hard. Scheduled like an interrupt (own salt + window)
+// but gated on has_job: beginTurn makes it *wait* until you're actually employed, and it
+// simply never fires for a build that never lands a job.
+export const EMP_SHOCK_SEED_SALT = 0x454d504c; // "EMPL"
+export const EMP_SHOCK_TURN_MIN = 4;
+export const EMP_SHOCK_TURN_MAX = 10;
+export const EMPLOYMENT_SHOCKS = ["evt_promotion", "evt_layoff"];
+
 // Weighted-outcome modifier (§9): effectiveWeight = max(0, weight + (stat-50)*scale)
 export const POOL_BASELINE = 50;
 
@@ -139,6 +148,7 @@ export const COURT_SUMMONS_AFTER = 4; // weekly garnishments ignored before the 
 // only after a real job — i.e. after the ID — so it never loosens the early money gate.
 // NOTE: a starting default; balance with the seed harness + a playtest. (Tuning.)
 export const WEEKLY_WAGE = 10; // +money/week while has_job
+export const PROMOTION_RAISE = 4; // extra +money/week after a promotion (flags.promoted). (Tuning.)
 
 // Home-detention monitoring fee — a WEEKLY, often crippling cost of being supervised at
 // home (the ankle monitor isn't free). A relentless drain that the constantly tight

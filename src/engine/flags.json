@@ -11,6 +11,8 @@
     "has_bank_account",
     "has_cert_webdev",
     "has_job",
+    "promoted",
+    "laid_off",
     "in_recovery_support",
     "kept_support_routine",
     "was_supervised",

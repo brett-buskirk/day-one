@@ -1,0 +1,59 @@
+id: evt_layoff
+kind: incident
+title: Let go
+tags: [work, crisis]
+repeatable: false
+
+# The hard half of job volatility — and it lands harder on returning citizens, who are
+# often last hired and first cut, with the least cushion. Only fires while employed
+# (has_job); beginTurn holds it until there's a job to lose. Recoverable: the choices are
+# how you land.
+conditions:
+  - flags.has_job == true
+
+prompt: >
+  "Last one in, first one out." The company's trimming, and the newest name on the roster is
+  yours — little notice, no severance to speak of. The paycheck you'd just started counting
+  on is gone. The rent is not.
+
+choices:
+
+  - id: file_unemployment
+    quality: durable
+    label: File for unemployment
+    requires:
+      - flags.has_state_id == true # you can't file without ID — the document wall, again
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Forms, a phone queue, a benefits office that's seen a thousand of you. It won't
+            replace the wage, but a check is coming — enough to keep the lights on while you
+            look. The ID you fought for is what makes it possible.
+          pools: { money: 15, morale: 2 }
+          flags: { has_job: false, laid_off: true }
+
+  - id: work_your_network
+    quality: durable
+    label: Work your network — somebody knows of something
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Calls, a couple of favors you hate to ask, a "let me see what I can do." Nothing
+            today — but a lead or two, and the reminder that you're not doing this alone.
+          pools: { morale: 2, social_capital: -4 }
+          tracks: { employment: { readiness: 8 } }
+          flags: { has_job: false, laid_off: true }
+
+  - id: take_the_hit
+    quality: desperate
+    label: Take the hit — figure it out next week
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            You sit with it for a week you can't afford to lose. The rent clock doesn't stop
+            for a bad break, and the doubt doesn't either.
+          pools: { morale: -10, health: -4 }
+          flags: { has_job: false, laid_off: true }

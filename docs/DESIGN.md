@@ -553,6 +553,6 @@ Not in the walking skeleton, deliberately. *(Status added post-v1.0.0.)*
   (`content/resources.yaml` ships verified national resources, rendered in the training
   debrief); a jurisdiction-specific directory / selector is still future.
 - A deep build on any single track — v1 stayed thin across all four; the depth since
-  has been breadth *across* tracks (now 56 events), not one track deep.
+  has been breadth *across* tracks (now 58 events), not one track deep.
 
 When in doubt, ship the skeleton thin and complete rather than one track deep.

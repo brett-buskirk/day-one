@@ -7,6 +7,16 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+- **Job volatility — a promotion or a layoff.** Employed builds can now hit an **employment
+  shock**: a supervisor offers a step up (a raise — more on every check, at the cost of hours
+  and some time for the people in your corner), or the company downsizes and you're **let go**
+  (last hired, first cut — the reentry reality). The layoff is recoverable: **file for
+  unemployment** (gated on having a state ID — the document wall, again), **work your network**
+  for leads, or take the hit. It's scheduled once per run but **waits until you actually have a
+  job**, and never fires for a build that never lands work. (Engine: scheduled incidents now
+  respect their `conditions`.)
+
 ## [1.7.0] - 2026-06-25
 
 ### Changed

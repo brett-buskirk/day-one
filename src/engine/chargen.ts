@@ -22,6 +22,10 @@ import {
   INTERRUPT_TURN_MIN,
   INTERRUPT_TURN_MAX,
   INTERRUPTS,
+  EMP_SHOCK_SEED_SALT,
+  EMP_SHOCK_TURN_MIN,
+  EMP_SHOCK_TURN_MAX,
+  EMPLOYMENT_SHOCKS,
 } from "./tuning";
 import { seedToState, next } from "./rng";
 
@@ -242,6 +246,18 @@ function interruptSchedule(seed: number): GameState["scheduled"] {
   return [{ event, onTurn }];
 }
 
+// The employment shock (a promotion or a layoff), gated on has_job. Scheduled here at a
+// seed-varied turn; beginTurn holds it until the build is actually employed (and never
+// fires it for a build that doesn't land work). One per run.
+function employmentShockSchedule(seed: number): GameState["scheduled"] {
+  const r1 = next((seedToState(seed) ^ EMP_SHOCK_SEED_SALT) | 0);
+  const span = EMP_SHOCK_TURN_MAX - EMP_SHOCK_TURN_MIN + 1;
+  const onTurn = EMP_SHOCK_TURN_MIN + Math.floor(r1.value * span);
+  const r2 = next(r1.state);
+  const event = EMPLOYMENT_SHOCKS[Math.floor(r2.value * EMPLOYMENT_SHOCKS.length)];
+  return [{ event, onTurn }];
+}
+
 export interface ChargenOptions {
   seed: number; // determinism lives here — pass an explicit seed
   mode?: GameState["mode"];
@@ -277,6 +293,7 @@ export function chargen(origin: CharacterOrigin, opts: ChargenOptions): GameStat
       ...lifeEventSchedule(opts.seed),
       ...homeVisitSchedule(opts.seed, origin),
       ...interruptSchedule(opts.seed),
+      ...employmentShockSchedule(opts.seed),
     ],
     pending: [],
     log: [],

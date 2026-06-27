@@ -18,6 +18,7 @@ const CHARACTER_FACE: Record<string, { avatar: string; tag: string }> = {
   jaylen: { avatar: "👨🏾", tag: "Young, green, first time" },
   tasha: { avatar: "👩🏿", tag: "Fighting for her daughter" },
   gloria: { avatar: "👩🏻", tag: "Came home to everything" },
+  hector: { avatar: "🧔🏽", tag: "The war came home with him" },
 };
 export const avatarFor = (id: string): string => CHARACTER_FACE[id]?.avatar ?? "🧑";
 export const tagForId = (id: string): string | null => CHARACTER_FACE[id]?.tag ?? null;

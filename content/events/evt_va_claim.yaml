@@ -1,0 +1,36 @@
+id: evt_va_claim
+kind: action
+title: Push your VA claim
+tags: [money, health]
+repeatable: true
+
+# The other face of the VA: benefits and disability claims that are owed and endlessly "pending."
+# Pushing it can land real money (back-pay, a rating bump) — or vanish into the backlog for another
+# month. The veteran's bureaucratic grind, and a real one. Gated on veteran.
+conditions:
+  - flags.veteran == true
+
+prompt: >
+  Your disability claim has been "in review" longer than some of your deployments. The money is
+  owed — a rating that matches the back, the nights, the rest of it. Getting it means another day of
+  forms, phone trees, and a clerk who wasn't there. Sometimes it moves. Sometimes it doesn't.
+
+choices:
+
+  - id: work_the_claim
+    quality: durable
+    label: Work the claim — it's owed to you
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 60
+        effects:
+          text: >
+            This time it moves: a rating adjusted, a back-payment that clears something heavy off the
+            table. The system worked, finally — because you wouldn't let it not.
+          pools: { money: 20, morale: 4 }
+      - weight: 40
+        effects:
+          text: >
+            Another day gone to hold music and a "we'll be in touch." Nothing today. The patience it
+            takes to be owed something is its own slow injury.
+          pools: { morale: -4 }

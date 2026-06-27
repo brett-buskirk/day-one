@@ -8,6 +8,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
+- **A tenth build — Hector, a justice-involved veteran.** The VA is his distinctive support — a
+  benefits stipend and healthcare from day one, a leg up some builds never get — set against the
+  wounds it can't fix: **PTSD** (the mental-health crisis + counseling), a service injury, and the
+  self-medication that became a recovery arc. Two veteran-only paths: **the VSO** (a Veterans
+  Service Org and the battle buddies in it — his earned support routine) and **pushing a VA claim**
+  (the backlog grind — real back-pay if you keep at it, or another month of hold music). On
+  probation through a veterans' treatment court. Supported and wounded, both at once.
 - **Closed the economy loops — unemployment and child support are ongoing now.** The layoff's
   one-time cushion became a real **few-week unemployment bridge**: a weekly check while you're
   between jobs, then **the benefits cliff** ("the last check" — a card you absorb by leaning on

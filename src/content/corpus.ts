@@ -13,7 +13,7 @@ export const MARCUS_ID = "marcus";
 // difficulty: the thesis build, a supported contrast, a probation build, the
 // registry deep-end, the longtimer (deepest end — empathy), and the unsupervised
 // "max-out" (no supervision, and no scaffolding to go with it).
-const ARCHETYPE_ORDER = ["marcus", "renae", "dana", "theo", "ray", "cal", "jaylen", "tasha", "gloria"];
+const ARCHETYPE_ORDER = ["marcus", "renae", "dana", "theo", "ray", "cal", "jaylen", "tasha", "gloria", "hector"];
 
 export const archetypes: CharacterOrigin[] = ARCHETYPE_ORDER.map(
   (id) => corpus.characters[id]

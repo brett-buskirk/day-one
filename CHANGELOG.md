@@ -7,6 +7,8 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-06-29
+
 ### Added
 - **A tenth build — Hector, a justice-involved veteran.** The VA is his distinctive support — a
   benefits stipend and healthcare from day one, a leg up some builds never get — set against the
@@ -441,7 +443,8 @@ after release, one weekly turn at a time, as an installable, offline PWA.
 ### Deployed
 - Live at [dayone-sim.app](https://dayone-sim.app) on DigitalOcean App Platform.
 
-[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/brett-buskirk/day-one/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/brett-buskirk/day-one/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/brett-buskirk/day-one/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/brett-buskirk/day-one/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/brett-buskirk/day-one/compare/v1.4.0...v1.5.0

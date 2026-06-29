@@ -1,7 +1,7 @@
 {
   "name": "day-one",
   "private": true,
-  "version": "1.7.0",
+  "version": "1.8.0",
   "type": "module",
   "description": "Day One — a phone-first reentry simulator (React PWA).",
   "scripts": {

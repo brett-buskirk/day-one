@@ -1,7 +1,7 @@
 # Day One — development notes (build log)
 
 A phone-first reentry simulator, playable start-to-debrief and **live in production
-(through v1.7.0)**. This file is the per-sprint build log — how to run it and what was
+(through v1.8.0)**. This file is the per-sprint build log — how to run it and what was
 built. The v1.0.0 foundation (Sprints 0–5) is below; releases since are in
 [`CHANGELOG.md`](CHANGELOG.md).
 The design source of truth is `docs/DESIGN.md`; the roadmap is `docs/SPRINTS.md`.

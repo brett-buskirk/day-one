@@ -10,8 +10,18 @@ land one.
 
 ## Recently shipped
 
-Through **v1.7.0** (see [`CHANGELOG.md`](CHANGELOG.md) for detail):
+Through **v1.8.0** (see [`CHANGELOG.md`](CHANGELOG.md) for detail):
 
+- **A tenth build — Hector, a justice-involved veteran** — the VA's institutional support (a
+  benefits stipend + healthcare) set against PTSD, a service injury, and a recovery arc, with
+  veteran-only paths (a VSO, and the grind of a VA-claim backlog).
+- **Job volatility + a deeper economy** — an **employment shock** (promotion, layoff, or a
+  shorted check) for the employed; the layoff opening a **few-week unemployment bridge** to a
+  benefits cliff; and **child support** as a recurring drain (a payment plan eases it) for a
+  reunifying parent.
+- **A content-depth pass — nine new events** — predatory loans, the background-check door, a
+  loved one's day you can't make, gig work, a small bought joy, civic re-belonging, and more —
+  most into the random pools, so runs diverge further across replays.
 - **Milestones that fit the build** — the debrief only scores paths a build can walk
   ("supervision in good standing" for supervised builds; an *earned* "kept a support routine"
   via recovery meetings or a new community / mentorship circle), so the tally is honest per
@@ -27,7 +37,7 @@ Through **v1.7.0** (see [`CHANGELOG.md`](CHANGELOG.md) for detail):
   "Where to get help" resources and external links stripped, for in-facility deployments.
 - **Court debt with teeth** — ignore it once you're earning and it garnishes your paycheck
   weekly, then escalates to a bench-warrant crisis.
-- **Nine character archetypes** + a generated random build; training and empathy modes —
+- **Ten character archetypes** + a generated random build; training and empathy modes —
   including a young first-timer, a "has it all" contrast build, and a parent with a
   **custody arc** (weekly supervised visits + a stability-gated hearing).
 - **Random life events** — one unexpected loss or blessing per run.
@@ -60,9 +70,9 @@ Grouped by theme. The _(pass-2 review)_ items came out of a live playtest.
 
 ### New characters & content
 
-- **Deepen the custody arc** — the reunifying parent ships with weekly visits and a
-  stability-gated hearing; a child-support economy drain and a second review/appeal would
-  give it more texture.
+- **Deepen the custody arc** — the reunifying parent ships with weekly visits, a
+  stability-gated hearing, and (as of v1.8.0) a child-support drain; a second review or appeal
+  would give it even more texture.
 - **More content depth** — widen the thinnest tracks, especially the registry/employment
   wall and the relationships path, so repeat runs keep surfacing fresh decisions.
 - **More life events** — the random loss/blessing pool is four deep; more variety keeps

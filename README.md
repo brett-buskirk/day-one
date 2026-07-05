@@ -48,18 +48,23 @@ trajectory and decisions, not just where you finished.
 
 ## Status
 
-**Live in production**, released through
-**[v1.8.0](https://github.com/brett-buskirk/day-one/releases/tag/v1.8.0)**. The v1.0.0
-foundation — Sprints 0–5 — is summarized below; every release since (see
-[`CHANGELOG.md`](CHANGELOG.md)) layered on more: the "Where to get help" resource
-directory, three more archetypes, housing & transport **ladders**, **random life
-events**, a reunifying-parent **custody arc**, a redesigned character-select, a **weekly
-wage** and **home detention** as its own supervision status, the **technology** layer (a
-phone with a plan bill, and a laptop that gates skilled work), a **reentry fee-waiver**
-that breaks the document poverty trap, harness-validated **day-budget tuning** (a 7-day
-week; reliable transit removes the errand tax), and a **second stage of reentry** — court
-debt, sealing your record, getting off supervision, mending ties.
-Playable end-to-end:
+- **Live in production**, released through
+  **[v1.8.0](https://github.com/brett-buskirk/day-one/releases/tag/v1.8.0)** — playable
+  end-to-end.
+- **Content:** **10 archetypes + a generated random build**, **70 events**, two modes
+  (training / empathy), and light/dark + accent theming.
+- **Tests:** **161 passing** (engine + per-sprint + end-to-end playthrough).
+
+**Since the v1.0.0 foundation** (see [`CHANGELOG.md`](CHANGELOG.md)), every release layered
+on more: the "Where to get help" resource directory, three more archetypes, housing &
+transport **ladders**, **random life events**, a reunifying-parent **custody arc**, a
+redesigned character-select, a **weekly wage** and **home detention** as its own supervision
+status, the **technology** layer (a phone with a plan bill, and a laptop that gates skilled
+work), a **reentry fee-waiver** that breaks the document poverty trap, harness-validated
+**day-budget tuning** (a 7-day week; reliable transit removes the errand tax), and a **second
+stage of reentry** — court debt, sealing your record, getting off supervision, mending ties.
+
+**The v1.0.0 foundation — Sprints 0–5:**
 
 - **Sprint 0** — scaffold + content pipeline (YAML → validated JSON).
 - **Sprint 1** — the walking skeleton: a full ~13-week run to a debrief.
@@ -76,9 +81,7 @@ Playable end-to-end:
   rules), an in-game info card, **facilitator/classroom scenario codes**, and
   **random character generation**.
 
-Currently: **10 archetypes + a generated random build**, **70 events**, two modes
-(training / empathy), light/dark + accent theming, and **161 passing tests**. What
-you can do today:
+**What you can do today:**
 
 - From the landing page, read the About or jump straight to Play. Pick one of ten
   builds — **Marcus** (the thesis build), **Renae** (supported), **Dana** (on
@@ -102,7 +105,7 @@ you can do today:
 - **Find real help** — a "Where to get help" screen (free, national reentry resources)
   is one tap from the landing page, the in-game info card, and the end-of-run debrief.
 
-What's planned next — new archetypes, deeper content, a facilitator guide — lives in
+**Planned next:** new archetypes, deeper content, and a facilitator guide live in
 [`ROADMAP.md`](ROADMAP.md). Lower-level open threads (content breadth, and
 local/jurisdiction resource listings on top of the shipped national baseline) are at
 the bottom of [`DEVELOPMENT.md`](DEVELOPMENT.md).

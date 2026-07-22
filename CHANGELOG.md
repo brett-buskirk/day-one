@@ -7,6 +7,13 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+- **Plausible analytics.** A privacy-friendly, cookieless analytics snippet loads on the
+  live site, injected into `index.html` at build time (`vite.config.ts`'s
+  `analyticsInjector`). It's deliberately **excluded from secure-facility builds**
+  (`VITE_SECURE_BUILD=1`) — that build exists so incarcerated users behind a locked-down
+  network never get an outside-world call, and analytics isn't an exception to that.
+
 ## [1.8.0] - 2026-06-29
 
 ### Added

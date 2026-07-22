@@ -217,7 +217,8 @@ The repo root also holds the deploy + meta files: `Dockerfile` and `nginx.conf`
 ## Stack
 
 React 19 · TypeScript · Vite 7 · `vite-plugin-pwa` (Workbox) · Dexie (IndexedDB) ·
-AJV (content validation) · js-yaml · Vitest.
+AJV (content validation) · js-yaml · Vitest · Plausible (privacy-friendly analytics,
+omitted from secure-facility builds — see [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)).
 
 ---
 

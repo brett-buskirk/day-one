@@ -40,11 +40,14 @@ to dead-end on. Compared to the normal build it strips every outside-world surfa
 - the **"Where to get help"** resource directory — the `HelpScreen` and its entry points
   (landing, About, the in-game info card, the debrief) are gone, and the resource data is
   **omitted from the bundle entirely** (the content pipeline emits `resources: []`);
-- the **"view source" GitHub link** on the About page.
+- the **"view source" GitHub link** on the About page;
+- the **Plausible analytics snippet** in `index.html` — no outside-world call at all, even
+  a privacy-friendly one (`vite.config.ts`'s `analyticsInjector` skips the injection).
 
 Everything else — the full simulation, training/empathy modes, install/offline — is
 identical. Deploy `dist/` exactly as below (nginx / Docker / static host). A quick check:
-`grep -rl 'dial 211\|github.com' dist/assets/*.js` should return nothing.
+`grep -rl 'dial 211\|github.com\|analytics.brett-buskirk.dev' dist/index.html dist/assets/*.js`
+should return nothing.
 
 ---
 

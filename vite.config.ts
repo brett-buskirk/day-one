@@ -44,11 +44,35 @@ function contentPipeline(): Plugin {
   };
 }
 
+// Injects the Plausible analytics snippet into index.html. Skipped entirely for
+// secure-facility builds (VITE_SECURE_BUILD=1, see src/ui/build.ts) — that build
+// exists specifically so incarcerated users behind a locked-down network never get
+// an outside-world call, and analytics shouldn't be the exception.
+function analyticsInjector(): Plugin {
+  const SNIPPET = `
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script async src="https://analytics.brett-buskirk.dev/js/pa-sxICBEPqU7njvZLnJOsGR.js"></script>
+    <script>
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init()
+    </script>
+  `;
+
+  return {
+    name: "day-one:analytics-injector",
+    transformIndexHtml(html) {
+      if (process.env.VITE_SECURE_BUILD === "1") return html;
+      return html.replace("</head>", `${SNIPPET}\n  </head>`);
+    },
+  };
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     contentPipeline(),
     react(),
+    analyticsInjector(),
     VitePWA({
       // "prompt", not "autoUpdate": a new deploy surfaces a "Refresh" prompt
       // (see src/ui/UpdatePrompt.tsx) instead of silently reloading an open tab,

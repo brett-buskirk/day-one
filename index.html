@@ -33,6 +33,32 @@
       content="A phone-first reentry simulator — live the first ninety days after prison, one week at a time."
     />
 
+    <!-- Social preview (Open Graph + Twitter). og:image must be an ABSOLUTE -->
+    <!-- URL — crawlers fetch it directly. Regenerate the image: `npm run og`. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Day One" />
+    <meta property="og:url" content="https://dayone-sim.app/" />
+    <meta property="og:title" content="Day One — a reentry simulator" />
+    <meta
+      property="og:description"
+      content="A phone-first reentry simulator — live the first ninety days after prison, one week at a time."
+    />
+    <meta property="og:image" content="https://dayone-sim.app/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A sunrise cresting a dark horizon in Day One's teal — the app's new-day motif."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Day One — a reentry simulator" />
+    <meta
+      name="twitter:description"
+      content="A phone-first reentry simulator — live the first ninety days after prison, one week at a time."
+    />
+    <meta name="twitter:image" content="https://dayone-sim.app/og-image.png" />
+
     <!-- PWA: public/manifest.webmanifest is the source of truth (vite.config -->
     <!-- keeps the service worker; the manifest stays hand-authored here). -->
     <link rel="manifest" href="/manifest.webmanifest" />

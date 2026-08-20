@@ -28,7 +28,18 @@ import {
 } from "./engine";
 import type { Choice, GameEvent, GameState } from "./types";
 
-const BUILDS = ["marcus", "renae", "dana", "theo", "ray", "cal", "jaylen", "tasha", "gloria"];
+const BUILDS = [
+  "marcus",
+  "renae",
+  "dana",
+  "theo",
+  "ray",
+  "cal",
+  "jaylen",
+  "tasha",
+  "gloria",
+  "hector",
+];
 const SEEDS = [1, 7, 42];
 
 // ---- choice helpers ---------------------------------------------------------
@@ -135,6 +146,8 @@ interface Week {
   money: number;
   morale: number;
   health: number;
+  socialCapital: number;
+  transportation: number;
 }
 
 function playRun(buildId: string, seed: number, policy: Policy) {
@@ -167,6 +180,8 @@ function playRun(buildId: string, seed: number, policy: Policy) {
       money: 0,
       morale: 0,
       health: 0,
+      socialCapital: 0,
+      transportation: 0,
     };
 
     // forced incidents
@@ -212,6 +227,8 @@ function playRun(buildId: string, seed: number, policy: Policy) {
     wk.money = s.pools.money;
     wk.morale = s.pools.morale;
     wk.health = s.pools.health;
+    wk.socialCapital = s.pools.social_capital;
+    wk.transportation = s.pools.transportation;
     weeks.push(wk);
     if (!isRunOver(s)) {
       const moneyBefore = s.pools.money;
@@ -247,6 +264,8 @@ function summarize(buildId: string, policy: Policy) {
     endMoney: avg(runs.map((r) => r.final.pools.money)),
     endMorale: avg(runs.map((r) => r.final.pools.morale)),
     endHealth: avg(runs.map((r) => r.final.pools.health)),
+    endSocialCapital: avg(runs.map((r) => r.final.pools.social_capital)),
+    endTransportation: avg(runs.map((r) => r.final.pools.transportation)),
     weeksPlayed: avg(runs.map((r) => r.weeks.length)),
     earned: avg(runs.map((r) => r.earned)),
     spent: avg(runs.map((r) => r.spent)),
@@ -262,13 +281,13 @@ describe("budget / day-economy simulation (reviewer Area 1)", () => {
     const lines: string[] = [];
     lines.push("");
     lines.push("=".repeat(78));
-    lines.push("DAY-BUDGET SIMULATION — 9 builds × 3 strategies × 3 seeds (training mode)");
+    lines.push("DAY-BUDGET SIMULATION — 10 builds × 3 strategies × 3 seeds (training mode)");
     lines.push("avail = discretionary days/wk (6 base − standing commitments)");
     lines.push("tax   = days/wk lost purely to the travel multiplier (no car)");
     lines.push("idle  = discretionary days/wk left unused (nothing affordable to do)");
     lines.push("=".repeat(78));
 
-    // Table 1 — the BUILDER baseline: what good play yields per build.
+    // Table 1 — the BUILDER baseline: what good play yields per build, across all five pools.
     lines.push("");
     lines.push("[1] PLAYING WELL (builder strategy) — where the week goes, where it ends");
     lines.push(
@@ -280,7 +299,9 @@ describe("budget / day-economy simulation (reviewer Area 1)", () => {
         padN("crises", 8) +
         padN("$end", 6) +
         padN("morale", 8) +
-        padN("health", 8)
+        padN("health", 8) +
+        padN("support", 9) +
+        padN("transp", 8)
     );
     for (const b of BUILDS) {
       const m = summarize(b, builder);
@@ -293,7 +314,9 @@ describe("budget / day-economy simulation (reviewer Area 1)", () => {
           padN(r1(m.crises), 8) +
           padN(Math.round(m.endMoney), 6) +
           padN(Math.round(m.endMorale), 8) +
-          padN(Math.round(m.endHealth), 8)
+          padN(Math.round(m.endHealth), 8) +
+          padN(Math.round(m.endSocialCapital), 9) +
+          padN(Math.round(m.endTransportation), 8)
       );
     }
 
@@ -387,7 +410,7 @@ describe("budget / day-economy simulation (reviewer Area 1)", () => {
           expect(weeks.length).toBeGreaterThan(0);
           expect(weeks.length).toBeLessThanOrEqual(14); // terminates, ~13 weeks
           for (const w of weeks) {
-            for (const v of [w.money, w.morale, w.health]) {
+            for (const v of [w.money, w.morale, w.health, w.socialCapital, w.transportation]) {
               expect(v).toBeGreaterThanOrEqual(0);
               expect(v).toBeLessThanOrEqual(100);
             }

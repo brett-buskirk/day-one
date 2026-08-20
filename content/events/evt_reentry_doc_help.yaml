@@ -26,6 +26,7 @@ choices:
     quality: durable
     label: Have them order your birth certificate, fees waived
     requires:
+      - flags.has_birth_cert == false   # already have it? don't re-order (see evt_dmv_state_id's try_anyway pity branch)
       - flags.birth_cert_ordered == false
     cost: { slots: 1 }
     outcomes:

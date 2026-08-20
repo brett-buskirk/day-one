@@ -62,6 +62,7 @@ choices:
     quality: durable
     label: Skip the trip — order the birth cert by mail
     requires:
+      - flags.has_birth_cert == false   # already have it? don't re-order (see try_anyway's pity branch)
       - flags.birth_cert_ordered == false
     cost: { money: 25 }
     outcomes:

@@ -26,4 +26,28 @@ describe("the reentry fee-waiver breaks the document poverty trap", () => {
     const paid = corpus.events["evt_dmv_state_id"].choices.find((c) => c.id === "apply_prepared")!;
     expect(isChoiceUnlocked(ready, paid)).toBe(false); // the paid route needs $30 you don't have
   });
+
+  // Regression: evt_dmv_state_id's "try anyway" pity branch can set awaiting_birth_cert
+  // without ever setting birth_cert_ordered. If the certificate then arrives while
+  // birth_cert_ordered is still false, order_by_mail / waived_birth_cert used to look
+  // unused and fire again — re-setting awaiting_birth_cert on a cert already in hand. The
+  // rescheduled evt_birth_cert_arrives (repeatable: false, already in `completed`) never
+  // fires a second time, so awaiting_birth_cert stayed stuck true forever, hiding both ID
+  // routes for the rest of the run with no visible reason.
+  it("won't re-order a birth certificate that already arrived", () => {
+    const base = createRun(corpus, "cal", { seed: 1 });
+    // The exact state left behind by try_anyway's pity branch once the cert has arrived:
+    // has_birth_cert flipped true, but birth_cert_ordered was never set.
+    const haveCertNeverOrdered = {
+      ...base,
+      flags: { ...base.flags, has_birth_cert: true, birth_cert_ordered: false, awaiting_birth_cert: false },
+    };
+
+    const orderByMail = corpus.events["evt_dmv_state_id"].choices.find((c) => c.id === "order_by_mail")!;
+    const waivedBirthCert = corpus.events["evt_reentry_doc_help"].choices.find(
+      (c) => c.id === "waived_birth_cert"
+    )!;
+    expect(isChoiceUnlocked(haveCertNeverOrdered, orderByMail)).toBe(false);
+    expect(isChoiceUnlocked(haveCertNeverOrdered, waivedBirthCert)).toBe(false);
+  });
 });

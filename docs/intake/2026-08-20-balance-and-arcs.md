@@ -4,7 +4,7 @@ recorded: 2026-08-20
 duration: 1m00s
 mode: brainstorm
 repo: brett-buskirk/day-one
-issues: []
+issues: [85, 86]
 ---
 
 # 2026-08-20 — Game balance, a gym event, and character-arc completeness

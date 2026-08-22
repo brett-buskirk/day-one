@@ -1,0 +1,51 @@
+id: evt_custody_hearing_followup
+kind: incident
+title: The follow-up hearing
+tags: [life, relationships, legal]
+repeatable: false
+
+# Closes #86: "ask for more time" at evt_custody_hearing used to be a dead end -- no
+# second attempt, only the still-available evt_custody_visit. Scheduled from that
+# outcome (3 turns out) rather than re-firing evt_custody_hearing itself, which is
+# also repeatable: false and would silently never re-fire a second time (see #90).
+# Same gates as the first hearing -- the court's bar doesn't move as a courtesy, only
+# the player's standing against it does. Retires on custody_regained defensively, same
+# as evt_custody_visit, though the only path there is through this event's own choice.
+conditions:
+  - flags.reunifying == true
+  - flags.custody_regained == false
+
+prompt: >
+  Another date, the one you promised yourself would be different. Same courtroom, same
+  caseworker's report, but less room this time to be almost there.
+
+choices:
+
+  - id: make_the_case_again
+    quality: durable
+    label: Make your case again — show them it held
+    requires:
+      - tracks.housing.readiness >= 3
+      - tracks.legal.readiness >= 50
+      - pools.money >= 40
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            The caseworker reads it into the record: stable housing, money coming in,
+            every check-in kept — and this time, it held. The judge nods. Reunification,
+            on a plan. She's coming home.
+          flags: { custody_regained: true }
+          pools: { morale: 25, social_capital: 8 }
+
+  - id: ask_for_time_again
+    quality: desperate
+    label: Ask for more time — it still isn't there
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            No new date this time — just supervised visits, until something changes
+            enough to ask again. She isn't lost. But the floor under this didn't come
+            together twice now, and that's its own kind of weight to carry.
+          pools: { morale: -14, social_capital: 2 }

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { corpus } from "../content/corpus";
-import { createRun, eligibleActions } from "./index";
+import { createRun, eligibleActions, resolveChoice } from "./index";
 
 const eligibleIds = (s: ReturnType<typeof createRun>) =>
   new Set(eligibleActions(s, corpus).map((e) => e.id));
@@ -49,5 +49,29 @@ describe("the new archetypes + starting transport", () => {
         "pools.money >= 40",
       ])
     );
+  });
+
+  it("asking for more time schedules a follow-up hearing instead of a dead end", () => {
+    const t = createRun(corpus, "tasha", { seed: 1 });
+    const hearing = corpus.events["evt_custody_hearing"];
+    const askForTime = hearing.choices.find((c) => c.id === "ask_for_time")!;
+    const after = resolveChoice(t, hearing, askForTime, corpus);
+
+    const followup = after.scheduled.find((s) => s.event === "evt_custody_hearing_followup");
+    expect(followup).toBeDefined();
+    expect(followup!.onTurn).toBeGreaterThan(after.turn); // lands later, not the same week
+
+    // The follow-up offers a real second attempt at the same gates, not a copy of the
+    // first hearing re-fired (evt_custody_hearing is repeatable: false -- see #90).
+    const followupEvent = corpus.events["evt_custody_hearing_followup"];
+    const makeCaseAgain = followupEvent.choices.find((c) => c.id === "make_the_case_again")!;
+    expect(makeCaseAgain.requires).toEqual(
+      expect.arrayContaining([
+        "tracks.housing.readiness >= 3",
+        "tracks.legal.readiness >= 50",
+        "pools.money >= 40",
+      ])
+    );
+    expect(makeCaseAgain.outcomes[0].effects?.flags).toEqual({ custody_regained: true });
   });
 });

@@ -8,7 +8,8 @@ repeatable: false
 # "Make your case" is a catch-22: it stays locked until you've actually built the
 # stability the court demands — a real roof, money coming in, a clean record — which
 # turns the whole run into the case. Not getting there isn't a fail screen: it's
-# supervised visits and another date down the road (§ non-neg 4).
+# supervised visits and another date down the road (§ non-neg 4) — literally, via
+# ask_for_time's schedule into evt_custody_hearing_followup.
 conditions:
   - flags.reunifying == true
 
@@ -48,3 +49,4 @@ choices:
             not the yes you came for. You hold her for an hour and let go again, and
             swear the next date will be different.
           pools: { morale: -12, social_capital: 2 }
+          schedule: { event: evt_custody_hearing_followup, in_turns: 3 }

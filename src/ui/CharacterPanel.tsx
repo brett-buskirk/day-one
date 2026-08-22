@@ -50,12 +50,21 @@ export function CharacterPanel({ state, origin, onClose }: Props) {
     rows.push(["Recovery", "In recovery — keeping clean time"]);
   }
 
-  // The custody hearing's "make your case" gate (mirrors evt_custody_hearing.yaml,
-  // scheduled week 9) — surfaced so her defining goal is legible, not a hidden catch-22.
+  // The custody hearing's "make your case" gate (mirrors evt_custody_hearing.yaml /
+  // evt_custody_hearing_followup.yaml) — surfaced so her defining goal is legible, not a
+  // hidden catch-22. The week is read from state rather than hardcoded, since "ask for
+  // more time" reschedules a follow-up hearing a few weeks past the original date; the
+  // section drops out once custody is regained, or once neither hearing is scheduled or
+  // awaiting resolution (both attempts spent — nothing left to point the player toward).
   const reunifying = origin?.person?.reunifying === true;
   const custodyHousing = (state.tracks.housing.readiness ?? 0) >= 3;
   const custodyRecord = (state.tracks.legal.readiness ?? 0) >= 50;
   const custodyMoney = state.pools.money >= 40;
+  const CUSTODY_HEARING_IDS = ["evt_custody_hearing", "evt_custody_hearing_followup"];
+  const scheduledHearing = state.scheduled.find((s) => CUSTODY_HEARING_IDS.includes(s.event));
+  const hearingDueThisWeek = state.pending.some((id) => CUSTODY_HEARING_IDS.includes(id));
+  const custodyHearingWeek = scheduledHearing?.onTurn ?? (hearingDueThisWeek ? state.turn : undefined);
+  const showCustody = reunifying && !state.flags.custody_regained && custodyHearingWeek !== undefined;
 
   return (
     <InfoModal title={title} onClose={onClose}>
@@ -78,9 +87,9 @@ export function CharacterPanel({ state, origin, onClose }: Props) {
           <dt>Papers &amp; assets</dt>
           <dd>{papers}</dd>
         </div>
-        {reunifying && (
+        {showCustody && (
           <div className="origin-grid-full">
-            <dt>Custody hearing — week 9</dt>
+            <dt>Custody hearing — week {custodyHearingWeek}</dt>
             <dd>
               Reach all three and she comes home:
               <ul className="how-list">

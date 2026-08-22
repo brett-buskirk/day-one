@@ -1,0 +1,35 @@
+id: evt_exercise
+kind: action
+title: Move because you can
+tags: [health]
+repeatable: true
+
+# The health pool sits frozen for most of a run otherwise (see evt_health_deferred's own
+# comment) -- a standing way to tend it from week one, not just once a job opens up a
+# doctor's visit. Free and slot-only, like evt_support_group/evt_counseling, so it never
+# competes with rent; self-limits once health is basically topped off. Reuses the existing
+# managing_health flag (evt_health_deferred's) rather than adding a new one.
+conditions:
+  - pools.health < 90
+
+prompt: >
+  Years where the only room to move was whatever the yard allowed, on somebody else's
+  clock. There's a rec center a few blocks over with a sliding-scale day pass — or just
+  your own two feet and a stretch of sidewalk. Either way, nobody's ringing a bell to
+  call it.
+
+choices:
+
+  - id: work_out
+    quality: durable
+    label: Get moving — however that looks today
+    cost: { slots: 1 }
+    outcomes:
+      - weight: 100
+        effects:
+          text: >
+            Sweat, a stitch in your side, the good kind of tired after. You started it
+            and you ended it — nobody else's clock involved. Small thing. Doesn't feel
+            small.
+          pools: { health: 8, morale: 5 }
+          flags: { managing_health: true }

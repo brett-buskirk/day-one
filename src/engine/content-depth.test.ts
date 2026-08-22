@@ -37,4 +37,22 @@ describe("content-depth events gate on what a build has earned", () => {
     expect(tasha.scheduled.some((s) => s.event === "evt_arrears_notice")).toBe(true);
     expect(marcus.scheduled.some((s) => s.event === "evt_arrears_notice")).toBe(false);
   });
+
+  it("exercise is offered until health is basically topped off, then self-retires", () => {
+    const base = createRun(corpus, "marcus", { seed: 1 });
+    const eligible = (health: number) =>
+      eligibleActions({ ...base, pools: { ...base.pools, health } }, corpus).map((e) => e.id);
+    expect(eligible(60)).toContain("evt_exercise");
+    expect(eligible(95)).not.toContain("evt_exercise");
+  });
+
+  it("exercise raises health and morale, and marks the build as managing its health", () => {
+    const base = createRun(corpus, "marcus", { seed: 1 });
+    const event = corpus.events["evt_exercise"];
+    const choice = event.choices.find((c) => c.id === "work_out")!;
+    const after = resolveChoice(base, event, choice, corpus);
+    expect(after.pools.health).toBeGreaterThan(base.pools.health);
+    expect(after.pools.morale).toBeGreaterThan(base.pools.morale);
+    expect(after.flags.managing_health).toBe(true);
+  });
 });

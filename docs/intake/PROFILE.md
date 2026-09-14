@@ -138,9 +138,10 @@ these, flag the conflict rather than proposing around it:
   `brett-buskirk`. Milestone: this repo currently carries `Backlog` and `v1.9.0` but
   doesn't consistently triage into them — check `gh api repos/:owner/:repo/milestones`
   before assuming one applies; when in doubt, leave unmilestoned and let ROADMAP.md
-  carry the forward-looking list. Board: the **Day One** project (#11) — and per the
-  estate-wide convention (`~/github-repos/CLAUDE.md`), also the **Estate** board
-  (#17): `gh project item-add 17 --owner brett-buskirk --url <issue-or-pr-url>`.
+  carry the forward-looking list. Board: the estate tracks work in **Linear** now (the old GitHub
+  Projects — this repo's Day One board and the Estate board #17 — are
+  retired); linkage is via Linear's GitHub integration, so there's no
+  manual board wiring.
 - **Briefs:** `docs/intake/YYYY-MM-DD-<slug>.md`, landed by pull request (branch →
   PR → green CI → **Brett merges**, never self-merge — machine-wide policy).
 - **Not yet actionable:** the "Later / ideas" section of `ROADMAP.md` is this
